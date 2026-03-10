@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Github, Mail, Key } from 'lucide-react';
 
-import logo from "./asset/images.png";
+import logo from "../asset/images.png";
 
 interface LoginProps {
   onLogin: () => void;

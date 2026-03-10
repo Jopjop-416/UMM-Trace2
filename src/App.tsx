@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import logo from "./asset/images.png";
+import logo from "../asset/images.png";
 import { 
   LayoutDashboard, 
   Users, 
