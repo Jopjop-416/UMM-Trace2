@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Search, Filter, MoreHorizontal, Download, Plus, X, ChevronDown } from 'lucide-react';
+import { FixedSizeList as List } from 'react-window';
 import { useAppContext } from '../context/AppContext';
 
 export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (id: string) => void }) {
@@ -114,56 +115,113 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
           </div>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left">
-            <thead className="text-xs text-[#666666] uppercase bg-[#FAFAFA] border-b border-[#EAEAEA]">
-              <tr>
-                <th className="px-6 py-3 font-medium">ID Alumni</th>
-                <th className="px-6 py-3 font-medium">Nama Lengkap</th>
-                <th className="px-6 py-3 font-medium">Program Studi</th>
-                <th className="px-6 py-3 font-medium">Tahun</th>
-                <th className="px-6 py-3 font-medium">Status</th>
-                <th className="px-6 py-3 font-medium">Sumber Utama</th>
-                <th className="px-6 py-3 font-medium text-right">Aksi</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#EAEAEA]">
-              {filteredAlumni.length > 0 ? (
-                filteredAlumni.map((alumni) => (
-                  <tr key={alumni.id} className="hover:bg-[#FAFAFA] transition-colors">
-                    <td className="px-6 py-4 font-mono text-xs text-[#666666]">{alumni.id}</td>
-                    <td className="px-6 py-4 font-medium">{alumni.name}</td>
-                    <td className="px-6 py-4 text-[#666666]">{alumni.prodi}</td>
-                    <td className="px-6 py-4 text-[#666666]">{alumni.year}</td>
-                    <td className="px-6 py-4">
-                      <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-medium uppercase tracking-wider
-                        ${alumni.status === 'Teridentifikasi' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 
-                          alumni.status === 'Perlu Verifikasi' ? 'bg-amber-50 text-amber-700 border border-amber-200' : 
-                          alumni.status === 'Belum Ditemukan' ? 'bg-red-50 text-red-700 border border-red-200' :
-                          'bg-gray-50 text-gray-600 border border-gray-200'}`}>
-                        {alumni.status}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-[#666666]">{alumni.source}</td>
-                    <td className="px-6 py-4 text-right">
-                      <button 
-                        onClick={() => onNavigateToProfile(alumni.id)}
-                        className="text-[#888888] hover:text-black transition-colors"
-                      >
-                        <MoreHorizontal className="w-5 h-5" />
-                      </button>
-                    </td>
+        <div>
+          {/* If csvLoaded, use virtualized list to avoid rendering thousands of DOM nodes */}
+          {csvLoaded ? (
+            <div>
+              <div className="text-xs text-[#666666] uppercase bg-[#FAFAFA] border-b border-[#EAEAEA]">
+                <div className="grid grid-cols-7 gap-0 items-center">
+                  <div className="px-6 py-3 font-medium">ID Alumni</div>
+                  <div className="px-6 py-3 font-medium">Nama Lengkap</div>
+                  <div className="px-6 py-3 font-medium">Program Studi</div>
+                  <div className="px-6 py-3 font-medium">Tahun</div>
+                  <div className="px-6 py-3 font-medium">Status</div>
+                  <div className="px-6 py-3 font-medium">Sumber Utama</div>
+                  <div className="px-6 py-3 font-medium text-right">Aksi</div>
+                </div>
+              </div>
+              <List
+                height={600}
+                itemCount={filteredAlumni.length}
+                itemSize={64}
+                width={'100%'}
+              >
+                {({ index, style }) => {
+                  const alumni = filteredAlumni[index];
+                  return (
+                    <div style={style} key={alumni.id} className="hover:bg-[#FAFAFA] transition-colors border-b border-[#EAEAEA]">
+                      <div className="grid grid-cols-7 items-center">
+                        <div className="px-6 py-4 font-mono text-xs text-[#666666]">{alumni.id}</div>
+                        <div className="px-6 py-4 font-medium">{alumni.name}</div>
+                        <div className="px-6 py-4 text-[#666666]">{alumni.prodi}</div>
+                        <div className="px-6 py-4 text-[#666666]">{alumni.year}</div>
+                        <div className="px-6 py-4">
+                          <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-medium uppercase tracking-wider
+                            ${alumni.status === 'Teridentifikasi' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 
+                              alumni.status === 'Perlu Verifikasi' ? 'bg-amber-50 text-amber-700 border border-amber-200' : 
+                              alumni.status === 'Belum Ditemukan' ? 'bg-red-50 text-red-700 border border-red-200' :
+                              'bg-gray-50 text-gray-600 border border-gray-200'}`}>
+                            {alumni.status}
+                          </span>
+                        </div>
+                        <div className="px-6 py-4 text-[#666666]">{alumni.source}</div>
+                        <div className="px-6 py-4 text-right">
+                          <button 
+                            onClick={() => onNavigateToProfile(alumni.id)}
+                            className="text-[#888888] hover:text-black transition-colors"
+                          >
+                            <MoreHorizontal className="w-5 h-5" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }}
+              </List>
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm text-left">
+                <thead className="text-xs text-[#666666] uppercase bg-[#FAFAFA] border-b border-[#EAEAEA]">
+                  <tr>
+                    <th className="px-6 py-3 font-medium">ID Alumni</th>
+                    <th className="px-6 py-3 font-medium">Nama Lengkap</th>
+                    <th className="px-6 py-3 font-medium">Program Studi</th>
+                    <th className="px-6 py-3 font-medium">Tahun</th>
+                    <th className="px-6 py-3 font-medium">Status</th>
+                    <th className="px-6 py-3 font-medium">Sumber Utama</th>
+                    <th className="px-6 py-3 font-medium text-right">Aksi</th>
                   </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={7} className="px-6 py-8 text-center text-[#666666]">
-                    Tidak ada data yang ditemukan.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+                </thead>
+                <tbody className="divide-y divide-[#EAEAEA]">
+                  {filteredAlumni.length > 0 ? (
+                    filteredAlumni.map((alumni) => (
+                      <tr key={alumni.id} className="hover:bg-[#FAFAFA] transition-colors">
+                        <td className="px-6 py-4 font-mono text-xs text-[#666666]">{alumni.id}</td>
+                        <td className="px-6 py-4 font-medium">{alumni.name}</td>
+                        <td className="px-6 py-4 text-[#666666]">{alumni.prodi}</td>
+                        <td className="px-6 py-4 text-[#666666]">{alumni.year}</td>
+                        <td className="px-6 py-4">
+                          <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-medium uppercase tracking-wider
+                            ${alumni.status === 'Teridentifikasi' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 
+                              alumni.status === 'Perlu Verifikasi' ? 'bg-amber-50 text-amber-700 border border-amber-200' : 
+                              alumni.status === 'Belum Ditemukan' ? 'bg-red-50 text-red-700 border border-red-200' :
+                              'bg-gray-50 text-gray-600 border border-gray-200'}`}>
+                            {alumni.status}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-[#666666]">{alumni.source}</td>
+                        <td className="px-6 py-4 text-right">
+                          <button 
+                            onClick={() => onNavigateToProfile(alumni.id)}
+                            className="text-[#888888] hover:text-black transition-colors"
+                          >
+                            <MoreHorizontal className="w-5 h-5" />
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={7} className="px-6 py-8 text-center text-[#666666]">
+                        Tidak ada data yang ditemukan.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
         
         <div className="p-4 border-t border-[#EAEAEA] flex items-center justify-between text-sm text-[#666666]">
