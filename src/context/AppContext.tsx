@@ -98,6 +98,7 @@ interface AppContextType {
   runAutomation: (limit?: number) => void;
   results: TrackResult[];
   confirmResult: (resultId: string, accept: boolean) => void;
+  confirmVerificationMatch: (candidateId: string, match: VerificationMatch) => void;
   configMode: 'otomasi' | 'manual';
   setConfigMode: (m: 'otomasi' | 'manual') => void;
   csvLoading: boolean;
@@ -481,6 +482,39 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setResults(prev => prev.filter(r => r.id !== resultId));
   };
 
+  const confirmVerificationMatch = (candidateId: string, match: VerificationMatch) => {
+    // Update alumni record with chosen match data and mark as Teridentifikasi
+    updateAlumni(candidateId, {
+      status: 'Teridentifikasi',
+      source: match.source,
+      company: match.affiliation,
+      companyAddress: match.location,
+      position: match.role,
+      linkedin: match.link
+    });
+
+    // Update any result rows that correspond to this alumni
+    setResults(prev => prev.map(r => {
+      if (r.alumniId === candidateId) {
+        return {
+          ...r,
+          company: match.affiliation,
+          companyAddress: match.location,
+          position: match.role,
+          linkedin: match.link,
+          score: match.score,
+          timestamp: new Date().toISOString()
+        };
+      }
+      return r;
+    }));
+
+    // Remove verification entry for candidate
+    setVerifications(prev => prev.filter(v => v.candidateId !== candidateId));
+
+    addActivity({ type: 'RESOLVE', alumniId: candidateId, alumniName: match.name, prodi: '', year: '', source: match.source });
+  };
+
   const addAlumni = (data: Omit<AlumniData, 'id' | 'lastUpdated'>) => {
     setAlumni(prev => {
       const newId = `AL-${String(prev.length + 1).padStart(3, '0')}`;
@@ -607,7 +641,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AppContext.Provider value={{ alumni, activities, jobs, verifications, addAlumni, updateAlumni, resolveVerification, addJob, updateJob, runScheduler, runAutomation, results, confirmResult, configMode, setConfigMode, csvLoading, csvError, csvLoaded }}>
+    <AppContext.Provider value={{ alumni, activities, jobs, verifications, addAlumni, updateAlumni, resolveVerification, addJob, updateJob, runScheduler, runAutomation, results, confirmResult, confirmVerificationMatch, configMode, setConfigMode, csvLoading, csvError, csvLoaded }}>
       {children}
     </AppContext.Provider>
   );

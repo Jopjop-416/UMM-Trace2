@@ -3,8 +3,7 @@ import { Check, X, ExternalLink, AlertTriangle, Briefcase, MapPin, CheckCircle }
 import { useAppContext } from '../context/AppContext';
 
 export default function Verification() {
-  const { verifications, resolveVerification, results, confirmResult } = useAppContext();
-  const { alumni } = useAppContext();
+  const { verifications, resolveVerification, results, confirmResult, confirmVerificationMatch, alumni } = useAppContext();
 
   // We need to map the candidateId to the actual alumni data
   const candidates = verifications.map(v => {
@@ -17,8 +16,9 @@ export default function Verification() {
     };
   });
 
-  const handleConfirm = (candidateId: string, matchSource: string) => {
-    resolveVerification(candidateId, 'Teridentifikasi', matchSource);
+  const handleConfirm = (candidateId: string, match: any) => {
+    // call context method that will update alumni and results to reflect the chosen match
+    confirmVerificationMatch?.(candidateId, match);
   };
 
   const handleRejectMatch = (candidateId: string) => {
@@ -151,8 +151,8 @@ export default function Verification() {
                     </div>
 
                     <div className="flex gap-3">
-                      <button 
-                        onClick={() => handleConfirm(candidate.candidateId, match.source)}
+                      <button
+                        onClick={() => handleConfirm(candidate.candidateId, match)}
                         className="flex-1 flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium bg-black text-white rounded-md hover:bg-[#333333] transition-colors"
                       >
                         <Check className="w-4 h-4" />
