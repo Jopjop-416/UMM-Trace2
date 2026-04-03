@@ -94,7 +94,7 @@ interface AppContextType {
   addJob: (job: JobData) => void;
   updateJob: (id: string, data: Partial<JobData>) => void;
   runScheduler: () => void;
-  // new automation features
+  
   runAutomation: (limit?: number) => void;
   results: TrackResult[];
   confirmResult: (resultId: string, accept: boolean) => void;
@@ -144,13 +144,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [csvLoaded, setCsvLoaded] = useState(false);
 
   useEffect(() => {
-    // Load CSV automatically on app start. CSV file is in src/Alumni 2000-2025.csv
+
     const loadCsv = async () => {
       setCsvLoading(true);
       setCsvError(null);
       setCsvLoaded(false);
       try {
-  // CSV is located at project root (outside src). From this file (src/context) go up two levels.
+ 
   const csvUrl = new URL('../../Alumni 2000-2025.csv', import.meta.url).href;
         const res = await fetch(csvUrl);
         if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
@@ -165,15 +165,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
             console.debug('CSV HEADERS:', Object.keys(rows[0] || {}));
             console.debug('TOTAL CSV ROWS:', rows.length);
 
-            // helper: normalize keys for matching (uppercase, remove spaces/underscores)
+            
             const normalizeKey = (k: string) => String(k || '').toUpperCase().replace(/\s+/g, '').replace(/_/g, '');
 
             const getField = (row: Record<string, any>, candidates: string[]) => {
               for (const cand of candidates) {
-                // try exact match keys first
+                
                 if (row.hasOwnProperty(cand) && row[cand] !== undefined && row[cand] !== null && String(row[cand]).trim() !== '') return String(row[cand]).trim();
               }
-              // try normalized match
+             
               const keys = Object.keys(row || {});
               for (const cand of candidates) {
                 const nCand = normalizeKey(cand);
@@ -197,12 +197,22 @@ export function AppProvider({ children }: { children: ReactNode }) {
               return String(raw);
             };
 
+            const extractYearFrom = (val?: string) => {
+              if (!val) return undefined;
+              const s = String(val);
+             
+              const m = s.match(/\b(19|20)\d{2}\b/);
+              return m ? m[0] : undefined;
+            };
+
             const mapped: AlumniData[] = rows.map((row, idx) => {
-              // ID should be generated as CSV-{index} per requested behavior
+
               const id = `CSV-${idx}`;
               const name = getField(row, ['NAMA LULUSAN', 'Nama Lulusan', 'NAMA LENGKAP', 'Nama Lengkap', 'Nama', 'NAMA', 'FULL NAME', 'Full Name', 'fullname']) || `CSV-${idx}`;
               const prodi = getField(row, ['PRODI', 'Program Studi', 'program studi', 'PROG', 'PROGRAM', 'PROGRAMSTUDI']) || '';
-              const year = getField(row, ['YEAR', 'Tahun Lulus', 'Tahun', 'tahun', 'ANGKATAN', 'Tanggal Lulus']) || '';
+              const yearRaw = getField(row, ['YEAR', 'Tahun Lulus', 'Tahun', 'tahun', 'ANGKATAN', 'Tanggal Lulus']);
+              
+              const year = (yearRaw && String(yearRaw).trim()) || '';
               const nim = getField(row, ['NIM', 'nim', 'student_number']) ;
               const tahunMasuk = getField(row, ['TAHUN MASUK', 'Tahun Masuk', 'tahun masuk', 'TahunMasuk']);
               const tanggalLulus = getField(row, ['TANGGAL LULUS', 'Tanggal Lulus', 'tanggal lulus', 'TanggalLulus']);
@@ -221,13 +231,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
               const source = getField(row, ['SOURCE', 'Sumber']) || '-';
               const statusRaw = getField(row, ['STATUS', 'Keterangan']);
 
+              const parsedYear = year || extractYearFrom(tanggalLulus) || '';
+
               return {
                 id,
                 name,
                 prodi,
                 program: prodi,
                 nim,
-                year,
+                year: parsedYear,
                 tahunMasuk,
                 tanggalLulus,
                 fakultas,
@@ -248,7 +260,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
               } as AlumniData;
             });
 
-            // set mapped data (no slicing/pagination/filters applied here)
+           
             setAlumni(mapped);
             setCsvLoaded(true);
           },
@@ -293,7 +305,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  // Automation / tracking results
+  
   const [results, setResults] = useState<TrackResult[]>([]);
   const [configMode, setConfigMode] = useState<'otomasi' | 'manual'>('otomasi');
 
@@ -307,14 +319,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
     addJob({ id: newJobId, date: dateStr, status: 'Proses', target: 'Otomasi (10)', found: 0, total: selected.length });
 
-    // Simulate async search per item
+    
     setTimeout(() => {
       let foundCount = 0;
       const newResults: TrackResult[] = [];
 
       selected.forEach((a, idx) => {
-        // simulate match generation
-        const score = Math.floor(Math.random() * 46) + 50; // 50-95
+
+        const score = Math.floor(Math.random() * 46) + 50;
         const linkedin = `https://linkedin.com/in/${a.name.split(' ').join('-').toLowerCase()}`;
         const instagram = `https://instagram.com/${a.name.split(' ').slice(0,2).join('').toLowerCase()}`;
         const facebook = `https://facebook.com/${a.name.split(' ').join('')}`;
@@ -348,13 +360,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
           timestamp: new Date().toISOString()
         });
 
-        // If config is otomasi and score high, auto-apply
+        
         if (configMode === 'otomasi' && score >= 80) {
           foundCount++;
-          // update alumni with found info
+         
           updateAlumni(a.id, { status: 'Teridentifikasi', source: 'Otomasi', linkedin, instagram, facebook, tiktok, email, phone, company, companyAddress, position, jobType });
         } else {
-          // push to verifications for manual review
+         
           setVerifications(prev => {
             const exists = prev.some(v => v.candidateId === a.id);
             if (exists) return prev;
@@ -373,12 +385,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
     if (!res) return;
     if (accept) {
       updateAlumni(res.alumniId, { status: 'Teridentifikasi', source: 'Verifikasi Manual', linkedin: res.linkedin, instagram: res.instagram, facebook: res.facebook, tiktok: res.tiktok, email: res.email, phone: res.phone, company: res.company, companyAddress: res.companyAddress, position: res.position, jobType: res.jobType });
-      // remove any verification entries
+      
       setVerifications(prev => prev.filter(v => v.candidateId !== res.alumniId));
     } else {
       updateAlumni(res.alumniId, { status: 'Belum Ditemukan', source: '-' });
     }
-    // remove result from list
+    
     setResults(prev => prev.filter(r => r.id !== resultId));
   };
 
@@ -483,7 +495,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
           let foundCount = 0;
           const nextAlumni = currentAlumni.map(a => {
             if (a.status === 'Belum Dilacak') {
-              // 60% chance to find something for untracked alumni
+             
               if (Math.random() > 0.4) {
                 foundCount++;
                 const isVerified = Math.random() > 0.5;

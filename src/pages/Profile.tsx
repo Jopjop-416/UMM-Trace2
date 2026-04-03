@@ -7,7 +7,6 @@ export default function Profile({ alumniId, goBack }: { alumniId: string, goBack
   const [formData, setFormData] = useState({
     name: '',
     prodi: '',
-    year: '',
     status: '',
     source: '',
     nim: '',
@@ -29,10 +28,9 @@ export default function Profile({ alumniId, goBack }: { alumniId: string, goBack
   useEffect(() => {
     const data = alumni.find(a => a.id === alumniId);
     if (data) {
-      setFormData({
+  setFormData({
         name: data.name,
         prodi: data.prodi,
-        year: data.year,
         status: data.status,
         source: data.source,
         nim: data.nim || '',
@@ -156,18 +154,7 @@ export default function Profile({ alumniId, goBack }: { alumniId: string, goBack
                 className="w-full px-3 py-2 text-sm border border-[#EAEAEA] rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-black transition-all"
               />
             </div>
-            <div>
-              <label className="block text-xs font-medium text-[#666666] mb-1 flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5" /> Tahun Lulus
-              </label>
-              <input 
-                required 
-                type="number" 
-                value={formData.year} 
-                onChange={e => setFormData({...formData, year: e.target.value})} 
-                className="w-full px-3 py-2 text-sm border border-[#EAEAEA] rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-black transition-all" 
-              />
-            </div>
+            {/* Tahun Lulus removed per user request; keep Tanggal Lulus intact */}
             <div>
               <label className="block text-xs font-medium text-[#666666] mb-1 flex items-center gap-2">
                 <Briefcase className="w-3.5 h-3.5" /> Sumber Utama
