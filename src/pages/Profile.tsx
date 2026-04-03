@@ -13,7 +13,17 @@ export default function Profile({ alumniId, goBack }: { alumniId: string, goBack
     nim: '',
     tahunMasuk: '',
     tanggalLulus: '',
-    fakultas: ''
+    fakultas: '',
+    linkedin: '',
+    instagram: '',
+    facebook: '',
+    tiktok: '',
+    email: '',
+    phone: '',
+    company: '',
+    companyAddress: '',
+    position: '',
+    jobType: ''
   });
 
   useEffect(() => {
@@ -28,7 +38,17 @@ export default function Profile({ alumniId, goBack }: { alumniId: string, goBack
         nim: data.nim || '',
         tahunMasuk: data.tahunMasuk || '',
         tanggalLulus: data.tanggalLulus || '',
-        fakultas: (data as any).fakultas || ''
+        fakultas: (data as any).fakultas || '',
+        linkedin: data.linkedin || '',
+        instagram: data.instagram || '',
+        facebook: data.facebook || '',
+        tiktok: data.tiktok || '',
+        email: data.email || '',
+        phone: data.phone || '',
+        company: data.company || '',
+        companyAddress: data.companyAddress || '',
+        position: data.position || '',
+        jobType: data.jobType || ''
       });
     }
   }, [alumniId, alumni]);
@@ -171,6 +191,52 @@ export default function Profile({ alumniId, goBack }: { alumniId: string, goBack
                 <option value="Belum Ditemukan">Belum Ditemukan</option>
                 <option value="Belum Dilacak">Belum Dilacak</option>
               </select>
+            </div>
+          </div>
+        </div>
+
+        <div className="p-8 border-t border-[#EAEAEA]">
+          <h4 className="text-sm font-semibold mb-4">Informasi Tambahan</h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-xs font-medium text-[#666666] mb-1">LinkedIn</label>
+              <input type="text" value={formData.linkedin} onChange={e => setFormData({...formData, linkedin: e.target.value})} className="w-full px-3 py-2 text-sm border border-[#EAEAEA] rounded-md" />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-[#666666] mb-1">Instagram</label>
+              <input type="text" value={formData.instagram} onChange={e => setFormData({...formData, instagram: e.target.value})} className="w-full px-3 py-2 text-sm border border-[#EAEAEA] rounded-md" />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-[#666666] mb-1">Facebook</label>
+              <input type="text" value={formData.facebook} onChange={e => setFormData({...formData, facebook: e.target.value})} className="w-full px-3 py-2 text-sm border border-[#EAEAEA] rounded-md" />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-[#666666] mb-1">Tiktok</label>
+              <input type="text" value={formData.tiktok} onChange={e => setFormData({...formData, tiktok: e.target.value})} className="w-full px-3 py-2 text-sm border border-[#EAEAEA] rounded-md" />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-[#666666] mb-1">Email</label>
+              <input type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full px-3 py-2 text-sm border border-[#EAEAEA] rounded-md" />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-[#666666] mb-1">No HP</label>
+              <input type="text" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full px-3 py-2 text-sm border border-[#EAEAEA] rounded-md" />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-[#666666] mb-1">Tempat Kerja</label>
+              <input type="text" value={formData.company} onChange={e => setFormData({...formData, company: e.target.value})} className="w-full px-3 py-2 text-sm border border-[#EAEAEA] rounded-md" />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-[#666666] mb-1">Alamat Kerja</label>
+              <input type="text" value={formData.companyAddress} onChange={e => setFormData({...formData, companyAddress: e.target.value})} className="w-full px-3 py-2 text-sm border border-[#EAEAEA] rounded-md" />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-[#666666] mb-1">Posisi</label>
+              <input type="text" value={formData.position} onChange={e => setFormData({...formData, position: e.target.value})} className="w-full px-3 py-2 text-sm border border-[#EAEAEA] rounded-md" />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-[#666666] mb-1">Jenis Pekerjaan</label>
+              <input type="text" value={formData.jobType} onChange={e => setFormData({...formData, jobType: e.target.value})} className="w-full px-3 py-2 text-sm border border-[#EAEAEA] rounded-md" />
             </div>
           </div>
         </div>

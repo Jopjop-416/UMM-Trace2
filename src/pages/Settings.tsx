@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAppContext } from '../context/AppContext';
 import { Settings as SettingsIcon, Bell, Shield, Key } from 'lucide-react';
 
 export default function Settings() {
@@ -71,28 +72,31 @@ export default function Settings() {
               <p className="text-sm text-[#666666] mt-1">Atur bagaimana sistem pelacakan bekerja.</p>
             </div>
             
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-black">Pelacakan Otomatis</p>
-                  <p className="text-xs text-[#666666]">Jalankan scheduler secara berkala</p>
-                </div>
-                <div className="w-10 h-5 bg-black rounded-full relative cursor-pointer">
-                  <div className="w-4 h-4 bg-white rounded-full absolute right-0.5 top-0.5"></div>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-black">Notifikasi Email</p>
-                  <p className="text-xs text-[#666666]">Kirim laporan harian ke email admin</p>
-                </div>
-                <div className="w-10 h-5 bg-[#EAEAEA] rounded-full relative cursor-pointer">
-                  <div className="w-4 h-4 bg-white rounded-full absolute left-0.5 top-0.5 shadow-sm"></div>
-                </div>
-              </div>
-            </div>
+            <ModeSelector />
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function ModeSelector() {
+  const { configMode, setConfigMode } = useAppContext();
+  return (
+    <div className="space-y-4">
+      <div>
+        <p className="text-sm font-medium text-black">Mode Pelacakan</p>
+        <p className="text-xs text-[#666666]">Pilih antara jalur otomatis (otomasi) atau manual untuk pelacakan.</p>
+      </div>
+      <div className="flex items-center gap-4">
+        <label className="inline-flex items-center gap-2">
+          <input id="mode-otomasi" name="mode" type="radio" checked={configMode === 'otomasi'} onChange={() => setConfigMode('otomasi')} className="form-radio" />
+          <span className="text-sm">Otomasi</span>
+        </label>
+        <label className="inline-flex items-center gap-2">
+          <input id="mode-manual" name="mode" type="radio" checked={configMode === 'manual'} onChange={() => setConfigMode('manual')} className="form-radio" />
+          <span className="text-sm">Manual</span>
+        </label>
       </div>
     </div>
   );

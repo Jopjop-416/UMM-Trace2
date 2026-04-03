@@ -2,13 +2,14 @@ import { Play, Clock, CheckCircle, AlertCircle, RefreshCw, Loader2 } from 'lucid
 import { useAppContext } from '../context/AppContext';
 
 export default function Jobs() {
-  const { jobs, runScheduler } = useAppContext();
+  const { jobs, runScheduler, runAutomation, configMode } = useAppContext();
   
   const isRunning = jobs.some(j => j.status === 'Proses');
 
-  const handleRunManual = () => {
+  const handleRunAutomasi = () => {
     if (isRunning) return;
-    runScheduler();
+    // run automation (limit 10)
+    runAutomation(10);
   };
 
   return (
@@ -19,12 +20,12 @@ export default function Jobs() {
           <p className="text-sm text-[#666666] mt-1">Atur jadwal dan pantau proses pelacakan otomatis.</p>
         </div>
         <button 
-          onClick={handleRunManual}
+          onClick={handleRunAutomasi}
           disabled={isRunning}
           className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-black text-white rounded-md hover:bg-[#333333] transition-colors disabled:opacity-50"
         >
           {isRunning ? <Loader2 className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4" />}
-          {isRunning ? 'Sedang Berjalan...' : 'Jalankan Manual'}
+          {isRunning ? 'Sedang Berjalan...' : `Jalankan Otomatis (${configMode === 'otomasi' ? 'Otomasi' : 'Manual'})`}
         </button>
       </div>
 

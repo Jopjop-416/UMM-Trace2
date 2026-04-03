@@ -63,6 +63,26 @@ export interface VerificationData {
   matches: VerificationMatch[];
 }
 
+export interface TrackResult {
+  id: string;
+  alumniId: string;
+  name: string;
+  nim?: string;
+  linkedin?: string;
+  instagram?: string;
+  facebook?: string;
+  tiktok?: string;
+  email?: string;
+  phone?: string;
+  company?: string;
+  companyAddress?: string;
+  position?: string;
+  jobType?: string;
+  score?: number;
+  statusSuggested?: string;
+  timestamp: string;
+}
+
 interface AppContextType {
   alumni: AlumniData[];
   activities: ActivityData[];
@@ -74,6 +94,12 @@ interface AppContextType {
   addJob: (job: JobData) => void;
   updateJob: (id: string, data: Partial<JobData>) => void;
   runScheduler: () => void;
+  // new automation features
+  runAutomation: (limit?: number) => void;
+  results: TrackResult[];
+  confirmResult: (resultId: string, accept: boolean) => void;
+  configMode: 'otomasi' | 'manual';
+  setConfigMode: (m: 'otomasi' | 'manual') => void;
   csvLoading: boolean;
   csvError: string | null;
   csvLoaded: boolean;
@@ -83,24 +109,15 @@ export const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const [alumni, setAlumni] = useState<AlumniData[]>([
-    { id: 'AL-001', name: 'Muhammad Rizky', prodi: 'Informatika', year: '2019', status: 'Teridentifikasi', source: 'LinkedIn', lastUpdated: new Date(Date.now() - 3600000).toISOString() },
-    { id: 'AL-002', name: 'Ahmad Syauqi', prodi: 'Sistem Informasi', year: '2020', status: 'Perlu Verifikasi', source: 'Google Scholar', lastUpdated: new Date(Date.now() - 7200000).toISOString() },
-    { id: 'AL-003', name: 'Dian Novita', prodi: 'Teknik Komputer', year: '2018', status: 'Belum Dilacak', source: '-', lastUpdated: new Date(Date.now() - 86400000).toISOString() },
-    { id: 'AL-004', name: 'Fikri Kurniawan', prodi: 'Informatika', year: '2021', status: 'Teridentifikasi', source: 'GitHub', lastUpdated: new Date(Date.now() - 172800000).toISOString() },
-    { id: 'AL-005', name: 'Siti Aminah', prodi: 'Sistem Informasi', year: '2019', status: 'Belum Ditemukan', source: '-', lastUpdated: new Date(Date.now() - 259200000).toISOString() },
+
   ]);
 
   const [activities, setActivities] = useState<ActivityData[]>([
-    { id: 'ACT-1', type: 'UPDATE', alumniId: 'AL-001', alumniName: 'Muhammad Rizky', prodi: 'Informatika', year: '2019', source: 'LinkedIn', timestamp: new Date(Date.now() - 3600000).toISOString() },
-    { id: 'ACT-2', type: 'VERIFY', alumniId: 'AL-002', alumniName: 'Ahmad Syauqi', prodi: 'Sistem Informasi', year: '2020', source: 'Google Scholar', timestamp: new Date(Date.now() - 7200000).toISOString() },
-    { id: 'ACT-3', type: 'UPDATE', alumniId: 'AL-004', alumniName: 'Fikri Kurniawan', prodi: 'Informatika', year: '2021', source: 'GitHub', timestamp: new Date(Date.now() - 172800000).toISOString() },
+ 
   ]);
 
   const [jobs, setJobs] = useState<JobData[]>([
-    { id: 'JOB-901', date: '10 Mar 2026, 08:00', status: 'Selesai', target: 'Angkatan 2019', found: 45, total: 120 },
-    { id: 'JOB-902', date: '09 Mar 2026, 08:00', status: 'Selesai', target: 'Angkatan 2018', found: 62, total: 150 },
-    { id: 'JOB-903', date: '08 Mar 2026, 08:00', status: 'Gagal', target: 'Angkatan 2020', found: 0, total: 200 },
-    { id: 'JOB-904', date: '07 Mar 2026, 08:00', status: 'Selesai', target: 'Angkatan 2021', found: 88, total: 180 },
+
   ]);
 
   const [verifications, setVerifications] = useState<VerificationData[]>([
@@ -211,6 +228,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
                 program: prodi,
                 nim,
                 year,
+                tahunMasuk,
+                tanggalLulus,
+                fakultas,
                 linkedin,
                 instagram,
                 facebook,
@@ -271,6 +291,95 @@ export function AppProvider({ children }: { children: ReactNode }) {
       }
       return prev;
     });
+  };
+
+  // Automation / tracking results
+  const [results, setResults] = useState<TrackResult[]>([]);
+  const [configMode, setConfigMode] = useState<'otomasi' | 'manual'>('otomasi');
+
+  const runAutomation = (limit = 10) => {
+    const now = new Date();
+    const dateStr = `${now.getDate().toString().padStart(2, '0')} Mar ${now.getFullYear()}, ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+    const newJobId = `JOB-${Math.floor(Math.random() * 1000) + 1000}`;
+
+    const untracked = alumni.filter(a => a.status === 'Belum Dilacak');
+    const selected = untracked.slice(0, limit);
+
+    addJob({ id: newJobId, date: dateStr, status: 'Proses', target: 'Otomasi (10)', found: 0, total: selected.length });
+
+    // Simulate async search per item
+    setTimeout(() => {
+      let foundCount = 0;
+      const newResults: TrackResult[] = [];
+
+      selected.forEach((a, idx) => {
+        // simulate match generation
+        const score = Math.floor(Math.random() * 46) + 50; // 50-95
+        const linkedin = `https://linkedin.com/in/${a.name.split(' ').join('-').toLowerCase()}`;
+        const instagram = `https://instagram.com/${a.name.split(' ').slice(0,2).join('').toLowerCase()}`;
+        const facebook = `https://facebook.com/${a.name.split(' ').join('')}`;
+        const tiktok = `https://tiktok.com/@${a.name.split(' ').join('').toLowerCase()}`;
+        const email = `${(a.nim || 'user') }@example.com`;
+        const phone = `+62${Math.floor(800000000 + Math.random() * 900000000)}`;
+        const company = `PT ${a.prodi} Indonesia`;
+        const companyAddress = `Jl. Contoh No. ${100 + idx}`;
+        const position = 'Staff';
+        const jobType = Math.random() > 0.66 ? 'PNS' : (Math.random() > 0.5 ? 'Swasta' : 'Wirausaha');
+
+        const statusSuggested = score >= 80 ? 'Teridentifikasi' : 'Perlu Verifikasi';
+
+        newResults.push({
+          id: `R-${Date.now()}-${idx}`,
+          alumniId: a.id,
+          name: a.name,
+          nim: a.nim,
+          linkedin,
+          instagram,
+          facebook,
+          tiktok,
+          email,
+          phone,
+          company,
+          companyAddress,
+          position,
+          jobType,
+          score,
+          statusSuggested,
+          timestamp: new Date().toISOString()
+        });
+
+        // If config is otomasi and score high, auto-apply
+        if (configMode === 'otomasi' && score >= 80) {
+          foundCount++;
+          // update alumni with found info
+          updateAlumni(a.id, { status: 'Teridentifikasi', source: 'Otomasi', linkedin, instagram, facebook, tiktok, email, phone, company, companyAddress, position, jobType });
+        } else {
+          // push to verifications for manual review
+          setVerifications(prev => {
+            const exists = prev.some(v => v.candidateId === a.id);
+            if (exists) return prev;
+            return [...prev, { candidateId: a.id, matches: [{ id: `m-${Date.now()}-${idx}`, source: 'Otomasi', name: a.name, affiliation: company, role: position, location: companyAddress, score, link: linkedin, evidence: 'Hasil pencarian otomatis, perlu verifikasi manual.' }] }];
+          });
+        }
+      });
+
+      setResults(prev => [...newResults, ...prev]);
+      updateJob(newJobId, { status: 'Selesai', found: newResults.filter(r => r.score >= 80).length, total: selected.length });
+    }, 1500 + Math.random() * 2000);
+  };
+
+  const confirmResult = (resultId: string, accept: boolean) => {
+    const res = results.find(r => r.id === resultId);
+    if (!res) return;
+    if (accept) {
+      updateAlumni(res.alumniId, { status: 'Teridentifikasi', source: 'Verifikasi Manual', linkedin: res.linkedin, instagram: res.instagram, facebook: res.facebook, tiktok: res.tiktok, email: res.email, phone: res.phone, company: res.company, companyAddress: res.companyAddress, position: res.position, jobType: res.jobType });
+      // remove any verification entries
+      setVerifications(prev => prev.filter(v => v.candidateId !== res.alumniId));
+    } else {
+      updateAlumni(res.alumniId, { status: 'Belum Ditemukan', source: '-' });
+    }
+    // remove result from list
+    setResults(prev => prev.filter(r => r.id !== resultId));
   };
 
   const addAlumni = (data: Omit<AlumniData, 'id' | 'lastUpdated'>) => {
@@ -399,7 +508,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AppContext.Provider value={{ alumni, activities, jobs, verifications, addAlumni, updateAlumni, resolveVerification, addJob, updateJob, runScheduler, csvLoading, csvError, csvLoaded }}>
+    <AppContext.Provider value={{ alumni, activities, jobs, verifications, addAlumni, updateAlumni, resolveVerification, addJob, updateJob, runScheduler, runAutomation, results, confirmResult, configMode, setConfigMode, csvLoading, csvError, csvLoaded }}>
       {children}
     </AppContext.Provider>
   );
