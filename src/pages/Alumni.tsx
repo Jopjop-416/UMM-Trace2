@@ -127,7 +127,7 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
                   <div className="px-6 py-3 font-medium">Tahun Lulus</div>
                   <div className="px-6 py-3 font-medium">NIM</div>
                   <div className="px-6 py-3 font-medium">Status</div>
-                  <div className="px-6 py-3 font-medium text-right">Aksi</div>
+                  <div className="px-6 py-3 font-medium text-right">Detail Profile</div>
                 </div>
               </div>
               <List
@@ -180,7 +180,7 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
                     <th className="px-6 py-3 font-medium">Tahun Lulus</th>
                     <th className="px-6 py-3 font-medium">NIM</th>
                     <th className="px-6 py-3 font-medium">Status</th>
-                    <th className="px-6 py-3 font-medium text-right">Aksi</th>
+                    <th className="px-6 py-3 font-medium text-right">Detail Profile</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#EAEAEA]">

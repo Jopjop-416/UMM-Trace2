@@ -46,9 +46,21 @@ export default function Verification() {
           <p className="text-sm text-[#666666] mt-1">Tinjau hasil otomatis dan verifikasi manual kandidat.</p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="bg-[#F5F5F5] rounded-md px-2 py-1 text-sm">
-            <button onClick={() => setTab('manual')} className={`px-3 py-1 ${tab === 'manual' ? 'font-semibold text-black' : 'text-[#666666]'}`}>Verifikasi Manual</button>
-            <button onClick={() => setTab('hasil')} className={`px-3 py-1 ${tab === 'hasil' ? 'font-semibold text-black' : 'text-[#666666]'}`}>Data Hasil</button>
+          <div className="bg-[#F5F5F5] rounded-md px-2 py-1 text-sm inline-flex items-center gap-2">
+            <button
+              onClick={() => setTab('manual')}
+              aria-pressed={tab === 'manual'}
+              className={`px-3 py-1 rounded-md transition-colors cursor-pointer ${tab === 'manual' ? 'font-semibold text-black bg-white' : 'text-[#666666] hover:text-black hover:bg-white'}`}
+            >
+              Verifikasi Manual
+            </button>
+            <button
+              onClick={() => setTab('hasil')}
+              aria-pressed={tab === 'hasil'}
+              className={`px-3 py-1 rounded-md transition-colors cursor-pointer ${tab === 'hasil' ? 'font-semibold text-black bg-white' : 'text-[#666666] hover:text-black hover:bg-white'}`}
+            >
+              Data Hasil validasi
+            </button>
           </div>
         </div>
       </div>
