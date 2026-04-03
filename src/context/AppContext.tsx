@@ -130,6 +130,95 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   ]);
 
+  // --- Dummy data generators for matches / social profiles ---
+  const slugify = (s?: string) => (s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+  const randomFrom = <T,>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)];
+
+  const samplePhonePrefixes = ['81','82','83','85','87','88'];
+  const genPhone = () => {
+    // pick realistic Indonesian mobile prefix and produce 8-9 random digits
+    const prefix = randomFrom(samplePhonePrefixes);
+    const restLen = Math.random() > 0.6 ? 8 : 7; // create varying lengths
+    let rest = '';
+    for (let i = 0; i < restLen; i++) rest += String(Math.floor(Math.random() * 10));
+    return `+62${prefix}${rest}`;
+  };
+
+  const genEmail = (name?: string, nid?: string) => {
+    // prefer name-based emails; if nid is numeric (long) combine with name short form
+    const shortName = name ? slugify(name).split('-').slice(0,2).join('.') : `user${Math.floor(Math.random()*1000)}`;
+    let local = shortName;
+    if (nid && /^\d+$/.test(String(nid)) && String(nid).length >= 6) {
+      // use last 4 digits of NIM combined with short name to avoid huge numeric-only local part
+      local = `${shortName}.${String(nid).slice(-4)}`;
+    } else if (nid && typeof nid === 'string' && nid.length > 0 && Math.random() > 0.7) {
+      // occasionally include small nid suffix
+      local = `${shortName}.${nid.slice(0,3)}`;
+    } else {
+      // add small numeric suffix to guarantee uniqueness
+      local = `${shortName}${Math.floor(Math.random() * 90) + 10}`;
+    }
+    return `${local}@example.com`;
+  };
+
+  const sampleStreets = ['Jl. Merdeka', 'Jl. Mawar', 'Jl. Melati', 'Jl. Sudirman', 'Jl. Diponegoro', 'Jl. Ahmad Yani'];
+
+  const sampleCompanies = ['IndoTech', 'Akuntansi Indonesia', 'Sarana Digital', 'PT Inovasi Nusantara', 'PT Solusi Kreatif'];
+  const samplePositions = ['Staff', 'Senior Staff', 'Manager', 'Software Engineer', 'Accountant', 'Analyst', 'Researcher'];
+  const sampleSources = ['LinkedIn', 'Facebook', 'Instagram', 'TikTok', 'Google', 'GitHub', 'ResearchGate'];
+  const sampleCities = ['Jakarta', 'Surabaya', 'Malang', 'Bandung', 'Yogyakarta', 'Denpasar'];
+
+  const generateMatches = (name: string, baseCompany?: string, baseAddress?: string, count = 2, baseScore = 65): VerificationMatch[] => {
+    const matches: VerificationMatch[] = [];
+    for (let i = 0; i < count; i++) {
+      const source = randomFrom(sampleSources);
+      // create name variations: full name, initials + last, first + initial, or small typo
+      const parts = name.split(' ').filter(Boolean);
+      const variationOptions = [
+        name,
+        parts.length > 1 ? `${parts[0]} ${parts.slice(-1)[0]}` : name,
+        parts.map(p => p[0]).join('.'),
+        parts.length > 1 ? `${parts[0]} ${parts.slice(-1)[0].slice(0,3)}` : name
+      ];
+      const variation = i === 0 ? randomFrom(variationOptions) : randomFrom(variationOptions);
+      const company = i === 0 ? (baseCompany || randomFrom(sampleCompanies)) : randomFrom(sampleCompanies);
+      const role = i === 0 ? (randomFrom(samplePositions)) : randomFrom(samplePositions);
+      const location = baseAddress || randomFrom(sampleCities);
+      const score = Math.max(30, Math.min(99, baseScore + Math.floor((Math.random() - 0.5) * 30)));
+
+      const handle = slugify(name).replace(/-/g, '').slice(0, 12) + (i === 0 ? '' : String(i));
+      const link = source === 'LinkedIn' ? `https://linkedin.com/in/${slugify(name)}`
+        : source === 'GitHub' ? `https://github.com/${handle}`
+        : source === 'ResearchGate' ? `https://www.researchgate.net/profile/${slugify(name)}`
+        : source === 'Facebook' ? `https://facebook.com/${handle}`
+        : source === 'Instagram' ? `https://instagram.com/${handle}`
+        : source === 'TikTok' ? `https://tiktok.com/@${handle}`
+        : `https://www.google.com/search?q=${encodeURIComponent(name + ' ' + company)}`;
+
+      // varied evidence templates to avoid identical text across matches
+      const evidenceTemplates = [
+        `Hasil pencarian pada ${source}. Nama: "${variation}". Afiliasi: ${company}. Lokasi: ${location}. Referensi: ${handle}.${Math.floor(Math.random()*9000)}.`,
+        `${source} menunjukkan profil dengan nama "${variation}" (lokasi ${location}) terkait ${company}. Ditemukan entri publik dan kontak terkait.`,
+        `Sumber ${source}: ditemukan entry nama "${variation}" yang tampak bekerja di ${company} (${location}). ID referensi ${Math.random().toString(36).slice(2,8)}.`
+      ];
+      const evidence = randomFrom(evidenceTemplates);
+
+      matches.push({
+        id: `m-${Date.now()}-${Math.random().toString(36).substr(2,5)}-${i}`,
+        source,
+        name: variation,
+        affiliation: company,
+        role,
+        location,
+        score,
+        link,
+        evidence
+      });
+    }
+    return matches;
+  };
+
   const addActivity = (data: Omit<ActivityData, 'id' | 'timestamp'>) => {
     const newAct = {
       ...data,
@@ -282,22 +371,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setVerifications(prev => {
       const exists = prev.some(v => v.candidateId === id);
       if (status === 'Perlu Verifikasi' && !exists) {
-        return [...prev, { 
-          candidateId: id, 
-          matches: [
-            {
-              id: `m-${Date.now()}`,
-              source: 'Sistem Pencarian',
-              name: name,
-              affiliation: 'Afiliasi Tidak Diketahui',
-              role: 'Profesional',
-              location: 'Indonesia',
-              score: Math.floor(Math.random() * 20) + 60,
-              link: '#',
-              evidence: 'Ditemukan kemiripan profil dari pencarian otomatis, namun memerlukan validasi manual oleh admin.'
-            }
-          ] 
-        }];
+        // create 2-3 dynamic matches for manual verification
+        const count = Math.random() > 0.6 ? 3 : 2;
+        const baseScore = 65 + Math.floor(Math.random() * 15);
+        const matches = generateMatches(name, undefined, undefined, count, baseScore);
+        return [...prev, { candidateId: id, matches }];
       } else if (status !== 'Perlu Verifikasi' && exists) {
         return prev.filter(v => v.candidateId !== id);
       }
@@ -326,16 +404,23 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
       selected.forEach((a, idx) => {
 
-        const score = Math.floor(Math.random() * 46) + 50;
-        const linkedin = `https://linkedin.com/in/${a.name.split(' ').join('-').toLowerCase()}`;
-        const instagram = `https://instagram.com/${a.name.split(' ').slice(0,2).join('').toLowerCase()}`;
-        const facebook = `https://facebook.com/${a.name.split(' ').join('')}`;
-        const tiktok = `https://tiktok.com/@${a.name.split(' ').join('').toLowerCase()}`;
-        const email = `${(a.nim || 'user') }@example.com`;
-        const phone = `+62${Math.floor(800000000 + Math.random() * 900000000)}`;
-        const company = `PT ${a.prodi} Indonesia`;
-        const companyAddress = `Jl. Contoh No. ${100 + idx}`;
-        const position = 'Staff';
+  const score = Math.floor(Math.random() * 46) + 50;
+        const handleBase = slugify(a.name).replace(/-/g, '').slice(0, 12);
+        const linkedin = `https://linkedin.com/in/${slugify(a.name)}${Math.random() > 0.6 ? Math.floor(Math.random()*90 + 10) : ''}`;
+        const instagram = `https://instagram.com/${handleBase}${Math.floor(Math.random()*900 + 100)}`;
+        const facebook = `https://facebook.com/${handleBase}${Math.floor(Math.random()*900 + 100)}`;
+        const tiktok = `https://tiktok.com/@${handleBase}${Math.floor(Math.random()*900 + 100)}`;
+        const email = genEmail(a.name, a.nim);
+        const phone = genPhone();
+        // diversify company generation: sometimes use prodi-based name, sometimes pick from sampleCompanies
+        let company = randomFrom(sampleCompanies);
+        if (a.prodi && Math.random() > 0.6) {
+          // create a semi-realistic company name from prodi
+          const suffix = randomFrom(['Group', 'Solusi', 'Teknologi', 'Enterprise', 'Indonesia']);
+          company = `${a.prodi} ${suffix}`;
+        }
+        const companyAddress = `${randomFrom(sampleStreets)} No. ${100 + idx + Math.floor(Math.random()*50)}, ${randomFrom(sampleCities)}`;
+        const position = randomFrom(samplePositions);
         const jobType = Math.random() > 0.66 ? 'PNS' : (Math.random() > 0.5 ? 'Swasta' : 'Wirausaha');
 
         const statusSuggested = score >= 80 ? 'Teridentifikasi' : 'Perlu Verifikasi';
@@ -366,11 +451,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
          
           updateAlumni(a.id, { status: 'Teridentifikasi', source: 'Otomasi', linkedin, instagram, facebook, tiktok, email, phone, company, companyAddress, position, jobType });
         } else {
-         
+          // create 2-3 generated matches for manual verification
           setVerifications(prev => {
             const exists = prev.some(v => v.candidateId === a.id);
             if (exists) return prev;
-            return [...prev, { candidateId: a.id, matches: [{ id: `m-${Date.now()}-${idx}`, source: 'Otomasi', name: a.name, affiliation: company, role: position, location: companyAddress, score, link: linkedin, evidence: 'Hasil pencarian otomatis, perlu verifikasi manual.' }] }];
+            const count = Math.random() > 0.6 ? 3 : 2;
+            const matches = generateMatches(a.name, company, companyAddress, count, score);
+            return [...prev, { candidateId: a.id, matches }];
           });
         }
       });
