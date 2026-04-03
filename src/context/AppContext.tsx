@@ -8,6 +8,8 @@ export interface AlumniData {
   year: string;
   nim?: string;
   program?: string;
+  tahunMasuk?: string;
+  tanggalLulus?: string;
   linkedin?: string;
   instagram?: string;
   facebook?: string;
@@ -182,9 +184,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
               // ID should be generated as CSV-{index} per requested behavior
               const id = `CSV-${idx}`;
               const name = getField(row, ['NAMA LULUSAN', 'Nama Lulusan', 'NAMA LENGKAP', 'Nama Lengkap', 'Nama', 'NAMA', 'FULL NAME', 'Full Name', 'fullname']) || `CSV-${idx}`;
-              const prodi = getField(row, ['PRODI', 'Program Studi', 'program studi', 'PROG', 'PROGRAM']) || '';
-              const year = getField(row, ['YEAR', 'Tahun', 'tahun', 'ANGKATAN']) || '';
+              const prodi = getField(row, ['PRODI', 'Program Studi', 'program studi', 'PROG', 'PROGRAM', 'PROGRAMSTUDI']) || '';
+              const year = getField(row, ['YEAR', 'Tahun Lulus', 'Tahun', 'tahun', 'ANGKATAN', 'Tanggal Lulus']) || '';
               const nim = getField(row, ['NIM', 'nim', 'student_number']) ;
+              const tahunMasuk = getField(row, ['TAHUN MASUK', 'Tahun Masuk', 'tahun masuk', 'TahunMasuk']);
+              const tanggalLulus = getField(row, ['TANGGAL LULUS', 'Tanggal Lulus', 'tanggal lulus', 'TanggalLulus']);
+              const fakultas = getField(row, ['FAKULTAS', 'Fakultas']);
               const linkedin = getField(row, ['LINKEDIN', 'linkedin']);
               const instagram = getField(row, ['INSTAGRAM', 'instagram', 'IG']);
               const facebook = getField(row, ['FACEBOOK', 'facebook', 'FB']);

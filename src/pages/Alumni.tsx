@@ -124,9 +124,9 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
                   <div className="px-6 py-3 font-medium">ID Alumni</div>
                   <div className="px-6 py-3 font-medium">Nama Lengkap</div>
                   <div className="px-6 py-3 font-medium">Program Studi</div>
-                  <div className="px-6 py-3 font-medium">Tahun</div>
+                  <div className="px-6 py-3 font-medium">Tahun Lulus</div>
+                  <div className="px-6 py-3 font-medium">NIM</div>
                   <div className="px-6 py-3 font-medium">Status</div>
-                  <div className="px-6 py-3 font-medium">Sumber Utama</div>
                   <div className="px-6 py-3 font-medium text-right">Aksi</div>
                 </div>
               </div>
@@ -144,7 +144,8 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
                         <div className="px-6 py-4 font-mono text-xs text-[#666666]">{alumni.id}</div>
                         <div className="px-6 py-4 font-medium">{alumni.name}</div>
                         <div className="px-6 py-4 text-[#666666]">{alumni.prodi}</div>
-                        <div className="px-6 py-4 text-[#666666]">{alumni.year}</div>
+                        <div className="px-6 py-4 text-[#666666]">{alumni.tanggalLulus || alumni.year}</div>
+                        <div className="px-6 py-4 text-[#666666]">{alumni.nim || '-'}</div>
                         <div className="px-6 py-4">
                           <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-medium uppercase tracking-wider
                             ${alumni.status === 'Teridentifikasi' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 
@@ -154,7 +155,6 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
                             {alumni.status}
                           </span>
                         </div>
-                        <div className="px-6 py-4 text-[#666666]">{alumni.source}</div>
                         <div className="px-6 py-4 text-right">
                           <button 
                             onClick={() => onNavigateToProfile(alumni.id)}
@@ -177,9 +177,9 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
                     <th className="px-6 py-3 font-medium">ID Alumni</th>
                     <th className="px-6 py-3 font-medium">Nama Lengkap</th>
                     <th className="px-6 py-3 font-medium">Program Studi</th>
-                    <th className="px-6 py-3 font-medium">Tahun</th>
+                    <th className="px-6 py-3 font-medium">Tahun Lulus</th>
+                    <th className="px-6 py-3 font-medium">NIM</th>
                     <th className="px-6 py-3 font-medium">Status</th>
-                    <th className="px-6 py-3 font-medium">Sumber Utama</th>
                     <th className="px-6 py-3 font-medium text-right">Aksi</th>
                   </tr>
                 </thead>
@@ -190,7 +190,8 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
                         <td className="px-6 py-4 font-mono text-xs text-[#666666]">{alumni.id}</td>
                         <td className="px-6 py-4 font-medium">{alumni.name}</td>
                         <td className="px-6 py-4 text-[#666666]">{alumni.prodi}</td>
-                        <td className="px-6 py-4 text-[#666666]">{alumni.year}</td>
+                        <td className="px-6 py-4 text-[#666666]">{alumni.tanggalLulus || alumni.year}</td>
+                        <td className="px-6 py-4 text-[#666666]">{alumni.nim || '-'}</td>
                         <td className="px-6 py-4">
                           <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-medium uppercase tracking-wider
                             ${alumni.status === 'Teridentifikasi' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 
@@ -200,7 +201,7 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
                             {alumni.status}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-[#666666]">{alumni.source}</td>
+                        
                         <td className="px-6 py-4 text-right">
                           <button 
                             onClick={() => onNavigateToProfile(alumni.id)}

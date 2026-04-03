@@ -9,7 +9,11 @@ export default function Profile({ alumniId, goBack }: { alumniId: string, goBack
     prodi: '',
     year: '',
     status: '',
-    source: ''
+    source: '',
+    nim: '',
+    tahunMasuk: '',
+    tanggalLulus: '',
+    fakultas: ''
   });
 
   useEffect(() => {
@@ -20,7 +24,11 @@ export default function Profile({ alumniId, goBack }: { alumniId: string, goBack
         prodi: data.prodi,
         year: data.year,
         status: data.status,
-        source: data.source
+        source: data.source,
+        nim: data.nim || '',
+        tahunMasuk: data.tahunMasuk || '',
+        tanggalLulus: data.tanggalLulus || '',
+        fakultas: (data as any).fakultas || ''
       });
     }
   }, [alumniId, alumni]);
@@ -82,6 +90,50 @@ export default function Profile({ alumniId, goBack }: { alumniId: string, goBack
                 value={formData.prodi} 
                 onChange={e => setFormData({...formData, prodi: e.target.value})} 
                 className="w-full px-3 py-2 text-sm border border-[#EAEAEA] rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-black transition-all" 
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-[#666666] mb-1 flex items-center gap-2">
+                <User className="w-3.5 h-3.5" /> NIM
+              </label>
+              <input
+                type="text"
+                value={formData.nim}
+                onChange={e => setFormData({...formData, nim: e.target.value})}
+                className="w-full px-3 py-2 text-sm border border-[#EAEAEA] rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-black transition-all"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-[#666666] mb-1 flex items-center gap-2">
+                <MapPin className="w-3.5 h-3.5" /> Tahun Masuk
+              </label>
+              <input
+                type="text"
+                value={formData.tahunMasuk}
+                onChange={e => setFormData({...formData, tahunMasuk: e.target.value})}
+                className="w-full px-3 py-2 text-sm border border-[#EAEAEA] rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-black transition-all"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-[#666666] mb-1 flex items-center gap-2">
+                <GraduationCap className="w-3.5 h-3.5" /> Tanggal Lulus
+              </label>
+              <input
+                type="text"
+                value={formData.tanggalLulus}
+                onChange={e => setFormData({...formData, tanggalLulus: e.target.value})}
+                className="w-full px-3 py-2 text-sm border border-[#EAEAEA] rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-black transition-all"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-[#666666] mb-1 flex items-center gap-2">
+                <Briefcase className="w-3.5 h-3.5" /> Fakultas
+              </label>
+              <input
+                type="text"
+                value={formData.fakultas}
+                onChange={e => setFormData({...formData, fakultas: e.target.value})}
+                className="w-full px-3 py-2 text-sm border border-[#EAEAEA] rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-black transition-all"
               />
             </div>
             <div>
