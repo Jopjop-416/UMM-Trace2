@@ -3,7 +3,7 @@ import { Search, Filter, MoreHorizontal, Download, Plus, X, ChevronDown } from '
 import { useAppContext } from '../context/AppContext';
 
 export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (id: string) => void }) {
-  const { alumni, addAlumni } = useAppContext();
+  const { alumni, addAlumni, csvLoading, csvError, csvLoaded } = useAppContext();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('Semua');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -12,7 +12,10 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
 
   const filterOptions = ['Semua', 'Teridentifikasi', 'Perlu Verifikasi', 'Belum Ditemukan', 'Belum Dilacak'];
 
+  // If CSV was loaded, render all rows directly (no filtering/pagination) per requirement.
   const filteredAlumni = useMemo(() => {
+    if (csvLoaded) return alumni;
+
     return alumni.filter(a => {
       const matchesSearch = a.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                             a.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -20,7 +23,7 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
       const matchesStatus = statusFilter === 'Semua' || a.status === statusFilter;
       return matchesSearch && matchesStatus;
     });
-  }, [alumni, searchQuery, statusFilter]);
+  }, [alumni, searchQuery, statusFilter, csvLoaded]);
 
   const handleAdd = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,6 +65,13 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
       </div>
 
       <div className="bg-white border border-[#EAEAEA] rounded-xl shadow-sm overflow-hidden">
+        {/* Loading / Error banner for CSV */}
+        {csvLoading && (
+          <div className="p-3 border-b border-[#EAEAEA] text-sm text-[#444444]">Memuat data alumni dari CSV…</div>
+        )}
+        {csvError && (
+          <div className="p-3 border-b border-[#EAEAEA] text-sm text-red-600">Gagal memuat CSV: {csvError}</div>
+        )}
         <div className="p-4 border-b border-[#EAEAEA] flex items-center gap-4">
           <div className="relative flex-1 max-w-md">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#888888]" />

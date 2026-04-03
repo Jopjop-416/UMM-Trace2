@@ -1,10 +1,24 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import Papa from 'papaparse';
 
 export interface AlumniData {
   id: string;
   name: string;
   prodi: string;
   year: string;
+  nim?: string;
+  program?: string;
+  linkedin?: string;
+  instagram?: string;
+  facebook?: string;
+  tiktok?: string;
+  email?: string;
+  phone?: string;
+  company?: string;
+  companyAddress?: string;
+  position?: string;
+  jobType?: string;
+  companySocial?: string;
   status: string;
   source: string;
   lastUpdated: string;
@@ -58,6 +72,9 @@ interface AppContextType {
   addJob: (job: JobData) => void;
   updateJob: (id: string, data: Partial<JobData>) => void;
   runScheduler: () => void;
+  csvLoading: boolean;
+  csvError: string | null;
+  csvLoaded: boolean;
 }
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -102,6 +119,127 @@ export function AppProvider({ children }: { children: ReactNode }) {
     };
     setActivities(prev => [newAct, ...prev]);
   };
+
+  const [csvLoading, setCsvLoading] = useState(false);
+  const [csvError, setCsvError] = useState<string | null>(null);
+  const [csvLoaded, setCsvLoaded] = useState(false);
+
+  useEffect(() => {
+    // Load CSV automatically on app start. CSV file is in src/Alumni 2000-2025.csv
+    const loadCsv = async () => {
+      setCsvLoading(true);
+      setCsvError(null);
+      setCsvLoaded(false);
+      try {
+  // CSV is located at project root (outside src). From this file (src/context) go up two levels.
+  const csvUrl = new URL('../../Alumni 2000-2025.csv', import.meta.url).href;
+        const res = await fetch(csvUrl);
+        if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
+        const text = await res.text();
+
+        Papa.parse(text, {
+          header: true,
+          skipEmptyLines: true,
+          dynamicTyping: true,
+          complete: (results: any) => {
+            const rows: any[] = results.data || [];
+            console.debug('CSV HEADERS:', Object.keys(rows[0] || {}));
+            console.debug('TOTAL CSV ROWS:', rows.length);
+
+            // helper: normalize keys for matching (uppercase, remove spaces/underscores)
+            const normalizeKey = (k: string) => String(k || '').toUpperCase().replace(/\s+/g, '').replace(/_/g, '');
+
+            const getField = (row: Record<string, any>, candidates: string[]) => {
+              for (const cand of candidates) {
+                // try exact match keys first
+                if (row.hasOwnProperty(cand) && row[cand] !== undefined && row[cand] !== null && String(row[cand]).trim() !== '') return String(row[cand]).trim();
+              }
+              // try normalized match
+              const keys = Object.keys(row || {});
+              for (const cand of candidates) {
+                const nCand = normalizeKey(cand);
+                for (const k of keys) {
+                  if (normalizeKey(k) === nCand) {
+                    const v = (row as any)[k];
+                    if (v !== undefined && v !== null && String(v).trim() !== '') return String(v).trim();
+                  }
+                }
+              }
+              return undefined;
+            };
+
+            const mapStatus = (raw?: string) => {
+              if (!raw) return 'Belum Dilacak';
+              const r = String(raw).trim().toLowerCase();
+              if (r.includes('terident')) return 'Teridentifikasi';
+              if (r.includes('verif') || r.includes('perlu')) return 'Perlu Verifikasi';
+              if (r.includes('belum') && r.includes('dilacak')) return 'Belum Dilacak';
+              if (r.includes('belum') && r.includes('ditemukan')) return 'Belum Ditemukan';
+              return String(raw);
+            };
+
+            const mapped: AlumniData[] = rows.map((row, idx) => {
+              // ID should be generated as CSV-{index} per requested behavior
+              const id = `CSV-${idx}`;
+              const name = getField(row, ['NAMA LULUSAN', 'Nama Lulusan', 'NAMA LENGKAP', 'Nama Lengkap', 'Nama', 'NAMA', 'FULL NAME', 'Full Name', 'fullname']) || `CSV-${idx}`;
+              const prodi = getField(row, ['PRODI', 'Program Studi', 'program studi', 'PROG', 'PROGRAM']) || '';
+              const year = getField(row, ['YEAR', 'Tahun', 'tahun', 'ANGKATAN']) || '';
+              const nim = getField(row, ['NIM', 'nim', 'student_number']) ;
+              const linkedin = getField(row, ['LINKEDIN', 'linkedin']);
+              const instagram = getField(row, ['INSTAGRAM', 'instagram', 'IG']);
+              const facebook = getField(row, ['FACEBOOK', 'facebook', 'FB']);
+              const tiktok = getField(row, ['TIKTOK', 'tiktok']);
+              const email = getField(row, ['EMAIL', 'Email', 'E-MAIL']);
+              const phone = getField(row, ['PHONE', 'Phone', 'TELEPON', 'HP']);
+              const company = getField(row, ['COMPANY', 'Perusahaan', 'Employer']);
+              const companyAddress = getField(row, ['COMPANYADDRESS', 'ALAMAT_PERUSAHAAN', 'Company Address', 'Alamat']);
+              const position = getField(row, ['POSITION', 'Jabatan', 'Role']);
+              const jobType = getField(row, ['JOBTYPE', 'Jenis Pekerjaan', 'Tipe Pekerjaan']);
+              const companySocial = getField(row, ['COMPANYSOCIAL', 'Company Social', 'Sosial Perusahaan']);
+              const source = getField(row, ['SOURCE', 'Sumber']) || '-';
+              const statusRaw = getField(row, ['STATUS', 'Keterangan']);
+
+              return {
+                id,
+                name,
+                prodi,
+                program: prodi,
+                nim,
+                year,
+                linkedin,
+                instagram,
+                facebook,
+                tiktok,
+                email,
+                phone,
+                company,
+                companyAddress,
+                position,
+                jobType,
+                companySocial,
+                status: mapStatus(statusRaw),
+                source,
+                lastUpdated: new Date().toISOString()
+              } as AlumniData;
+            });
+
+            // set mapped data (no slicing/pagination/filters applied here)
+            setAlumni(mapped);
+            setCsvLoaded(true);
+          },
+          error: (err) => {
+            setCsvError(err?.message || String(err));
+          }
+        });
+      } catch (err: any) {
+        setCsvError(err?.message || String(err));
+      } finally {
+        setCsvLoading(false);
+      }
+    };
+
+    loadCsv();
+  }, []);
 
   const syncVerification = (id: string, status: string, name: string) => {
     setVerifications(prev => {
@@ -256,7 +394,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AppContext.Provider value={{ alumni, activities, jobs, verifications, addAlumni, updateAlumni, resolveVerification, addJob, updateJob, runScheduler }}>
+    <AppContext.Provider value={{ alumni, activities, jobs, verifications, addAlumni, updateAlumni, resolveVerification, addJob, updateJob, runScheduler, csvLoading, csvError, csvLoaded }}>
       {children}
     </AppContext.Provider>
   );
