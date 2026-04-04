@@ -8,8 +8,7 @@ export default function Jobs() {
 
   const handleRunAutomasi = () => {
     if (isRunning) return;
-    // run automation (limit 10)
-    runAutomation(10);
+    runAutomation(500);
   };
 
   return (

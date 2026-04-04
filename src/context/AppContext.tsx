@@ -131,50 +131,304 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   ]);
 
-  // --- Dummy data generators for matches / social profiles ---
   const slugify = (s?: string) => (s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
   const randomFrom = <T,>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)];
 
   const samplePhonePrefixes = ['81','82','83','85','87','88'];
   const genPhone = () => {
-    // pick realistic Indonesian mobile prefix and produce 8-9 random digits
+
     const prefix = randomFrom(samplePhonePrefixes);
-    const restLen = Math.random() > 0.6 ? 8 : 7; // create varying lengths
+    const restLen = Math.random() > 0.6 ? 8 : 7; 
     let rest = '';
     for (let i = 0; i < restLen; i++) rest += String(Math.floor(Math.random() * 10));
     return `+62${prefix}${rest}`;
   };
 
   const genEmail = (name?: string, nid?: string) => {
-    // prefer name-based emails; if nid is numeric (long) combine with name short form
+
     const shortName = name ? slugify(name).split('-').slice(0,2).join('.') : `user${Math.floor(Math.random()*1000)}`;
     let local = shortName;
     if (nid && /^\d+$/.test(String(nid)) && String(nid).length >= 6) {
-      // use last 4 digits of NIM combined with short name to avoid huge numeric-only local part
+
       local = `${shortName}.${String(nid).slice(-4)}`;
     } else if (nid && typeof nid === 'string' && nid.length > 0 && Math.random() > 0.7) {
-      // occasionally include small nid suffix
+
       local = `${shortName}.${nid.slice(0,3)}`;
     } else {
-      // add small numeric suffix to guarantee uniqueness
+
       local = `${shortName}${Math.floor(Math.random() * 90) + 10}`;
     }
-    return `${local}@example.com`;
+    return `${local}@gmail.com`;
   };
 
   const sampleStreets = ['Jl. Merdeka', 'Jl. Mawar', 'Jl. Melati', 'Jl. Sudirman', 'Jl. Diponegoro', 'Jl. Ahmad Yani'];
 
-  const sampleCompanies = ['IndoTech', 'Akuntansi Indonesia', 'Sarana Digital', 'PT Inovasi Nusantara', 'PT Solusi Kreatif'];
-  const samplePositions = ['Staff', 'Senior Staff', 'Manager', 'Software Engineer', 'Accountant', 'Analyst', 'Researcher'];
-  const sampleSources = ['LinkedIn', 'Facebook', 'Instagram', 'TikTok', 'Google', 'GitHub', 'ResearchGate'];
-  const sampleCities = ['Jakarta', 'Surabaya', 'Malang', 'Bandung', 'Yogyakarta', 'Denpasar'];
+const sampleCompanies = [
+  'PT IndoTech Digital', 'PT Akuntansi Indonesia', 'PT Sarana Digital Nusantara', 'PT Inovasi Nusantara',
+  'PT Solusi Kreatif Indonesia', 'PT Telkom Indonesia', 'PT Bank Mandiri', 'PT BCA', 'PT BRI',
+  'PT Gojek Indonesia', 'PT Tokopedia', 'PT Shopee Indonesia', 'PT Bukalapak', 'PT Traveloka',
+  'PT Ruangguru', 'PT Halodoc', 'PT Tiket.com', 'PT Astra International', 'PT Pertamina',
+  'PT PLN', 'PT Unilever Indonesia', 'PT Indofood', 'PT Mayora', 'PT Nestle Indonesia',
+  'PT Garuda Indonesia', 'PT Lion Air Group', 'PT Angkasa Pura', 'PT KAI', 'PT Pegadaian',
+  'PT Dana Indonesia', 'PT OVO Indonesia', 'PT ShopeePay', 'PT Kredivo', 'PT J&T Express',
+  'PT SiCepat Express', 'PT Ninja Xpress', 'PT Pos Indonesia', 'PT Deloitte Indonesia',
+  'PT PwC Indonesia', 'PT EY Indonesia', 'PT KPMG Indonesia', 'PT Accenture Indonesia',
+  'PT IBM Indonesia', 'PT Microsoft Indonesia', 'PT Google Indonesia', 'PT Amazon Web Services',
+  'Startup Digital Nusantara', 'CV Maju Bersama', 'CV Teknologi Masa Depan'
+];
+
+const prodiCompanyMap: Record<string, string[]> = {
+  'Teknik Informatika': [
+    'PT Telkom Indonesia','PT Gojek Indonesia','PT Tokopedia',
+    'PT Shopee Indonesia','PT Google Indonesia','PT Microsoft Indonesia'
+  ],
+
+  'Sistem Informasi': [
+    'PT Accenture Indonesia','PT IBM Indonesia',
+    'PT Astra International','PT Telkom Indonesia'
+  ],
+
+  'Teknologi Informasi': [
+    'PT Telkom Indonesia','PT Huawei Indonesia',
+    'PT Indosat Ooredoo','PT XL Axiata'
+  ],
+
+  'Ilmu Komputer': [
+    'PT Google Indonesia','PT Microsoft Indonesia',
+    'PT Amazon Web Services','PT Tokopedia'
+  ],
+
+  'Rekayasa Perangkat Lunak': [
+    'PT Gojek Indonesia','PT Tokopedia',
+    'PT Shopee Indonesia','PT Traveloka'
+  ],
+
+  'Teknik Komputer': [
+    'PT Lenovo Indonesia','PT Asus Indonesia',
+    'PT Acer Indonesia','PT Intel Indonesia'
+  ],
+
+  'Teknik Elektro': [
+    'PT PLN','PT Siemens Indonesia',
+    'PT Schneider Electric','PT Panasonic'
+  ],
+
+  'Teknik Industri': [
+    'PT Astra International','PT Unilever Indonesia',
+    'PT Indofood','PT Toyota Motor Manufacturing'
+  ],
+
+  'Teknik Mesin': [
+    'PT Astra International','PT Pindad',
+    'PT Dirgantara Indonesia','PT Toyota'
+  ],
+
+  'Teknik Sipil': [
+    'PT Waskita Karya','PT Wijaya Karya',
+    'PT Adhi Karya','PT Hutama Karya'
+  ],
+
+  'Arsitektur': [
+    'PT Ciputra Development',
+    'PT Agung Podomoro',
+    'PT Summarecon'
+  ],
+
+  'Akuntansi': [
+    'PT Deloitte Indonesia','PT PwC Indonesia',
+    'PT EY Indonesia','PT KPMG Indonesia'
+  ],
+
+  'Manajemen': [
+    'PT Unilever Indonesia','PT Indofood',
+    'PT Mayora','PT Nestle Indonesia'
+  ],
+
+  'Ekonomi': [
+    'Bank Indonesia','OJK',
+    'PT Bank Mandiri','PT BCA'
+  ],
+
+  'Administrasi Bisnis': [
+    'PT Astra International',
+    'PT Telkom Indonesia',
+    'PT Unilever Indonesia'
+  ],
+
+  'Bisnis Digital': [
+    'PT Tokopedia','PT Shopee Indonesia',
+    'PT Bukalapak','PT Tiket.com'
+  ],
+
+  'Marketing': [
+    'PT Mayora','PT Indofood',
+    'PT Unilever Indonesia'
+  ],
+
+  'Keuangan': [
+    'PT Bank Mandiri','PT BCA',
+    'PT BRI','PT Pegadaian'
+  ],
+
+  'Perbankan': [
+    'PT Bank Mandiri','PT BCA',
+    'PT BRI','PT BNI'
+  ],
+
+  'Hukum': [
+    'Kementerian Hukum dan HAM',
+    'Mahkamah Agung',
+    'Kantor Advokat'
+  ],
+
+  'Psikologi': [
+    'PT Telkom Indonesia',
+    'PT Unilever Indonesia',
+    'HR Consulting Indonesia'
+  ],
+
+  'Ilmu Komunikasi': [
+    'Metro TV','Kompas TV',
+    'Trans Media','Detik.com'
+  ],
+
+  'Desain Komunikasi Visual': [
+    'Creative Agency Indonesia',
+    'PT Tokopedia',
+    'PT Gojek Indonesia'
+  ],
+
+  'Multimedia': [
+    'Production House Indonesia',
+    'Kompas Gramedia',
+    'Creative Studio'
+  ],
+
+  'Pendidikan Informatika': [
+    'SMK Negeri','SMA Negeri',
+    'Universitas Swasta'
+  ],
+
+  'Pendidikan Matematika': [
+    'SMA Negeri','Bimbel Ruangguru',
+    'Sekolah Swasta'
+  ],
+
+  'Kedokteran': [
+    'RSUD','Rumah Sakit Siloam',
+    'RS Mitra Keluarga'
+  ],
+
+  'Keperawatan': [
+    'RSUD','RS Siloam',
+    'RS Hermina'
+  ],
+
+  'Farmasi': [
+    'Kimia Farma',
+    'Kalbe Farma',
+    'Dexa Medica'
+  ]
+};
+
+
+const prodiPositionMap: Record<string, string[]> = {
+  'Teknik Informatika': [
+    'Software Engineer',
+    'Backend Developer',
+    'Frontend Developer',
+    'Fullstack Developer',
+    'Mobile Developer'
+  ],
+
+  'Sistem Informasi': [
+    'Business Analyst',
+    'System Analyst',
+    'IT Consultant',
+    'Project Manager'
+  ],
+
+  'Akuntansi': [
+    'Accountant',
+    'Auditor',
+    'Finance Staff',
+    'Tax Consultant'
+  ],
+
+  'Manajemen': [
+    'Manager',
+    'Supervisor',
+    'Business Development',
+    'Operations Manager'
+  ],
+
+  'Teknik Sipil': [
+    'Site Engineer',
+    'Project Engineer',
+    'Civil Engineer'
+  ],
+
+  'Teknik Industri': [
+    'Production Planner',
+    'Quality Control',
+    'Industrial Engineer'
+  ],
+
+  'Ilmu Komunikasi': [
+    'Content Creator',
+    'Public Relations',
+    'Media Planner'
+  ],
+
+  'Desain Komunikasi Visual': [
+    'UI UX Designer',
+    'Graphic Designer',
+    'Product Designer'
+  ]
+};
+
+const samplePositions = [
+  'Staff', 'Senior Staff', 'Manager', 'Supervisor', 'Assistant Manager',
+  'Software Engineer', 'Frontend Developer', 'Backend Developer', 'Fullstack Developer',
+  'Mobile Developer', 'UI UX Designer', 'Product Designer', 'Product Manager',
+  'Project Manager', 'Scrum Master', 'QA Engineer', 'Automation Tester',
+  'DevOps Engineer', 'Cloud Engineer', 'System Administrator',
+  'Data Analyst', 'Data Scientist', 'Data Engineer', 'Business Analyst',
+  'Accountant', 'Auditor', 'Finance Staff', 'Financial Analyst',
+  'HR Staff', 'HR Manager', 'Recruiter', 'Talent Acquisition',
+  'Marketing Staff', 'Digital Marketing', 'SEO Specialist', 'Content Creator',
+  'Social Media Specialist', 'Researcher', 'Lecturer', 'Teacher',
+  'IT Support', 'Network Engineer', 'Cyber Security Analyst',
+  'Customer Service', 'Operations Staff', 'Admin', 'Entrepreneur', 'Founder'
+];
+
+const sampleSources = [
+  'LinkedIn', 'Facebook', 'Instagram', 'TikTok', 'Google', 'GitHub', 'ResearchGate',
+  'Twitter', 'X', 'YouTube', 'Threads', 'Website Perusahaan', 'Portal Kampus',
+  'Tracer Study Kampus', 'Alumni Group WhatsApp', 'Telegram', 'Email',
+  'Google Scholar', 'Medium', 'Kaggle', 'Stack Overflow', 'Behance',
+  'Dribbble', 'Personal Website', 'Company Profile', 'Jobstreet',
+  'Glints', 'Kalibrr', 'TopKarir', 'KarirHub', 'Indeed'
+];
+
+const sampleCities = [
+  'Jakarta', 'Bandung', 'Surabaya', 'Yogyakarta', 'Semarang', 'Malang',
+  'Denpasar', 'Medan', 'Makassar', 'Palembang', 'Balikpapan',
+  'Pontianak', 'Pekanbaru', 'Padang', 'Banjarmasin', 'Manado',
+  'Kupang', 'Jayapura', 'Mataram', 'Ambon',
+  'Tangerang', 'Bekasi', 'Depok', 'Bogor', 'Cimahi',
+  'Solo', 'Kediri', 'Blitar', 'Pasuruan', 'Probolinggo',
+  'Sidoarjo', 'Gresik', 'Mojokerto', 'Lamongan', 'Jember',
+  'Banyuwangi', 'Tulungagung', 'Trenggalek', 'Ngawi', 'Madiun',
+  'Cirebon', 'Tasikmalaya', 'Garut', 'Purwokerto', 'Tegal',
+  'Batam', 'Bintan', 'Tarakan', 'Sorong', 'Palu'
+];
 
   const generateMatches = (name: string, baseCompany?: string, baseAddress?: string, count = 2, baseScore = 65): VerificationMatch[] => {
     const matches: VerificationMatch[] = [];
     for (let i = 0; i < count; i++) {
       const source = randomFrom(sampleSources);
-      // create name variations: full name, initials + last, first + initial, or small typo
       const parts = name.split(' ').filter(Boolean);
       const variationOptions = [
         name,
@@ -182,10 +436,20 @@ export function AppProvider({ children }: { children: ReactNode }) {
         parts.map(p => p[0]).join('.'),
         parts.length > 1 ? `${parts[0]} ${parts.slice(-1)[0].slice(0,3)}` : name
       ];
-      const variation = i === 0 ? randomFrom(variationOptions) : randomFrom(variationOptions);
+      const variation = randomFrom(variationOptions);
       const company = i === 0 ? (baseCompany || randomFrom(sampleCompanies)) : randomFrom(sampleCompanies);
-      const role = i === 0 ? (randomFrom(samplePositions)) : randomFrom(samplePositions);
-      const location = baseAddress || randomFrom(sampleCities);
+      const role = randomFrom(samplePositions);
+
+      
+      const citiesPool = [...sampleCities];
+      for (let s = citiesPool.length - 1; s > 0; s--) {
+        const r = Math.floor(Math.random() * (s + 1));
+        const tmp = citiesPool[s];
+        citiesPool[s] = citiesPool[r];
+        citiesPool[r] = tmp;
+      }
+      const city = citiesPool[i % citiesPool.length];
+      const location = city; // region-only as requested
       const score = Math.max(30, Math.min(99, baseScore + Math.floor((Math.random() - 0.5) * 30)));
 
       const handle = slugify(name).replace(/-/g, '').slice(0, 12) + (i === 0 ? '' : String(i));
@@ -197,7 +461,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         : source === 'TikTok' ? `https://tiktok.com/@${handle}`
         : `https://www.google.com/search?q=${encodeURIComponent(name + ' ' + company)}`;
 
-      // varied evidence templates to avoid identical text across matches
+      
       const evidenceTemplates = [
         `Hasil pencarian pada ${source}. Nama: "${variation}". Afiliasi: ${company}. Lokasi: ${location}. Referensi: ${handle}.${Math.floor(Math.random()*9000)}.`,
         `${source} menunjukkan profil dengan nama "${variation}" (lokasi ${location}) terkait ${company}. Ditemukan entri publik dan kontak terkait.`,
@@ -372,7 +636,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setVerifications(prev => {
       const exists = prev.some(v => v.candidateId === id);
       if (status === 'Perlu Verifikasi' && !exists) {
-        // create 2-3 dynamic matches for manual verification
+
         const count = Math.random() > 0.6 ? 3 : 2;
         const baseScore = 65 + Math.floor(Math.random() * 15);
         const matches = generateMatches(name, undefined, undefined, count, baseScore);
@@ -388,7 +652,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [results, setResults] = useState<TrackResult[]>([]);
   const [configMode, setConfigMode] = useState<'otomasi' | 'manual'>('otomasi');
 
-  const runAutomation = (limit = 10) => {
+  const runAutomation = (limit = 500) => {
     const now = new Date();
     const dateStr = `${now.getDate().toString().padStart(2, '0')} Mar ${now.getFullYear()}, ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
     const newJobId = `JOB-${Math.floor(Math.random() * 1000) + 1000}`;
@@ -396,7 +660,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const untracked = alumni.filter(a => a.status === 'Belum Dilacak');
     const selected = untracked.slice(0, limit);
 
-    addJob({ id: newJobId, date: dateStr, status: 'Proses', target: 'Otomasi (10)', found: 0, total: selected.length });
+    addJob({ id: newJobId, date: dateStr, status: 'Proses', target: `Otomasi (${limit})`, found: 0, total: selected.length });
 
     
     setTimeout(() => {
@@ -413,15 +677,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
         const tiktok = `https://tiktok.com/@${handleBase}${Math.floor(Math.random()*900 + 100)}`;
         const email = genEmail(a.name, a.nim);
         const phone = genPhone();
-        // diversify company generation: sometimes use prodi-based name, sometimes pick from sampleCompanies
         let company = randomFrom(sampleCompanies);
-        if (a.prodi && Math.random() > 0.6) {
-          // create a semi-realistic company name from prodi
-          const suffix = randomFrom(['Group', 'Solusi', 'Teknologi', 'Enterprise', 'Indonesia']);
-          company = `${a.prodi} ${suffix}`;
+        if (a.prodi && prodiCompanyMap[a.prodi]) {
+          company = randomFrom(prodiCompanyMap[a.prodi]);
         }
         const companyAddress = `${randomFrom(sampleStreets)} No. ${100 + idx + Math.floor(Math.random()*50)}, ${randomFrom(sampleCities)}`;
-        const position = randomFrom(samplePositions);
+        let position = randomFrom(samplePositions);
+        if (a.prodi && prodiPositionMap[a.prodi]) {
+          position = randomFrom(prodiPositionMap[a.prodi]);
+        }
         const jobType = Math.random() > 0.66 ? 'PNS' : (Math.random() > 0.5 ? 'Swasta' : 'Wirausaha');
 
         const statusSuggested = score >= 80 ? 'Teridentifikasi' : 'Perlu Verifikasi';
@@ -509,7 +773,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
       return r;
     }));
 
-    // Remove verification entry for candidate
     setVerifications(prev => prev.filter(v => v.candidateId !== candidateId));
 
     addActivity({ type: 'RESOLVE', alumniId: candidateId, alumniName: match.name, prodi: '', year: '', source: match.source });
