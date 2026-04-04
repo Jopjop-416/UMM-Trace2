@@ -34,13 +34,50 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
   };
 
   const handleExport = () => {
-    const csvContent = "data:text/csv;charset=utf-8," 
-      + "ID,Nama,Prodi,Tahun,Status,Sumber\n"
-      + filteredAlumni.map(e => `${e.id},${e.name},${e.prodi},${e.year},${e.status},${e.source}`).join("\n");
+    const escape = (v: any) => {
+      if (v === undefined || v === null) return '';
+      const s = String(v);
+      if (s.includes('"') || s.includes(',') || s.includes('\n')) {
+        return '"' + s.replace(/"/g, '""') + '"';
+      }
+      return s;
+    };
+
+    const headers = [
+      'Nama Lengkap', 'Program Studi', 'NIM', 'Tahun Masuk', 'Tanggal Lulus', 'Fakultas', 'Ekonomi', 'Sumber Utama', 'Status Pelacakan',
+      'Informasi Tambahan', 'LinkedIn', 'Instagram', 'Facebook', 'Tiktok', 'Email', 'No HP', 'Tempat Kerja', 'Posisi', 'Jenis Pekerjaan'
+    ];
+
+    const rows = filteredAlumni.map(e => {
+      const ekonomiFlag = e.fakultas && String(e.fakultas).toLowerCase().includes('ekonomi') ? 'Ya' : '';
+      return [
+        e.name || '',
+        e.prodi || '',
+        e.nim || '',
+        e.tahunMasuk || '',
+        e.tanggalLulus || e.year || '',
+        e.fakultas || '',
+        ekonomiFlag,
+        e.source || '',
+        e.status || '',
+        e.companySocial || '',
+        e.linkedin || '',
+        e.instagram || '',
+        e.facebook || '',
+        e.tiktok || '',
+        e.email || '',
+        e.phone || '',
+        e.company || '',
+        e.position || '',
+        e.jobType || ''
+      ].map(escape).join(',');
+    });
+
+    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.map(escape).join(','), ...rows].join('\n');
     const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "data_alumni.csv");
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', 'data_alumni.csv');
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
