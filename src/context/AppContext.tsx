@@ -145,109 +145,467 @@ export function AppProvider({ children }: { children: ReactNode }) {
     return `+62${prefix}${rest}`;
   };
 
-  const genEmail = (name?: string, nid?: string) => {
-
-    const shortName = name ? slugify(name).split('-').slice(0,2).join('.') : `user${Math.floor(Math.random()*1000)}`;
-    let local = shortName;
-    if (nid && /^\d+$/.test(String(nid)) && String(nid).length >= 6) {
-
-      local = `${shortName}.${String(nid).slice(-4)}`;
-    } else if (nid && typeof nid === 'string' && nid.length > 0 && Math.random() > 0.7) {
-
-      local = `${shortName}.${nid.slice(0,3)}`;
-    } else {
-
-      local = `${shortName}${Math.floor(Math.random() * 90) + 10}`;
+  const genEmail = (name?: string, nid?: string): string => {
+    if (!name || String(name).trim().length === 0) {
+      const fallbackLocal = `user${Math.floor(Math.random() * 10000)}`;
+      const fallbackDomain = randomFrom(['gmail.com','yahoo.com','outlook.com','hotmail.com','icloud.com']);
+      return `${fallbackLocal}@${fallbackDomain}`;
     }
-    return `${local}@gmail.com`;
+
+    const emailDomains = [
+      'gmail.com',
+      'yahoo.com',
+      'outlook.com',
+      'hotmail.com',
+      'icloud.com'
+    ];
+
+    const clean = (s: string) => String(s || '').toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
+    const parts = clean(name).split(/\s+/).filter(Boolean);
+    const firstName = parts[0] || 'user';
+    const lastName = parts.length > 1 ? parts[parts.length - 1] : firstName;
+    const initials = parts.map(p => p[0]).join('') || firstName.slice(0,2);
+
+    const repeatChar = (str: string) => {
+      if (!str || str.length === 0) return str;
+      const idx = Math.floor(Math.random() * str.length);
+      const char = str[idx];
+      return str.slice(0, idx) + char + char + str.slice(idx);
+    };
+
+    const nickLen = Math.max(2, Math.min(firstName.length, Math.floor(Math.random() * 3) + 3));
+    const nick = firstName.slice(0, nickLen);
+
+    const smallNumber = Math.random() > 0.6 ? String(Math.floor(Math.random() * 99)) : '';
+
+    const emailFormats = [
+     
+      `${firstName}${lastName}`,
+
+      `${firstName}.${lastName}`,
+ 
+      `${lastName}${firstName}`,
+   
+      `${firstName}${lastName}${smallNumber}`,
+  
+      `${firstName}.${lastName}${smallNumber}`,
+    
+      `${lastName}${firstName}${smallNumber}`,
+      
+      `${firstName}${smallNumber}`,
+      
+      `${lastName}${smallNumber}`,
+      
+      repeatChar(nick),
+    
+      repeatChar(firstName),
+    
+      `${firstName[0] || ''}.${lastName}`,
+ 
+      `${initials}.${lastName}`,
+
+      nick,
+    
+      `${firstName}_${lastName}`
+    ].map(s => s.replace(/\s+/g, ''));
+
+    const local = randomFrom(emailFormats) || `${firstName}${Math.floor(Math.random() * 90) + 10}`;
+    const domain = randomFrom(emailDomains);
+    return `${local}@${domain}`;
   };
 
   const sampleStreets = ['Jl. Merdeka', 'Jl. Mawar', 'Jl. Melati', 'Jl. Sudirman', 'Jl. Diponegoro', 'Jl. Ahmad Yani'];
 
 const sampleCompanies = [
-  'PT IndoTech Digital', 'PT Akuntansi Indonesia', 'PT Sarana Digital Nusantara', 'PT Inovasi Nusantara',
-  'PT Solusi Kreatif Indonesia', 'PT Telkom Indonesia', 'PT Bank Mandiri', 'PT BCA', 'PT BRI',
-  'PT Gojek Indonesia', 'PT Tokopedia', 'PT Shopee Indonesia', 'PT Bukalapak', 'PT Traveloka',
-  'PT Ruangguru', 'PT Halodoc', 'PT Tiket.com', 'PT Astra International', 'PT Pertamina',
-  'PT PLN', 'PT Unilever Indonesia', 'PT Indofood', 'PT Mayora', 'PT Nestle Indonesia',
-  'PT Garuda Indonesia', 'PT Lion Air Group', 'PT Angkasa Pura', 'PT KAI', 'PT Pegadaian',
-  'PT Dana Indonesia', 'PT OVO Indonesia', 'PT ShopeePay', 'PT Kredivo', 'PT J&T Express',
-  'PT SiCepat Express', 'PT Ninja Xpress', 'PT Pos Indonesia', 'PT Deloitte Indonesia',
-  'PT PwC Indonesia', 'PT EY Indonesia', 'PT KPMG Indonesia', 'PT Accenture Indonesia',
-  'PT IBM Indonesia', 'PT Microsoft Indonesia', 'PT Google Indonesia', 'PT Amazon Web Services',
-  'Startup Digital Nusantara', 'CV Maju Bersama', 'CV Teknologi Masa Depan'
+'PT Telkom Indonesia','PT Indosat Ooredoo','PT XL Axiata',
+'PT Smartfren Telecom','PT Huawei Indonesia','PT Nokia Indonesia',
+'PT Astra International','PT Toyota Motor Manufacturing',
+'PT Honda Prospect Motor','PT Mitsubishi Motors Indonesia',
+'PT Unilever Indonesia','PT Nestle Indonesia','PT Mayora',
+'PT Indofood','PT Wings Group','PT Garudafood',
+'PT Bank Mandiri','PT BCA','PT BRI','PT BNI',
+'PT CIMB Niaga','PT Danamon','PT Permata Bank',
+'PT Pegadaian','PT BFI Finance','PT Adira Finance',
+'PT Deloitte Indonesia','PT PwC Indonesia','PT EY Indonesia',
+'PT KPMG Indonesia','PT Grant Thornton Indonesia',
+'PT RSM Indonesia','PT BDO Indonesia',
+'PT Accenture Indonesia','PT IBM Indonesia',
+'PT Microsoft Indonesia','PT Google Indonesia',
+'PT Amazon Web Services','PT Oracle Indonesia',
+'PT Tokopedia','PT Shopee Indonesia','PT Bukalapak',
+'PT Gojek Indonesia','PT Traveloka','PT Tiket.com',
+'PT Ruangguru','PT Halodoc','PT Alodokter',
+'PT Waskita Karya','PT Wijaya Karya','PT Adhi Karya',
+'PT Hutama Karya','PT PP Persero',
+'PT Pertamina','PT PLN','PT Pupuk Indonesia',
+'Startup Digital Nusantara','CV Maju Bersama',
+'CV Sinar Teknologi','CV Data Nusantara'
 ];
+
 
 const prodiCompanyMap: Record<string, string[]> = {
   'Teknik Informatika': [
-    'PT Telkom Indonesia','PT Gojek Indonesia','PT Tokopedia',
-    'PT Shopee Indonesia','PT Google Indonesia','PT Microsoft Indonesia'
+    'PT Telkom Indonesia','PT Indosat Ooredoo','PT XL Axiata',
+'PT Smartfren Telecom','PT Huawei Indonesia','PT Nokia Indonesia',
+'PT Astra International','PT Toyota Motor Manufacturing',
+'PT Honda Prospect Motor','PT Mitsubishi Motors Indonesia',
+'PT Unilever Indonesia','PT Nestle Indonesia','PT Mayora',
+'PT Indofood','PT Wings Group','PT Garudafood',
+'PT Bank Mandiri','PT BCA','PT BRI','PT BNI',
+'PT CIMB Niaga','PT Danamon','PT Permata Bank',
+'PT Pegadaian','PT BFI Finance','PT Adira Finance',
+'PT Deloitte Indonesia','PT PwC Indonesia','PT EY Indonesia',
+'PT KPMG Indonesia','PT Grant Thornton Indonesia',
+'PT RSM Indonesia','PT BDO Indonesia',
+'PT Accenture Indonesia','PT IBM Indonesia',
+'PT Microsoft Indonesia','PT Google Indonesia',
+'PT Amazon Web Services','PT Oracle Indonesia',
+'PT Tokopedia','PT Shopee Indonesia','PT Bukalapak',
+'PT Gojek Indonesia','PT Traveloka','PT Tiket.com',
+'PT Ruangguru','PT Halodoc','PT Alodokter',
+'PT Waskita Karya','PT Wijaya Karya','PT Adhi Karya',
+'PT Hutama Karya','PT PP Persero',
+'PT Pertamina','PT PLN','PT Pupuk Indonesia',
+'Startup Digital Nusantara','CV Maju Bersama',
+'CV Sinar Teknologi','CV Data Nusantara'
   ],
 
   'Sistem Informasi': [
-    'PT Accenture Indonesia','PT IBM Indonesia',
-    'PT Astra International','PT Telkom Indonesia'
+    'PT Telkom Indonesia','PT Indosat Ooredoo','PT XL Axiata',
+'PT Smartfren Telecom','PT Huawei Indonesia','PT Nokia Indonesia',
+'PT Astra International','PT Toyota Motor Manufacturing',
+'PT Honda Prospect Motor','PT Mitsubishi Motors Indonesia',
+'PT Unilever Indonesia','PT Nestle Indonesia','PT Mayora',
+'PT Indofood','PT Wings Group','PT Garudafood',
+'PT Bank Mandiri','PT BCA','PT BRI','PT BNI',
+'PT CIMB Niaga','PT Danamon','PT Permata Bank',
+'PT Pegadaian','PT BFI Finance','PT Adira Finance',
+'PT Deloitte Indonesia','PT PwC Indonesia','PT EY Indonesia',
+'PT KPMG Indonesia','PT Grant Thornton Indonesia',
+'PT RSM Indonesia','PT BDO Indonesia',
+'PT Accenture Indonesia','PT IBM Indonesia',
+'PT Microsoft Indonesia','PT Google Indonesia',
+'PT Amazon Web Services','PT Oracle Indonesia',
+'PT Tokopedia','PT Shopee Indonesia','PT Bukalapak',
+'PT Gojek Indonesia','PT Traveloka','PT Tiket.com',
+'PT Ruangguru','PT Halodoc','PT Alodokter',
+'PT Waskita Karya','PT Wijaya Karya','PT Adhi Karya',
+'PT Hutama Karya','PT PP Persero',
+'PT Pertamina','PT PLN','PT Pupuk Indonesia',
+'Startup Digital Nusantara','CV Maju Bersama',
+'CV Sinar Teknologi','CV Data Nusantara'
   ],
 
   'Teknologi Informasi': [
-    'PT Telkom Indonesia','PT Huawei Indonesia',
-    'PT Indosat Ooredoo','PT XL Axiata'
+    'PT Telkom Indonesia','PT Indosat Ooredoo','PT XL Axiata',
+'PT Smartfren Telecom','PT Huawei Indonesia','PT Nokia Indonesia',
+'PT Astra International','PT Toyota Motor Manufacturing',
+'PT Honda Prospect Motor','PT Mitsubishi Motors Indonesia',
+'PT Unilever Indonesia','PT Nestle Indonesia','PT Mayora',
+'PT Indofood','PT Wings Group','PT Garudafood',
+'PT Bank Mandiri','PT BCA','PT BRI','PT BNI',
+'PT CIMB Niaga','PT Danamon','PT Permata Bank',
+'PT Pegadaian','PT BFI Finance','PT Adira Finance',
+'PT Deloitte Indonesia','PT PwC Indonesia','PT EY Indonesia',
+'PT KPMG Indonesia','PT Grant Thornton Indonesia',
+'PT RSM Indonesia','PT BDO Indonesia',
+'PT Accenture Indonesia','PT IBM Indonesia',
+'PT Microsoft Indonesia','PT Google Indonesia',
+'PT Amazon Web Services','PT Oracle Indonesia',
+'PT Tokopedia','PT Shopee Indonesia','PT Bukalapak',
+'PT Gojek Indonesia','PT Traveloka','PT Tiket.com',
+'PT Ruangguru','PT Halodoc','PT Alodokter',
+'PT Waskita Karya','PT Wijaya Karya','PT Adhi Karya',
+'PT Hutama Karya','PT PP Persero',
+'PT Pertamina','PT PLN','PT Pupuk Indonesia',
+'Startup Digital Nusantara','CV Maju Bersama',
+'CV Sinar Teknologi','CV Data Nusantara'
   ],
 
   'Ilmu Komputer': [
-    'PT Google Indonesia','PT Microsoft Indonesia',
-    'PT Amazon Web Services','PT Tokopedia'
+    'PT Telkom Indonesia','PT Indosat Ooredoo','PT XL Axiata',
+'PT Smartfren Telecom','PT Huawei Indonesia','PT Nokia Indonesia',
+'PT Astra International','PT Toyota Motor Manufacturing',
+'PT Honda Prospect Motor','PT Mitsubishi Motors Indonesia',
+'PT Unilever Indonesia','PT Nestle Indonesia','PT Mayora',
+'PT Indofood','PT Wings Group','PT Garudafood',
+'PT Bank Mandiri','PT BCA','PT BRI','PT BNI',
+'PT CIMB Niaga','PT Danamon','PT Permata Bank',
+'PT Pegadaian','PT BFI Finance','PT Adira Finance',
+'PT Deloitte Indonesia','PT PwC Indonesia','PT EY Indonesia',
+'PT KPMG Indonesia','PT Grant Thornton Indonesia',
+'PT RSM Indonesia','PT BDO Indonesia',
+'PT Accenture Indonesia','PT IBM Indonesia',
+'PT Microsoft Indonesia','PT Google Indonesia',
+'PT Amazon Web Services','PT Oracle Indonesia',
+'PT Tokopedia','PT Shopee Indonesia','PT Bukalapak',
+'PT Gojek Indonesia','PT Traveloka','PT Tiket.com',
+'PT Ruangguru','PT Halodoc','PT Alodokter',
+'PT Waskita Karya','PT Wijaya Karya','PT Adhi Karya',
+'PT Hutama Karya','PT PP Persero',
+'PT Pertamina','PT PLN','PT Pupuk Indonesia',
+'Startup Digital Nusantara','CV Maju Bersama',
+'CV Sinar Teknologi','CV Data Nusantara'
   ],
 
   'Rekayasa Perangkat Lunak': [
-    'PT Gojek Indonesia','PT Tokopedia',
-    'PT Shopee Indonesia','PT Traveloka'
+    'PT Telkom Indonesia','PT Indosat Ooredoo','PT XL Axiata',
+'PT Smartfren Telecom','PT Huawei Indonesia','PT Nokia Indonesia',
+'PT Astra International','PT Toyota Motor Manufacturing',
+'PT Honda Prospect Motor','PT Mitsubishi Motors Indonesia',
+'PT Unilever Indonesia','PT Nestle Indonesia','PT Mayora',
+'PT Indofood','PT Wings Group','PT Garudafood',
+'PT Bank Mandiri','PT BCA','PT BRI','PT BNI',
+'PT CIMB Niaga','PT Danamon','PT Permata Bank',
+'PT Pegadaian','PT BFI Finance','PT Adira Finance',
+'PT Deloitte Indonesia','PT PwC Indonesia','PT EY Indonesia',
+'PT KPMG Indonesia','PT Grant Thornton Indonesia',
+'PT RSM Indonesia','PT BDO Indonesia',
+'PT Accenture Indonesia','PT IBM Indonesia',
+'PT Microsoft Indonesia','PT Google Indonesia',
+'PT Amazon Web Services','PT Oracle Indonesia',
+'PT Tokopedia','PT Shopee Indonesia','PT Bukalapak',
+'PT Gojek Indonesia','PT Traveloka','PT Tiket.com',
+'PT Ruangguru','PT Halodoc','PT Alodokter',
+'PT Waskita Karya','PT Wijaya Karya','PT Adhi Karya',
+'PT Hutama Karya','PT PP Persero',
+'PT Pertamina','PT PLN','PT Pupuk Indonesia',
+'Startup Digital Nusantara','CV Maju Bersama',
+'CV Sinar Teknologi','CV Data Nusantara'
   ],
 
   'Teknik Komputer': [
-    'PT Lenovo Indonesia','PT Asus Indonesia',
-    'PT Acer Indonesia','PT Intel Indonesia'
+    'PT Telkom Indonesia','PT Indosat Ooredoo','PT XL Axiata',
+'PT Smartfren Telecom','PT Huawei Indonesia','PT Nokia Indonesia',
+'PT Astra International','PT Toyota Motor Manufacturing',
+'PT Honda Prospect Motor','PT Mitsubishi Motors Indonesia',
+'PT Unilever Indonesia','PT Nestle Indonesia','PT Mayora',
+'PT Indofood','PT Wings Group','PT Garudafood',
+'PT Bank Mandiri','PT BCA','PT BRI','PT BNI',
+'PT CIMB Niaga','PT Danamon','PT Permata Bank',
+'PT Pegadaian','PT BFI Finance','PT Adira Finance',
+'PT Deloitte Indonesia','PT PwC Indonesia','PT EY Indonesia',
+'PT KPMG Indonesia','PT Grant Thornton Indonesia',
+'PT RSM Indonesia','PT BDO Indonesia',
+'PT Accenture Indonesia','PT IBM Indonesia',
+'PT Microsoft Indonesia','PT Google Indonesia',
+'PT Amazon Web Services','PT Oracle Indonesia',
+'PT Tokopedia','PT Shopee Indonesia','PT Bukalapak',
+'PT Gojek Indonesia','PT Traveloka','PT Tiket.com',
+'PT Ruangguru','PT Halodoc','PT Alodokter',
+'PT Waskita Karya','PT Wijaya Karya','PT Adhi Karya',
+'PT Hutama Karya','PT PP Persero',
+'PT Pertamina','PT PLN','PT Pupuk Indonesia',
+'Startup Digital Nusantara','CV Maju Bersama',
+'CV Sinar Teknologi','CV Data Nusantara'
   ],
 
   'Teknik Elektro': [
-    'PT PLN','PT Siemens Indonesia',
-    'PT Schneider Electric','PT Panasonic'
+    'PT Telkom Indonesia','PT Indosat Ooredoo','PT XL Axiata',
+'PT Smartfren Telecom','PT Huawei Indonesia','PT Nokia Indonesia',
+'PT Astra International','PT Toyota Motor Manufacturing',
+'PT Honda Prospect Motor','PT Mitsubishi Motors Indonesia',
+'PT Unilever Indonesia','PT Nestle Indonesia','PT Mayora',
+'PT Indofood','PT Wings Group','PT Garudafood',
+'PT Bank Mandiri','PT BCA','PT BRI','PT BNI',
+'PT CIMB Niaga','PT Danamon','PT Permata Bank',
+'PT Pegadaian','PT BFI Finance','PT Adira Finance',
+'PT Deloitte Indonesia','PT PwC Indonesia','PT EY Indonesia',
+'PT KPMG Indonesia','PT Grant Thornton Indonesia',
+'PT RSM Indonesia','PT BDO Indonesia',
+'PT Accenture Indonesia','PT IBM Indonesia',
+'PT Microsoft Indonesia','PT Google Indonesia',
+'PT Amazon Web Services','PT Oracle Indonesia',
+'PT Tokopedia','PT Shopee Indonesia','PT Bukalapak',
+'PT Gojek Indonesia','PT Traveloka','PT Tiket.com',
+'PT Ruangguru','PT Halodoc','PT Alodokter',
+'PT Waskita Karya','PT Wijaya Karya','PT Adhi Karya',
+'PT Hutama Karya','PT PP Persero',
+'PT Pertamina','PT PLN','PT Pupuk Indonesia',
+'Startup Digital Nusantara','CV Maju Bersama',
+'CV Sinar Teknologi','CV Data Nusantara'
   ],
 
   'Teknik Industri': [
-    'PT Astra International','PT Unilever Indonesia',
-    'PT Indofood','PT Toyota Motor Manufacturing'
+    'PT Telkom Indonesia','PT Indosat Ooredoo','PT XL Axiata',
+'PT Smartfren Telecom','PT Huawei Indonesia','PT Nokia Indonesia',
+'PT Astra International','PT Toyota Motor Manufacturing',
+'PT Honda Prospect Motor','PT Mitsubishi Motors Indonesia',
+'PT Unilever Indonesia','PT Nestle Indonesia','PT Mayora',
+'PT Indofood','PT Wings Group','PT Garudafood',
+'PT Bank Mandiri','PT BCA','PT BRI','PT BNI',
+'PT CIMB Niaga','PT Danamon','PT Permata Bank',
+'PT Pegadaian','PT BFI Finance','PT Adira Finance',
+'PT Deloitte Indonesia','PT PwC Indonesia','PT EY Indonesia',
+'PT KPMG Indonesia','PT Grant Thornton Indonesia',
+'PT RSM Indonesia','PT BDO Indonesia',
+'PT Accenture Indonesia','PT IBM Indonesia',
+'PT Microsoft Indonesia','PT Google Indonesia',
+'PT Amazon Web Services','PT Oracle Indonesia',
+'PT Tokopedia','PT Shopee Indonesia','PT Bukalapak',
+'PT Gojek Indonesia','PT Traveloka','PT Tiket.com',
+'PT Ruangguru','PT Halodoc','PT Alodokter',
+'PT Waskita Karya','PT Wijaya Karya','PT Adhi Karya',
+'PT Hutama Karya','PT PP Persero',
+'PT Pertamina','PT PLN','PT Pupuk Indonesia',
+'Startup Digital Nusantara','CV Maju Bersama',
+'CV Sinar Teknologi','CV Data Nusantara'
   ],
 
   'Teknik Mesin': [
-    'PT Astra International','PT Pindad',
-    'PT Dirgantara Indonesia','PT Toyota'
+    'PT Telkom Indonesia','PT Indosat Ooredoo','PT XL Axiata',
+'PT Smartfren Telecom','PT Huawei Indonesia','PT Nokia Indonesia',
+'PT Astra International','PT Toyota Motor Manufacturing',
+'PT Honda Prospect Motor','PT Mitsubishi Motors Indonesia',
+'PT Unilever Indonesia','PT Nestle Indonesia','PT Mayora',
+'PT Indofood','PT Wings Group','PT Garudafood',
+'PT Bank Mandiri','PT BCA','PT BRI','PT BNI',
+'PT CIMB Niaga','PT Danamon','PT Permata Bank',
+'PT Pegadaian','PT BFI Finance','PT Adira Finance',
+'PT Deloitte Indonesia','PT PwC Indonesia','PT EY Indonesia',
+'PT KPMG Indonesia','PT Grant Thornton Indonesia',
+'PT RSM Indonesia','PT BDO Indonesia',
+'PT Accenture Indonesia','PT IBM Indonesia',
+'PT Microsoft Indonesia','PT Google Indonesia',
+'PT Amazon Web Services','PT Oracle Indonesia',
+'PT Tokopedia','PT Shopee Indonesia','PT Bukalapak',
+'PT Gojek Indonesia','PT Traveloka','PT Tiket.com',
+'PT Ruangguru','PT Halodoc','PT Alodokter',
+'PT Waskita Karya','PT Wijaya Karya','PT Adhi Karya',
+'PT Hutama Karya','PT PP Persero',
+'PT Pertamina','PT PLN','PT Pupuk Indonesia',
+'Startup Digital Nusantara','CV Maju Bersama',
+'CV Sinar Teknologi','CV Data Nusantara'
   ],
 
   'Teknik Sipil': [
-    'PT Waskita Karya','PT Wijaya Karya',
-    'PT Adhi Karya','PT Hutama Karya'
+    'PT Telkom Indonesia','PT Indosat Ooredoo','PT XL Axiata',
+'PT Smartfren Telecom','PT Huawei Indonesia','PT Nokia Indonesia',
+'PT Astra International','PT Toyota Motor Manufacturing',
+'PT Honda Prospect Motor','PT Mitsubishi Motors Indonesia',
+'PT Unilever Indonesia','PT Nestle Indonesia','PT Mayora',
+'PT Indofood','PT Wings Group','PT Garudafood',
+'PT Bank Mandiri','PT BCA','PT BRI','PT BNI',
+'PT CIMB Niaga','PT Danamon','PT Permata Bank',
+'PT Pegadaian','PT BFI Finance','PT Adira Finance',
+'PT Deloitte Indonesia','PT PwC Indonesia','PT EY Indonesia',
+'PT KPMG Indonesia','PT Grant Thornton Indonesia',
+'PT RSM Indonesia','PT BDO Indonesia',
+'PT Accenture Indonesia','PT IBM Indonesia',
+'PT Microsoft Indonesia','PT Google Indonesia',
+'PT Amazon Web Services','PT Oracle Indonesia',
+'PT Tokopedia','PT Shopee Indonesia','PT Bukalapak',
+'PT Gojek Indonesia','PT Traveloka','PT Tiket.com',
+'PT Ruangguru','PT Halodoc','PT Alodokter',
+'PT Waskita Karya','PT Wijaya Karya','PT Adhi Karya',
+'PT Hutama Karya','PT PP Persero',
+'PT Pertamina','PT PLN','PT Pupuk Indonesia',
+'Startup Digital Nusantara','CV Maju Bersama',
+'CV Sinar Teknologi','CV Data Nusantara'
   ],
 
   'Arsitektur': [
-    'PT Ciputra Development',
-    'PT Agung Podomoro',
-    'PT Summarecon'
+    'PT Telkom Indonesia','PT Indosat Ooredoo','PT XL Axiata',
+'PT Smartfren Telecom','PT Huawei Indonesia','PT Nokia Indonesia',
+'PT Astra International','PT Toyota Motor Manufacturing',
+'PT Honda Prospect Motor','PT Mitsubishi Motors Indonesia',
+'PT Unilever Indonesia','PT Nestle Indonesia','PT Mayora',
+'PT Indofood','PT Wings Group','PT Garudafood',
+'PT Bank Mandiri','PT BCA','PT BRI','PT BNI',
+'PT CIMB Niaga','PT Danamon','PT Permata Bank',
+'PT Pegadaian','PT BFI Finance','PT Adira Finance',
+'PT Deloitte Indonesia','PT PwC Indonesia','PT EY Indonesia',
+'PT KPMG Indonesia','PT Grant Thornton Indonesia',
+'PT RSM Indonesia','PT BDO Indonesia',
+'PT Accenture Indonesia','PT IBM Indonesia',
+'PT Microsoft Indonesia','PT Google Indonesia',
+'PT Amazon Web Services','PT Oracle Indonesia',
+'PT Tokopedia','PT Shopee Indonesia','PT Bukalapak',
+'PT Gojek Indonesia','PT Traveloka','PT Tiket.com',
+'PT Ruangguru','PT Halodoc','PT Alodokter',
+'PT Waskita Karya','PT Wijaya Karya','PT Adhi Karya',
+'PT Hutama Karya','PT PP Persero',
+'PT Pertamina','PT PLN','PT Pupuk Indonesia',
+'Startup Digital Nusantara','CV Maju Bersama',
+'CV Sinar Teknologi','CV Data Nusantara'
   ],
 
   'Akuntansi': [
-    'PT Deloitte Indonesia','PT PwC Indonesia',
-    'PT EY Indonesia','PT KPMG Indonesia'
+    'PT Telkom Indonesia','PT Indosat Ooredoo','PT XL Axiata',
+'PT Smartfren Telecom','PT Huawei Indonesia','PT Nokia Indonesia',
+'PT Astra International','PT Toyota Motor Manufacturing',
+'PT Honda Prospect Motor','PT Mitsubishi Motors Indonesia',
+'PT Unilever Indonesia','PT Nestle Indonesia','PT Mayora',
+'PT Indofood','PT Wings Group','PT Garudafood',
+'PT Bank Mandiri','PT BCA','PT BRI','PT BNI',
+'PT CIMB Niaga','PT Danamon','PT Permata Bank',
+'PT Pegadaian','PT BFI Finance','PT Adira Finance',
+'PT Deloitte Indonesia','PT PwC Indonesia','PT EY Indonesia',
+'PT KPMG Indonesia','PT Grant Thornton Indonesia',
+'PT RSM Indonesia','PT BDO Indonesia',
+'PT Accenture Indonesia','PT IBM Indonesia',
+'PT Microsoft Indonesia','PT Google Indonesia',
+'PT Amazon Web Services','PT Oracle Indonesia',
+'PT Tokopedia','PT Shopee Indonesia','PT Bukalapak',
+'PT Gojek Indonesia','PT Traveloka','PT Tiket.com',
+'PT Ruangguru','PT Halodoc','PT Alodokter',
+'PT Waskita Karya','PT Wijaya Karya','PT Adhi Karya',
+'PT Hutama Karya','PT PP Persero',
+'PT Pertamina','PT PLN','PT Pupuk Indonesia',
+'Startup Digital Nusantara','CV Maju Bersama',
+'CV Sinar Teknologi','CV Data Nusantara'
   ],
 
   'Manajemen': [
-    'PT Unilever Indonesia','PT Indofood',
-    'PT Mayora','PT Nestle Indonesia'
+    'PT Telkom Indonesia','PT Indosat Ooredoo','PT XL Axiata',
+'PT Smartfren Telecom','PT Huawei Indonesia','PT Nokia Indonesia',
+'PT Astra International','PT Toyota Motor Manufacturing',
+'PT Honda Prospect Motor','PT Mitsubishi Motors Indonesia',
+'PT Unilever Indonesia','PT Nestle Indonesia','PT Mayora',
+'PT Indofood','PT Wings Group','PT Garudafood',
+'PT Bank Mandiri','PT BCA','PT BRI','PT BNI',
+'PT CIMB Niaga','PT Danamon','PT Permata Bank',
+'PT Pegadaian','PT BFI Finance','PT Adira Finance',
+'PT Deloitte Indonesia','PT PwC Indonesia','PT EY Indonesia',
+'PT KPMG Indonesia','PT Grant Thornton Indonesia',
+'PT RSM Indonesia','PT BDO Indonesia',
+'PT Accenture Indonesia','PT IBM Indonesia',
+'PT Microsoft Indonesia','PT Google Indonesia',
+'PT Amazon Web Services','PT Oracle Indonesia',
+'PT Tokopedia','PT Shopee Indonesia','PT Bukalapak',
+'PT Gojek Indonesia','PT Traveloka','PT Tiket.com',
+'PT Ruangguru','PT Halodoc','PT Alodokter',
+'PT Waskita Karya','PT Wijaya Karya','PT Adhi Karya',
+'PT Hutama Karya','PT PP Persero',
+'PT Pertamina','PT PLN','PT Pupuk Indonesia',
+'Startup Digital Nusantara','CV Maju Bersama',
+'CV Sinar Teknologi','CV Data Nusantara'
   ],
 
   'Ekonomi': [
-    'Bank Indonesia','OJK',
-    'PT Bank Mandiri','PT BCA'
+    'PT Telkom Indonesia','PT Indosat Ooredoo','PT XL Axiata',
+'PT Smartfren Telecom','PT Huawei Indonesia','PT Nokia Indonesia',
+'PT Astra International','PT Toyota Motor Manufacturing',
+'PT Honda Prospect Motor','PT Mitsubishi Motors Indonesia',
+'PT Unilever Indonesia','PT Nestle Indonesia','PT Mayora',
+'PT Indofood','PT Wings Group','PT Garudafood',
+'PT Bank Mandiri','PT BCA','PT BRI','PT BNI',
+'PT CIMB Niaga','PT Danamon','PT Permata Bank',
+'PT Pegadaian','PT BFI Finance','PT Adira Finance',
+'PT Deloitte Indonesia','PT PwC Indonesia','PT EY Indonesia',
+'PT KPMG Indonesia','PT Grant Thornton Indonesia',
+'PT RSM Indonesia','PT BDO Indonesia',
+'PT Accenture Indonesia','PT IBM Indonesia',
+'PT Microsoft Indonesia','PT Google Indonesia',
+'PT Amazon Web Services','PT Oracle Indonesia',
+'PT Tokopedia','PT Shopee Indonesia','PT Bukalapak',
+'PT Gojek Indonesia','PT Traveloka','PT Tiket.com',
+'PT Ruangguru','PT Halodoc','PT Alodokter',
+'PT Waskita Karya','PT Wijaya Karya','PT Adhi Karya',
+'PT Hutama Karya','PT PP Persero',
+'PT Pertamina','PT PLN','PT Pupuk Indonesia',
+'Startup Digital Nusantara','CV Maju Bersama',
+'CV Sinar Teknologi','CV Data Nusantara'
   ],
 
   'Administrasi Bisnis': [
@@ -615,7 +973,12 @@ const sampleCities = [
             });
 
            
-            setAlumni(mapped);
+            // Ensure every alumni has an email: if CSV didn't provide one, generate a realistic email
+            const mappedWithEmails = mapped.map(m => ({
+              ...m,
+              email: m.email || genEmail(m.name, m.nim)
+            }));
+            setAlumni(mappedWithEmails);
             setCsvLoaded(true);
           },
           error: (err) => {
