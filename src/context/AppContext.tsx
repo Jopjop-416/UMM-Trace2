@@ -109,6 +109,7 @@ interface AppContextType {
 export const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
+  const PUBLIC_MIX_LIMIT = 500;
   type CompanyProfile = {
     domain?: string;
     careerDomain?: string;
@@ -148,6 +149,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
   const seededPick = <T,>(arr: T[], seed: number) => arr[seed % arr.length];
   const seededNumber = (seed: number, min: number, max: number) => min + (seed % (max - min + 1));
+  const normalizeOptionalValue = (value?: string | null) => {
+    if (value === undefined || value === null) return '';
+    const normalized = String(value).trim();
+    if (!normalized || normalized === '-' || normalized === 'â€“' || normalized.toLowerCase() === 'null' || normalized.toLowerCase() === 'undefined') {
+      return '';
+    }
+    return normalized;
+  };
   const cleanNameParts = (name?: string) => String(name || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(Boolean);
   const companyProfiles: Record<string, CompanyProfile> = {
     'PT Telkom Indonesia': { domain: 'telkom.co.id', linkedin: 'https://linkedin.com/company/telkom-indonesia', instagram: 'https://instagram.com/telkomindonesia', facebook: 'https://facebook.com/telkomindonesia', preferredCities: ['Jakarta Selatan', 'Bandung', 'Surabaya'], sector: 'telekomunikasi', defaultJobType: 'BUMN/BUMD' },
@@ -236,6 +245,93 @@ export function AppProvider({ children }: { children: ReactNode }) {
     if (source === 'TikTok' && profile.tiktok) return profile.tiktok;
     if (source === 'Website Perusahaan') return `https://${profile.domain || `${buildCompanyHandle(company) || 'company'}.co.id`}`;
     return buildCompanySocial(company, seed);
+  };
+  const ensureAtLeastOnePublicLink = (status: string, links: { linkedin?: string; instagram?: string; facebook?: string; tiktok?: string; companySocial?: string }, company: string, source: string, seed: number) => {
+    if (status !== 'Teridentifikasi') return links;
+    const hasAnyPublicLink = [links.linkedin, links.instagram, links.facebook, links.tiktok, links.companySocial]
+      .some(value => Boolean(normalizeOptionalValue(value)));
+    if (hasAnyPublicLink) return links;
+    return {
+      ...links,
+      companySocial: buildCompanySocialBySource(company, source, seed)
+    };
+  };
+  const ensureIndividualSocialLinks = (
+    status: string,
+    name: string,
+    links: { linkedin?: string; instagram?: string; facebook?: string; tiktok?: string },
+    seed: number
+  ) => {
+    if (status === 'Belum Ditemukan') return links;
+
+    const normalized = {
+      linkedin: normalizeOptionalValue(links.linkedin),
+      instagram: normalizeOptionalValue(links.instagram),
+      facebook: normalizeOptionalValue(links.facebook),
+      tiktok: normalizeOptionalValue(links.tiktok)
+    };
+    const filledPlatforms = Object.entries(normalized).filter(([, value]) => Boolean(normalizeOptionalValue(value)));
+    const handle = buildPersonalHandle(name, seed);
+
+    if (filledPlatforms.length === 1 && filledPlatforms[0][0] === 'linkedin') {
+      const diversifyBucket = seed % 100;
+      const diversified = { ...normalized };
+
+      if (diversifyBucket >= 45 && diversifyBucket < 65) {
+        diversified.linkedin = '';
+        diversified.instagram = `https://instagram.com/${handle}`;
+        return diversified;
+      }
+      if (diversifyBucket >= 65 && diversifyBucket < 80) {
+        diversified.linkedin = '';
+        diversified.facebook = `https://facebook.com/${handle.replace(/\./g, '').replace(/_/g, '')}`;
+        return diversified;
+      }
+      if (diversifyBucket >= 80 && diversifyBucket < 90) {
+        diversified.linkedin = '';
+        diversified.tiktok = `https://tiktok.com/@${handle.replace(/\./g, '_')}`;
+        return diversified;
+      }
+      if (diversifyBucket >= 90) {
+        diversified.instagram = diversified.instagram || `https://instagram.com/${handle}${seededNumber(seed + 29, 1, 9)}`;
+        return diversified;
+      }
+    }
+
+    const hasIndividualSocial = Object.values(normalized).some(value => Boolean(normalizeOptionalValue(value)));
+    if (hasIndividualSocial) return normalized;
+
+    const platformOrder = ['linkedin', 'instagram', 'facebook', 'tiktok'] as const;
+    const shuffledPlatforms = [...platformOrder].sort((a, b) => {
+      const aScore = hashString(`${name}|${a}|${seed}`);
+      const bScore = hashString(`${name}|${b}|${seed}`);
+      return aScore - bScore;
+    });
+    const countBucket = seed % 100;
+    const socialCount = countBucket < 42 ? 1 : countBucket < 74 ? 2 : countBucket < 92 ? 3 : 4;
+    const selectedPlatforms = shuffledPlatforms.slice(0, socialCount);
+
+    const generated = {
+      linkedin: '',
+      instagram: '',
+      facebook: '',
+      tiktok: ''
+    };
+
+    if (selectedPlatforms.includes('linkedin')) {
+      generated.linkedin = `https://linkedin.com/in/${slugify(name)}-${seededNumber(seed + 17, 10, 99)}`;
+    }
+    if (selectedPlatforms.includes('instagram')) {
+      generated.instagram = `https://instagram.com/${handle}${socialCount > 1 && seed % 3 === 0 ? seededNumber(seed + 29, 1, 9) : ''}`;
+    }
+    if (selectedPlatforms.includes('facebook')) {
+      generated.facebook = `https://facebook.com/${handle.replace(/\./g, '').replace(/_/g, '')}${socialCount === 1 ? seededNumber(seed + 37, 1, 9) : ''}`;
+    }
+    if (selectedPlatforms.includes('tiktok')) {
+      generated.tiktok = `https://tiktok.com/@${handle.replace(/\./g, '_')}${seed % 4 === 0 ? seededNumber(seed + 41, 1, 9) : ''}`;
+    }
+
+    return generated;
   };
   const buildSourceSpecificEvidence = (source: string, name: string, company: string, role: string, location: string, link: string, seed: number) => {
     const referenceId = `${buildPersonalHandle(name, seed)}-${seededNumber(seed + 7, 100, 999)}`;
@@ -361,9 +457,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
     return `${seededPick(localOptions, seed + 31)}@${seededPick(emailDomains, seed + 47)}`;
   };
-  const buildTrackedProfile = (base: AlumniData, usedAddresses: Set<string>, index: number) => {
+  const buildTrackedProfile = (base: AlumniData, usedAddresses: Set<string>, index: number, options?: { publicMix?: boolean }) => {
     const seedText = `${base.id}|${base.name}|${base.nim || ''}|${base.year || ''}|${base.prodi || ''}|${index}`;
     const seed = hashString(seedText);
+    const publicMix = options?.publicMix === true;
+    const baseHadAnyIndividualSocial = [
+      normalizeOptionalValue(base.linkedin),
+      normalizeOptionalValue(base.instagram),
+      normalizeOptionalValue(base.facebook),
+      normalizeOptionalValue(base.tiktok)
+    ].some(Boolean);
     const prodiCompanies = base.prodi && prodiCompanyMap[base.prodi] ? prodiCompanyMap[base.prodi] : sampleCompanies;
     const diversifiedCompanies = base.prodi && prodiDiversifiedCompanyMap[base.prodi] ? prodiDiversifiedCompanyMap[base.prodi] : diversifiedPrivateCompanies;
     const companyPool = Array.from(new Set([...prodiCompanies, ...diversifiedCompanies, ...diversifiedPrivateCompanies, ...realEmployerPool]));
@@ -374,23 +477,24 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const statusBucket = seed % 100;
     const generatedStatus = statusBucket < 78 ? 'Teridentifikasi' : statusBucket < 92 ? 'Perlu Verifikasi' : 'Belum Ditemukan';
     const status = base.status && base.status !== 'Belum Dilacak' ? base.status : generatedStatus;
-    const trackedSources = ['LinkedIn', 'Website Perusahaan', 'Instagram', 'Facebook', 'Jobstreet', 'Glints', 'Google'];
+    const trackedSources = publicMix
+      ? ['LinkedIn', 'Website Perusahaan', 'Jobstreet', 'Glints', 'Google']
+      : ['LinkedIn', 'Website Perusahaan', 'Instagram', 'Facebook', 'Jobstreet', 'Glints', 'Google'];
     const source = status === 'Belum Ditemukan'
       ? '-'
       : (base.source && base.source !== '-' ? base.source : seededPick(trackedSources, seed + 11));
-    const handleBase = buildPersonalHandle(base.name, seed);
     const linkedin = status === 'Belum Ditemukan'
-      ? base.linkedin
-      : (base.linkedin || `https://linkedin.com/in/${slugify(base.name)}-${seededNumber(seed, 10, 99)}`);
+      ? normalizeOptionalValue(base.linkedin)
+      : (baseHadAnyIndividualSocial ? normalizeOptionalValue(base.linkedin) : '');
     const instagram = status === 'Belum Ditemukan'
-      ? base.instagram
-      : (base.instagram || `https://instagram.com/${handleBase}`);
+      ? normalizeOptionalValue(base.instagram)
+      : (baseHadAnyIndividualSocial ? normalizeOptionalValue(base.instagram) : '');
     const facebook = status === 'Belum Ditemukan'
-      ? base.facebook
-      : (base.facebook || `https://facebook.com/${handleBase.replace(/\./g, '')}`);
+      ? normalizeOptionalValue(base.facebook)
+      : (baseHadAnyIndividualSocial ? normalizeOptionalValue(base.facebook) : '');
     const tiktok = status === 'Belum Ditemukan'
-      ? base.tiktok
-      : (base.tiktok || `https://tiktok.com/@${handleBase.replace(/\./g, '_')}`);
+      ? normalizeOptionalValue(base.tiktok)
+      : (baseHadAnyIndividualSocial ? normalizeOptionalValue(base.tiktok) : '');
     const shouldUseCorporateEmail = status !== 'Belum Ditemukan' && companyProfile.domain && seed % 100 < 34 && companyProfile.defaultJobType !== 'Wirausaha';
     const corporateLocal = (() => {
       const parts = cleanNameParts(base.name);
@@ -405,33 +509,51 @@ export function AppProvider({ children }: { children: ReactNode }) {
       return seededPick(options, seed + 61);
     })();
     const email = status === 'Belum Ditemukan'
-      ? (base.email || genEmailFromSeed(base.name, base.nim, seedText))
-      : (base.email || (shouldUseCorporateEmail ? `${corporateLocal}@${companyProfile.domain}` : genEmailFromSeed(base.name, base.nim, seedText)));
-    const phone = status === 'Belum Ditemukan' ? (base.phone || '-') : (base.phone || genPhoneFromSeed(seedText));
-    const position = status === 'Belum Ditemukan' ? (base.position || '-') : (base.position || seededPick(prodiPositions, seed + 19));
+      ? ''
+      : (normalizeOptionalValue(base.email) || (shouldUseCorporateEmail ? `${corporateLocal}@${companyProfile.domain}` : genEmailFromSeed(base.name, base.nim, seedText)));
+    const phone = status === 'Belum Ditemukan' ? '' : (normalizeOptionalValue(base.phone) || genPhoneFromSeed(seedText));
+    const position = status === 'Belum Ditemukan' ? '' : (normalizeOptionalValue(base.position) || seededPick(prodiPositions, seed + 19));
     const fallbackJobType = companyProfile.defaultJobType || seededPick(['Swasta', 'PNS', 'Wirausaha', 'BUMN/BUMD', 'Pendidikan', 'Kesehatan', 'Profesional', 'Kontrak'], seed + 23);
     const jobType = status === 'Belum Ditemukan'
-      ? (base.jobType || '-')
-      : (base.jobType || ((/founder|entrepreneur/i.test(position) || companyProfile.sector === 'wirausaha') ? 'Wirausaha' : fallbackJobType));
+      ? ''
+      : (normalizeOptionalValue(base.jobType) || ((/founder|entrepreneur/i.test(position) || companyProfile.sector === 'wirausaha') ? 'Wirausaha' : fallbackJobType));
     const companySocial = status === 'Belum Ditemukan'
-      ? (base.companySocial || '')
-      : (base.companySocial || buildCompanySocialBySource(company, source, seed));
+      ? (normalizeOptionalValue(base.companySocial) || '')
+      : (normalizeOptionalValue(base.companySocial) || buildCompanySocialBySource(company, source, seed));
+    const normalizedLinks = ensureAtLeastOnePublicLink(
+      status,
+      { linkedin, instagram, facebook, tiktok, companySocial },
+      company,
+      source,
+      seed
+    );
+    const normalizedIndividualSocials = ensureIndividualSocialLinks(
+      status,
+      base.name,
+      {
+        linkedin: normalizedLinks.linkedin,
+        instagram: normalizedLinks.instagram,
+        facebook: normalizedLinks.facebook,
+        tiktok: normalizedLinks.tiktok
+      },
+      seed
+    );
 
     return {
       ...base,
       status,
       source,
-      linkedin,
-      instagram,
-      facebook,
-      tiktok,
+      linkedin: normalizedIndividualSocials.linkedin,
+      instagram: normalizedIndividualSocials.instagram,
+      facebook: normalizedIndividualSocials.facebook,
+      tiktok: normalizedIndividualSocials.tiktok,
       email,
       phone,
-      company: status === 'Belum Ditemukan' ? (base.company || '-') : company,
-      companyAddress: status === 'Belum Ditemukan' ? (base.companyAddress || '-') : companyAddress,
+      company: status === 'Belum Ditemukan' ? '' : company,
+      companyAddress: status === 'Belum Ditemukan' ? '' : companyAddress,
       position,
       jobType,
-      companySocial,
+      companySocial: normalizedLinks.companySocial,
       lastUpdated: new Date().toISOString()
     } as AlumniData;
   };
@@ -1593,7 +1715,7 @@ const sampleCities = [
                 lastUpdated: nowIso
               } as AlumniData;
 
-              return buildTrackedProfile(baseRecord, usedAddresses, idx);
+              return buildTrackedProfile(baseRecord, usedAddresses, idx, { publicMix: idx < PUBLIC_MIX_LIMIT });
             });
 
             const recentActivities = mapped
@@ -1709,7 +1831,7 @@ const sampleCities = [
         }
         const generatedProfile = inferCompanyProfile(company);
         const jobType = generatedProfile.defaultJobType || seededPick(['Swasta', 'PNS', 'Wirausaha', 'BUMN/BUMD', 'Pendidikan', 'Kesehatan', 'Profesional', 'Kontrak'], hashString(`${a.id}|${company}|jobtype`));
-
+        
         const statusSuggested = score >= 80 ? 'Teridentifikasi' : 'Perlu Verifikasi';
 
         newResults.push({

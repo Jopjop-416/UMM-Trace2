@@ -168,19 +168,6 @@ export default function Profile({ alumniId, goBack }: { alumniId: string, goBack
                 className="w-full px-3 py-2 text-sm border border-[#EAEAEA] rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-black transition-all" 
               />
             </div>
-            <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-[#666666] mb-1">Status Pelacakan</label>
-              <select 
-                value={formData.status} 
-                onChange={e => setFormData({...formData, status: e.target.value})}
-                className="w-full px-3 py-2 text-sm border border-[#EAEAEA] rounded-md focus:outline-none focus:ring-1 focus:ring-black focus:border-black transition-all bg-white"
-              >
-                <option value="Teridentifikasi">Teridentifikasi</option>
-                <option value="Perlu Verifikasi">Perlu Verifikasi</option>
-                <option value="Belum Ditemukan">Belum Ditemukan</option>
-                <option value="Belum Dilacak">Belum Dilacak</option>
-              </select>
-            </div>
           </div>
         </div>
 

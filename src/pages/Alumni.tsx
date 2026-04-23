@@ -10,6 +10,7 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newAlumni, setNewAlumni] = useState({ name: '', prodi: '', year: '' });
+  const shouldHideTrackedFields = (item: any) => item.status === 'Belum Ditemukan' || item.status === 'Belum Dilacak';
 
   const filterOptions = ['Semua', 'Teridentifikasi', 'Perlu Verifikasi', 'Belum Ditemukan', 'Belum Dilacak'];
   const tableColumns = [
@@ -17,18 +18,19 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
     { key: 'prodi', label: 'Program Studi', render: (item: any) => item.prodi || '-' },
     { key: 'year', label: 'Tahun Lulus', render: (item: any) => item.tanggalLulus || item.year || '-' },
     { key: 'nim', label: 'NIM', render: (item: any) => item.nim || '-' },
-    { key: 'email', label: 'Email', render: (item: any) => item.email || '-' },
-    { key: 'phone', label: 'No HP', render: (item: any) => item.phone || '-' },
-    { key: 'company', label: 'Tempat Kerja', render: (item: any) => item.company || '-' },
-    { key: 'companyAddress', label: 'Alamat Kerja', render: (item: any) => item.companyAddress || '-' },
-    { key: 'position', label: 'Posisi', render: (item: any) => item.position || '-' },
-    { key: 'jobType', label: 'Jenis Pekerjaan', render: (item: any) => item.jobType || '-' },
-    { key: 'linkedin', label: 'LinkedIn', render: (item: any) => item.linkedin || '-' },
-    { key: 'instagram', label: 'Instagram', render: (item: any) => item.instagram || '-' },
-    { key: 'facebook', label: 'Facebook', render: (item: any) => item.facebook || '-' },
-    { key: 'tiktok', label: 'Tiktok', render: (item: any) => item.tiktok || '-' }
+    { key: 'email', label: 'Email', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.email || '-') },
+    { key: 'phone', label: 'No HP', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.phone || '-') },
+    { key: 'company', label: 'Tempat Kerja', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.company || '-') },
+    { key: 'companyAddress', label: 'Alamat Kerja', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.companyAddress || '-') },
+    { key: 'position', label: 'Posisi', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.position || '-') },
+    { key: 'jobType', label: 'Jenis Pekerjaan', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.jobType || '-') },
+    { key: 'companySocial', label: 'Sosial Media Tempat Kerja', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.companySocial || '-') },
+    { key: 'linkedin', label: 'LinkedIn', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.linkedin || '-') },
+    { key: 'instagram', label: 'Instagram', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.instagram || '-') },
+    { key: 'facebook', label: 'Facebook', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.facebook || '-') },
+    { key: 'tiktok', label: 'Tiktok', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.tiktok || '-') }
   ];
-  const tableGridColumns = '220px 220px 140px 150px 240px 160px 220px 260px 180px 180px 240px 200px 200px 200px 72px';
+  const tableGridColumns = '220px 220px 140px 150px 240px 160px 220px 260px 180px 180px 260px 240px 200px 200px 200px 72px';
 
   // If CSV was loaded, render all rows directly (no filtering/pagination) per requirement.
   const filteredAlumni = useMemo(() => {
@@ -61,12 +63,13 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
     };
 
     const headers = [
-      'Nama Lengkap', 'Program Studi', 'NIM', 'Tahun Masuk', 'Tanggal Lulus', 'Fakultas', 'Ekonomi', 'Sumber Utama', 'Status Pelacakan',
+      'Nama Lengkap', 'Program Studi', 'NIM', 'Tahun Masuk', 'Tanggal Lulus', 'Fakultas', 'Ekonomi', 'Sumber Utama',
       'Sosial Media Tempat Kerja', 'LinkedIn', 'Instagram', 'Facebook', 'Tiktok', 'Email', 'No HP', 'Tempat Kerja', 'Posisi', 'Jenis Pekerjaan'
     ];
 
     const rows = filteredAlumni.map(e => {
       const ekonomiFlag = e.fakultas && String(e.fakultas).toLowerCase().includes('ekonomi') ? 'Ya' : '';
+      const hideTrackedFields = shouldHideTrackedFields(e);
       return [
         e.name || '',
         e.prodi || '',
@@ -76,17 +79,16 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
         e.fakultas || '',
         ekonomiFlag,
         e.source || '',
-        e.status || '',
-        e.companySocial || '',
-        e.linkedin || '',
-        e.instagram || '',
-        e.facebook || '',
-        e.tiktok || '',
-        e.email || '',
-        e.phone || '',
-        e.company || '',
-        e.position || '',
-        e.jobType || ''
+        hideTrackedFields ? '' : (e.companySocial || ''),
+        hideTrackedFields ? '' : (e.linkedin || ''),
+        hideTrackedFields ? '' : (e.instagram || ''),
+        hideTrackedFields ? '' : (e.facebook || ''),
+        hideTrackedFields ? '' : (e.tiktok || ''),
+        hideTrackedFields ? '' : (e.email || ''),
+        hideTrackedFields ? '' : (e.phone || ''),
+        hideTrackedFields ? '' : (e.company || ''),
+        hideTrackedFields ? '' : (e.position || ''),
+        hideTrackedFields ? '' : (e.jobType || '')
       ].map(escape).join(',');
     });
 
@@ -187,7 +189,7 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
                 height={600}
                 itemCount={filteredAlumni.length}
                 itemSize={64}
-                width={3300}
+                width={3600}
               >
                 {({ index, style }) => {
                   const alumni = filteredAlumni[index];

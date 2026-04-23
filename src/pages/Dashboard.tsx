@@ -3,6 +3,12 @@ import { Users, Search, AlertCircle, CheckCircle2, BarChart3, ShieldCheck, Datab
 import { useAppContext } from '../context/AppContext';
 import { getRelativeTime } from '../utils/time';
 
+const isFilledValue = (value?: string | null) => {
+  if (value === undefined || value === null) return false;
+  const normalized = String(value).trim();
+  return Boolean(normalized && normalized !== '-' && normalized.toLowerCase() !== 'null' && normalized.toLowerCase() !== 'undefined');
+};
+
 const getCoverageScore = (foundCount: number, totalCount: number) => {
   if (totalCount <= 0) return 0;
   const ratio = foundCount / totalCount;
@@ -80,25 +86,33 @@ export default function Dashboard() {
   const chartMax = trackedByYear.reduce((max, item) => Math.max(max, item.count), 0);
 
   const scoring = useMemo(() => {
-    const foundCount = trackedAlumni.length;
-    const sampleSize = Math.min(500, identifiedAlumni.length);
-    const sampled = identifiedAlumni.slice(0, sampleSize);
+    const foundAlumni = alumni.filter(item => item.status !== 'Belum Ditemukan');
+    const foundCount = foundAlumni.length;
+    const sampleSize = Math.min(500, foundAlumni.length);
+    const sampled = foundAlumni.slice(0, sampleSize);
     const correctSample = sampled.filter(item => {
-      const evidencePoints = [
-        item.source && item.source !== '-',
+      const hasPublicLink = [
         item.linkedin,
-        item.company && item.company !== '-',
-        item.companyAddress && item.companyAddress !== '-'
-      ].filter(Boolean).length;
-      return evidencePoints >= 3;
+        item.instagram,
+        item.facebook,
+        item.tiktok,
+        item.companySocial
+      ].some(value => isFilledValue(value));
+      const coreFields = [
+        item.company,
+        item.companyAddress,
+        item.position,
+        item.jobType
+      ].filter(value => isFilledValue(value)).length;
+      return hasPublicLink && coreFields >= 4;
     }).length;
 
-    const completenessFields = identifiedAlumni.map(item => (
+    const completenessFields = foundAlumni.map(item => (
       [
-        item.email && item.email !== '-',
-        item.phone && item.phone !== '-',
-        item.company && item.company !== '-',
-        item.companyAddress && item.companyAddress !== '-'
+        isFilledValue(item.email),
+        isFilledValue(item.phone),
+        isFilledValue(item.company),
+        isFilledValue(item.companyAddress)
       ].filter(Boolean).length
     ));
     const averageFilledFields = completenessFields.length > 0
@@ -114,7 +128,7 @@ export default function Dashboard() {
       accuracyScore: getAccuracyScore(correctSample),
       completenessScore: getCompletenessScore(averageFilledFields)
     };
-  }, [alumni.length, identifiedAlumni, trackedAlumni.length]);
+  }, [alumni]);
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
