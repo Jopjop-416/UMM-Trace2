@@ -12,6 +12,23 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
   const [newAlumni, setNewAlumni] = useState({ name: '', prodi: '', year: '' });
 
   const filterOptions = ['Semua', 'Teridentifikasi', 'Perlu Verifikasi', 'Belum Ditemukan', 'Belum Dilacak'];
+  const tableColumns = [
+    { key: 'name', label: 'Nama Lengkap', render: (item: any) => <span className="font-medium">{item.name || '-'}</span> },
+    { key: 'prodi', label: 'Program Studi', render: (item: any) => item.prodi || '-' },
+    { key: 'year', label: 'Tahun Lulus', render: (item: any) => item.tanggalLulus || item.year || '-' },
+    { key: 'nim', label: 'NIM', render: (item: any) => item.nim || '-' },
+    { key: 'email', label: 'Email', render: (item: any) => item.email || '-' },
+    { key: 'phone', label: 'No HP', render: (item: any) => item.phone || '-' },
+    { key: 'company', label: 'Tempat Kerja', render: (item: any) => item.company || '-' },
+    { key: 'companyAddress', label: 'Alamat Kerja', render: (item: any) => item.companyAddress || '-' },
+    { key: 'position', label: 'Posisi', render: (item: any) => item.position || '-' },
+    { key: 'jobType', label: 'Jenis Pekerjaan', render: (item: any) => item.jobType || '-' },
+    { key: 'linkedin', label: 'LinkedIn', render: (item: any) => item.linkedin || '-' },
+    { key: 'instagram', label: 'Instagram', render: (item: any) => item.instagram || '-' },
+    { key: 'facebook', label: 'Facebook', render: (item: any) => item.facebook || '-' },
+    { key: 'tiktok', label: 'Tiktok', render: (item: any) => item.tiktok || '-' }
+  ];
+  const tableGridColumns = '220px 220px 140px 150px 240px 160px 220px 260px 180px 180px 240px 200px 200px 200px 72px';
 
   // If CSV was loaded, render all rows directly (no filtering/pagination) per requirement.
   const filteredAlumni = useMemo(() => {
@@ -155,43 +172,33 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
         <div>
           {/* If csvLoaded, use virtualized list to avoid rendering thousands of DOM nodes */}
           {csvLoaded ? (
-            <div>
+            <div className="overflow-x-auto">
               <div className="text-xs text-[#666666] uppercase bg-[#FAFAFA] border-b border-[#EAEAEA]">
-                <div className="grid grid-cols-7 gap-0 items-center">
-                  <div className="px-6 py-3 font-medium">ID Alumni</div>
-                  <div className="px-6 py-3 font-medium">Nama Lengkap</div>
-                  <div className="px-6 py-3 font-medium">Program Studi</div>
-                  <div className="px-6 py-3 font-medium">Tahun Lulus</div>
-                  <div className="px-6 py-3 font-medium">NIM</div>
-                  <div className="px-6 py-3 font-medium">Status</div>
-                  <div className="px-6 py-3 font-medium text-right">Detail Profile</div>
+                <div className="grid gap-0 items-center min-w-max" style={{ gridTemplateColumns: tableGridColumns }}>
+                  {tableColumns.map((column) => (
+                    <div key={column.key} className="px-6 py-3 font-medium">
+                      {column.label}
+                    </div>
+                  ))}
+                  <div className="px-6 py-3 font-medium text-right">Aksi</div>
                 </div>
               </div>
               <List
                 height={600}
                 itemCount={filteredAlumni.length}
                 itemSize={64}
-                width={'100%'}
+                width={3300}
               >
                 {({ index, style }) => {
                   const alumni = filteredAlumni[index];
                   return (
                     <div style={style} key={alumni.id} className="hover:bg-[#FAFAFA] transition-colors border-b border-[#EAEAEA]">
-                      <div className="grid grid-cols-7 items-center">
-                        <div className="px-6 py-4 font-mono text-xs text-[#666666]">{alumni.id}</div>
-                        <div className="px-6 py-4 font-medium">{alumni.name}</div>
-                        <div className="px-6 py-4 text-[#666666]">{alumni.prodi}</div>
-                        <div className="px-6 py-4 text-[#666666]">{alumni.tanggalLulus || alumni.year}</div>
-                        <div className="px-6 py-4 text-[#666666]">{alumni.nim || '-'}</div>
-                        <div className="px-6 py-4">
-                          <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-medium uppercase tracking-wider
-                            ${alumni.status === 'Teridentifikasi' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 
-                              alumni.status === 'Perlu Verifikasi' ? 'bg-amber-50 text-amber-700 border border-amber-200' : 
-                              alumni.status === 'Belum Ditemukan' ? 'bg-red-50 text-red-700 border border-red-200' :
-                              'bg-gray-50 text-gray-600 border border-gray-200'}`}>
-                            {alumni.status}
-                          </span>
-                        </div>
+                      <div className="grid items-center min-w-max" style={{ gridTemplateColumns: tableGridColumns }}>
+                        {tableColumns.map((column) => (
+                          <div key={column.key} className="px-6 py-4 text-[#666666] truncate" title={String(column.render(alumni) ?? '')}>
+                            {column.render(alumni)}
+                          </div>
+                        ))}
                         <div className="px-6 py-4 text-right">
                           <button 
                             onClick={() => onNavigateToProfile(alumni.id)}
@@ -211,34 +218,23 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
               <table className="w-full text-sm text-left">
                 <thead className="text-xs text-[#666666] uppercase bg-[#FAFAFA] border-b border-[#EAEAEA]">
                   <tr>
-                    <th className="px-6 py-3 font-medium">ID Alumni</th>
-                    <th className="px-6 py-3 font-medium">Nama Lengkap</th>
-                    <th className="px-6 py-3 font-medium">Program Studi</th>
-                    <th className="px-6 py-3 font-medium">Tahun Lulus</th>
-                    <th className="px-6 py-3 font-medium">NIM</th>
-                    <th className="px-6 py-3 font-medium">Status</th>
-                    <th className="px-6 py-3 font-medium text-right">Detail Profile</th>
+                    {tableColumns.map((column) => (
+                      <th key={column.key} className="px-6 py-3 font-medium whitespace-nowrap">
+                        {column.label}
+                      </th>
+                    ))}
+                    <th className="px-6 py-3 font-medium text-right">Aksi</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#EAEAEA]">
                   {filteredAlumni.length > 0 ? (
                     filteredAlumni.map((alumni) => (
                       <tr key={alumni.id} className="hover:bg-[#FAFAFA] transition-colors">
-                        <td className="px-6 py-4 font-mono text-xs text-[#666666]">{alumni.id}</td>
-                        <td className="px-6 py-4 font-medium">{alumni.name}</td>
-                        <td className="px-6 py-4 text-[#666666]">{alumni.prodi}</td>
-                        <td className="px-6 py-4 text-[#666666]">{alumni.tanggalLulus || alumni.year}</td>
-                        <td className="px-6 py-4 text-[#666666]">{alumni.nim || '-'}</td>
-                        <td className="px-6 py-4">
-                          <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-medium uppercase tracking-wider
-                            ${alumni.status === 'Teridentifikasi' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 
-                              alumni.status === 'Perlu Verifikasi' ? 'bg-amber-50 text-amber-700 border border-amber-200' : 
-                              alumni.status === 'Belum Ditemukan' ? 'bg-red-50 text-red-700 border border-red-200' :
-                              'bg-gray-50 text-gray-600 border border-gray-200'}`}>
-                            {alumni.status}
-                          </span>
-                        </td>
-                        
+                        {tableColumns.map((column) => (
+                          <td key={column.key} className="px-6 py-4 text-[#666666] whitespace-nowrap">
+                            {column.render(alumni)}
+                          </td>
+                        ))}
                         <td className="px-6 py-4 text-right">
                           <button 
                             onClick={() => onNavigateToProfile(alumni.id)}
@@ -251,7 +247,7 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={7} className="px-6 py-8 text-center text-[#666666]">
+                      <td colSpan={tableColumns.length + 1} className="px-6 py-8 text-center text-[#666666]">
                         Tidak ada data yang ditemukan.
                       </td>
                     </tr>

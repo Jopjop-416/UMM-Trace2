@@ -121,19 +121,142 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   ]);
 
-  const [verifications, setVerifications] = useState<VerificationData[]>([
-    {
-      candidateId: 'AL-002',
-      matches: [
-        { id: 'm1', source: 'Google Scholar', name: 'Ahmad Syauqi', affiliation: 'Universitas Muhammadiyah Malang', role: 'Peneliti', location: 'Malang', score: 85, link: 'https://scholar.google.com', evidence: 'Nama dan afiliasi cocok dengan data master.' },
-        { id: 'm2', source: 'LinkedIn', name: 'A. Syauqi', affiliation: 'PT Teknologi Inovasi', role: 'Software Engineer', location: 'Jakarta', score: 60, link: 'https://linkedin.com', evidence: 'Nama mirip, namun afiliasi dan lokasi berbeda. Perlu verifikasi manual.' }
-      ]
-    }
-  ]);
+  const [verifications, setVerifications] = useState<VerificationData[]>([]);
 
   const slugify = (s?: string) => (s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
   const randomFrom = <T,>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)];
+  const hashString = (value?: string) => {
+    const text = String(value || '');
+    let hash = 0;
+    for (let i = 0; i < text.length; i++) {
+      hash = ((hash << 5) - hash) + text.charCodeAt(i);
+      hash |= 0;
+    }
+    return Math.abs(hash);
+  };
+  const seededPick = <T,>(arr: T[], seed: number) => arr[seed % arr.length];
+  const seededNumber = (seed: number, min: number, max: number) => min + (seed % (max - min + 1));
+  const extractCityFromAddress = (address?: string) => {
+    if (!address) return undefined;
+    const parts = String(address).split(',').map(part => part.trim()).filter(Boolean);
+    return parts.length >= 2 ? parts[parts.length - 2] : parts[parts.length - 1];
+  };
+  const buildUniqueCompanyAddress = (usedAddresses: Set<string>, seedText?: string, company?: string) => {
+    const baseSeed = hashString(`${seedText || ''}|${company || ''}|${usedAddresses.size}`);
+
+    for (let attempt = 0; attempt < 60; attempt++) {
+      const seed = baseSeed + (attempt * 9973);
+      const location = seededPick(sampleOfficeLocations, seed);
+      const district = seededPick(location.districts, seed + 13);
+      const area = seededPick(location.areas, seed + 29);
+      const road = seededPick(sampleRoadNames, seed + 43);
+      const building = seededPick(sampleOfficeBuildings, seed + 71);
+      const complexName = seededPick(sampleComplexNames, seed + 97);
+      const unitLabel = seededPick(sampleUnitLabels, seed + 131);
+      const buildingNo = (seed % 240) + 8;
+      const floor = ((Math.floor(seed / 7) % 28) + 1);
+      const roomNo = ((Math.floor(seed / 11) % 24) + 1).toString().padStart(2, '0');
+      const blockCode = String.fromCharCode(65 + ((Math.floor(seed / 17) % 6)));
+      const useBuildingPattern = ((seed + attempt) % 2) === 0;
+
+      const address = useBuildingPattern
+        ? `${building}, ${unitLabel} ${blockCode}-${roomNo}, Lt. ${floor}, ${area}, Jl. ${road} No. ${buildingNo}, ${district}, ${location.city}, ${location.province}`
+        : `${area} ${complexName}, ${unitLabel} ${blockCode}-${roomNo}, Jl. ${road} Kav. ${buildingNo}, ${district}, ${location.city}, ${location.province}`;
+
+      if (!usedAddresses.has(address)) {
+        usedAddresses.add(address);
+        return address;
+      }
+    }
+
+    const fallbackSeed = baseSeed + usedAddresses.size + Date.now();
+    const fallbackLocation = seededPick(sampleOfficeLocations, fallbackSeed);
+    const fallback = `Jl. ${seededPick(sampleRoadNames, fallbackSeed)} No. ${(fallbackSeed % 400) + 10}, ${seededPick(fallbackLocation.districts, fallbackSeed + 1)}, ${fallbackLocation.city}, ${fallbackLocation.province}`;
+    usedAddresses.add(fallback);
+    return fallback;
+  };
+  const genPhoneFromSeed = (seedText?: string) => {
+    const seed = hashString(seedText);
+    const prefix = seededPick(samplePhonePrefixes, seed);
+    const totalDigits = seed % 2 === 0 ? 8 : 9;
+    let rest = '';
+    for (let i = 0; i < totalDigits; i++) {
+      rest += String((seed + (i * 7)) % 10);
+    }
+    return `+62${prefix}${rest}`;
+  };
+  const genEmailFromSeed = (name?: string, nid?: string, seedText?: string) => {
+    const seed = hashString(`${seedText || ''}|${name || ''}|${nid || ''}`);
+    if (!name || String(name).trim().length === 0) {
+      return `user${seededNumber(seed, 1000, 9999)}@${seededPick(['gmail.com', 'yahoo.com', 'outlook.com', 'icloud.com'], seed + 17)}`;
+    }
+
+    const emailDomains = ['gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com', 'icloud.com'];
+    const clean = (s: string) => String(s || '').toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
+    const parts = clean(name).split(/\s+/).filter(Boolean);
+    const firstName = parts[0] || 'user';
+    const lastName = parts.length > 1 ? parts[parts.length - 1] : firstName;
+    const initials = parts.map(p => p[0]).join('') || firstName.slice(0, 2);
+    const smallNumber = seed % 100;
+    const localOptions = [
+      `${firstName}${lastName}`,
+      `${firstName}.${lastName}`,
+      `${lastName}${firstName}`,
+      `${firstName}${smallNumber}`,
+      `${firstName}.${lastName}${smallNumber}`,
+      `${initials}.${lastName}`,
+      `${firstName}_${lastName}`,
+      `${firstName}${nid || smallNumber}`
+    ].map(s => s.replace(/\s+/g, ''));
+
+    return `${seededPick(localOptions, seed + 31)}@${seededPick(emailDomains, seed + 47)}`;
+  };
+  const buildTrackedProfile = (base: AlumniData, usedAddresses: Set<string>, index: number) => {
+    const seedText = `${base.id}|${base.name}|${base.nim || ''}|${base.year || ''}|${base.prodi || ''}|${index}`;
+    const seed = hashString(seedText);
+    const prodiCompanies = base.prodi && prodiCompanyMap[base.prodi] ? prodiCompanyMap[base.prodi] : sampleCompanies;
+    const prodiPositions = base.prodi && prodiPositionMap[base.prodi] ? prodiPositionMap[base.prodi] : samplePositions;
+    const company = base.company || seededPick(prodiCompanies, seed + 3);
+    const companyAddress = base.companyAddress || buildUniqueCompanyAddress(usedAddresses, seedText, company);
+    const statusBucket = seed % 100;
+    const generatedStatus = statusBucket < 78 ? 'Teridentifikasi' : statusBucket < 92 ? 'Perlu Verifikasi' : 'Belum Ditemukan';
+    const status = base.status && base.status !== 'Belum Dilacak' ? base.status : generatedStatus;
+    const source = status === 'Belum Ditemukan'
+      ? '-'
+      : (base.source && base.source !== '-' ? base.source : seededPick(sampleSources, seed + 11));
+    const handleBase = `${slugify(base.name).replace(/-/g, '').slice(0, 14)}${seededNumber(seed, 10, 99)}`;
+    const linkedin = status === 'Belum Ditemukan' ? base.linkedin : (base.linkedin || `https://linkedin.com/in/${slugify(base.name)}-${seededNumber(seed, 10, 99)}`);
+    const instagram = status === 'Belum Ditemukan' ? base.instagram : (base.instagram || `https://instagram.com/${handleBase}`);
+    const facebook = status === 'Belum Ditemukan' ? base.facebook : (base.facebook || `https://facebook.com/${handleBase}`);
+    const tiktok = status === 'Belum Ditemukan' ? base.tiktok : (base.tiktok || `https://tiktok.com/@${handleBase}`);
+    const email = status === 'Belum Ditemukan' ? (base.email || genEmailFromSeed(base.name, base.nim, seedText)) : (base.email || genEmailFromSeed(base.name, base.nim, seedText));
+    const phone = status === 'Belum Ditemukan' ? (base.phone || genPhoneFromSeed(seedText)) : (base.phone || genPhoneFromSeed(seedText));
+    const position = status === 'Belum Ditemukan' ? (base.position || '-') : (base.position || seededPick(prodiPositions, seed + 19));
+    const jobTypes = ['Swasta', 'PNS', 'Wirausaha', 'Kontrak'];
+    const jobType = status === 'Belum Ditemukan' ? (base.jobType || '-') : (base.jobType || seededPick(jobTypes, seed + 23));
+    const companySocial = status === 'Belum Ditemukan'
+      ? (base.companySocial || '')
+      : (base.companySocial || `Profil ${company} terhubung pada ${source} dan direktori publik ${extractCityFromAddress(companyAddress) || 'Indonesia'}.`);
+
+    return {
+      ...base,
+      status,
+      source,
+      linkedin,
+      instagram,
+      facebook,
+      tiktok,
+      email,
+      phone,
+      company: status === 'Belum Ditemukan' ? (base.company || '-') : company,
+      companyAddress: status === 'Belum Ditemukan' ? (base.companyAddress || '-') : companyAddress,
+      position,
+      jobType,
+      companySocial,
+      lastUpdated: new Date().toISOString()
+    } as AlumniData;
+  };
 
   const samplePhonePrefixes = ['81','82','83','85','87','88'];
   const genPhone = () => {
@@ -214,7 +337,45 @@ export function AppProvider({ children }: { children: ReactNode }) {
     return `${local}@${domain}`;
   };
 
-  const sampleStreets = ['Jl. Merdeka', 'Jl. Mawar', 'Jl. Melati', 'Jl. Sudirman', 'Jl. Diponegoro', 'Jl. Ahmad Yani'];
+const sampleRoadNames = [
+  'Sudirman', 'Gatot Subroto', 'Ahmad Yani', 'Diponegoro', 'Pemuda', 'Soekarno Hatta',
+  'Mayjen Sungkono', 'Basuki Rahmat', 'Pahlawan', 'Veteran', 'K.H. Ahmad Dahlan',
+  'K.H. Hasyim Ashari', 'MT Haryono', 'Raya Darmo', 'Margonda Raya', 'Asia Afrika',
+  'Cipto Mangunkusumo', 'Rungkut Industri', 'Tunjungan', 'Panglima Sudirman',
+  'Arjuna Utara', 'S. Parman', 'Adityawarman', 'Kertajaya Indah', 'Dr. Wahidin',
+  'A. Yani Utara', 'Ijen Boulevard', 'Letjen Sutoyo', 'Tlogomas', 'Veteran Selatan'
+];
+
+const sampleOfficeLocations = [
+  { city: 'Jakarta Selatan', province: 'DKI Jakarta', districts: ['Setiabudi', 'Kebayoran Baru', 'Mampang Prapatan', 'Tebet'], areas: ['Kawasan SCBD', 'Mega Kuningan', 'TB Simatupang Office Corridor', 'Rasuna Epicentrum'] },
+  { city: 'Jakarta Pusat', province: 'DKI Jakarta', districts: ['Tanah Abang', 'Menteng', 'Senen', 'Kemayoran'], areas: ['Thamrin Business District', 'Cikini Business Park', 'Bendungan Hilir Business Area', 'Sudirman Central Area'] },
+  { city: 'Jakarta Barat', province: 'DKI Jakarta', districts: ['Kebon Jeruk', 'Palmerah', 'Grogol Petamburan', 'Kembangan'], areas: ['Puri CBD', 'Tomang Biz Center', 'Kedoya Business Park', 'Daan Mogot Office Strip'] },
+  { city: 'Jakarta Utara', province: 'DKI Jakarta', districts: ['Kelapa Gading', 'Penjaringan', 'Pademangan', 'Tanjung Priok'], areas: ['Kelapa Gading Commercial Hub', 'Pantai Indah Kapuk Business Park', 'Sunter Industrial Estate', 'Ancol Office District'] },
+  { city: 'Bandung', province: 'Jawa Barat', districts: ['Coblong', 'Lengkong', 'Sukajadi', 'Batununggal'], areas: ['Dago Business Center', 'Buah Batu Commercial Area', 'Pasteur Office Park', 'Setiabudi Commercial Strip'] },
+  { city: 'Surabaya', province: 'Jawa Timur', districts: ['Wonokromo', 'Tegalsari', 'Sukolilo', 'Rungkut'], areas: ['Mayjen Sungkono Office Belt', 'Rungkut Industri', 'Tunjungan Commercial District', 'HR Muhammad Business Area'] },
+  { city: 'Malang', province: 'Jawa Timur', districts: ['Lowokwaru', 'Klojen', 'Sukun', 'Blimbing'], areas: ['Sudirman Business Corridor', 'Ijen Business District', 'Soekarno Hatta Commercial Area', 'Araya Office Park'] },
+  { city: 'Semarang', province: 'Jawa Tengah', districts: ['Candisari', 'Pedurungan', 'Banyumanik', 'Semarang Tengah'], areas: ['Simpang Lima Business District', 'Majapahit Commercial Zone', 'Tembalang Tech Corridor', 'Pemuda Office Lane'] },
+  { city: 'Yogyakarta', province: 'DI Yogyakarta', districts: ['Depok', 'Mlati', 'Gondokusuman', 'Umbulharjo'], areas: ['Gejayan Business Strip', 'Maguwo Office Area', 'Malioboro Commercial Block', 'Ring Road Utara Biz Park'] },
+  { city: 'Bekasi', province: 'Jawa Barat', districts: ['Bekasi Selatan', 'Bekasi Timur', 'Medan Satria', 'Jatiasih'], areas: ['Summarecon Office District', 'Kalimalang Business Strip', 'Harapan Indah Commercial Area', 'Jababeka Access Corridor'] },
+  { city: 'Tangerang', province: 'Banten', districts: ['Cikupa', 'Karawaci', 'Pinang', 'Kelapa Dua'], areas: ['Gading Serpong Business Park', 'CBD Ciledug', 'Alam Sutera Office Park', 'Bitung Industrial Access'] },
+  { city: 'Depok', province: 'Jawa Barat', districts: ['Beji', 'Pancoran Mas', 'Cinere', 'Sukmajaya'], areas: ['Margonda Office Strip', 'Cinere Business Center', 'Grand Depok Commercial Area', 'UI Research Corridor'] },
+  { city: 'Bogor', province: 'Jawa Barat', districts: ['Bogor Tengah', 'Tanah Sareal', 'Bogor Barat', 'Bogor Selatan'], areas: ['Pajajaran Business Corridor', 'Yasmin Commercial Hub', 'Sholeh Iskandar Office Strip', 'Baranangsiang Center'] },
+  { city: 'Sidoarjo', province: 'Jawa Timur', districts: ['Waru', 'Gedangan', 'Sidoarjo', 'Buduran'], areas: ['Waru Industrial Estate', 'Aloha Business Park', 'Buduran Commercial Center', 'Lingkar Timur Office Strip'] },
+  { city: 'Denpasar', province: 'Bali', districts: ['Denpasar Barat', 'Denpasar Selatan', 'Denpasar Utara', 'Denpasar Timur'], areas: ['Teuku Umar Business Area', 'Sunset Road Office Park', 'Mahendradatta Commercial Zone', 'Gatot Subroto Center'] }
+];
+
+const sampleOfficeBuildings = [
+  'Menara Arjuna', 'Graha Nusantara', 'Sentra Bisnis Prima', 'Plaza Meridian', 'Gedung Karya Mandiri',
+  'Menara Cakrawala', 'Graha Inovasi', 'Sentral Niaga', 'Atria Office Tower', 'Pusat Bisnis Harmoni',
+  'Menara Bumi Raya', 'Graha Teknologi', 'Plaza Mahardika', 'Menara Sapta', 'Wisma Andalan'
+];
+
+const sampleComplexNames = [
+  'Business Park', 'Office Tower', 'Corporate Center', 'Niaga Center', 'Business Plaza',
+  'Tech Park', 'Commercial Estate', 'Office Hub', 'Biz Point', 'Trade Center'
+];
+
+const sampleUnitLabels = ['Suite', 'Unit', 'Blok', 'Tower', 'Rukan'];
 
 const sampleCompanies = [
 'PT Telkom Indonesia','PT Indosat Ooredoo','PT XL Axiata',
@@ -785,6 +946,7 @@ const sampleCities = [
 
   const generateMatches = (name: string, baseCompany?: string, baseAddress?: string, count = 2, baseScore = 65): VerificationMatch[] => {
     const matches: VerificationMatch[] = [];
+    const baseCity = extractCityFromAddress(baseAddress);
     for (let i = 0; i < count; i++) {
       const source = randomFrom(sampleSources);
       const parts = name.split(' ').filter(Boolean);
@@ -806,7 +968,7 @@ const sampleCities = [
         citiesPool[s] = citiesPool[r];
         citiesPool[r] = tmp;
       }
-      const city = citiesPool[i % citiesPool.length];
+      const city = i === 0 && baseCity ? baseCity : citiesPool[i % citiesPool.length];
       const location = city; // region-only as requested
       const score = Math.max(30, Math.min(99, baseScore + Math.floor((Math.random() - 0.5) * 30)));
 
@@ -872,10 +1034,9 @@ const sampleCities = [
           header: true,
           skipEmptyLines: true,
           dynamicTyping: true,
+          worker: true,
           complete: (results: any) => {
             const rows: any[] = results.data || [];
-            console.debug('CSV HEADERS:', Object.keys(rows[0] || {}));
-            console.debug('TOTAL CSV ROWS:', rows.length);
 
             
             const normalizeKey = (k: string) => String(k || '').toUpperCase().replace(/\s+/g, '').replace(/_/g, '');
@@ -917,6 +1078,8 @@ const sampleCities = [
               return m ? m[0] : undefined;
             };
 
+            const usedAddresses = new Set<string>();
+            const nowIso = new Date().toISOString();
             const mapped: AlumniData[] = rows.map((row, idx) => {
 
               const id = `CSV-${idx}`;
@@ -945,7 +1108,7 @@ const sampleCities = [
 
               const parsedYear = year || extractYearFrom(tanggalLulus) || '';
 
-              return {
+              const baseRecord = {
                 id,
                 name,
                 prodi,
@@ -968,17 +1131,48 @@ const sampleCities = [
                 companySocial,
                 status: mapStatus(statusRaw),
                 source,
-                lastUpdated: new Date().toISOString()
+                lastUpdated: nowIso
               } as AlumniData;
+
+              return buildTrackedProfile(baseRecord, usedAddresses, idx);
             });
 
-           
-            // Ensure every alumni has an email: if CSV didn't provide one, generate a realistic email
-            const mappedWithEmails = mapped.map(m => ({
-              ...m,
-              email: m.email || genEmail(m.name, m.nim)
-            }));
-            setAlumni(mappedWithEmails);
+            const recentActivities = mapped
+              .filter(item => item.status !== 'Belum Ditemukan')
+              .slice(0, 12)
+              .map((item, idx) => ({
+                id: `ACT-INIT-${idx}`,
+                type: idx % 3 === 0 ? 'RESOLVE' : 'UPDATE',
+                alumniId: item.id,
+                alumniName: item.name,
+                prodi: item.prodi,
+                year: item.year,
+                source: item.source,
+                timestamp: new Date(Date.now() - (idx * 1000 * 60 * 17)).toISOString()
+              }));
+
+            const verificationPool = mapped
+              .filter(item => item.status === 'Perlu Verifikasi')
+              .slice(0, 80)
+              .map((item, idx) => ({
+                candidateId: item.id,
+                matches: generateMatches(item.name, item.company, item.companyAddress, idx % 2 === 0 ? 2 : 3, 68 + (idx % 15))
+              }));
+
+            const foundCount = mapped.filter(item => item.status !== 'Belum Ditemukan').length;
+
+            setActivities(recentActivities);
+            setVerifications(verificationPool);
+            setJobs([{
+              id: 'JOB-AUTOLOAD-001',
+              date: new Date().toLocaleString('id-ID'),
+              status: 'Selesai',
+              target: 'Auto-load seluruh data alumni',
+              found: foundCount,
+              total: mapped.length
+            }]);
+            setResults([]);
+            setAlumni(mapped);
             setCsvLoaded(true);
           },
           error: (err) => {
@@ -1018,6 +1212,11 @@ const sampleCities = [
   const runAutomation = (limit = 500) => {
     const now = new Date();
     const dateStr = `${now.getDate().toString().padStart(2, '0')} Mar ${now.getFullYear()}, ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+    const usedCompanyAddresses = new Set(
+      [...alumni, ...results]
+        .map(item => item.companyAddress)
+        .filter((address): address is string => Boolean(address && String(address).trim()))
+    );
     const newJobId = `JOB-${Math.floor(Math.random() * 1000) + 1000}`;
 
     const untracked = alumni.filter(a => a.status === 'Belum Dilacak');
@@ -1044,7 +1243,7 @@ const sampleCities = [
         if (a.prodi && prodiCompanyMap[a.prodi]) {
           company = randomFrom(prodiCompanyMap[a.prodi]);
         }
-        const companyAddress = `${randomFrom(sampleStreets)} No. ${100 + idx + Math.floor(Math.random()*50)}, ${randomFrom(sampleCities)}`;
+        const companyAddress = buildUniqueCompanyAddress(usedCompanyAddresses, `${a.id}|${a.name}|${idx}`, company);
         let position = randomFrom(samplePositions);
         if (a.prodi && prodiPositionMap[a.prodi]) {
           position = randomFrom(prodiPositionMap[a.prodi]);
