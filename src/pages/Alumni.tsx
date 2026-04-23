@@ -62,7 +62,7 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
 
     const headers = [
       'Nama Lengkap', 'Program Studi', 'NIM', 'Tahun Masuk', 'Tanggal Lulus', 'Fakultas', 'Ekonomi', 'Sumber Utama', 'Status Pelacakan',
-      'Informasi Tambahan', 'LinkedIn', 'Instagram', 'Facebook', 'Tiktok', 'Email', 'No HP', 'Tempat Kerja', 'Posisi', 'Jenis Pekerjaan'
+      'Sosial Media Tempat Kerja', 'LinkedIn', 'Instagram', 'Facebook', 'Tiktok', 'Email', 'No HP', 'Tempat Kerja', 'Posisi', 'Jenis Pekerjaan'
     ];
 
     const rows = filteredAlumni.map(e => {

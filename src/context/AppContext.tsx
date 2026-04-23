@@ -109,6 +109,17 @@ interface AppContextType {
 export const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
+  type CompanyProfile = {
+    domain?: string;
+    careerDomain?: string;
+    linkedin?: string;
+    instagram?: string;
+    facebook?: string;
+    tiktok?: string;
+    preferredCities?: string[];
+    sector?: string;
+    defaultJobType?: 'PNS' | 'Swasta' | 'Wirausaha';
+  };
   const [alumni, setAlumni] = useState<AlumniData[]>([
 
   ]);
@@ -137,6 +148,68 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
   const seededPick = <T,>(arr: T[], seed: number) => arr[seed % arr.length];
   const seededNumber = (seed: number, min: number, max: number) => min + (seed % (max - min + 1));
+  const cleanNameParts = (name?: string) => String(name || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(Boolean);
+  const companyProfiles: Record<string, CompanyProfile> = {
+    'PT Telkom Indonesia': { domain: 'telkom.co.id', linkedin: 'https://linkedin.com/company/telkom-indonesia', instagram: 'https://instagram.com/telkomindonesia', facebook: 'https://facebook.com/telkomindonesia', preferredCities: ['Jakarta Selatan', 'Bandung', 'Surabaya'], sector: 'telekomunikasi', defaultJobType: 'Swasta' },
+    'PT Bank Mandiri': { domain: 'bankmandiri.co.id', linkedin: 'https://linkedin.com/company/bank-mandiri', instagram: 'https://instagram.com/bankmandiri', facebook: 'https://facebook.com/bankmandiri', preferredCities: ['Jakarta Pusat', 'Surabaya', 'Medan'], sector: 'perbankan', defaultJobType: 'Swasta' },
+    'PT BCA': { domain: 'bca.co.id', linkedin: 'https://linkedin.com/company/bca', instagram: 'https://instagram.com/goodlifebca', facebook: 'https://facebook.com/BankBCA', preferredCities: ['Jakarta Pusat', 'Bandung', 'Semarang'], sector: 'perbankan', defaultJobType: 'Swasta' },
+    'PT BRI': { domain: 'bri.co.id', linkedin: 'https://linkedin.com/company/pt-bank-rakyat-indonesia-persero-tbk-', instagram: 'https://instagram.com/bankbri_id', facebook: 'https://facebook.com/BankBRIofficialpage', preferredCities: ['Jakarta Pusat', 'Malang', 'Yogyakarta'], sector: 'perbankan', defaultJobType: 'Swasta' },
+    'PT BNI': { domain: 'bni.co.id', linkedin: 'https://linkedin.com/company/pt-bank-negara-indonesia-persero-tbk-', instagram: 'https://instagram.com/bni46', facebook: 'https://facebook.com/BNI46', preferredCities: ['Jakarta Pusat', 'Surabaya', 'Makassar'], sector: 'perbankan', defaultJobType: 'Swasta' },
+    'PT Gojek Indonesia': { domain: 'gojek.com', linkedin: 'https://linkedin.com/company/gojek', instagram: 'https://instagram.com/gojekindonesia', facebook: 'https://facebook.com/gojekindonesia', tiktok: 'https://tiktok.com/@gojekindonesia', preferredCities: ['Jakarta Selatan', 'Bandung', 'Yogyakarta'], sector: 'digital', defaultJobType: 'Swasta' },
+    'PT Tokopedia': { domain: 'tokopedia.com', linkedin: 'https://linkedin.com/company/tokopedia', instagram: 'https://instagram.com/tokopedia', facebook: 'https://facebook.com/tokopedia', tiktok: 'https://tiktok.com/@tokopedia', preferredCities: ['Jakarta Selatan', 'Bandung'], sector: 'digital', defaultJobType: 'Swasta' },
+    'PT Shopee Indonesia': { domain: 'shopee.co.id', linkedin: 'https://linkedin.com/company/shopee', instagram: 'https://instagram.com/shopee_id', facebook: 'https://facebook.com/ShopeeID', tiktok: 'https://tiktok.com/@shopee_id', preferredCities: ['Jakarta Selatan', 'Surabaya'], sector: 'digital', defaultJobType: 'Swasta' },
+    'PT Ruangguru': { domain: 'ruangguru.com', linkedin: 'https://linkedin.com/company/ruangguru', instagram: 'https://instagram.com/ruangguru', facebook: 'https://facebook.com/ruangguru', tiktok: 'https://tiktok.com/@ruangguru', preferredCities: ['Jakarta Selatan', 'Yogyakarta', 'Malang'], sector: 'edutech', defaultJobType: 'Swasta' },
+    'PT Halodoc': { domain: 'halodoc.com', linkedin: 'https://linkedin.com/company/halodoc-id', instagram: 'https://instagram.com/halodoc', facebook: 'https://facebook.com/Halodoc', preferredCities: ['Jakarta Selatan'], sector: 'healthtech', defaultJobType: 'Swasta' },
+    'PT Pertamina': { domain: 'pertamina.com', linkedin: 'https://linkedin.com/company/pt-pertamina-persero', instagram: 'https://instagram.com/pertamina', facebook: 'https://facebook.com/pertamina', preferredCities: ['Jakarta Pusat', 'Balikpapan', 'Palembang'], sector: 'energi', defaultJobType: 'Swasta' },
+    'PT PLN': { domain: 'pln.co.id', linkedin: 'https://linkedin.com/company/pln', instagram: 'https://instagram.com/pln_id', facebook: 'https://facebook.com/ptplnpersero', preferredCities: ['Jakarta Selatan', 'Surabaya', 'Semarang'], sector: 'utilitas', defaultJobType: 'Swasta' },
+    'Kimia Farma': { domain: 'kimiafarma.co.id', linkedin: 'https://linkedin.com/company/pt-kimia-farma-persero-tbk', instagram: 'https://instagram.com/kimiafarmaind', preferredCities: ['Jakarta Pusat', 'Bandung'], sector: 'farmasi', defaultJobType: 'Swasta' },
+    'Kalbe Farma': { domain: 'kalbe.co.id', linkedin: 'https://linkedin.com/company/kalbe', instagram: 'https://instagram.com/kalbefarma', preferredCities: ['Jakarta Timur', 'Bekasi'], sector: 'farmasi', defaultJobType: 'Swasta' },
+    'RSUD': { domain: 'go.id', linkedin: 'https://linkedin.com', preferredCities: ['Malang', 'Surabaya', 'Semarang'], sector: 'pemerintah', defaultJobType: 'PNS' },
+    'SMA Negeri': { domain: 'sch.id', linkedin: 'https://linkedin.com', preferredCities: ['Malang', 'Yogyakarta', 'Semarang'], sector: 'pendidikan', defaultJobType: 'PNS' },
+    'SMK Negeri': { domain: 'sch.id', linkedin: 'https://linkedin.com', preferredCities: ['Malang', 'Sidoarjo', 'Surabaya'], sector: 'pendidikan', defaultJobType: 'PNS' },
+    'Mahkamah Agung': { domain: 'mahkamahagung.go.id', linkedin: 'https://linkedin.com', preferredCities: ['Jakarta Pusat'], sector: 'pemerintah', defaultJobType: 'PNS' },
+    'Kementerian Hukum dan HAM': { domain: 'kemenkumham.go.id', linkedin: 'https://linkedin.com', preferredCities: ['Jakarta Selatan'], sector: 'pemerintah', defaultJobType: 'PNS' }
+  };
+  const buildCompanyHandle = (company?: string) => slugify(company).replace(/(^pt-|^cv-|indonesia$|persero$|tbk$|go-id$)/g, '').replace(/-+/g, '-').replace(/(^-|-$)/g, '');
+  const inferCompanyProfile = (company?: string): CompanyProfile => {
+    if (!company) return {};
+    if (companyProfiles[company]) return companyProfiles[company];
+    const direct = Object.entries(companyProfiles).find(([name]) => company.includes(name) || name.includes(company));
+    if (direct) return direct[1];
+
+    const handle = buildCompanyHandle(company);
+    const lower = company.toLowerCase();
+    const isGov = /kementerian|mahkamah|rsud|sma negeri|smk negeri|universitas|dinas|pemkot|pemkab/.test(lower);
+    const isEntrepreneur = /cv |startup|studio|agency|creative|konsultan|kantor advokat/.test(lower);
+    const domain = isGov ? `${handle || 'instansi'}.go.id` : `${handle || 'company'}.co.id`;
+    return {
+      domain,
+      linkedin: `https://linkedin.com/company/${handle || 'company'}`,
+      instagram: isGov ? undefined : `https://instagram.com/${handle || 'company'}`,
+      facebook: isGov ? undefined : `https://facebook.com/${handle || 'company'}`,
+      tiktok: isGov ? undefined : `https://tiktok.com/@${handle || 'company'}`,
+      sector: isGov ? 'pemerintah' : isEntrepreneur ? 'wirausaha' : 'korporasi',
+      defaultJobType: isGov ? 'PNS' : isEntrepreneur ? 'Wirausaha' : 'Swasta'
+    };
+  };
+  const buildPersonalHandle = (name?: string, seed = 0) => {
+    const parts = cleanNameParts(name);
+    const first = parts[0] || 'user';
+    const last = parts.length > 1 ? parts[parts.length - 1] : '';
+    const styles = [
+      `${first}${last}`,
+      `${first}.${last}`,
+      `${first}_${last}`,
+      `${first}${seededNumber(seed, 11, 99)}`,
+      `${first}${last}${seededNumber(seed + 13, 1, 9)}`
+    ].map(v => v.replace(/\.+$/, '').replace(/^[_\.]+|[_\.]+$/g, '')).filter(Boolean);
+    return seededPick(styles, seed + 5);
+  };
+  const buildCompanySocial = (company?: string, seed = 0) => {
+    const profile = inferCompanyProfile(company);
+    const options = [profile.linkedin, profile.instagram, profile.facebook, profile.tiktok].filter(Boolean) as string[];
+    return options.length > 0 ? seededPick(options, seed + 41) : `https://linkedin.com/company/${buildCompanyHandle(company) || `company-${seededNumber(seed, 100, 999)}`}`;
+  };
   const extractCityFromAddress = (address?: string) => {
     if (!address) return undefined;
     const parts = String(address).split(',').map(part => part.trim()).filter(Boolean);
@@ -216,28 +289,57 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const seedText = `${base.id}|${base.name}|${base.nim || ''}|${base.year || ''}|${base.prodi || ''}|${index}`;
     const seed = hashString(seedText);
     const prodiCompanies = base.prodi && prodiCompanyMap[base.prodi] ? prodiCompanyMap[base.prodi] : sampleCompanies;
+    const diversifiedCompanies = base.prodi && prodiDiversifiedCompanyMap[base.prodi] ? prodiDiversifiedCompanyMap[base.prodi] : diversifiedPrivateCompanies;
+    const companyPool = Array.from(new Set([...prodiCompanies, ...diversifiedCompanies, ...diversifiedPrivateCompanies]));
     const prodiPositions = base.prodi && prodiPositionMap[base.prodi] ? prodiPositionMap[base.prodi] : samplePositions;
-    const company = base.company || seededPick(prodiCompanies, seed + 3);
+    const company = base.company || seededPick(companyPool, seed + 3);
+    const companyProfile = inferCompanyProfile(company);
     const companyAddress = base.companyAddress || buildUniqueCompanyAddress(usedAddresses, seedText, company);
     const statusBucket = seed % 100;
     const generatedStatus = statusBucket < 78 ? 'Teridentifikasi' : statusBucket < 92 ? 'Perlu Verifikasi' : 'Belum Ditemukan';
     const status = base.status && base.status !== 'Belum Dilacak' ? base.status : generatedStatus;
+    const trackedSources = ['LinkedIn', 'Website Perusahaan', 'Instagram', 'Facebook', 'Tracer Study Kampus', 'Jobstreet', 'Glints', 'Google'];
     const source = status === 'Belum Ditemukan'
       ? '-'
-      : (base.source && base.source !== '-' ? base.source : seededPick(sampleSources, seed + 11));
-    const handleBase = `${slugify(base.name).replace(/-/g, '').slice(0, 14)}${seededNumber(seed, 10, 99)}`;
-    const linkedin = status === 'Belum Ditemukan' ? base.linkedin : (base.linkedin || `https://linkedin.com/in/${slugify(base.name)}-${seededNumber(seed, 10, 99)}`);
-    const instagram = status === 'Belum Ditemukan' ? base.instagram : (base.instagram || `https://instagram.com/${handleBase}`);
-    const facebook = status === 'Belum Ditemukan' ? base.facebook : (base.facebook || `https://facebook.com/${handleBase}`);
-    const tiktok = status === 'Belum Ditemukan' ? base.tiktok : (base.tiktok || `https://tiktok.com/@${handleBase}`);
-    const email = status === 'Belum Ditemukan' ? (base.email || genEmailFromSeed(base.name, base.nim, seedText)) : (base.email || genEmailFromSeed(base.name, base.nim, seedText));
-    const phone = status === 'Belum Ditemukan' ? (base.phone || genPhoneFromSeed(seedText)) : (base.phone || genPhoneFromSeed(seedText));
+      : (base.source && base.source !== '-' ? base.source : seededPick(trackedSources, seed + 11));
+    const handleBase = buildPersonalHandle(base.name, seed);
+    const linkedin = status === 'Belum Ditemukan'
+      ? base.linkedin
+      : (base.linkedin || `https://linkedin.com/in/${slugify(base.name)}-${seededNumber(seed, 10, 99)}`);
+    const instagram = status === 'Belum Ditemukan'
+      ? base.instagram
+      : (base.instagram || `https://instagram.com/${handleBase}`);
+    const facebook = status === 'Belum Ditemukan'
+      ? base.facebook
+      : (base.facebook || `https://facebook.com/${handleBase.replace(/\./g, '')}`);
+    const tiktok = status === 'Belum Ditemukan'
+      ? base.tiktok
+      : (base.tiktok || `https://tiktok.com/@${handleBase.replace(/\./g, '_')}`);
+    const shouldUseCorporateEmail = status !== 'Belum Ditemukan' && companyProfile.domain && seed % 100 < 34 && companyProfile.defaultJobType !== 'Wirausaha';
+    const corporateLocal = (() => {
+      const parts = cleanNameParts(base.name);
+      const first = parts[0] || 'user';
+      const last = parts.length > 1 ? parts[parts.length - 1] : '';
+      const options = [
+        `${first}.${last}`,
+        `${first[0] || 'u'}${last}`,
+        `${first}${seededNumber(seed, 1, 9)}`,
+        `${first}.${last}${seededNumber(seed + 9, 1, 9)}`
+      ].map(v => v.replace(/\.+$/, '').replace(/^\.|\.$/g, ''));
+      return seededPick(options, seed + 61);
+    })();
+    const email = status === 'Belum Ditemukan'
+      ? (base.email || genEmailFromSeed(base.name, base.nim, seedText))
+      : (base.email || (shouldUseCorporateEmail ? `${corporateLocal}@${companyProfile.domain}` : genEmailFromSeed(base.name, base.nim, seedText)));
+    const phone = status === 'Belum Ditemukan' ? (base.phone || '-') : (base.phone || genPhoneFromSeed(seedText));
     const position = status === 'Belum Ditemukan' ? (base.position || '-') : (base.position || seededPick(prodiPositions, seed + 19));
-    const jobTypes = ['Swasta', 'PNS', 'Wirausaha', 'Kontrak'];
-    const jobType = status === 'Belum Ditemukan' ? (base.jobType || '-') : (base.jobType || seededPick(jobTypes, seed + 23));
+    const fallbackJobType = companyProfile.defaultJobType || seededPick(['Swasta', 'PNS', 'Wirausaha'], seed + 23);
+    const jobType = status === 'Belum Ditemukan'
+      ? (base.jobType || '-')
+      : (base.jobType || ((/founder|entrepreneur/i.test(position) || companyProfile.sector === 'wirausaha') ? 'Wirausaha' : fallbackJobType));
     const companySocial = status === 'Belum Ditemukan'
       ? (base.companySocial || '')
-      : (base.companySocial || `Profil ${company} terhubung pada ${source} dan direktori publik ${extractCityFromAddress(companyAddress) || 'Indonesia'}.`);
+      : (base.companySocial || buildCompanySocial(company, seed));
 
     return {
       ...base,
@@ -402,6 +504,94 @@ const sampleCompanies = [
 'Startup Digital Nusantara','CV Maju Bersama',
 'CV Sinar Teknologi','CV Data Nusantara'
 ];
+
+const diversifiedPrivateCompanies = [
+  'PT Cipta Logistik Nusantara',
+  'PT Solusi Distribusi Indonesia',
+  'PT Prima Retail Indonesia',
+  'PT Sukses Niaga Abadi',
+  'PT Kreasi Media Digital',
+  'PT Inovasi Kreatif Nusantara',
+  'PT Mitra Konsultan Bisnis',
+  'PT Artha Konsultan Indonesia',
+  'PT Nusantara Karya Konsultan',
+  'PT Sentra Analitika Data',
+  'PT Integrasi Sistem Cerdas',
+  'PT Digital Ventura Asia',
+  'PT Cakra Teknologi Integrasi',
+  'PT Global Servis Indonesia',
+  'PT Pilar Sinergi Solusi',
+  'PT Andalan Properti Indonesia',
+  'PT Arsitek Ruang Indonesia',
+  'PT Desain Ruang Urban',
+  'PT Sinar Konstruksi Mandiri',
+  'PT Bina Teknik Persada',
+  'PT Mitra Rekayasa Industri',
+  'PT Prima Otomasi Industri',
+  'PT Teknologi Pangan Nusantara',
+  'PT Sehat Medika Sejahtera',
+  'PT Klinik Pratama Indonesia',
+  'RS Mitra Sehat Sentosa',
+  'Rumah Sakit Bhakti Husada',
+  'Sekolah Cendekia Nusantara',
+  'SMA Muhammadiyah Modern',
+  'SMK Bina Prestasi',
+  'Universitas Teknologi Nusantara',
+  'Institut Sains dan Bisnis Nasional',
+  'PT Karya Wisata Indonesia',
+  'PT Jejak Kuliner Nusantara',
+  'PT Boga Rasa Indonesia',
+  'PT Cipta Furnitur Indonesia',
+  'PT Maju Motor Indonesia',
+  'PT Sukses Agritech Nusantara',
+  'PT Penerbitan Media Nusantara',
+  'PT Kreatif Komunika Indonesia',
+  'PT Studio Visual Nusantara',
+  'PT Event Kreasi Indonesia',
+  'Creative Studio Nusantara',
+  'Digital Agency Indonesia',
+  'CV Rancang Usaha Mandiri',
+  'CV Karya Kreatif Bersama',
+  'CV Sentra Niaga Mandiri',
+  'CV Inspirasi Usaha Kreatif',
+  'Klinik Utama Sehat Keluarga',
+  'Kantor Konsultan Pajak Nusantara',
+  'Kantor Akuntan Publik Andalan',
+  'Kantor Hukum Mitra Perkara',
+  'Notaris dan PPAT Rekan Sejahtera'
+];
+
+const prodiDiversifiedCompanyMap: Record<string, string[]> = {
+  'Teknik Informatika': ['PT Integrasi Sistem Cerdas', 'PT Sentra Analitika Data', 'PT Digital Ventura Asia', 'PT Cakra Teknologi Integrasi', 'Digital Agency Indonesia'],
+  'Sistem Informasi': ['PT Mitra Konsultan Bisnis', 'PT Solusi Distribusi Indonesia', 'PT Pilar Sinergi Solusi', 'PT Global Servis Indonesia'],
+  'Teknologi Informasi': ['PT Integrasi Sistem Cerdas', 'PT Cipta Logistik Nusantara', 'PT Digital Ventura Asia', 'PT Prima Retail Indonesia'],
+  'Ilmu Komputer': ['PT Sentra Analitika Data', 'PT Inovasi Kreatif Nusantara', 'PT Cakra Teknologi Integrasi', 'Creative Studio Nusantara'],
+  'Rekayasa Perangkat Lunak': ['PT Integrasi Sistem Cerdas', 'PT Cakra Teknologi Integrasi', 'PT Digital Ventura Asia', 'Startup Digital Nusantara'],
+  'Teknik Komputer': ['PT Mitra Rekayasa Industri', 'PT Prima Otomasi Industri', 'PT Global Servis Indonesia', 'PT Integrasi Sistem Cerdas'],
+  'Teknik Elektro': ['PT Prima Otomasi Industri', 'PT Bina Teknik Persada', 'PT Mitra Rekayasa Industri', 'PT Sinar Konstruksi Mandiri'],
+  'Teknik Industri': ['PT Sukses Niaga Abadi', 'PT Cipta Logistik Nusantara', 'PT Solusi Distribusi Indonesia', 'PT Prima Retail Indonesia'],
+  'Teknik Mesin': ['PT Maju Motor Indonesia', 'PT Bina Teknik Persada', 'PT Mitra Rekayasa Industri', 'PT Sinar Konstruksi Mandiri'],
+  'Teknik Sipil': ['PT Sinar Konstruksi Mandiri', 'PT Bina Teknik Persada', 'PT Andalan Properti Indonesia', 'PT Arsitek Ruang Indonesia'],
+  'Arsitektur': ['PT Arsitek Ruang Indonesia', 'PT Desain Ruang Urban', 'PT Andalan Properti Indonesia', 'Creative Studio Nusantara'],
+  'Akuntansi': ['Kantor Akuntan Publik Andalan', 'Kantor Konsultan Pajak Nusantara', 'PT Artha Konsultan Indonesia', 'PT Mitra Konsultan Bisnis'],
+  'Manajemen': ['PT Sukses Niaga Abadi', 'PT Prima Retail Indonesia', 'PT Karya Wisata Indonesia', 'PT Solusi Distribusi Indonesia'],
+  'Ekonomi': ['PT Artha Konsultan Indonesia', 'PT Sukses Niaga Abadi', 'PT Prima Retail Indonesia', 'PT Boga Rasa Indonesia'],
+  'Administrasi Bisnis': ['PT Solusi Distribusi Indonesia', 'PT Sukses Niaga Abadi', 'PT Prima Retail Indonesia', 'PT Karya Wisata Indonesia'],
+  'Bisnis Digital': ['PT Kreasi Media Digital', 'Digital Agency Indonesia', 'PT Inovasi Kreatif Nusantara', 'Creative Studio Nusantara'],
+  'Marketing': ['PT Kreasi Media Digital', 'Digital Agency Indonesia', 'PT Kreatif Komunika Indonesia', 'PT Event Kreasi Indonesia'],
+  'Keuangan': ['Kantor Konsultan Pajak Nusantara', 'PT Artha Konsultan Indonesia', 'Kantor Akuntan Publik Andalan', 'PT Mitra Konsultan Bisnis'],
+  'Perbankan': ['PT Artha Konsultan Indonesia', 'PT Solusi Distribusi Indonesia', 'PT Prima Retail Indonesia'],
+  'Hukum': ['Kantor Hukum Mitra Perkara', 'Notaris dan PPAT Rekan Sejahtera', 'Kantor Konsultan Pajak Nusantara'],
+  'Psikologi': ['PT Global Servis Indonesia', 'PT Mitra Konsultan Bisnis', 'Sekolah Cendekia Nusantara', 'Klinik Utama Sehat Keluarga'],
+  'Ilmu Komunikasi': ['PT Penerbitan Media Nusantara', 'PT Kreatif Komunika Indonesia', 'PT Event Kreasi Indonesia', 'Digital Agency Indonesia'],
+  'Desain Komunikasi Visual': ['Creative Studio Nusantara', 'PT Studio Visual Nusantara', 'Digital Agency Indonesia', 'PT Kreasi Media Digital'],
+  'Multimedia': ['PT Studio Visual Nusantara', 'Creative Studio Nusantara', 'PT Penerbitan Media Nusantara', 'PT Event Kreasi Indonesia'],
+  'Pendidikan Informatika': ['Sekolah Cendekia Nusantara', 'SMK Bina Prestasi', 'Universitas Teknologi Nusantara', 'Institut Sains dan Bisnis Nasional'],
+  'Pendidikan Matematika': ['SMA Muhammadiyah Modern', 'Sekolah Cendekia Nusantara', 'Universitas Teknologi Nusantara'],
+  'Kedokteran': ['RS Mitra Sehat Sentosa', 'Rumah Sakit Bhakti Husada', 'Klinik Utama Sehat Keluarga', 'PT Sehat Medika Sejahtera'],
+  'Keperawatan': ['RS Mitra Sehat Sentosa', 'Rumah Sakit Bhakti Husada', 'Klinik Utama Sehat Keluarga'],
+  'Farmasi': ['PT Sehat Medika Sejahtera', 'PT Teknologi Pangan Nusantara', 'Klinik Utama Sehat Keluarga']
+};
 
 
 const prodiCompanyMap: Record<string, string[]> = {

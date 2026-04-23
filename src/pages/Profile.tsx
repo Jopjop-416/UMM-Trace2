@@ -22,7 +22,8 @@ export default function Profile({ alumniId, goBack }: { alumniId: string, goBack
     company: '',
     companyAddress: '',
     position: '',
-    jobType: ''
+    jobType: '',
+    companySocial: ''
   });
 
   useEffect(() => {
@@ -46,7 +47,8 @@ export default function Profile({ alumniId, goBack }: { alumniId: string, goBack
         company: data.company || '',
         companyAddress: data.companyAddress || '',
         position: data.position || '',
-        jobType: data.jobType || ''
+        jobType: data.jobType || '',
+        companySocial: data.companySocial || ''
       });
     }
   }, [alumniId, alumni]);
@@ -224,6 +226,10 @@ export default function Profile({ alumniId, goBack }: { alumniId: string, goBack
             <div>
               <label className="block text-xs font-medium text-[#666666] mb-1">Jenis Pekerjaan</label>
               <input type="text" value={formData.jobType} onChange={e => setFormData({...formData, jobType: e.target.value})} className="w-full px-3 py-2 text-sm border border-[#EAEAEA] rounded-md" />
+            </div>
+            <div className="md:col-span-2">
+              <label className="block text-xs font-medium text-[#666666] mb-1">Sosial Media Tempat Kerja</label>
+              <input type="text" value={formData.companySocial} onChange={e => setFormData({...formData, companySocial: e.target.value})} className="w-full px-3 py-2 text-sm border border-[#EAEAEA] rounded-md" />
             </div>
           </div>
         </div>
