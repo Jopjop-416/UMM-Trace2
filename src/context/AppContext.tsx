@@ -210,6 +210,77 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const options = [profile.linkedin, profile.instagram, profile.facebook, profile.tiktok].filter(Boolean) as string[];
     return options.length > 0 ? seededPick(options, seed + 41) : `https://linkedin.com/company/${buildCompanyHandle(company) || `company-${seededNumber(seed, 100, 999)}`}`;
   };
+  const buildSourceLink = (source: string, name: string, company: string, seed: number) => {
+    const personalHandle = buildPersonalHandle(name, seed);
+    const companyHandle = buildCompanyHandle(company) || `company-${seededNumber(seed, 100, 999)}`;
+    const profile = inferCompanyProfile(company);
+    if (source === 'LinkedIn') return `https://linkedin.com/in/${slugify(name)}-${seededNumber(seed, 10, 99)}`;
+    if (source === 'Instagram') return `https://instagram.com/${personalHandle}`;
+    if (source === 'Facebook') return `https://facebook.com/${personalHandle.replace(/\./g, '')}`;
+    if (source === 'TikTok') return `https://tiktok.com/@${personalHandle.replace(/\./g, '_')}`;
+    if (source === 'Website Perusahaan') return `https://${profile.domain || `${companyHandle}.co.id`}`;
+    if (source === 'Jobstreet') return `https://www.jobstreet.co.id/id/job-search/${companyHandle}-jobs/`;
+    if (source === 'Glints') return `https://glints.com/id/opportunities/jobs/explore?keyword=${encodeURIComponent(company)}`;
+    if (source === 'Google') return `https://www.google.com/search?q=${encodeURIComponent(`${name} ${company}`)}`;
+    return `https://www.google.com/search?q=${encodeURIComponent(`${name} ${company}`)}`;
+  };
+  const buildCompanySocialBySource = (company: string, source: string, seed: number) => {
+    const profile = inferCompanyProfile(company);
+    if (source === 'LinkedIn' && profile.linkedin) return profile.linkedin;
+    if (source === 'Instagram' && profile.instagram) return profile.instagram;
+    if (source === 'Facebook' && profile.facebook) return profile.facebook;
+    if (source === 'TikTok' && profile.tiktok) return profile.tiktok;
+    if (source === 'Website Perusahaan') return `https://${profile.domain || `${buildCompanyHandle(company) || 'company'}.co.id`}`;
+    return buildCompanySocial(company, seed);
+  };
+  const buildSourceSpecificEvidence = (source: string, name: string, company: string, role: string, location: string, link: string, seed: number) => {
+    const referenceId = `${buildPersonalHandle(name, seed)}-${seededNumber(seed + 7, 100, 999)}`;
+    const templates: Record<string, string[]> = {
+      LinkedIn: [
+        `Profil LinkedIn menampilkan ${name} sebagai ${role} di ${company} dengan lokasi ${location}. URL profil mengarah ke ${link}.`,
+        `Entri LinkedIn memperlihatkan pengalaman kerja ${name} di ${company} sebagai ${role}, terhubung dengan area ${location}.`
+      ],
+      Instagram: [
+        `Bio Instagram ${name} mencantumkan afiliasi ${company} dan aktivitas profesional di ${location}. Referensi akun: ${referenceId}.`,
+        `Posting Instagram menampilkan identitas ${name} terkait ${company}, dengan konteks pekerjaan ${role} di ${location}.`
+      ],
+      Facebook: [
+        `Informasi profil Facebook menunjukkan ${name} bekerja di ${company} sebagai ${role} dan aktif di wilayah ${location}.`,
+        `Halaman Facebook personal menandai ${company} sebagai tempat kerja ${name} dengan detail lokasi ${location}.`
+      ],
+      TikTok: [
+        `Deskripsi akun TikTok memuat nama ${name}, tautan ke ${company}, dan jejak aktivitas profesi ${role} di ${location}.`,
+        `Konten TikTok mengarah pada identitas ${name} yang terhubung dengan ${company} di area ${location}.`
+      ],
+      'Website Perusahaan': [
+        `Direktori internal/website perusahaan menampilkan ${name} pada tim ${company} dengan jabatan ${role} di ${location}.`,
+        `Halaman profil staf pada website ${company} memuat nama ${name}, peran ${role}, dan lokasi kerja ${location}.`
+      ],
+      Jobstreet: [
+        `Riwayat karier pada Jobstreet menunjukkan ${name} bekerja di ${company} sebagai ${role} dengan basis kerja ${location}.`,
+        `Profil kandidat Jobstreet mengaitkan ${name} dengan ${company} dan jabatan ${role} di ${location}.`
+      ],
+      Glints: [
+        `Entri Glints menampilkan ${name} pada perusahaan ${company} dengan peran ${role}, terlokasi di ${location}.`,
+        `Profil profesional di Glints memuat keterkaitan ${name} dengan ${company} dan area kerja ${location}.`
+      ],
+      Google: [
+        `Hasil pencarian Google mempertemukan nama ${name}, ${company}, dan jabatan ${role} pada beberapa hasil publik di ${location}.`,
+        `Agregasi pencarian web menunjukkan kecocokan nama ${name} dengan ${company} serta lokasi ${location}.`
+      ]
+    };
+    const pool = templates[source] || [
+      `Sumber ${source} menampilkan kecocokan ${name} dengan ${company} sebagai ${role} di ${location}.`,
+      `Jejak publik pada ${source} mengaitkan ${name} dengan ${company} dan lokasi kerja ${location}.`
+    ];
+    return seededPick(pool, seed + 101);
+  };
+  const pickCompanyLocationPool = (company?: string) => {
+    const profile = inferCompanyProfile(company);
+    if (!profile.preferredCities || profile.preferredCities.length === 0) return sampleOfficeLocations;
+    const matched = sampleOfficeLocations.filter(location => profile.preferredCities?.includes(location.city));
+    return matched.length > 0 ? matched : sampleOfficeLocations;
+  };
   const extractCityFromAddress = (address?: string) => {
     if (!address) return undefined;
     const parts = String(address).split(',').map(part => part.trim()).filter(Boolean);
@@ -217,10 +288,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
   const buildUniqueCompanyAddress = (usedAddresses: Set<string>, seedText?: string, company?: string) => {
     const baseSeed = hashString(`${seedText || ''}|${company || ''}|${usedAddresses.size}`);
+    const locationPool = pickCompanyLocationPool(company);
 
     for (let attempt = 0; attempt < 60; attempt++) {
       const seed = baseSeed + (attempt * 9973);
-      const location = seededPick(sampleOfficeLocations, seed);
+      const location = seededPick(locationPool, seed);
       const district = seededPick(location.districts, seed + 13);
       const area = seededPick(location.areas, seed + 29);
       const road = seededPick(sampleRoadNames, seed + 43);
@@ -298,7 +370,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const statusBucket = seed % 100;
     const generatedStatus = statusBucket < 78 ? 'Teridentifikasi' : statusBucket < 92 ? 'Perlu Verifikasi' : 'Belum Ditemukan';
     const status = base.status && base.status !== 'Belum Dilacak' ? base.status : generatedStatus;
-    const trackedSources = ['LinkedIn', 'Website Perusahaan', 'Instagram', 'Facebook', 'Tracer Study Kampus', 'Jobstreet', 'Glints', 'Google'];
+    const trackedSources = ['LinkedIn', 'Website Perusahaan', 'Instagram', 'Facebook', 'Jobstreet', 'Glints', 'Google'];
     const source = status === 'Belum Ditemukan'
       ? '-'
       : (base.source && base.source !== '-' ? base.source : seededPick(trackedSources, seed + 11));
@@ -339,7 +411,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       : (base.jobType || ((/founder|entrepreneur/i.test(position) || companyProfile.sector === 'wirausaha') ? 'Wirausaha' : fallbackJobType));
     const companySocial = status === 'Belum Ditemukan'
       ? (base.companySocial || '')
-      : (base.companySocial || buildCompanySocial(company, seed));
+      : (base.companySocial || buildCompanySocialBySource(company, source, seed));
 
     return {
       ...base,
@@ -1138,7 +1210,8 @@ const sampleCities = [
     const matches: VerificationMatch[] = [];
     const baseCity = extractCityFromAddress(baseAddress);
     for (let i = 0; i < count; i++) {
-      const source = randomFrom(sampleSources);
+      const sourcePool = ['LinkedIn', 'Website Perusahaan', 'Instagram', 'Facebook', 'TikTok', 'Jobstreet', 'Glints', 'Google'];
+      const source = seededPick(sourcePool, hashString(`${name}|${baseCompany || ''}|${i}`));
       const parts = name.split(' ').filter(Boolean);
       const variationOptions = [
         name,
@@ -1161,23 +1234,8 @@ const sampleCities = [
       const city = i === 0 && baseCity ? baseCity : citiesPool[i % citiesPool.length];
       const location = city; // region-only as requested
       const score = Math.max(30, Math.min(99, baseScore + Math.floor((Math.random() - 0.5) * 30)));
-
-      const handle = slugify(name).replace(/-/g, '').slice(0, 12) + (i === 0 ? '' : String(i));
-      const link = source === 'LinkedIn' ? `https://linkedin.com/in/${slugify(name)}`
-        : source === 'GitHub' ? `https://github.com/${handle}`
-        : source === 'ResearchGate' ? `https://www.researchgate.net/profile/${slugify(name)}`
-        : source === 'Facebook' ? `https://facebook.com/${handle}`
-        : source === 'Instagram' ? `https://instagram.com/${handle}`
-        : source === 'TikTok' ? `https://tiktok.com/@${handle}`
-        : `https://www.google.com/search?q=${encodeURIComponent(name + ' ' + company)}`;
-
-      
-      const evidenceTemplates = [
-        `Hasil pencarian pada ${source}. Nama: "${variation}". Afiliasi: ${company}. Lokasi: ${location}. Referensi: ${handle}.${Math.floor(Math.random()*9000)}.`,
-        `${source} menunjukkan profil dengan nama "${variation}" (lokasi ${location}) terkait ${company}. Ditemukan entri publik dan kontak terkait.`,
-        `Sumber ${source}: ditemukan entry nama "${variation}" yang tampak bekerja di ${company} (${location}). ID referensi ${Math.random().toString(36).slice(2,8)}.`
-      ];
-      const evidence = randomFrom(evidenceTemplates);
+      const link = buildSourceLink(source, variation, company, hashString(`${variation}|${company}|${source}|${i}`));
+      const evidence = buildSourceSpecificEvidence(source, variation, company, role, location, link, hashString(`${variation}|${company}|${source}|${i}`));
 
       matches.push({
         id: `m-${Date.now()}-${Math.random().toString(36).substr(2,5)}-${i}`,
