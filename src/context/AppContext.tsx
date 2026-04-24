@@ -1,5 +1,8 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import Papa from 'papaparse';
+import socialMediaOverrides from '../data/socialMediaOverrides';
+import primaryContactOverrides from '../data/primaryContactOverrides';
+import dummyEmailOverrides from '../data/dummyEmailOverrides';
 
 export interface AlumniData {
   id: string;
@@ -157,6 +160,25 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
     return normalized;
   };
+  const normalizePhoneNumber = (value?: string | null) => {
+    const normalized = normalizeOptionalValue(value);
+    if (!normalized) return '';
+    const digits = normalized.replace(/\D+/g, '');
+    if (!digits) return '';
+    if (digits.startsWith('62')) return `0${digits.slice(2)}`;
+    if (digits.startsWith('0')) return digits;
+    return digits;
+  };
+  const normalizeNameKey = (value?: string | null) => String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().replace(/\s+/g, ' ');
+  const socialMediaOverrideMap = new Map(
+    socialMediaOverrides.map(item => [normalizeNameKey(item.name), item])
+  );
+  const primaryContactOverrideMap = new Map(
+    primaryContactOverrides.map(item => [normalizeNameKey(item.name), item])
+  );
+  const dummyEmailOverrideMap = new Map(
+    dummyEmailOverrides.map(item => [normalizeNameKey(item.name), item])
+  );
   const cleanNameParts = (name?: string) => String(name || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(Boolean);
   const companyProfiles: Record<string, CompanyProfile> = {
     'PT Telkom Indonesia': { domain: 'telkom.co.id', linkedin: 'https://linkedin.com/company/telkom-indonesia', instagram: 'https://instagram.com/telkomindonesia', facebook: 'https://facebook.com/telkomindonesia', preferredCities: ['Jakarta Selatan', 'Bandung', 'Surabaya'], sector: 'telekomunikasi', defaultJobType: 'BUMN/BUMD' },
@@ -272,6 +294,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
     };
     const filledPlatforms = Object.entries(normalized).filter(([, value]) => Boolean(normalizeOptionalValue(value)));
     const handle = buildPersonalHandle(name, seed);
+
+    if (status === 'Teridentifikasi') {
+      return {
+        linkedin: normalized.linkedin || `https://linkedin.com/in/${slugify(name)}-${seededNumber(seed + 17, 10, 99)}`,
+        instagram: normalized.instagram || `https://instagram.com/${handle}${seed % 3 === 0 ? seededNumber(seed + 29, 1, 9) : ''}`,
+        facebook: normalized.facebook || `https://facebook.com/${handle.replace(/\./g, '').replace(/_/g, '')}`,
+        tiktok: normalized.tiktok || `https://tiktok.com/@${handle.replace(/\./g, '_')}${seed % 4 === 0 ? seededNumber(seed + 41, 1, 9) : ''}`
+      };
+    }
 
     if (filledPlatforms.length === 1 && filledPlatforms[0][0] === 'linkedin') {
       const diversifyBucket = seed % 100;
@@ -429,7 +460,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     for (let i = 0; i < totalDigits; i++) {
       rest += String((seed + (i * 7)) % 10);
     }
-    return `+62${prefix}${rest}`;
+    return `0${prefix}${rest}`;
   };
   const genEmailFromSeed = (name?: string, nid?: string, seedText?: string) => {
     const seed = hashString(`${seedText || ''}|${name || ''}|${nid || ''}`);
@@ -461,11 +492,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const seedText = `${base.id}|${base.name}|${base.nim || ''}|${base.year || ''}|${base.prodi || ''}|${index}`;
     const seed = hashString(seedText);
     const publicMix = options?.publicMix === true;
+    const normalizedName = normalizeNameKey(base.name);
+    const socialOverride = socialMediaOverrideMap.get(normalizedName);
+    const primaryContactOverride = primaryContactOverrideMap.get(normalizedName);
+    const dummyEmailOverride = primaryContactOverride ? undefined : dummyEmailOverrideMap.get(normalizedName);
     const baseHadAnyIndividualSocial = [
-      normalizeOptionalValue(base.linkedin),
-      normalizeOptionalValue(base.instagram),
-      normalizeOptionalValue(base.facebook),
-      normalizeOptionalValue(base.tiktok)
+      normalizeOptionalValue(socialOverride?.linkedin || base.linkedin),
+      normalizeOptionalValue(socialOverride?.instagram || base.instagram),
+      normalizeOptionalValue(socialOverride?.facebook || base.facebook),
+      normalizeOptionalValue(socialOverride?.tiktok || base.tiktok)
     ].some(Boolean);
     const prodiCompanies = base.prodi && prodiCompanyMap[base.prodi] ? prodiCompanyMap[base.prodi] : sampleCompanies;
     const diversifiedCompanies = base.prodi && prodiDiversifiedCompanyMap[base.prodi] ? prodiDiversifiedCompanyMap[base.prodi] : diversifiedPrivateCompanies;
@@ -480,21 +515,30 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const trackedSources = publicMix
       ? ['LinkedIn', 'Website Perusahaan', 'Jobstreet', 'Glints', 'Google']
       : ['LinkedIn', 'Website Perusahaan', 'Instagram', 'Facebook', 'Jobstreet', 'Glints', 'Google'];
+    const overrideSource = socialOverride && primaryContactOverride
+      ? 'Dataset Sosmed & Kontak Excel'
+      : socialOverride
+        ? 'Dataset Sosmed Excel'
+        : primaryContactOverride
+          ? 'Dataset Kontak Excel'
+          : dummyEmailOverride
+            ? 'Dataset Email Dummy'
+          : '';
     const source = status === 'Belum Ditemukan'
       ? '-'
-      : (base.source && base.source !== '-' ? base.source : seededPick(trackedSources, seed + 11));
+      : (base.source && base.source !== '-' ? base.source : (overrideSource || seededPick(trackedSources, seed + 11)));
     const linkedin = status === 'Belum Ditemukan'
-      ? normalizeOptionalValue(base.linkedin)
-      : (baseHadAnyIndividualSocial ? normalizeOptionalValue(base.linkedin) : '');
+      ? normalizeOptionalValue(socialOverride?.linkedin || base.linkedin)
+      : (baseHadAnyIndividualSocial ? normalizeOptionalValue(socialOverride?.linkedin || base.linkedin) : '');
     const instagram = status === 'Belum Ditemukan'
-      ? normalizeOptionalValue(base.instagram)
-      : (baseHadAnyIndividualSocial ? normalizeOptionalValue(base.instagram) : '');
+      ? normalizeOptionalValue(socialOverride?.instagram || base.instagram)
+      : (baseHadAnyIndividualSocial ? normalizeOptionalValue(socialOverride?.instagram || base.instagram) : '');
     const facebook = status === 'Belum Ditemukan'
-      ? normalizeOptionalValue(base.facebook)
-      : (baseHadAnyIndividualSocial ? normalizeOptionalValue(base.facebook) : '');
+      ? normalizeOptionalValue(socialOverride?.facebook || base.facebook)
+      : (baseHadAnyIndividualSocial ? normalizeOptionalValue(socialOverride?.facebook || base.facebook) : '');
     const tiktok = status === 'Belum Ditemukan'
-      ? normalizeOptionalValue(base.tiktok)
-      : (baseHadAnyIndividualSocial ? normalizeOptionalValue(base.tiktok) : '');
+      ? normalizeOptionalValue(socialOverride?.tiktok || base.tiktok)
+      : (baseHadAnyIndividualSocial ? normalizeOptionalValue(socialOverride?.tiktok || base.tiktok) : '');
     const shouldUseCorporateEmail = status !== 'Belum Ditemukan' && companyProfile.domain && seed % 100 < 34 && companyProfile.defaultJobType !== 'Wirausaha';
     const corporateLocal = (() => {
       const parts = cleanNameParts(base.name);
@@ -510,8 +554,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     })();
     const email = status === 'Belum Ditemukan'
       ? ''
-      : (normalizeOptionalValue(base.email) || (shouldUseCorporateEmail ? `${corporateLocal}@${companyProfile.domain}` : genEmailFromSeed(base.name, base.nim, seedText)));
-    const phone = status === 'Belum Ditemukan' ? '' : (normalizeOptionalValue(base.phone) || genPhoneFromSeed(seedText));
+      : (normalizeOptionalValue(primaryContactOverride?.email || dummyEmailOverride?.email || base.email) || (shouldUseCorporateEmail ? `${corporateLocal}@${companyProfile.domain}` : genEmailFromSeed(base.name, base.nim, seedText)));
+    const phone = status === 'Belum Ditemukan'
+      ? ''
+      : (normalizePhoneNumber(primaryContactOverride?.phone || base.phone) || genPhoneFromSeed(seedText));
     const position = status === 'Belum Ditemukan' ? '' : (normalizeOptionalValue(base.position) || seededPick(prodiPositions, seed + 19));
     const fallbackJobType = companyProfile.defaultJobType || seededPick(['Swasta', 'PNS', 'Wirausaha', 'BUMN/BUMD', 'Pendidikan', 'Kesehatan', 'Profesional', 'Kontrak'], seed + 23);
     const jobType = status === 'Belum Ditemukan'
@@ -565,7 +611,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const restLen = Math.random() > 0.6 ? 8 : 7; 
     let rest = '';
     for (let i = 0; i < restLen; i++) rest += String(Math.floor(Math.random() * 10));
-    return `+62${prefix}${rest}`;
+    return `0${prefix}${rest}`;
   };
 
   const genEmail = (name?: string, nid?: string): string => {

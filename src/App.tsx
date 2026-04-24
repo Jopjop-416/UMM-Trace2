@@ -5,6 +5,7 @@ import {
   Users, 
   Activity, 
   CheckCircle, 
+  Download,
   Settings,
   Search,
   LogOut,
@@ -17,9 +18,11 @@ import Verification from './pages/Verification';
 import Profile from './pages/Profile';
 import Login from './pages/Login';
 import SettingsPage from './pages/Settings';
-import { AppProvider } from './context/AppContext';
+import { AppProvider, useAppContext } from './context/AppContext';
+import { downloadTrackedAlumniXlsx } from './utils/exportTrackedAlumni';
 
 function AppContent() {
+  const { alumni } = useAppContext();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [activeTab, setActiveTab] = useState('dashboard');
   const [activeAlumniId, setActiveAlumniId] = useState<string | null>(null);
@@ -43,7 +46,7 @@ function AppContent() {
   const renderContent = () => {
     switch (activeTab) {
       case 'dashboard':
-        return <Dashboard />;
+        return <Dashboard onNavigateToProfile={(id) => { setActiveAlumniId(id); setActiveTab('profile'); }} />;
       case 'alumni':
         return <Alumni onNavigateToProfile={(id) => { setActiveAlumniId(id); setActiveTab('profile'); }} />;
       case 'jobs':
@@ -58,7 +61,7 @@ function AppContent() {
       case 'settings':
         return <SettingsPage />;
       default:
-        return <Dashboard />;
+        return <Dashboard onNavigateToProfile={(id) => { setActiveAlumniId(id); setActiveTab('profile'); }} />;
     }
   };
 
@@ -68,6 +71,10 @@ function AppContent() {
     { id: 'jobs', label: 'Scheduler', icon: Activity },
     { id: 'verification', label: 'Verifikasi', icon: CheckCircle },
   ];
+
+  const handleExportCsv = () => {
+    downloadTrackedAlumniXlsx(alumni, 'hasil_pelacakan_alumni.xlsx');
+  };
 
   return (
         <div className="flex h-screen w-full bg-[#FAFAFA] text-[#111111] font-sans selection:bg-black selection:text-white pt-12">
@@ -101,7 +108,14 @@ function AppContent() {
             ))}
           </nav>
         </div>
-        <div className="p-4 border-t border-[#EAEAEA]">
+        <div className="p-4 border-t border-[#EAEAEA] space-y-2">
+          <button
+            onClick={handleExportCsv}
+            className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium bg-black rounded-md hover:bg-green-900 transition-colors text-white hover:text-white"
+          >
+            <Download className="w-4 h-4" />
+            Export XLSX
+          </button>
           <button 
             onClick={() => setActiveTab('settings')}
             className={`w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md transition-colors ${

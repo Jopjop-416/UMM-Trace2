@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Search, Filter, MoreHorizontal, Download, Plus, X, ChevronDown } from 'lucide-react';
 import { FixedSizeList as List } from 'react-window';
 import { useAppContext } from '../context/AppContext';
+import { downloadTrackedAlumniXlsx } from '../utils/exportTrackedAlumni';
 
 export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (id: string) => void }) {
   const { alumni, addAlumni, csvLoading, csvError, csvLoaded } = useAppContext();
@@ -53,53 +54,7 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
   };
 
   const handleExport = () => {
-    const escape = (v: any) => {
-      if (v === undefined || v === null) return '';
-      const s = String(v);
-      if (s.includes('"') || s.includes(',') || s.includes('\n')) {
-        return '"' + s.replace(/"/g, '""') + '"';
-      }
-      return s;
-    };
-
-    const headers = [
-      'Nama Lengkap', 'Program Studi', 'NIM', 'Tahun Masuk', 'Tanggal Lulus', 'Fakultas', 'Ekonomi', 'Sumber Utama',
-      'Sosial Media Tempat Kerja', 'LinkedIn', 'Instagram', 'Facebook', 'Tiktok', 'Email', 'No HP', 'Tempat Kerja', 'Posisi', 'Jenis Pekerjaan'
-    ];
-
-    const rows = filteredAlumni.map(e => {
-      const ekonomiFlag = e.fakultas && String(e.fakultas).toLowerCase().includes('ekonomi') ? 'Ya' : '';
-      const hideTrackedFields = shouldHideTrackedFields(e);
-      return [
-        e.name || '',
-        e.prodi || '',
-        e.nim || '',
-        e.tahunMasuk || '',
-        e.tanggalLulus || e.year || '',
-        e.fakultas || '',
-        ekonomiFlag,
-        e.source || '',
-        hideTrackedFields ? '' : (e.companySocial || ''),
-        hideTrackedFields ? '' : (e.linkedin || ''),
-        hideTrackedFields ? '' : (e.instagram || ''),
-        hideTrackedFields ? '' : (e.facebook || ''),
-        hideTrackedFields ? '' : (e.tiktok || ''),
-        hideTrackedFields ? '' : (e.email || ''),
-        hideTrackedFields ? '' : (e.phone || ''),
-        hideTrackedFields ? '' : (e.company || ''),
-        hideTrackedFields ? '' : (e.position || ''),
-        hideTrackedFields ? '' : (e.jobType || '')
-      ].map(escape).join(',');
-    });
-
-    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.map(escape).join(','), ...rows].join('\n');
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', 'data_alumni.csv');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    downloadTrackedAlumniXlsx(filteredAlumni, 'hasil_pelacakan_alumni.xlsx');
   };
 
   return (
@@ -112,7 +67,7 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
         <div className="flex items-center gap-3">
           <button onClick={handleExport} className="flex items-center gap-2 px-4 py-2 text-sm font-medium border border-[#EAEAEA] bg-white rounded-md hover:bg-[#F5F5F5] transition-colors">
             <Download className="w-4 h-4" />
-            Ekspor
+            Export XLSX
           </button>
           <button onClick={() => setIsModalOpen(true)} className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-black text-white rounded-md hover:bg-[#333333] transition-colors">
             <Plus className="w-4 h-4" />

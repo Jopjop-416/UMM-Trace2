@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import { Users, Search, AlertCircle, CheckCircle2, BarChart3, ShieldCheck, Database } from 'lucide-react';
+import { Users, Search, AlertCircle, CheckCircle2, BarChart3, ShieldCheck, Database, MoreHorizontal } from 'lucide-react';
+import { FixedSizeList as List } from 'react-window';
 import { useAppContext } from '../context/AppContext';
 import { getRelativeTime } from '../utils/time';
 
@@ -33,8 +34,31 @@ const getCompletenessScore = (averageFilledFields: number) => {
   return 100;
 };
 
-export default function Dashboard() {
+type DashboardProps = {
+  onNavigateToProfile: (id: string) => void;
+};
+
+export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
   const { alumni, activities, csvLoading } = useAppContext();
+  const shouldHideTrackedFields = (item: any) => item.status === 'Belum Ditemukan' || item.status === 'Belum Dilacak';
+  const tableColumns = [
+    { key: 'name', label: 'Nama Lengkap', render: (item: any) => <span className="font-medium">{item.name || '-'}</span> },
+    { key: 'prodi', label: 'Program Studi', render: (item: any) => item.prodi || '-' },
+    { key: 'year', label: 'Tahun Lulus', render: (item: any) => item.tanggalLulus || item.year || '-' },
+    { key: 'nim', label: 'NIM', render: (item: any) => item.nim || '-' },
+    { key: 'email', label: 'Email', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.email || '-') },
+    { key: 'phone', label: 'No HP', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.phone || '-') },
+    { key: 'company', label: 'Tempat Kerja', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.company || '-') },
+    { key: 'companyAddress', label: 'Alamat Kerja', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.companyAddress || '-') },
+    { key: 'position', label: 'Posisi', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.position || '-') },
+    { key: 'jobType', label: 'Jenis Pekerjaan', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.jobType || '-') },
+    { key: 'companySocial', label: 'Sosial Media Tempat Kerja', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.companySocial || '-') },
+    { key: 'linkedin', label: 'LinkedIn', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.linkedin || '-') },
+    { key: 'instagram', label: 'Instagram', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.instagram || '-') },
+    { key: 'facebook', label: 'Facebook', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.facebook || '-') },
+    { key: 'tiktok', label: 'Tiktok', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.tiktok || '-') }
+  ];
+  const tableGridColumns = '220px 220px 140px 150px 240px 160px 220px 260px 180px 180px 260px 240px 200px 200px 200px 72px';
 
   const identifiedAlumni = useMemo(
     () => alumni.filter(a => a.status === 'Teridentifikasi'),
@@ -270,6 +294,60 @@ export default function Dashboard() {
               <p className="text-sm text-[#666666] py-4">Belum ada data jurusan yang berhasil terlacak.</p>
             )}
           </div>
+        </div>
+      </div>
+
+      <div className="bg-white border border-[#EAEAEA] rounded-xl shadow-sm overflow-hidden">
+        <div className="p-6 border-b border-[#EAEAEA]">
+          <h3 className="text-sm font-semibold">Data Alumni</h3>
+          <p className="text-xs text-[#666666] mt-1">Tabel data alumni langsung dari dashboard dengan tampilan yang sama seperti menu Data Alumni.</p>
+        </div>
+
+        <div className="overflow-x-auto">
+          <div className="text-xs text-[#666666] uppercase bg-[#FAFAFA] border-b border-[#EAEAEA]">
+            <div className="grid gap-0 items-center min-w-max" style={{ gridTemplateColumns: tableGridColumns }}>
+              {tableColumns.map((column) => (
+                <div key={column.key} className="px-6 py-3 font-medium">
+                  {column.label}
+                </div>
+              ))}
+              <div className="px-6 py-3 font-medium text-right">Aksi</div>
+            </div>
+          </div>
+
+          <List
+            height={600}
+            itemCount={alumni.length}
+            itemSize={64}
+            width={3600}
+          >
+            {({ index, style }) => {
+              const item = alumni[index];
+              return (
+                <div style={style} key={item.id} className="hover:bg-[#FAFAFA] transition-colors border-b border-[#EAEAEA]">
+                  <div className="grid items-center min-w-max" style={{ gridTemplateColumns: tableGridColumns }}>
+                    {tableColumns.map((column) => (
+                      <div key={column.key} className="px-6 py-4 text-[#666666] truncate" title={String(column.render(item) ?? '')}>
+                        {column.render(item)}
+                      </div>
+                    ))}
+                    <div className="px-6 py-4 text-right">
+                      <button
+                        onClick={() => onNavigateToProfile(item.id)}
+                        className="text-[#888888] hover:text-black transition-colors"
+                      >
+                        <MoreHorizontal className="w-5 h-5" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              );
+            }}
+          </List>
+        </div>
+
+        <div className="p-4 border-t border-[#EAEAEA] text-sm text-[#666666]">
+          Menampilkan {alumni.length.toLocaleString('id-ID')} entri data alumni.
         </div>
       </div>
     </div>
