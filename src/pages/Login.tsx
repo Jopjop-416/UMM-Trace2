@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Github, Key, AlertCircle, CheckCircle2, LoaderCircle } from 'lucide-react';
-import { useAppContext } from '../context/AppContext';
+import { Github, Key } from 'lucide-react';
 
 import logo from "../asset/images.png";
 
@@ -9,18 +8,12 @@ interface LoginProps {
 }
 
 export default function Login({ onLogin }: LoginProps) {
-  const { csvLoading, csvLoaded, csvError } = useAppContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const appReady = csvLoaded && !csvLoading && !csvError;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!appReady) {
-      setError('Data alumni masih diproses. Harap tunggu beberapa detik sampai website siap dipakai.');
-      return;
-    }
     if (email === 'admin@gmail.com' && password === 'admin12345') {
       onLogin();
     } else {
@@ -45,7 +38,7 @@ export default function Login({ onLogin }: LoginProps) {
       </header>
 
       {/* Main Content */}
-      <main className="relative flex-1 flex items-center justify-center p-6">
+      <main className="flex-1 flex items-center justify-center p-6">
         <div className="w-full max-w-[400px] space-y-8">
             <div className="text-center space-y-2">
               <h1 className="text-3xl font-semibold tracking-tight">Log in ke UMM Trace</h1>
@@ -82,12 +75,7 @@ export default function Login({ onLogin }: LoginProps) {
 
               <button
                 type="submit"
-                disabled={!appReady}
-                className={`w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium rounded-md transition-colors ${
-                  appReady
-                    ? 'bg-black text-white hover:bg-[#333333]'
-                    : 'bg-[#D9D9D9] text-[#666666] cursor-not-allowed'
-                }`}
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium rounded-md transition-colors bg-black text-white hover:bg-[#333333]"
               >
                 Continue with Email
               </button>
@@ -124,41 +112,6 @@ export default function Login({ onLogin }: LoginProps) {
               </p>
               <p>Email: <span className="font-mono text-black">admin@gmail.com</span></p>
               <p>Password: <span className="font-mono text-black">admin12345</span></p>
-            </div>
-          </div>
-
-        <div className="mt-8 w-full max-w-[420px] lg:mt-0 lg:absolute lg:right-6 xl:right-12 2xl:right-20 lg:top-1/2 lg:-translate-y-1/2">
-            <div
-              className={`rounded-2xl border px-5 py-5 text-sm shadow-sm ${
-                appReady
-                  ? 'border-green-200 bg-green-50 text-green-700'
-                  : 'border-red-200 bg-red-50 text-red-700'
-              }`}
-            >
-              <div className="flex items-start gap-3">
-                {appReady ? (
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 flex-none" />
-                ) : csvLoading ? (
-                  <LoaderCircle className="mt-0.5 h-5 w-5 flex-none animate-spin" />
-                ) : (
-                  <AlertCircle className="mt-0.5 h-5 w-5 flex-none" />
-                )}
-                <div className="space-y-1.5">
-                  <p className="font-medium">
-                    {appReady ? 'Anda sudah bisa masuk, silahkan login' : 'Website tidak bisa dipencet? harap tunggu beberapa detik'}
-                  </p>
-                  <p className={appReady ? 'text-green-600' : 'text-red-600'}>
-                    {appReady
-                      ? 'Status siap. Data alumni sudah selesai digenerate dan website sudah bisa dipakai.'
-                      : 'Notifikasi ini akan berubah hijau jika website sudah bisa dipencet.'}
-                  </p>
-                  {csvError && (
-                    <p className="text-red-600">
-                      Gagal memuat data: {csvError}
-                    </p>
-                  )}
-                </div>
-              </div>
             </div>
         </div>
       </main>
