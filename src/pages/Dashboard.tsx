@@ -292,24 +292,18 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {stats.map((stat, index) => (
-          <div
-            key={stat.label}
-            className="p-6 bg-white border border-[#EAEAEA] rounded-xl shadow-sm animate-in fade-in slide-in-from-bottom-3 duration-500"
-            style={{ animationDelay: `${index * 90}ms`, animationFillMode: 'both' }}
-          >
+        {stats.map((stat) => (
+          <div key={stat.label} className="p-6 bg-white border border-[#EAEAEA] rounded-xl shadow-sm">
             <div className="flex items-center justify-between">
               <p className="text-sm font-medium text-[#666666]">{stat.label}</p>
               <stat.icon className={`w-4 h-4 ${stat.color}`} />
             </div>
-            <p className="text-3xl font-semibold mt-4 tracking-tight">
-              <AnimatedNumber value={stat.value} />
-            </p>
+            <p className="text-3xl font-semibold mt-4 tracking-tight">{stat.value.toLocaleString('id-ID')}</p>
           </div>
         ))}
       </div>
 
-      <div className="p-6 bg-white border border-[#EAEAEA] rounded-xl shadow-sm space-y-6 animate-in fade-in slide-in-from-bottom-3 duration-700">
+      <div className="p-6 bg-white border border-[#EAEAEA] rounded-xl shadow-sm space-y-6">
         <div className="flex items-center justify-between gap-4 flex-wrap">
           <div>
             <h3 className="text-sm font-semibold flex items-center gap-2">
@@ -331,7 +325,7 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
                   <div className="text-[10px] text-[#666666]">{item.count.toLocaleString('id-ID')}</div>
                   <div
                     className="w-full rounded-t-md bg-black/85 hover:bg-black transition-colors"
-                    style={{ height: `${chartMax > 0 ? Math.max(10, (item.count / chartMax) * 220 * chartAnimationProgress) : 10}px`, transition: 'height 900ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+                    style={{ height: `${chartMax > 0 ? Math.max(10, (item.count / chartMax) * 220) : 10}px` }}
                     title={`${item.year}: ${item.count.toLocaleString('id-ID')} data`}
                   />
                   <div className="text-[10px] text-[#666666] pb-2">{item.year}</div>
@@ -351,9 +345,9 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
               <Database className="w-4 h-4" />
               Coverage
             </div>
-            <p className="text-2xl font-semibold mt-3"><AnimatedNumber value={scoring.coverageScore} /></p>
+            <p className="text-2xl font-semibold mt-3">{scoring.coverageScore}</p>
             <p className="text-xs text-[#666666] mt-1">
-              <AnimatedNumber value={scoring.foundCount} /> dari <AnimatedNumber value={alumni.length} /> data ditemukan.
+              {scoring.foundCount.toLocaleString('id-ID')} dari {alumni.length.toLocaleString('id-ID')} data ditemukan.
             </p>
           </div>
           <div className="p-4 rounded-xl border border-[#EAEAEA] bg-[#FAFAFA]">
@@ -361,9 +355,9 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
               <ShieldCheck className="w-4 h-4" />
               Accuracy
             </div>
-            <p className="text-2xl font-semibold mt-3"><AnimatedNumber value={scoring.accuracyScore} /></p>
+            <p className="text-2xl font-semibold mt-3">{scoring.accuracyScore}</p>
             <p className="text-xs text-[#666666] mt-1">
-              <AnimatedNumber value={scoring.correctSample} /> data valid dari sampling <AnimatedNumber value={scoring.sampleSize} /> data.
+              {scoring.correctSample.toLocaleString('id-ID')} data valid dari sampling {scoring.sampleSize.toLocaleString('id-ID')} data.
             </p>
           </div>
           <div className="p-4 rounded-xl border border-[#EAEAEA] bg-[#FAFAFA]">
@@ -371,16 +365,16 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
               <CheckCircle2 className="w-4 h-4" />
               Completeness
             </div>
-            <p className="text-2xl font-semibold mt-3"><AnimatedNumber value={scoring.completenessScore} /></p>
+            <p className="text-2xl font-semibold mt-3">{scoring.completenessScore}</p>
             <p className="text-xs text-[#666666] mt-1">
-              Rata-rata field terisi: <AnimatedNumber value={scoring.averageFilledFields} decimals={2} /> dari 4 field utama.
+              Rata-rata field terisi: {scoring.averageFilledFields.toFixed(2)} dari 4 field utama.
             </p>
           </div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 p-6 bg-white border border-[#EAEAEA] rounded-xl shadow-sm animate-in fade-in slide-in-from-bottom-3 duration-700">
+        <div className="lg:col-span-2 p-6 bg-white border border-[#EAEAEA] rounded-xl shadow-sm">
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div>
               <h3 className="text-sm font-semibold flex items-center gap-2">
@@ -392,21 +386,18 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
               </p>
             </div>
             <div className="text-xs text-[#666666]">
-              Total data: <span className="font-semibold text-black"><AnimatedNumber value={validationStats.total} /></span>
+              Total data: <span className="font-semibold text-black">{validationStats.total.toLocaleString('id-ID')}</span>
             </div>
           </div>
           <div className="mt-6 grid grid-cols-1 md:grid-cols-[260px_1fr] gap-8 items-center">
-            <div
-              className="mx-auto relative h-56 w-56 rounded-full transition-[background] duration-1000 ease-out"
-              style={{ background: validationStats.background }}
-            >
+            <div className="mx-auto relative h-56 w-56 rounded-full" style={{ background: validationStats.background }}>
               <div className="absolute inset-8 rounded-full bg-white border border-[#EAEAEA] flex flex-col items-center justify-center text-center">
                 <p className="text-xs font-medium text-[#666666]">Tahap 2</p>
                 <p className="mt-1 text-3xl font-semibold tracking-tight">
-                  <AnimatedNumber value={validationStats.stageTwoCount} />
+                  {validationStats.stageTwoCount.toLocaleString('id-ID')}
                 </p>
                 <p className="mt-1 text-xs text-[#666666]">
-                  <AnimatedNumber value={validationStats.stageTwoPercent} decimals={1} />%
+                  {validationStats.stageTwoPercent.toFixed(1)}%
                 </p>
               </div>
             </div>
@@ -422,8 +413,8 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
                     </div>
                   </div>
                   <div className="text-right leading-none">
-                    <p className="text-lg font-semibold"><AnimatedNumber value={validationStats.stageTwoCount} /></p>
-                    <p className="mt-1 text-xs text-[#666666]"><AnimatedNumber value={validationStats.stageTwoPercent} decimals={1} />%</p>
+                    <p className="text-lg font-semibold">{validationStats.stageTwoCount.toLocaleString('id-ID')}</p>
+                    <p className="mt-1 text-xs text-[#666666]">{validationStats.stageTwoPercent.toFixed(1)}%</p>
                   </div>
                 </div>
               </div>
@@ -438,8 +429,8 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
                     </div>
                   </div>
                   <div className="text-right leading-none">
-                    <p className="text-lg font-semibold"><AnimatedNumber value={validationStats.stageOneCount} /></p>
-                    <p className="mt-1 text-xs text-[#666666]"><AnimatedNumber value={validationStats.stageOnePercent} decimals={1} />%</p>
+                    <p className="text-lg font-semibold">{validationStats.stageOneCount.toLocaleString('id-ID')}</p>
+                    <p className="mt-1 text-xs text-[#666666]">{validationStats.stageOnePercent.toFixed(1)}%</p>
                   </div>
                 </div>
               </div>
@@ -473,20 +464,17 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
           )}
         </div>
 
-        <div className="p-6 bg-white border border-[#EAEAEA] rounded-xl shadow-sm animate-in fade-in slide-in-from-bottom-3 duration-700">
+        <div className="p-6 bg-white border border-[#EAEAEA] rounded-xl shadow-sm">
           <h3 className="text-sm font-semibold mb-4">Data Telacak per Jurusan</h3>
           <div className="space-y-4 max-h-[430px] overflow-y-auto pr-2">
             {trackedByProdi.length > 0 ? trackedByProdi.map((prodi) => (
               <div key={prodi.name}>
                 <div className="flex justify-between text-xs mb-1">
                   <span className="font-medium">{prodi.name}</span>
-                  <span className="text-[#666666]"><AnimatedNumber value={prodi.count} /></span>
+                  <span className="text-[#666666]">{prodi.count.toLocaleString('id-ID')}</span>
                 </div>
                 <div className="w-full h-1.5 bg-[#F5F5F5] rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-black rounded-full"
-                    style={{ width: `${prodi.percent * chartAnimationProgress}%`, transition: 'width 850ms cubic-bezier(0.22, 1, 0.36, 1)' }}
-                  />
+                  <div className="h-full bg-black rounded-full" style={{ width: `${prodi.percent}%` }} />
                 </div>
               </div>
             )) : (
@@ -496,7 +484,7 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
         </div>
       </div>
 
-      <div className="bg-white border border-[#EAEAEA] rounded-xl shadow-sm overflow-hidden animate-in fade-in slide-in-from-bottom-3 duration-700">
+      <div className="bg-white border border-[#EAEAEA] rounded-xl shadow-sm overflow-hidden">
         <div className="p-6 border-b border-[#EAEAEA]">
           <h3 className="text-sm font-semibold">Validasi Tahap ke 2</h3>
           <p className="text-xs text-[#666666] mt-1">
@@ -505,11 +493,11 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
         </div>
         {renderValidationTable(validationStageTwoAlumni, 360, 'Data validasi tahap ke 2 belum tersedia.')}
         <div className="p-4 border-t border-[#EAEAEA] text-sm text-[#666666]">
-          Menampilkan <AnimatedNumber value={validationStageTwoAlumni.length} /> entri validasi tahap ke 2.
+          Menampilkan {validationStageTwoAlumni.length.toLocaleString('id-ID')} entri validasi tahap ke 2.
         </div>
       </div>
 
-      <div className="bg-white border border-[#EAEAEA] rounded-xl shadow-sm overflow-hidden animate-in fade-in slide-in-from-bottom-3 duration-700">
+      <div className="bg-white border border-[#EAEAEA] rounded-xl shadow-sm overflow-hidden">
         <div className="p-6 border-b border-[#EAEAEA]">
           <h3 className="text-sm font-semibold">Validasi Tahap ke 1</h3>
           <p className="text-xs text-[#666666] mt-1">
@@ -518,7 +506,7 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
         </div>
         {renderValidationTable(validationStageOneAlumni, 600, 'Data validasi tahap ke 1 belum tersedia.')}
         <div className="p-4 border-t border-[#EAEAEA] text-sm text-[#666666]">
-          Menampilkan <AnimatedNumber value={validationStageOneAlumni.length} /> entri validasi tahap ke 1.
+          Menampilkan {validationStageOneAlumni.length.toLocaleString('id-ID')} entri validasi tahap ke 1.
         </div>
       </div>
     </div>
