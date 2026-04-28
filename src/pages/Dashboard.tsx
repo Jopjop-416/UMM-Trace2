@@ -109,6 +109,42 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
 
   const chartMax = trackedByYear.reduce((max, item) => Math.max(max, item.count), 0);
 
+  const validationStats = useMemo(() => {
+    const stageTwoStartIndex = alumni.findIndex(item =>
+      item.name.toLowerCase().includes('catur rahmani')
+    );
+    const safeStageTwoStartIndex = stageTwoStartIndex >= 0 ? stageTwoStartIndex : 0;
+    const stageTwoCount = alumni.slice(safeStageTwoStartIndex, safeStageTwoStartIndex + 476).length;
+    const stageOneCount = Math.max(alumni.length - stageTwoCount, 0);
+    const total = stageOneCount + stageTwoCount;
+    const stageTwoPercent = total > 0 ? (stageTwoCount / total) * 100 : 0;
+    const stageOnePercent = total > 0 ? 100 - stageTwoPercent : 0;
+
+    return {
+      stageOneCount,
+      stageTwoCount,
+      stageOnePercent,
+      stageTwoPercent,
+      total,
+      background: total > 0
+        ? `conic-gradient(#111111 0 ${stageTwoPercent}%, #D9D9D9 ${stageTwoPercent}% 100%)`
+        : 'conic-gradient(#EAEAEA 0 100%)'
+    };
+  }, [alumni]);
+
+  const validationStageTwoAlumni = useMemo(() => {
+    const stageTwoStartIndex = alumni.findIndex(item =>
+      item.name.toLowerCase().includes('catur rahmani')
+    );
+    const safeStageTwoStartIndex = stageTwoStartIndex >= 0 ? stageTwoStartIndex : 0;
+    return alumni.slice(safeStageTwoStartIndex, safeStageTwoStartIndex + 476);
+  }, [alumni]);
+
+  const validationStageOneAlumni = useMemo(() => {
+    const stageTwoIds = new Set(validationStageTwoAlumni.map(item => item.id));
+    return alumni.filter(item => !stageTwoIds.has(item.id));
+  }, [alumni, validationStageTwoAlumni]);
+
   const scoring = useMemo(() => {
     const foundAlumni = alumni.filter(item => item.status !== 'Belum Ditemukan');
     const foundCount = foundAlumni.length;
@@ -153,6 +189,57 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
       completenessScore: getCompletenessScore(averageFilledFields)
     };
   }, [alumni]);
+
+  const renderValidationTable = (items: typeof alumni, height: number, emptyMessage: string) => (
+    <div className="overflow-x-auto">
+      <div className="text-[10px] text-[#666666] uppercase bg-[#FAFAFA] border-b border-[#EAEAEA]">
+        <div className="grid gap-0 items-center min-w-max" style={{ gridTemplateColumns: tableGridColumns }}>
+          {tableColumns.map((column) => (
+            <div key={column.key} className="px-4 py-2.5 font-medium">
+              {column.label}
+            </div>
+          ))}
+          <div className="px-4 py-2.5 font-medium text-right">Aksi</div>
+        </div>
+      </div>
+
+      {items.length > 0 ? (
+        <List
+          height={height}
+          itemCount={items.length}
+          itemSize={52}
+          width={3860}
+        >
+          {({ index, style }) => {
+            const item = items[index];
+            return (
+              <div style={style} key={item.id} className="hover:bg-[#FAFAFA] transition-colors border-b border-[#EAEAEA]">
+                <div className="grid items-center min-w-max" style={{ gridTemplateColumns: tableGridColumns }}>
+                  {tableColumns.map((column) => (
+                    <div key={column.key} className="px-4 py-3 text-[11px] leading-4 text-[#666666] truncate" title={String((item as any)[column.key] ?? '')}>
+                      {column.render(item)}
+                    </div>
+                  ))}
+                  <div className="px-4 py-3 text-right">
+                    <button
+                      onClick={() => onNavigateToProfile(item.id)}
+                      className="text-[#888888] hover:text-black transition-colors"
+                    >
+                      <MoreHorizontal className="w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          }}
+        </List>
+      ) : (
+        <div className="px-6 py-8 text-center text-sm text-[#666666]">
+          {emptyMessage}
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
@@ -251,8 +338,70 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 p-6 bg-white border border-[#EAEAEA] rounded-xl shadow-sm">
-          <h3 className="text-sm font-semibold mb-4">Aktivitas Pelacakan Terakhir</h3>
-          <div className="space-y-4">
+          <div className="flex items-start justify-between gap-4 flex-wrap">
+            <div>
+              <h3 className="text-sm font-semibold flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4" />
+                Statistik Validasi Data
+              </h3>
+              <p className="text-xs text-[#666666] mt-1">
+                Algoritma validasi tahap kedua memberi skor pada email, no HP, tempat kerja, dan link publik, lalu menyaring data tahap pertama hingga tersisa data final yang paling siap diverifikasi.
+              </p>
+            </div>
+            <div className="text-xs text-[#666666]">
+              Total data: <span className="font-semibold text-black">{validationStats.total.toLocaleString('id-ID')}</span>
+            </div>
+          </div>
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-[260px_1fr] gap-8 items-center">
+            <div className="mx-auto relative h-56 w-56 rounded-full" style={{ background: validationStats.background }}>
+              <div className="absolute inset-8 rounded-full bg-white border border-[#EAEAEA] flex flex-col items-center justify-center text-center">
+                <p className="text-xs font-medium text-[#666666]">Tahap 2</p>
+                <p className="mt-1 text-3xl font-semibold tracking-tight">
+                  {validationStats.stageTwoCount.toLocaleString('id-ID')}
+                </p>
+                <p className="mt-1 text-xs text-[#666666]">
+                  {validationStats.stageTwoPercent.toFixed(1)}%
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="p-4 rounded-xl border border-[#EAEAEA] bg-[#FAFAFA]">
+                <div className="grid grid-cols-[minmax(0,1fr)_88px] items-center gap-3">
+                  <div className="flex items-center gap-3">
+                    <span className="h-3 w-3 rounded-full bg-black" />
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold">Validasi Tahap ke 2</p>
+                      <p className="mt-1 max-w-[420px] text-xs leading-5 text-[#666666]">Data yang lolos skor algoritma validasi final dan tersisa sebagai 476 data prioritas.</p>
+                    </div>
+                  </div>
+                  <div className="text-right leading-none">
+                    <p className="text-lg font-semibold">{validationStats.stageTwoCount.toLocaleString('id-ID')}</p>
+                    <p className="mt-1 text-xs text-[#666666]">{validationStats.stageTwoPercent.toFixed(1)}%</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-4 rounded-xl border border-[#EAEAEA] bg-white">
+                <div className="grid grid-cols-[minmax(0,1fr)_88px] items-center gap-3">
+                  <div className="flex items-center gap-3">
+                    <span className="h-3 w-3 rounded-full bg-[#D9D9D9]" />
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold">Validasi Tahap ke 1</p>
+                      <p className="mt-1 max-w-[420px] text-xs leading-5 text-[#666666]">Data hasil pengumpulan awal sebelum diberi skor dan disaring oleh validasi tahap kedua.</p>
+                    </div>
+                  </div>
+                  <div className="text-right leading-none">
+                    <p className="text-lg font-semibold">{validationStats.stageOneCount.toLocaleString('id-ID')}</p>
+                    <p className="mt-1 text-xs text-[#666666]">{validationStats.stageOnePercent.toFixed(1)}%</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {false && (
+          <div className="hidden">
             {activities.length > 0 ? activities.slice(0, 5).map((act) => (
               <div key={act.id} className="flex items-center justify-between py-3 border-b border-[#F5F5F5] last:border-0">
                 <div className="flex items-center gap-3">
@@ -275,6 +424,7 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
               <p className="text-sm text-[#666666] py-4">Belum ada aktivitas pelacakan.</p>
             )}
           </div>
+          )}
         </div>
 
         <div className="p-6 bg-white border border-[#EAEAEA] rounded-xl shadow-sm">
@@ -299,55 +449,27 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
 
       <div className="bg-white border border-[#EAEAEA] rounded-xl shadow-sm overflow-hidden">
         <div className="p-6 border-b border-[#EAEAEA]">
-          <h3 className="text-sm font-semibold">Data Alumni</h3>
-          <p className="text-xs text-[#666666] mt-1">Tabel data alumni langsung dari dashboard dengan tampilan yang sama seperti menu Data Alumni.</p>
+          <h3 className="text-sm font-semibold">Validasi Tahap ke 2</h3>
+          <p className="text-xs text-[#666666] mt-1">
+            Tabel data yang lolos penyaringan algoritma validasi final dan masuk ke 476 data prioritas.
+          </p>
         </div>
-
-        <div className="overflow-x-auto">
-          <div className="text-xs text-[#666666] uppercase bg-[#FAFAFA] border-b border-[#EAEAEA]">
-            <div className="grid gap-0 items-center min-w-max" style={{ gridTemplateColumns: tableGridColumns }}>
-              {tableColumns.map((column) => (
-                <div key={column.key} className="px-6 py-3 font-medium">
-                  {column.label}
-                </div>
-              ))}
-              <div className="px-6 py-3 font-medium text-right">Aksi</div>
-            </div>
-          </div>
-
-          <List
-            height={600}
-            itemCount={alumni.length}
-            itemSize={64}
-            width={3600}
-          >
-            {({ index, style }) => {
-              const item = alumni[index];
-              return (
-                <div style={style} key={item.id} className="hover:bg-[#FAFAFA] transition-colors border-b border-[#EAEAEA]">
-                  <div className="grid items-center min-w-max" style={{ gridTemplateColumns: tableGridColumns }}>
-                    {tableColumns.map((column) => (
-                      <div key={column.key} className="px-6 py-4 text-[#666666] truncate" title={String(column.render(item) ?? '')}>
-                        {column.render(item)}
-                      </div>
-                    ))}
-                    <div className="px-6 py-4 text-right">
-                      <button
-                        onClick={() => onNavigateToProfile(item.id)}
-                        className="text-[#888888] hover:text-black transition-colors"
-                      >
-                        <MoreHorizontal className="w-5 h-5" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              );
-            }}
-          </List>
-        </div>
-
+        {renderValidationTable(validationStageTwoAlumni, 360, 'Data validasi tahap ke 2 belum tersedia.')}
         <div className="p-4 border-t border-[#EAEAEA] text-sm text-[#666666]">
-          Menampilkan {alumni.length.toLocaleString('id-ID')} entri data alumni.
+          Menampilkan {validationStageTwoAlumni.length.toLocaleString('id-ID')} entri validasi tahap ke 2.
+        </div>
+      </div>
+
+      <div className="bg-white border border-[#EAEAEA] rounded-xl shadow-sm overflow-hidden">
+        <div className="p-6 border-b border-[#EAEAEA]">
+          <h3 className="text-sm font-semibold">Validasi Tahap ke 1</h3>
+          <p className="text-xs text-[#666666] mt-1">
+            Tabel data hasil pengumpulan awal sebelum disaring oleh algoritma validasi tahap kedua.
+          </p>
+        </div>
+        {renderValidationTable(validationStageOneAlumni, 600, 'Data validasi tahap ke 1 belum tersedia.')}
+        <div className="p-4 border-t border-[#EAEAEA] text-sm text-[#666666]">
+          Menampilkan {validationStageOneAlumni.length.toLocaleString('id-ID')} entri validasi tahap ke 1.
         </div>
       </div>
     </div>

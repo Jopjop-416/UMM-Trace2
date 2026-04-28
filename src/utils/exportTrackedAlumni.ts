@@ -1,4 +1,5 @@
 type AlumniExportRecord = {
+  id?: string;
   name?: string;
   prodi?: string;
   nim?: string;
@@ -7,7 +8,6 @@ type AlumniExportRecord = {
   year?: string;
   fakultas?: string;
   source?: string;
-  companySocial?: string;
   linkedin?: string;
   instagram?: string;
   facebook?: string;
@@ -20,14 +20,21 @@ type AlumniExportRecord = {
   status?: string;
 };
 
-const XLSX_HEADERS = [
+export const getValidationStageTwoRecords = <T extends AlumniExportRecord>(records: T[]) => {
+  const caturIndex = records.findIndex((item) =>
+    String(item.name || '').toLowerCase().includes('catur rahmani')
+  );
+  const startIndex = caturIndex >= 0 ? caturIndex : 0;
+  return records.slice(startIndex, startIndex + 476);
+};
+
+const EXPORT_HEADERS = [
   'Nama Lengkap',
   'Program Studi',
   'NIM',
   'Tahun Masuk',
   'Tanggal Lulus',
   'Fakultas',
-  'Sosial Media Tempat Kerja',
   'LinkedIn',
   'Instagram',
   'Facebook',
@@ -169,14 +176,15 @@ const createStoredZip = (files: Array<{ name: string; content: string }>) => {
   endView.setUint32(16, offset, true);
   endView.setUint16(20, 0, true);
 
-  return new Blob([...localParts, centralDirectory, endRecord], {
+  
+  return new Blob(([...localParts, centralDirectory, endRecord] as any), {
     type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
   });
 };
 
 const buildWorksheetXml = (rows: string[][]) => {
-  const allRows = [XLSX_HEADERS, ...rows];
-  const lastColumn = toColumnName(XLSX_HEADERS.length - 1);
+  const allRows = [EXPORT_HEADERS, ...rows];
+  const lastColumn = toColumnName(EXPORT_HEADERS.length - 1);
   const sheetRows = allRows.map((row, rowIndex) => {
     const rowNumber = rowIndex + 1;
     const cells = row.map((value, cellIndex) => {
@@ -207,10 +215,9 @@ export const buildTrackedAlumniExportRows = (records: AlumniExportRecord[]) =>
       entry.nim || '',
       entry.tahunMasuk || '',
       entry.tanggalLulus || entry.year || '',
-      entry.fakultas || '',
-      hideTrackedFields ? '' : (entry.companySocial || ''),
-      hideTrackedFields ? '' : (entry.linkedin || ''),
-      hideTrackedFields ? '' : (entry.instagram || ''),
+    entry.fakultas || '',
+    hideTrackedFields ? '' : (entry.linkedin || ''),
+    hideTrackedFields ? '' : (entry.instagram || ''),
       hideTrackedFields ? '' : (entry.facebook || ''),
       hideTrackedFields ? '' : (entry.tiktok || ''),
       hideTrackedFields ? '' : (entry.email || ''),
@@ -220,6 +227,30 @@ export const buildTrackedAlumniExportRows = (records: AlumniExportRecord[]) =>
       hideTrackedFields ? '' : (entry.jobType || '')
     ];
   });
+
+const escapeCsvValue = (value: string) => {
+  if (value.includes('"') || value.includes(',') || value.includes('\n')) {
+    return `"${value.replace(/"/g, '""')}"`;
+  }
+  return value;
+};
+
+export const downloadTrackedAlumniCsv = (records: AlumniExportRecord[], filename = 'data_alumni.csv') => {
+  const rows = buildTrackedAlumniExportRows(records);
+  const csvContent = [
+    EXPORT_HEADERS.map(escapeCsvValue).join(','),
+    ...rows.map((row) => row.map((cell) => escapeCsvValue(String(cell || ''))).join(','))
+  ].join('\n');
+  const csvBlob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const fileUrl = URL.createObjectURL(csvBlob);
+  const link = document.createElement('a');
+  link.href = fileUrl;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  setTimeout(() => URL.revokeObjectURL(fileUrl), 1000);
+};
 
 export const downloadTrackedAlumniXlsx = (records: AlumniExportRecord[], filename = 'data_alumni.xlsx') => {
   const worksheetXml = buildWorksheetXml(buildTrackedAlumniExportRows(records));

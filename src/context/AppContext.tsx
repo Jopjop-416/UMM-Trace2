@@ -3,6 +3,7 @@ import Papa from 'papaparse';
 import socialMediaOverrides from '../data/socialMediaOverrides';
 import primaryContactOverrides from '../data/primaryContactOverrides';
 import dummyEmailOverrides from '../data/dummyEmailOverrides';
+import companySocialOverrides from '../data/companySocialOverrides';
 
 export interface AlumniData {
   id: string;
@@ -178,6 +179,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
   );
   const dummyEmailOverrideMap = new Map(
     dummyEmailOverrides.map(item => [normalizeNameKey(item.name), item])
+  );
+  const companySocialOverrideMap = new Map(
+    companySocialOverrides.map(item => [normalizeNameKey(item.name), item])
   );
   const cleanNameParts = (name?: string) => String(name || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(Boolean);
   const companyProfiles: Record<string, CompanyProfile> = {
@@ -496,6 +500,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const socialOverride = socialMediaOverrideMap.get(normalizedName);
     const primaryContactOverride = primaryContactOverrideMap.get(normalizedName);
     const dummyEmailOverride = primaryContactOverride ? undefined : dummyEmailOverrideMap.get(normalizedName);
+    const companySocialOverride = companySocialOverrideMap.get(normalizedName);
     const baseHadAnyIndividualSocial = [
       normalizeOptionalValue(socialOverride?.linkedin || base.linkedin),
       normalizeOptionalValue(socialOverride?.instagram || base.instagram),
@@ -521,6 +526,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         ? 'Dataset Sosmed Excel'
         : primaryContactOverride
           ? 'Dataset Kontak Excel'
+          : companySocialOverride
+            ? 'Dataset Sosmed Perusahaan Excel'
           : dummyEmailOverride
             ? 'Dataset Email Dummy'
           : '';
@@ -565,7 +572,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       : (normalizeOptionalValue(base.jobType) || ((/founder|entrepreneur/i.test(position) || companyProfile.sector === 'wirausaha') ? 'Wirausaha' : fallbackJobType));
     const companySocial = status === 'Belum Ditemukan'
       ? (normalizeOptionalValue(base.companySocial) || '')
-      : (normalizeOptionalValue(base.companySocial) || buildCompanySocialBySource(company, source, seed));
+      : (normalizeOptionalValue(companySocialOverride?.companySocial || base.companySocial) || buildCompanySocialBySource(company, source, seed));
     const normalizedLinks = ensureAtLeastOnePublicLink(
       status,
       { linkedin, instagram, facebook, tiktok, companySocial },

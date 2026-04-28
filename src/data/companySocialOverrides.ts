@@ -1,0 +1,5981 @@
+export type CompanySocialOverride = {
+  name: string;
+  companySocial: string;
+  companyLinkedin?: string | null;
+  companyInstagram?: string | null;
+  companyFacebook?: string | null;
+  companyTiktok?: string | null;
+};
+
+const companySocialOverrides: ReadonlyArray<CompanySocialOverride> = [
+  {
+    "name": "Gunawan",
+    "companySocial": "https://www.instagram.com/p/C___nXrTE9f/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/@keilanjddd/video/7595262717808659734"
+  },
+  {
+    "name": "Yuli Ika Yanti",
+    "companySocial": "https://instagram.com/indomarco-prismatama",
+    "companyLinkedin": "https://id.linkedin.com/in/hilary-yudiana-686937171",
+    "companyInstagram": "https://www.instagram.com/p/dxf4uhzk909/",
+    "companyFacebook": "https://www.facebook.com/149118795134932",
+    "companyTiktok": "https://www.tiktok.com/@brinks.indonesia/video/7605497465927748885"
+  },
+  {
+    "name": "Assa Idhika",
+    "companySocial": "https://instagram.com/zenius-education",
+    "companyLinkedin": "https://in.linkedin.com/company/pt-zenius-education",
+    "companyInstagram": "https://www.instagram.com/explore/locations/338928746/pt-zenius-education/",
+    "companyFacebook": "https://www.facebook.com/zeniusmultimedialearning/photos/pt-zenius-education-membuka-lowongan/10153484284553575/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Wiwik Irma Suryani",
+    "companySocial": "https://linkedin.com/company/kementerian-pendidikan-dasar-dan-menengah-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/alyamaulidiya",
+    "companyInstagram": "https://www.instagram.com/p/dwtocqzktdv/?img_index=7&hl=ne",
+    "companyFacebook": "https://www.facebook.com/kemdikdasmen/",
+    "companyTiktok": "https://www.tiktok.com/@dit.ksps.tendik/photo/7631049244518075668"
+  },
+  {
+    "name": "Catur Rahmani Oktavia",
+    "companySocial": "https://linkedin.com/company/universitas-teknologi-nusantara",
+    "companyLinkedin": "https://id.linkedin.com/school/universitas-teknologi-nusantara-ofc/",
+    "companyInstagram": "https://www.instagram.com/p/dv-zrraj2kt/",
+    "companyFacebook": "https://www.facebook.com/utnbogor/",
+    "companyTiktok": "https://www.tiktok.com/discover/universitas-teknologi-nusantara"
+  },
+  {
+    "name": "Indayati",
+    "companySocial": "https://linkedin.com/company/grant-thornton",
+    "companyLinkedin": "https://id.linkedin.com/in/agus-supriyanto-77464b167",
+    "companyInstagram": "https://www.instagram.com/reel/dmupt_hzoah/",
+    "companyFacebook": null,
+    "companyTiktok": "https://www.tiktok.com/@cgvgrandindo/video/7307311949556010245"
+  },
+  {
+    "name": "Hery Purwanto",
+    "companySocial": "https://tiktok.com/@sehat-medika-sejahtera",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Muzakki Abdillah",
+    "companySocial": "https://linkedin.com/company/universitas-negeri-surabaya",
+    "companyLinkedin": "https://id.linkedin.com/in/zalsakiranaputri",
+    "companyInstagram": "https://www.instagram.com/p/dxav6mkka0t/",
+    "companyFacebook": "https://www.facebook.com/universitasnegerisurabaya/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@unesaid/video/7621161103359282453"
+  },
+  {
+    "name": "Adi Nugroho",
+    "companySocial": "https://facebook.com/xl-axiata",
+    "companyLinkedin": "https://id.linkedin.com/in/ghina-nurul-aini-002a2611b",
+    "companyInstagram": "https://www.instagram.com/explore/locations/480734978654084/pt-xl-axiata-tbk/",
+    "companyFacebook": "https://www.facebook.com/heaptalknews/posts/pt-xl-axiata-tbk-xl-axiata-pt-smartfren-telecom-tbk-smartfren-and-pt-smart-telco/1015299807281771/",
+    "companyTiktok": "https://www.tiktok.com/discover/xl-axiata-tbk"
+  },
+  {
+    "name": "Dwi Herminingtyas",
+    "companySocial": "https://linkedin.com/company/xl-axiata",
+    "companyLinkedin": "https://id.linkedin.com/in/ghina-nurul-aini-002a2611b",
+    "companyInstagram": "https://www.instagram.com/explore/locations/480734978654084/pt-xl-axiata-tbk/",
+    "companyFacebook": "https://www.facebook.com/heaptalknews/posts/pt-xl-axiata-tbk-xl-axiata-pt-smartfren-telecom-tbk-smartfren-and-pt-smart-telco/1015299807281771/",
+    "companyTiktok": "https://www.tiktok.com/discover/xl-axiata-tbk"
+  },
+  {
+    "name": "Yulia Andarini",
+    "companySocial": "https://tiktok.com/@bukalapak",
+    "companyLinkedin": "https://id.linkedin.com/in/devypuspitasari",
+    "companyInstagram": "https://www.instagram.com/p/dqjhe0akrxc/",
+    "companyFacebook": "https://www.facebook.com/borneobulletin.news/posts/the-co-founder-of-bukalapak-an-online-marketplace-platform-company-headquartered/2907071835986942/",
+    "companyTiktok": "https://www.tiktok.com/@cnnindonesia/video/7457780594785651975"
+  },
+  {
+    "name": "Wilis Setyowati",
+    "companySocial": "https://www.instagram.com/popular/accounting-company-indonesia/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Panca Ambar Susanggono",
+    "companySocial": "https://linkedin.com/company/maju-motor",
+    "companyLinkedin": "https://id.linkedin.com/in/jepiy-djong-9231b157",
+    "companyInstagram": "https://www.instagram.com/popular/pt-maju-motor-indonesia/",
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Khoirul Ibadah",
+    "companySocial": "https://instagram.com/karya-kreatif-bersama",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Diar Afiantina",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/@keilanjddd/video/7595262717808659734"
+  },
+  {
+    "name": "Purwati",
+    "companySocial": "https://instagram.com/kimiafarmaind",
+    "companyLinkedin": "https://www.linkedin.com/posts/pt.-kimia-farma-tbk_%f0%9d%90%96%f0%9d%90%9a%f0%9d%90%ac%f0%9d%90%a9%f0%9d%90%9a%f0%9d%90%9d%f0%9d%90%9a-%f0%9d%90%8f%f0%9d%90%9e%f0%9d%90%a7%f0%9d%90%a2%f0%9d%90%a9%f0%9d%90%ae%f0%9d%90%9a%f0%9d%90%a7-halo-activity-7385888706701795329-up8q",
+    "companyInstagram": "https://www.instagram.com/p/dux_fldkzlu/",
+    "companyFacebook": "https://www.facebook.com/kimiafarmacare/",
+    "companyTiktok": "https://www.tiktok.com/@temanlab/video/7424478124307500293"
+  },
+  {
+    "name": "Inayah",
+    "companySocial": "https://facebook.com/charoen-pokphand-indonesia",
+    "companyLinkedin": "https://id.linkedin.com/in/anindya-apsari",
+    "companyInstagram": "https://www.instagram.com/p/dxywv0vgces/",
+    "companyFacebook": "https://www.facebook.com/p/pt-charoen-pokphand-indonesia-61567723686918/",
+    "companyTiktok": "https://www.tiktok.com/@cpei_groupindonesia/photo/7587988962984217864"
+  },
+  {
+    "name": "Indriyati",
+    "companySocial": "https://facebook.com/pemerintah-provinsi-jawa-timur",
+    "companyLinkedin": "https://id.linkedin.com/in/tri-cahyo-prakoso-671936221",
+    "companyInstagram": "https://www.instagram.com/p/dummc7bektr/",
+    "companyFacebook": "https://www.facebook.com/jatimpemprov/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@pemprovjatim"
+  },
+  {
+    "name": "Novie Pahlawati",
+    "companySocial": "https://tiktok.com/@rs-hermina",
+    "companyLinkedin": "https://www.linkedin.com/company/rsherminajatinegara",
+    "companyInstagram": "https://www.instagram.com/p/dsutzqkd352/",
+    "companyFacebook": "https://www.facebook.com/groups/803055056063908/posts/935108762858536/",
+    "companyTiktok": "https://www.tiktok.com/@rsuherminasamarinda/photo/7495974807792635154"
+  },
+  {
+    "name": "Indriany Retnaningsih",
+    "companySocial": "https://instagram.com/xendit-payment-solutions",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Eny Erfiati",
+    "companySocial": "https://www.instagram.com/reel/DLE0IelpAON/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Heriyanto Nurcahyo",
+    "companySocial": "https://instagram.com/nodeflux-teknologi",
+    "companyLinkedin": "https://id.linkedin.com/in/iswara-aji-pratama",
+    "companyInstagram": "https://www.instagram.com/p/cddhfhinax-/",
+    "companyFacebook": "https://www.facebook.com/nodeflux/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Nailul Izzah",
+    "companySocial": "https://linkedin.com",
+    "companyLinkedin": "https://id.linkedin.com/in/adinda-deskya-putri-setiawan-a92b1b287",
+    "companyInstagram": "https://www.instagram.com/p/driza6akskk/",
+    "companyFacebook": "https://www.facebook.com/groups/sman5sby/",
+    "companyTiktok": "https://www.tiktok.com/@sman.5.surabaya"
+  },
+  {
+    "name": "Ani Purwati",
+    "companySocial": "https://linkedin.com/company/ovo-finance",
+    "companyLinkedin": "https://www.linkedin.com/posts/visionetinternasional_klarifikasi-pt-ovo-finance-indonesia-tidak-activity-6864029737409499136-y_zl",
+    "companyInstagram": "https://www.instagram.com/p/cwfcoyfdpyb/",
+    "companyFacebook": "https://www.facebook.com/ovoidn/posts/klarifikasi-pt-ovo-finance-indonesia-tidak-merupakan-bagian-dari-ovo-pt-visionet/3167077786950550/",
+    "companyTiktok": "https://www.tiktok.com/discover/ovo-bermasalah-hari-ini-06-oktober-2025"
+  },
+  {
+    "name": "Ferdy Imanzah",
+    "companySocial": "https://linkedin.com/company/oracle",
+    "companyLinkedin": "https://id.linkedin.com/in/yedid-el-gania-lumbantobing-287170190",
+    "companyInstagram": "https://www.instagram.com/reel/dhva5svtj9y/",
+    "companyFacebook": "https://www.facebook.com/pages/pt-oracle-indonesia/110128715678498",
+    "companyTiktok": "https://www.tiktok.com/@bnofriyan2"
+  },
+  {
+    "name": "Zuraidah",
+    "companySocial": "https://linkedin.com/company/universitas-airlangga",
+    "companyLinkedin": "https://id.linkedin.com/in/nabilamutia",
+    "companyInstagram": "https://www.instagram.com/p/dq0jlkze-9j/",
+    "companyFacebook": "https://www.facebook.com/universitasairlangga/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@unair_official"
+  },
+  {
+    "name": "Atik Bintarti Dyah Dwi Winedar",
+    "companySocial": "https://instagram.com/telkom-university",
+    "companyLinkedin": "https://id.linkedin.com/in/silasasa",
+    "companyInstagram": "https://www.instagram.com/p/dwkhl-dmd_u/",
+    "companyFacebook": "https://www.facebook.com/telkomuniversity/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@universitastelkom"
+  },
+  {
+    "name": "Kuswati",
+    "companySocial": "https://tiktok.com/@ruangguru",
+    "companyLinkedin": "https://id.linkedin.com/in/rini-fauziyah-8631b9145",
+    "companyInstagram": "https://www.instagram.com/growingselfid/",
+    "companyFacebook": "https://www.facebook.com/groups/244543252264344/posts/9229759173742662/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Sri Lestari",
+    "companySocial": "https://tiktok.com/@politeknik-elektronika-negeri-surabaya",
+    "companyLinkedin": "https://id.linkedin.com/in/iyan-hartadi-449a603b5",
+    "companyInstagram": "https://www.instagram.com/p/drefaqwklok/",
+    "companyFacebook": "https://www.facebook.com/pens.eepis/",
+    "companyTiktok": "https://www.tiktok.com/@penseepis"
+  },
+  {
+    "name": "Fauziah",
+    "companySocial": "https://instagram.com/tk-aisyiyah-bustanul-athfal-1",
+    "companyLinkedin": "https://id.linkedin.com/in/ssinz-ssinzzell-50372017a",
+    "companyInstagram": "https://www.instagram.com/reel/dvlkjxnekol/",
+    "companyFacebook": "https://www.facebook.com/1500786559932479",
+    "companyTiktok": "https://www.tiktok.com/@tk.aba.1.tgrs/video/7619352066628422932"
+  },
+  {
+    "name": "Muhammad Anshori",
+    "companySocial": "https://linkedin.com/company/halodoc-id",
+    "companyLinkedin": "https://id.linkedin.com/in/nadya-musdalifa-b26722186",
+    "companyInstagram": "https://www.instagram.com/popular/pt-halodoc/",
+    "companyFacebook": "https://www.facebook.com/extraprintptj/photos/halodoc-tripod-bannerhalodoc-tripodbanner-extraprint/10156358366966905/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Achmad Sjafi'y",
+    "companySocial": "https://www.instagram.com/reel/DFt3VRbPzLo/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Asma'ur Rohman",
+    "companySocial": "https://linkedin.com/company/toyota-motor-manufacturing",
+    "companyLinkedin": "https://id.linkedin.com/in/fida-afifahrahman",
+    "companyInstagram": "https://www.instagram.com/p/dxmrhr8kvug/",
+    "companyFacebook": "https://www.facebook.com/cdaipb/posts/in-campus-recruitment-pt-toyota-motor-manufacturing-indonesia-pt-tmminposisi-new/955594881143874/?locale=pl_pl",
+    "companyTiktok": "https://www.tiktok.com/@tmmin.id/video/7590689937381428501"
+  },
+  {
+    "name": "A. Hasyim Nawawie",
+    "companySocial": "https://instagram.com/siloam-hospitals-group",
+    "companyLinkedin": "https://id.linkedin.com/in/lay-agnes-magdalena-",
+    "companyInstagram": "https://www.instagram.com/p/dt69ax1jboq/",
+    "companyFacebook": "https://www.facebook.com/siloamhospitalgroup/",
+    "companyTiktok": "https://www.tiktok.com/@siloamhospitalsgroup/video/7532117210806996230"
+  },
+  {
+    "name": "Mulyoaji Cahyo Jati",
+    "companySocial": "https://facebook.com/sentra-niaga-mandiri",
+    "companyLinkedin": null,
+    "companyInstagram": "https://www.instagram.com/sumutpaper/",
+    "companyFacebook": "https://www.facebook.com/dr.horasrajagukguk/posts/proyek-lampu-pocong-harus-kembali-diusut-usut-tuntas-tragedi-mei-98ratusan-mahas/1002024591928849/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Saiful Mustofa",
+    "companySocial": "https://instagram.com/ipb-university",
+    "companyLinkedin": "https://id.linkedin.com/in/fatin-nurfadillah-962a31377",
+    "companyInstagram": "https://www.instagram.com/p/dxqcj-imgvz/",
+    "companyFacebook": "https://www.facebook.com/ipbuniversity/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@ipbuniversity"
+  },
+  {
+    "name": "Widji Eljanto",
+    "companySocial": "https://linkedin.com/company/ibm",
+    "companyLinkedin": "https://id.linkedin.com/in/wijaya-andreas-rumahorbo-2351bbaa",
+    "companyInstagram": "https://www.instagram.com/explore/locations/6068007/pt-ibm-indonesia/",
+    "companyFacebook": "https://www.facebook.com/269084690328788",
+    "companyTiktok": "https://www.tiktok.com/@fortune.idn/video/7468249373164440838"
+  },
+  {
+    "name": "Qomaruddin",
+    "companySocial": "https://instagram.com/adhi-karya-persero",
+    "companyLinkedin": "https://id.linkedin.com/in/coniesyah-zalfa-zahira-077a33118",
+    "companyInstagram": "https://www.instagram.com/p/dk8tndobfa7/",
+    "companyFacebook": "https://www.facebook.com/autodeskasean/posts/congratulations-to-pt-adhi-karya-persero-tbk-customer-of-our-gold-partner-in-ind/689539489870568/",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-adhi-karya"
+  },
+  {
+    "name": "Tuti Kusniarti",
+    "companySocial": "https://facebook.com/klinik-pratama",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Ali Murtadi",
+    "companySocial": "https://www.instagram.com/p/DOs0DrtiWie/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Sugeng Sutjahjono",
+    "companySocial": "https://tiktok.com/@rumah-sakit-bhayangkara",
+    "companyLinkedin": "https://id.linkedin.com/in/eugenia-isadora-132052294",
+    "companyInstagram": "https://www.instagram.com/reel/dwqx5drkxaw/",
+    "companyFacebook": "https://www.facebook.com/rsbhayangkarakediri/videos/-klinik-matabersama-dr-arti-lukitasari-spm-dokter-spesialis-mata-yang-siap-memba/1534500187509394/",
+    "companyTiktok": "https://www.tiktok.com/@infobanjar.id/video/7609049246129573141"
+  },
+  {
+    "name": "Hari Krispriyanto",
+    "companySocial": "https://instagram.com/zenius-education",
+    "companyLinkedin": "https://in.linkedin.com/company/pt-zenius-education",
+    "companyInstagram": "https://www.instagram.com/explore/locations/338928746/pt-zenius-education/",
+    "companyFacebook": "https://www.facebook.com/zeniusmultimedialearning/photos/pt-zenius-education-membuka-lowongan/10153484284553575/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Ekapti Wahjuni Djuwitaningsih",
+    "companySocial": "https://facebook.com/notaris-dan-ppat-rekan-sejahtera",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Abd. Rahem",
+    "companySocial": "https://linkedin.com",
+    "companyLinkedin": "https://id.linkedin.com/in/reza-anjelina-s-m-700077220",
+    "companyInstagram": "https://www.instagram.com/reel/dtnusvpjg8k/",
+    "companyFacebook": "https://www.facebook.com/smknegeri2mlg/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@samupahita"
+  },
+  {
+    "name": "Nazar Naamy",
+    "companySocial": "https://facebook.com/pemerintah-provinsi-jawa-timur",
+    "companyLinkedin": "https://id.linkedin.com/in/tri-cahyo-prakoso-671936221",
+    "companyInstagram": "https://www.instagram.com/p/dummc7bektr/",
+    "companyFacebook": "https://www.facebook.com/jatimpemprov/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@pemprovjatim"
+  },
+  {
+    "name": "Surjadi",
+    "companySocial": "https://www.instagram.com/p/DOs0DrtiWie/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Wahjuti",
+    "companySocial": "https://facebook.com/fore-kopi",
+    "companyLinkedin": "https://id.linkedin.com/in/liyana-fadhilah-99a22298",
+    "companyInstagram": "https://www.instagram.com/p/dpqepmuited/",
+    "companyFacebook": "https://www.facebook.com/fore.coffee/mentions/",
+    "companyTiktok": "https://www.tiktok.com/@idxchannel/video/7631109414614748437"
+  },
+  {
+    "name": "Tohir Bachri",
+    "companySocial": "https://instagram.com/kantor-hukum-mitra-perkara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Pribadi",
+    "companySocial": "https://www.instagram.com/reel/Cy9gO9evWHM/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Andi Moh Arpan",
+    "companySocial": "https://tiktok.com/@garudafood-putra-putri-jaya",
+    "companyLinkedin": "https://www.linkedin.com/posts/pt.-garudafood-putra-putri-jaya-tbk_genzatwork-onegarudafood-innovationandsynergy-activity-7137711653936123904-st_t",
+    "companyInstagram": "https://www.instagram.com/garudafood_id/",
+    "companyFacebook": "https://www.facebook.com/garudafoodputraputrijaya/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@lifeatgarudafood/video/7259639308615765254"
+  },
+  {
+    "name": "M. Islam",
+    "companySocial": "https://tiktok.com/@sd-al-azhar-1-jakarta",
+    "companyLinkedin": null,
+    "companyInstagram": "https://www.instagram.com/reels/c6-mzhfpzqs/",
+    "companyFacebook": "https://www.facebook.com/611674755368647",
+    "companyTiktok": "https://www.tiktok.com/@kemenpu/video/7189455484481457435"
+  },
+  {
+    "name": "Mohammad Zaini",
+    "companySocial": "https://linkedin.com/company/badan-nasional-penanggulangan-bencana",
+    "companyLinkedin": "https://id.linkedin.com/in/bernadettada-pope-leo-sagala-539866180",
+    "companyInstagram": "https://www.instagram.com/p/dr6lc6zeopg/",
+    "companyFacebook": "https://www.facebook.com/hasanuddin.university/photos/karebaunhasuniversitas-hasanuddin-dan-badan-nasional-penanggulangan-bencana-bnpb/2621468378173816/",
+    "companyTiktok": "https://www.tiktok.com/@bnpbindonesia/video/7630846192057928981"
+  },
+  {
+    "name": "Arif Wibisono Adi",
+    "companySocial": "https://facebook.com/pemerintah-kabupaten-sleman",
+    "companyLinkedin": "https://id.linkedin.com/in/agung-krisna-ambara",
+    "companyInstagram": "https://www.instagram.com/p/dwye-woettp/",
+    "companyFacebook": "https://www.facebook.com/pemkabsleman/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@pemkabsleman"
+  },
+  {
+    "name": "Asnan Noer",
+    "companySocial": "https://linkedin.com/company/tk-islam-al-azhar-14-semarang",
+    "companyLinkedin": null,
+    "companyInstagram": "https://www.instagram.com/reel/dwqvsm6k7-4/",
+    "companyFacebook": "https://www.facebook.com/tkia14smg/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@tkialazhar14smg/video/7602245335792012564"
+  },
+  {
+    "name": "Achmad Budiman",
+    "companySocial": "https://facebook.com/midtrans",
+    "companyLinkedin": "https://id.linkedin.com/in/yovita-chen-589aa265",
+    "companyInstagram": "https://www.instagram.com/popular/midtrans-pt/",
+    "companyFacebook": "https://www.facebook.com/e27/photos/e27-was-at-pt-midtrans-press-conference/10151052502131669/",
+    "companyTiktok": "https://www.tiktok.com/discover/midtrans-indonesia"
+  },
+  {
+    "name": "Suhadirahman",
+    "companySocial": "https://linkedin.com/company/gojek",
+    "companyLinkedin": "https://id.linkedin.com/in/yehezkielsamudrananda",
+    "companyInstagram": "https://www.instagram.com/reel/dtbmzuok18l/",
+    "companyFacebook": "https://www.facebook.com/579781549068181",
+    "companyTiktok": "https://www.tiktok.com/@swa_jkt/video/7516026955435707654"
+  },
+  {
+    "name": "Abdul Chanan",
+    "companySocial": "https://instagram.com/aplikasi-karya-anak-bangsa",
+    "companyLinkedin": "https://id.linkedin.com/in/jihan-putri-zuariah-117926285",
+    "companyInstagram": "https://www.instagram.com/p/crf3ls0jupd/",
+    "companyFacebook": "https://m.facebook.com/hasanuddin.university/photos/halo-mahasiswa-unhastertarik-menjadi-wirausaha-yuk-ikutin-mahasiswa-wirausaha-kr/2975927812727869/",
+    "companyTiktok": "https://www.tiktok.com/@newtouchmobile/video/7195545853820488966"
+  },
+  {
+    "name": "Ma'lum Yunus",
+    "companySocial": "https://tiktok.com/@maju-bersama",
+    "companyLinkedin": "https://id.linkedin.com/in/ida-liesdyanita-4a4274188",
+    "companyInstagram": "https://www.instagram.com/reel/dxdx9hkedmu/",
+    "companyFacebook": "https://www.facebook.com/majubersamaconstruction/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/content/agriseta-learnership-poster-for-2026"
+  },
+  {
+    "name": "Farida Yuliati",
+    "companySocial": "https://www.instagram.com/p/DO1TtMbk1aO/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Subandi",
+    "companySocial": "https://instagram.com/djarum",
+    "companyLinkedin": "https://www.linkedin.com/posts/pt-djarum_semangat-persatuan-lintas-generasi-activity-7388768338027474944-2gs8",
+    "companyInstagram": "https://www.instagram.com/p/dmkbgx9ugah/",
+    "companyFacebook": "https://www.facebook.com/176895575660271",
+    "companyTiktok": "https://www.tiktok.com/tag/djarum"
+  },
+  {
+    "name": "Wiwien Dwiyanto",
+    "companySocial": "https://linkedin.com/company/pemerintah-kota-malang",
+    "companyLinkedin": "https://id.linkedin.com/in/agamfirr",
+    "companyInstagram": "https://www.instagram.com/p/dxhebsqjsbc/?img_index=3",
+    "companyFacebook": "https://www.facebook.com/malangkota.go.id/",
+    "companyTiktok": "https://www.tiktok.com/@pemkot_malang"
+  },
+  {
+    "name": "Herli Antoni",
+    "companySocial": "https://tiktok.com/@avia-avian",
+    "companyLinkedin": "https://id.linkedin.com/in/kiranwalada",
+    "companyInstagram": "https://www.instagram.com/p/dxdgdtxesyg/",
+    "companyFacebook": "https://www.facebook.com/avianbrands/posts/pt-avia-avian-tbk-avia-terbukti-memberikan-kontribusi-yang-baik-terhadap-pertumb/747673100714887/",
+    "companyTiktok": "https://www.tiktok.com/@ccsi.recruitment/video/7541671717081500935"
+  },
+  {
+    "name": "Is Syamsijar Rochmah",
+    "companySocial": "https://linkedin.com/company/kementerian-pendidikan-tinggi-sains-dan-teknologi-republik",
+    "companyLinkedin": "https://id.linkedin.com/company/kementerian-pendidikan-tinggi-sains-dan-teknologi",
+    "companyInstagram": "https://www.instagram.com/popular/kementerian-pendidikan-tinggi,-sains,-dan-teknologi/",
+    "companyFacebook": "https://www.facebook.com/498387630201475/?locale=hi_in",
+    "companyTiktok": "https://www.tiktok.com/@unikomofficial/photo/7525413275559857415"
+  },
+  {
+    "name": "Siti Sulihah",
+    "companySocial": "https://instagram.com/primaya-hospital",
+    "companyLinkedin": "https://id.linkedin.com/in/hendrasuherman",
+    "companyInstagram": "https://www.instagram.com/p/dtrez27gb3q/?hl=id",
+    "companyFacebook": "https://m.facebook.com/lokerkesehatanid/photos/open-job-vacancy-at-primaya-hospital-bekasi-timur-deadline-untuk-syarat-dan-cara/895617454381680/",
+    "companyTiktok": "https://www.tiktok.com/@primayahospital/photo/7596933178640633095"
+  },
+  {
+    "name": "Kunthi Kusumawati",
+    "companySocial": "https://linkedin.com/company/bank-mandiri",
+    "companyLinkedin": "https://id.linkedin.com/in/anggaadhakusuma",
+    "companyInstagram": "https://www.instagram.com/p/djwcm78mseu/",
+    "companyFacebook": "https://www.facebook.com/bankmandiri/?locale=sn_zw",
+    "companyTiktok": "https://www.tiktok.com/tag/bankmandiri"
+  },
+  {
+    "name": "Nurkholik",
+    "companySocial": "https://instagram.com/aplikasi-karya-anak-bangsa",
+    "companyLinkedin": "https://id.linkedin.com/in/lukman-hk",
+    "companyInstagram": "https://www.instagram.com/p/crf3ls0jupd/",
+    "companyFacebook": "https://m.facebook.com/pages/pt-aplikasi-karya-anak-bangsa-gojek-indonesia/1369767503085176/",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-karya-antar-bangsa-sejati"
+  },
+  {
+    "name": "Siti Zumaini",
+    "companySocial": "https://instagram.com/rsup-dr-hasan-sadikin",
+    "companyLinkedin": "https://id.linkedin.com/in/antafani-eka-mawardani-49abb4152",
+    "companyInstagram": "https://www.instagram.com/p/c_4qiwzssqf/",
+    "companyFacebook": "https://www.facebook.com/rshsbdg/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@mangjo094/video/7626712083744296200"
+  },
+  {
+    "name": "Mardhiyah Ma'ruf",
+    "companySocial": "https://tiktok.com/@bukalapak",
+    "companyLinkedin": "https://id.linkedin.com/in/devypuspitasari",
+    "companyInstagram": "https://www.instagram.com/p/dqjhe0akrxc/",
+    "companyFacebook": "https://www.facebook.com/borneobulletin.news/posts/the-co-founder-of-bukalapak-an-online-marketplace-platform-company-headquartered/2907071835986942/",
+    "companyTiktok": "https://www.tiktok.com/@cnnindonesia/video/7457780594785651975"
+  },
+  {
+    "name": "Siti Lestari",
+    "companySocial": "https://facebook.com/kredivo-finance",
+    "companyLinkedin": "https://id.linkedin.com/in/astri-novita-8b7406295",
+    "companyInstagram": "https://www.instagram.com/p/czixwivvf6h/",
+    "companyFacebook": "https://www.facebook.com/kredivo/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-fuji-finance-indonesia"
+  },
+  {
+    "name": "Arief Joko Suryadi",
+    "companySocial": "https://facebook.com/pemerintah-kabupaten-sleman",
+    "companyLinkedin": "https://id.linkedin.com/in/agung-krisna-ambara",
+    "companyInstagram": "https://www.instagram.com/p/dwye-woettp/",
+    "companyFacebook": "https://www.facebook.com/pemkabsleman/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@pemkabsleman"
+  },
+  {
+    "name": "Agus Wasono",
+    "companySocial": "https://linkedin.com/company/bank-mandiri",
+    "companyLinkedin": "https://id.linkedin.com/in/anggaadhakusuma",
+    "companyInstagram": "https://www.instagram.com/p/dp5eutkeo0z/",
+    "companyFacebook": "https://www.facebook.com/bankmandiri/?locale=pa_in",
+    "companyTiktok": "https://www.tiktok.com/@ragam.sisi/video/7630424466283040007"
+  },
+  {
+    "name": "Muslikh",
+    "companySocial": "https://linkedin.com/company/kementerian-komunikasi-dan-digital-republik",
+    "companyLinkedin": "https://www.linkedin.com/posts/raisazaher_komdigi-digitalent-projectmanagement-activity-7404752901715345408-vvl2",
+    "companyInstagram": "https://www.instagram.com/p/dwa0bt_k0uq/",
+    "companyFacebook": "https://www.facebook.com/kemenkomdigi/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@antaranews/video/7626780016625405204"
+  },
+  {
+    "name": "Moh. Shofan",
+    "companySocial": "https://linkedin.com/company/traveloka",
+    "companyLinkedin": "https://id.linkedin.com/in/adinda-lia-analia-700524186",
+    "companyInstagram": "https://www.instagram.com/popular/pt-traveloka-indonesia/",
+    "companyFacebook": "https://www.facebook.com/pages/pt-traveloka-indonesia-in-west-jakarta/307109822809089",
+    "companyTiktok": "https://www.tiktok.com/@traveloka_indonesia/video/7347774136845929734"
+  },
+  {
+    "name": "Heny Candrawati",
+    "companySocial": "https://linkedin.com/company/rumah-sakit-fatmawati",
+    "companyLinkedin": "https://id.linkedin.com/in/bazlydipt",
+    "companyInstagram": "https://www.instagram.com/p/dvsxov5e2ko/",
+    "companyFacebook": "https://www.facebook.com/238196729669791",
+    "companyTiktok": "https://www.tiktok.com/@nafi_rizqi/video/7533116659339463944"
+  },
+  {
+    "name": "Nurhayati",
+    "companySocial": "https://linkedin.com/company/mitra-konsultan-bisnis",
+    "companyLinkedin": "https://id.linkedin.com/in/pratama-putra-raharjo-339850176",
+    "companyInstagram": "https://www.instagram.com/reel/dvakcesaxps/",
+    "companyFacebook": "https://www.facebook.com/p/pt-mitra-konsultan-bisnis-61551702821834/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Suparyono",
+    "companySocial": "https://linkedin.com/company/universitas-islam",
+    "companyLinkedin": "https://id.linkedin.com/in/farriel-hibrizi-23404236b",
+    "companyInstagram": "https://www.instagram.com/p/dq6eawsebfq/",
+    "companyFacebook": "https://www.facebook.com/universitas.islam.indonesia/",
+    "companyTiktok": "https://www.tiktok.com/@uii.yogyakarta"
+  },
+  {
+    "name": "Ahmad Syafawi",
+    "companySocial": "https://instagram.com/pln_id",
+    "companyLinkedin": "https://id.linkedin.com/in/meliani-rosalina",
+    "companyInstagram": "https://www.instagram.com/p/dxsamaecvdb/",
+    "companyFacebook": "https://www.facebook.com/ptpln/",
+    "companyTiktok": "https://www.tiktok.com/@pln_id"
+  },
+  {
+    "name": "Maria Ulfa",
+    "companySocial": "https://facebook.com/ptplnpersero",
+    "companyLinkedin": "https://id.linkedin.com/in/meliani-rosalina",
+    "companyInstagram": "https://www.instagram.com/p/dxsamaecvdb/",
+    "companyFacebook": "https://www.facebook.com/ptpln/",
+    "companyTiktok": "https://www.tiktok.com/@pln_id"
+  },
+  {
+    "name": "Eka Yuliawati",
+    "companySocial": "https://tiktok.com/@maju-bersama",
+    "companyLinkedin": "https://id.linkedin.com/in/ida-liesdyanita-4a4274188",
+    "companyInstagram": "https://www.instagram.com/reel/dxdx9hkedmu/",
+    "companyFacebook": "https://www.facebook.com/majubersamaconstruction/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/content/agriseta-learnership-poster-for-2026"
+  },
+  {
+    "name": "Mujtahid",
+    "companySocial": "https://instagram.com/nodeflux-teknologi",
+    "companyLinkedin": "https://id.linkedin.com/in/iswara-aji-pratama",
+    "companyInstagram": "https://www.instagram.com/p/cddhfhinax-/",
+    "companyFacebook": "https://www.facebook.com/nodeflux/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Siti Fadhilah",
+    "companySocial": "https://instagram.com/pupuk",
+    "companyLinkedin": "https://id.linkedin.com/in/anggia-risma-putri-907a3679",
+    "companyInstagram": "https://www.instagram.com/p/diwzkg6ttl0/?hl=zh-cn",
+    "companyFacebook": "https://www.facebook.com/pupuk.indonesia/",
+    "companyTiktok": "https://www.tiktok.com/@pupuk.indonesia"
+  },
+  {
+    "name": "Halimatur Rosidah",
+    "companySocial": "https://linkedin.com/company/badan-pemeriksa-keuangan-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/hanssebastiann",
+    "companyInstagram": "https://www.instagram.com/reel/du2cvecif7p/",
+    "companyFacebook": "https://www.facebook.com/humasbpkri.official/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/tag/bpkri"
+  },
+  {
+    "name": "Quratul 'Ain",
+    "companySocial": "https://instagram.com/rs-premier-bintaro",
+    "companyLinkedin": "https://id.linkedin.com/company/rs-premier-bintaro",
+    "companyInstagram": "https://www.instagram.com/p/dljncprtwiq/",
+    "companyFacebook": "https://www.facebook.com/rspremierbintaro/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@rspremierbintaro_"
+  },
+  {
+    "name": "Ni'matul Murtafiah",
+    "companySocial": "https://tiktok.com/@rs-emc",
+    "companyLinkedin": "https://id.linkedin.com/in/sofanafisah",
+    "companyInstagram": "https://www.instagram.com/reel/dnxnuamqmzs/",
+    "companyFacebook": "https://www.facebook.com/groups/404492928271959/posts/1287320289989214/",
+    "companyTiktok": "https://www.tiktok.com/@rs.emc/video/7514639397787012357"
+  },
+  {
+    "name": "Chusnul Chotimah",
+    "companySocial": "https://instagram.com/rsm",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Sri Wahjuliati",
+    "companySocial": "https://linkedin.com/company/traveloka",
+    "companyLinkedin": "https://id.linkedin.com/in/adinda-lia-analia-700524186",
+    "companyInstagram": "https://www.instagram.com/popular/pt-traveloka-indonesia/",
+    "companyFacebook": "https://www.facebook.com/pages/pt-traveloka-indonesia-in-west-jakarta/307109822809089",
+    "companyTiktok": "https://www.tiktok.com/@traveloka_indonesia/video/7347774136845929734"
+  },
+  {
+    "name": "Ami Dwiyanti",
+    "companySocial": "https://facebook.com/startup-digital-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Abdul Ghofur",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Solikin",
+    "companySocial": "https://linkedin.com/company/laboratorium-klinik-cito",
+    "companyLinkedin": "https://id.linkedin.com/in/ghina-nurul-aini-002a2611b",
+    "companyInstagram": "https://www.instagram.com/explore/locations/480734978654084/pt-xl-axiata-tbk/",
+    "companyFacebook": "https://www.facebook.com/heaptalknews/posts/pt-xl-axiata-tbk-xl-axiata-pt-smartfren-telecom-tbk-smartfren-and-pt-smart-telco/1015299807281771/",
+    "companyTiktok": "https://www.tiktok.com/discover/xl-axiata-tbk"
+  },
+  {
+    "name": "Erna Pristim Setianingsih",
+    "companySocial": "https://tiktok.com/@kejaksaan-agung-republik",
+    "companyLinkedin": "https://id.linkedin.com/company/kejaksaan-republik-indonesia",
+    "companyInstagram": "https://www.instagram.com/p/duszs3rkwq_/",
+    "companyFacebook": "https://www.facebook.com/indrautamapnb/posts/kepada-yth-calon-peserta-lomba-film-pendek-jaksa-garda-desa-pendaftaran-dan-subm/888318070368068/",
+    "companyTiktok": "https://www.tiktok.com/@lvnaaren_/video/7355428301235637509"
+  },
+  {
+    "name": "Titik Indayani",
+    "companySocial": "https://linkedin.com/company/permata-bank",
+    "companyLinkedin": "https://id.linkedin.com/in/dwiantoro-a67874193",
+    "companyInstagram": "https://www.instagram.com/p/dpvsflzddo4/",
+    "companyFacebook": "https://www.facebook.com/p/ptpermata-bank-syariah-100066710986210/",
+    "companyTiktok": "https://www.tiktok.com/content/pt-permata-bank"
+  },
+  {
+    "name": "Tutik Sunarti",
+    "companySocial": "https://facebook.com/wings-surya",
+    "companyLinkedin": "https://id.linkedin.com/in/claudiojauwena",
+    "companyInstagram": "https://www.instagram.com/reel/do0m8myj3zq/",
+    "companyFacebook": "https://www.facebook.com/wingsbuildingmaterial/",
+    "companyTiktok": "https://www.tiktok.com/tag/wingssurya"
+  },
+  {
+    "name": "Wasidi",
+    "companySocial": "https://linkedin.com/company/rsup-dr-kariadi",
+    "companyLinkedin": "https://id.linkedin.com/in/anggrahenitriwulandari",
+    "companyInstagram": "https://www.instagram.com/p/dtpmfjbeif0/",
+    "companyFacebook": "https://www.facebook.com/rskariadi/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@fik_unissula/video/7558352119296789772"
+  },
+  {
+    "name": "Nur Fathonah",
+    "companySocial": "https://linkedin.com",
+    "companyLinkedin": "https://id.linkedin.com/in/amalinakurniasari",
+    "companyInstagram": "https://www.instagram.com/p/dpkq2ygerup/",
+    "companyFacebook": "https://www.facebook.com/lombaapaaja/posts/%f0%9d%90%92%f0%9d%90%8c%f0%9d%90%80%f0%9d%90%8d-%f0%9d%9f%91-%f0%9d%90%98%f0%9d%90%8e%f0%9d%90%86%f0%9d%90%98%f0%9d%90%80%f0%9d%90%8a%f0%9d%90%80%f0%9d%90%91%f0%9d%90%93%f0%9d%90%80-%f0%9d%90%8f%f0%9d%90%91%f0%9d%90%8e%f0%9d%90%94%f0%9d%90%83%f0%9d%90%8b%f0%9d%90%98-%f0%9d%90%8f%f0%9d%90%91%f0%9d%90%84%f0%9d%90%92%f0%9d%90%84%f0%9d%90%8d%f0%9d%90%93-%f0%9d%99%82%f0%9d%99%a7%f0%9d%99%96%f0%9d%99%a3%f0%9d%99%99-%f0%9d%98%be%f0%9d%99%a4%f0%9d%99%a3%f0%9d%99%98%f0%9d%99%9a%f0%9d%99%a7%f0%9d%99%a9-%f0%9d%99%8a%f0%9d%99%a5%f0%9d%99%aa%f0%9d%99%a8-7-%f0%9d%99%8a%f0%9d%99%a7%f0%9d%99%a1%f0%9d%99%96%f0%9d%99%a5%f0%9d%99%9d%f0%9d%99%9a%f0%9d%99%a7%f0%9d%99%96-padzchestra-ft-/623493746695560/",
+    "companyTiktok": "https://www.tiktok.com/@mfatoni86/video/7240884050171677958"
+  },
+  {
+    "name": "Widi Izah Shofiana",
+    "companySocial": "https://tiktok.com/@karya-kreatif-bersama",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Nuriyati",
+    "companySocial": "https://linkedin.com/company/universitas-teknologi-nusantara",
+    "companyLinkedin": "https://id.linkedin.com/school/universitas-teknologi-nusantara-ofc/",
+    "companyInstagram": "https://www.instagram.com/p/dv-zrraj2kt/",
+    "companyFacebook": "https://www.facebook.com/utnbogor/",
+    "companyTiktok": "https://www.tiktok.com/discover/universitas-teknologi-nusantara"
+  },
+  {
+    "name": "Lutfiatur Rofiah",
+    "companySocial": "https://tiktok.com/@danamon",
+    "companyLinkedin": "https://id.linkedin.com/in/titanberliana",
+    "companyInstagram": "https://www.instagram.com/p/ds_5c1nj4gw/",
+    "companyFacebook": "https://www.facebook.com/pages/pt-danamon-tbk/154385118101584",
+    "companyTiktok": "https://www.tiktok.com/content/pt-danamon"
+  },
+  {
+    "name": "Baehaqi",
+    "companySocial": "https://linkedin.com/company/kementerian-hukum-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/nadyaariestakd",
+    "companyInstagram": "https://www.instagram.com/p/dxllvive-qg/",
+    "companyFacebook": "https://www.facebook.com/angphotorion/posts/-kabar-baik-dari-vitoma-kami-dengan-bangga-mengumumkan-bahwa-vitoma-kini-resmi-t/1490731059724533/",
+    "companyTiktok": "https://www.tiktok.com/@kemenkum"
+  },
+  {
+    "name": "Yuis Khabibah",
+    "companySocial": "https://facebook.com/pemerintah-provinsi-jawa-timur",
+    "companyLinkedin": "https://id.linkedin.com/in/tri-cahyo-prakoso-671936221",
+    "companyInstagram": "https://www.instagram.com/p/dummc7bektr/",
+    "companyFacebook": "https://www.facebook.com/jatimpemprov/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@pemprovjatim"
+  },
+  {
+    "name": "Masirah",
+    "companySocial": "https://facebook.com/sekolah-cikal",
+    "companyLinkedin": "https://id.linkedin.com/in/hanami-atalia-sudarto-062435377",
+    "companyInstagram": "https://www.instagram.com/p/dkegnqyrd38/",
+    "companyFacebook": "https://www.facebook.com/lombaapaaja/photos/%f0%9d%99%8e%f0%9d%99%9a%f0%9d%99%a9-%f0%9d%99%8e%f0%9d%99%96%f0%9d%99%9e%f0%9d%99%a1-%f0%9d%99%9e%f0%9d%99%a3%f0%9d%99%a9%f0%9d%99%a4-%f0%9d%99%a9%f0%9d%99%9d%f0%9d%99%9a-%f0%9d%99%8e%f0%9d%99%a5%f0%9d%99%9e%f0%9d%99%a7%f0%9d%99%9e%f0%9d%99%a9-%f0%9d%99%a4%f0%9d%99%9b-%f0%9d%98%be%f0%9d%99%84%f0%9d%99%87%f0%9d%99%90%f0%9d%99%86%f0%9d%98%bd%f0%9d%98%bcare-you-ready-to-dive-into-a-journey-where-hi/871511881893744/",
+    "companyTiktok": "https://www.tiktok.com/@sekolah.cikal"
+  },
+  {
+    "name": "Siti Masrokhah",
+    "companySocial": "https://facebook.com/telkomindonesia",
+    "companyLinkedin": "https://id.linkedin.com/in/lilulu-melisa-01a525374",
+    "companyInstagram": "https://www.instagram.com/p/dtjwez1ekin/",
+    "companyFacebook": "https://www.facebook.com/telkomindonesia/mentions/",
+    "companyTiktok": "https://www.tiktok.com/@telkomindonesia/video/7178781501163687194"
+  },
+  {
+    "name": "Ery Himawan Sunu Cahyadi",
+    "companySocial": "https://instagram.com/pln_id",
+    "companyLinkedin": "https://id.linkedin.com/in/meliani-rosalina",
+    "companyInstagram": "https://www.instagram.com/p/dxsamaecvdb/",
+    "companyFacebook": "https://www.facebook.com/ptpln/",
+    "companyTiktok": "https://www.tiktok.com/@pln_id"
+  },
+  {
+    "name": "Marsum",
+    "companySocial": "https://linkedin.com/company/gojek",
+    "companyLinkedin": "https://id.linkedin.com/in/yehezkielsamudrananda",
+    "companyInstagram": "https://www.instagram.com/reel/dtbmzuok18l/",
+    "companyFacebook": "https://www.facebook.com/579781549068181",
+    "companyTiktok": "https://www.tiktok.com/@swa_jkt/video/7516026955435707654"
+  },
+  {
+    "name": "Moh. Sukadi",
+    "companySocial": "https://tiktok.com/@aruna-jaya-nuswantara",
+    "companyLinkedin": "https://id.linkedin.com/company/aruna-indonesia",
+    "companyInstagram": "https://www.instagram.com/p/ca1fc7vps_7/",
+    "companyFacebook": "https://www.facebook.com/pages/pt-aruna-jaya-nuswantara/221882365008583",
+    "companyTiktok": null
+  },
+  {
+    "name": "Bariroh",
+    "companySocial": "https://instagram.com/tk-aisyiyah-bustanul-athfal-1",
+    "companyLinkedin": "https://id.linkedin.com/in/ssinz-ssinzzell-50372017a",
+    "companyInstagram": "https://www.instagram.com/reel/dvlkjxnekol/",
+    "companyFacebook": "https://www.facebook.com/1500786559932479",
+    "companyTiktok": "https://www.tiktok.com/tag/tkaisyiahbustanulathfal1bengkulu"
+  },
+  {
+    "name": "Sumainah",
+    "companySocial": "https://instagram.com/matahari-department-store",
+    "companyLinkedin": "https://id.linkedin.com/in/veronicajoman",
+    "companyInstagram": "https://www.instagram.com/p/dq59mjjkhss/",
+    "companyFacebook": "https://m.facebook.com/profile.php?id=372747959519334",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-matahari-department-store-tbk"
+  },
+  {
+    "name": "Luthfiyatul Husna",
+    "companySocial": "https://linkedin.com/company/kementerian-hukum-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/nadyaariestakd",
+    "companyInstagram": "https://www.instagram.com/p/du5kvtbex6_/",
+    "companyFacebook": "https://www.facebook.com/angphotorion/posts/-kabar-baik-dari-vitoma-kami-dengan-bangga-mengumumkan-bahwa-vitoma-kini-resmi-t/1490731059724533/",
+    "companyTiktok": "https://www.tiktok.com/@kemenkum"
+  },
+  {
+    "name": "Suliati",
+    "companySocial": "https://tiktok.com/@desain-ruang-urban",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Mokh. Yayus",
+    "companySocial": "https://linkedin.com/company/rsup-dr-kariadi",
+    "companyLinkedin": "https://id.linkedin.com/in/anggrahenitriwulandari",
+    "companyInstagram": "https://www.instagram.com/p/dtpmfjbeif0/",
+    "companyFacebook": "https://www.facebook.com/rskariadi/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@fik_unissula/video/7558352119296789772"
+  },
+  {
+    "name": "Nadjid",
+    "companySocial": "https://facebook.com/jasa-marga-persero",
+    "companyLinkedin": "https://www.linkedin.com/posts/jasamarga_jetroadster2021-bumnuntukindonesia-jasamarga-activity-6860916829397876736-jwts",
+    "companyInstagram": "https://www.instagram.com/p/cvucxgfvfqt/",
+    "companyFacebook": "https://www.facebook.com/official.jasamarga/",
+    "companyTiktok": "https://www.tiktok.com/@official.jasamarga"
+  },
+  {
+    "name": "Sumiyati",
+    "companySocial": "https://instagram.com/pln_id",
+    "companyLinkedin": "https://id.linkedin.com/in/meliani-rosalina",
+    "companyInstagram": "https://www.instagram.com/p/dxsamaecvdb/",
+    "companyFacebook": "https://www.facebook.com/ptpln/",
+    "companyTiktok": "https://www.tiktok.com/@pln_id"
+  },
+  {
+    "name": "Listiningsih",
+    "companySocial": "https://linkedin.com/company/pos-indonesia",
+    "companyLinkedin": "https://id.linkedin.com/in/eric-malau-0bb40a256",
+    "companyInstagram": "https://www.instagram.com/p/dvdoppegmld/?img_index=3&hl=fi",
+    "companyFacebook": "https://www.facebook.com/posindonesia/?locale=da_dk",
+    "companyTiktok": "https://www.tiktok.com/@posindonesia_official"
+  },
+  {
+    "name": "Markamah",
+    "companySocial": "https://instagram.com/pegadaian",
+    "companyLinkedin": "https://www.linkedin.com/posts/ptpegadaian_ipbjobfair-ipbjobfair-careerfest-activity-7201048337947500544-uhl-",
+    "companyInstagram": "https://www.instagram.com/p/dwsh8nnib5g/",
+    "companyFacebook": "https://www.facebook.com/pegadaianpersero/",
+    "companyTiktok": "https://www.tiktok.com/@sahabatpegadaian"
+  },
+  {
+    "name": "Supardi",
+    "companySocial": "https://facebook.com/bank-rakyat-indonesia-persero",
+    "companyLinkedin": "https://id.linkedin.com/in/nanda-oktaviana-843181271",
+    "companyInstagram": "https://www.instagram.com/p/c-7cz9ugt7_/",
+    "companyFacebook": "https://www.facebook.com/hrasiaawards/videos/pt-bank-rakyat-indonesia-persero-tbk-winner-of-2024-indonesia-hr-asia-best-compa/1403118313852595/",
+    "companyTiktok": "https://www.tiktok.com/tag/bankrakyatindonesia"
+  },
+  {
+    "name": "Sochib",
+    "companySocial": "https://www.instagram.com/p/DXbJ-fmEV3i/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Shofwan",
+    "companySocial": "https://tiktok.com/@adira-finance",
+    "companyLinkedin": "https://id.linkedin.com/in/rizky-dwi-kurniawan-1a5439259",
+    "companyInstagram": "https://www.instagram.com/p/cpcny0tb2vu/",
+    "companyFacebook": "https://www.facebook.com/indonesiaaccountingfair/photos/d41d8cd9/1359335242903812/",
+    "companyTiktok": "https://www.tiktok.com/@adirafinanceid/video/7525098383137197330"
+  },
+  {
+    "name": "Murtini",
+    "companySocial": "https://facebook.com/badan-pusat-statistik",
+    "companyLinkedin": "https://www.linkedin.com/in/wahyu-ahmad-kautsar",
+    "companyInstagram": "https://www.instagram.com/p/dxbvj3fd2cw/",
+    "companyFacebook": "https://www.facebook.com/dosmbphpp/photos/d41d8cd9/1174604241510970/",
+    "companyTiktok": "https://www.tiktok.com/@cnbcindonesia/photo/7597673297064594696"
+  },
+  {
+    "name": "Panidin",
+    "companySocial": "https://linkedin.com/company/kalbe",
+    "companyLinkedin": "https://id.linkedin.com/in/sherlycarolinee",
+    "companyInstagram": "https://www.instagram.com/p/dxf8rcqkfbb/",
+    "companyFacebook": "https://www.facebook.com/kalbefarma.tbk/",
+    "companyTiktok": "https://www.tiktok.com/@lifeatkalbe/video/7395525826256637189"
+  },
+  {
+    "name": "Abd. Djamil",
+    "companySocial": "https://facebook.com/adira-dinamika-multi-finance",
+    "companyLinkedin": "https://id.linkedin.com/in/sudiastika-i-dewa-putu-7790b3232",
+    "companyInstagram": "https://www.instagram.com/p/dj5ziwbtsr-/",
+    "companyFacebook": "https://www.facebook.com/photo.php?fbid=1270763525191579&set=a.512762964324976&type=3",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-adira-dinamika-multi-finance"
+  },
+  {
+    "name": "Sufathan",
+    "companySocial": "https://tiktok.com/@rs-mitra-sehat-sentosa",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Kanafi",
+    "companySocial": "https://tiktok.com/@mekar-investama-sampoerna",
+    "companyLinkedin": "https://id.linkedin.com/in/mirza-raffi",
+    "companyInstagram": "https://www.instagram.com/popular/pt-dana-purna-investama/",
+    "companyFacebook": "https://www.facebook.com/mekarnetwork/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@seputarpinjol2025/photo/7622307935271619847"
+  },
+  {
+    "name": "Noor Qosim",
+    "companySocial": "https://tiktok.com/@samudera-indonesia",
+    "companyLinkedin": "https://www.linkedin.com/company/samudera-indonesia/",
+    "companyInstagram": "https://www.instagram.com/p/dljq20zywml/",
+    "companyFacebook": "https://www.facebook.com/samuderaid/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@idxchannel/video/7568411285772176661"
+  },
+  {
+    "name": "Khoridah",
+    "companySocial": "https://tiktok.com/@adira-finance",
+    "companyLinkedin": "https://id.linkedin.com/in/rizky-dwi-kurniawan-1a5439259",
+    "companyInstagram": "https://www.instagram.com/p/cpcny0tb2vu/",
+    "companyFacebook": "https://www.facebook.com/indonesiaaccountingfair/photos/d41d8cd9/1359335242903812/",
+    "companyTiktok": "https://www.tiktok.com/content/toplokercomvirtualjobfair"
+  },
+  {
+    "name": "M. Djupri",
+    "companySocial": "https://instagram.com/badan-pengawas-obat-dan-makanan",
+    "companyLinkedin": "https://id.linkedin.com/in/nadira-se",
+    "companyInstagram": "https://www.instagram.com/reel/cj78q5bjkgv/",
+    "companyFacebook": "https://www.facebook.com/bpom.official/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@kompascom/video/7573313599892966664"
+  },
+  {
+    "name": "Abdul Rahman",
+    "companySocial": "https://tiktok.com/@mekari",
+    "companyLinkedin": "https://id.linkedin.com/in/ahmad-nur-said-nst-bb6113198",
+    "companyInstagram": "https://www.instagram.com/p/dqtjnmkktb2/",
+    "companyFacebook": "https://www.facebook.com/universitas.esaunggul/posts/universitas-esa-unggul-powered-by-arizona-university-melakukan-workshop-dengan-p/1295659512603719/",
+    "companyTiktok": "https://www.tiktok.com/@epicareerjobid/video/7312226712614472965"
+  },
+  {
+    "name": "M. Baidah",
+    "companySocial": "https://linkedin.com/company/badan-pemeriksa-keuangan-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/egityo",
+    "companyInstagram": "https://www.instagram.com/reel/du2cvecif7p/",
+    "companyFacebook": "https://www.facebook.com/humasbpkri.official/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/tag/bpkri"
+  },
+  {
+    "name": "Umar Faruq",
+    "companySocial": "https://tiktok.com/@astra-international",
+    "companyLinkedin": "https://id.linkedin.com/in/sitta-zahra-maulida",
+    "companyInstagram": "https://www.instagram.com/p/dv-gohcj4l3/",
+    "companyFacebook": "https://www.facebook.com/hrasiaawards/videos/pt-astra-international-tbk-winner-of-2024-indonesia-hr-asia-best-companies-to-wo/521913110508138/",
+    "companyTiktok": "https://www.tiktok.com/@brkkkkz/video/7455337284087336210"
+  },
+  {
+    "name": "Hariyadi",
+    "companySocial": "https://linkedin.com/company/ovo-finance",
+    "companyLinkedin": "https://www.linkedin.com/posts/visionetinternasional_klarifikasi-pt-ovo-finance-indonesia-tidak-activity-6864029737409499136-y_zl",
+    "companyInstagram": "https://www.instagram.com/p/cwfcoyfdpyb/",
+    "companyFacebook": "https://www.facebook.com/ovoidn/posts/klarifikasi-pt-ovo-finance-indonesia-tidak-merupakan-bagian-dari-ovo-pt-visionet/3167077786950550/",
+    "companyTiktok": "https://www.tiktok.com/discover/ovo-bermasalah-hari-ini-06-oktober-2025"
+  },
+  {
+    "name": "Tuti Rukiah",
+    "companySocial": "https://facebook.com/omni-hospitals",
+    "companyLinkedin": "https://in.linkedin.com/company/omnihospitals",
+    "companyInstagram": "https://www.instagram.com/p/dw0s6msjnxa/",
+    "companyFacebook": "https://www.facebook.com/udaiomnihospital/posts/department-of-pulmonology-and-sleep-disorders-at-udai-omni-hospital-provides-eva/5230555183632901/",
+    "companyTiktok": "https://www.tiktok.com/@ismartsaikiranismartboy/video/6823443010433436929"
+  },
+  {
+    "name": "Masruchah",
+    "companySocial": "https://linkedin.com/company/kementerian-keuangan-republik",
+    "companyLinkedin": "https://www.linkedin.com/posts/kementerian-keuangan-republik-indonesia_hai-temankeu-sekarang-kamu-bisa-lebih-activity-7374739838480150528-0y1n",
+    "companyInstagram": "https://www.instagram.com/p/c3adsi2hycf/",
+    "companyFacebook": "https://www.facebook.com/lpdpkemenkeu/posts/-lpdp-resmi-pindahan-yup-kami-umumkan-sekali-lagi-kepada-seluruh-awardee-alumni-/462245406096303/",
+    "companyTiktok": "https://www.tiktok.com/tag/kementeriankeuangan"
+  },
+  {
+    "name": "Suliono",
+    "companySocial": "https://instagram.com/artha-konsultan",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Suwarni",
+    "companySocial": "https://instagram.com/data-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Bashori",
+    "companySocial": "https://instagram.com/alodokter",
+    "companyLinkedin": "https://id.linkedin.com/in/maulanaakbar-digital",
+    "companyInstagram": "https://www.instagram.com/p/cahcawup--j/",
+    "companyFacebook": "https://m.facebook.com/pangeran.kampus.31/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Nur Kasiadi",
+    "companySocial": "https://facebook.com/klinik-utama-sehat-keluarga",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Nachrowi",
+    "companySocial": "https://tiktok.com/@mekari",
+    "companyLinkedin": "https://id.linkedin.com/in/ahmad-nur-said-nst-bb6113198",
+    "companyInstagram": "https://www.instagram.com/p/dxgl9hvgiss/",
+    "companyFacebook": "https://www.facebook.com/universitas.esaunggul/posts/universitas-esa-unggul-powered-by-arizona-university-melakukan-workshop-dengan-p/1295659512603719/",
+    "companyTiktok": "https://www.tiktok.com/@epicareerjobid/video/7312226712614472965"
+  },
+  {
+    "name": "Sumarmi",
+    "companySocial": "https://tiktok.com/@otoritas-jasa-keuangan",
+    "companyLinkedin": "https://id.linkedin.com/in/nugrohoiif",
+    "companyInstagram": "https://www.instagram.com/reel/dkj423gj52v/",
+    "companyFacebook": "https://www.facebook.com/official.ojk/",
+    "companyTiktok": "https://www.tiktok.com/@ojk_indonesia"
+  },
+  {
+    "name": "Siti Asiyah",
+    "companySocial": "https://facebook.com/rs-premier-jatinegara",
+    "companyLinkedin": "https://id.linkedin.com/in/uyun-imaniar",
+    "companyInstagram": "https://www.instagram.com/p/dlx0mnazdux/",
+    "companyFacebook": "https://www.facebook.com/rspremierjatinegara/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@rspremierjatinegara"
+  },
+  {
+    "name": "Sukarlan",
+    "companySocial": "https://facebook.com/klinik-utama-sehat-keluarga",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Supinem",
+    "companySocial": "https://tiktok.com/@mekar-investama-sampoerna",
+    "companyLinkedin": "https://id.linkedin.com/in/mirza-raffi",
+    "companyInstagram": "https://www.instagram.com/popular/pt-dana-purna-investama/",
+    "companyFacebook": "https://www.facebook.com/mekarnetwork/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@seputarpinjol2025/photo/7622307935271619847"
+  },
+  {
+    "name": "Sadeli",
+    "companySocial": "https://tiktok.com/@orang-tua-group",
+    "companyLinkedin": "https://id.linkedin.com/in/alexandranatalie",
+    "companyInstagram": "https://www.instagram.com/p/dlzz8hutbx5/",
+    "companyFacebook": "https://www.facebook.com/promohadiahtango/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@ramalancuacahariini2/video/7478491252208553271"
+  },
+  {
+    "name": "Chusnul Chotimah",
+    "companySocial": "https://instagram.com/rsm",
+    "companyLinkedin": "https://www.linkedin.com/posts/joshua-raymond-hartono-2671b0247_pt-rsm-indonesia-x-bina-nusantara-university-activity-7391009469796741120-9lbg",
+    "companyInstagram": "https://www.instagram.com/popular/pt-rsm-indonesia/",
+    "companyFacebook": "https://www.facebook.com/atrbpn.sragen/posts/semarang-332026-kantor-wilayah-badan-pertanahan-nasional-provinsi-jawa-tengah-me/1212457277539261/",
+    "companyTiktok": "https://www.tiktok.com/@kantahkabkudus/video/7623250912772967688"
+  },
+  {
+    "name": "Moch. Soleh",
+    "companySocial": "https://instagram.com/kantor-hukum-mitra-perkara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Mada'an",
+    "companySocial": "https://facebook.com/bfi-finance",
+    "companyLinkedin": "https://id.linkedin.com/in/hafizdah-mustaf-346b75118",
+    "companyInstagram": "https://www.instagram.com/reel/djtkkvgbx3n/",
+    "companyFacebook": "https://www.facebook.com/peluangbisnisbfi/mentions/",
+    "companyTiktok": "https://www.tiktok.com/@lifeatbfi/video/7530092125858352402"
+  },
+  {
+    "name": "Sujani",
+    "companySocial": "https://linkedin.com/company/binus-university",
+    "companyLinkedin": "https://id.linkedin.com/in/kheren-elzhia-75870b154",
+    "companyInstagram": "https://www.instagram.com/p/drpoto-eoex/",
+    "companyFacebook": "https://www.facebook.com/universitasbinanusantara/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@binusuniversityofficial"
+  },
+  {
+    "name": "Siti Rohmah",
+    "companySocial": "https://tiktok.com/@bukalapak",
+    "companyLinkedin": "https://id.linkedin.com/in/devypuspitasari",
+    "companyInstagram": "https://www.instagram.com/p/dqjhe0akrxc/",
+    "companyFacebook": "https://www.facebook.com/borneobulletin.news/posts/the-co-founder-of-bukalapak-an-online-marketplace-platform-company-headquartered/2907071835986942/",
+    "companyTiktok": "https://www.tiktok.com/@cnnindonesia/video/7457780594785651975"
+  },
+  {
+    "name": "Mahmudah",
+    "companySocial": "https://facebook.com/rs-mitra-keluarga",
+    "companyLinkedin": "https://id.linkedin.com/in/bellarizkika",
+    "companyInstagram": "https://www.instagram.com/p/dnj3dt2pafi/",
+    "companyFacebook": "https://www.facebook.com/340309543201741",
+    "companyTiktok": "https://www.tiktok.com/discover/contoh-soal-tes-rekrutmen-rs-mitra-keluarga"
+  },
+  {
+    "name": "Murfan Candra Bayu",
+    "companySocial": "https://facebook.com/honda-prospect-motor",
+    "companyLinkedin": "https://id.linkedin.com/in/hafizdah-mustaf-346b75118",
+    "companyInstagram": "https://www.instagram.com/p/b8adtugbuqp/",
+    "companyFacebook": "https://www.facebook.com/118633051674367",
+    "companyTiktok": "https://www.tiktok.com/discover/hpm-honda"
+  },
+  {
+    "name": "Hariyani",
+    "companySocial": "https://tiktok.com/@rs-hermina",
+    "companyLinkedin": "https://www.linkedin.com/company/rsherminajatinegara",
+    "companyInstagram": "https://www.instagram.com/p/dw-ztxviday/",
+    "companyFacebook": "https://www.facebook.com/groups/803055056063908/posts/935108762858536/",
+    "companyTiktok": "https://www.tiktok.com/@rsuherminasamarinda/photo/7495974807792635154"
+  },
+  {
+    "name": "Arifin Setiahadi",
+    "companySocial": "https://linkedin.com",
+    "companyLinkedin": "https://id.linkedin.com/in/afifah-dwiandini-787006185",
+    "companyInstagram": "https://www.instagram.com/p/dqwqmojk_km/",
+    "companyFacebook": "https://www.facebook.com/humasma123/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@humasmahkamahagung"
+  },
+  {
+    "name": "Chandra Mahanani",
+    "companySocial": "https://tiktok.com/@avia-avian",
+    "companyLinkedin": "https://id.linkedin.com/in/kiranwalada",
+    "companyInstagram": "https://www.instagram.com/p/dxdgdtxesyg/",
+    "companyFacebook": "https://www.facebook.com/avianbrands/posts/pt-avia-avian-tbk-avia-terbukti-memberikan-kontribusi-yang-baik-terhadap-pertumb/747673100714887/",
+    "companyTiktok": "https://www.tiktok.com/@ccsi.recruitment/video/7541671717081500935"
+  },
+  {
+    "name": "Sanggar Khairil Anwar",
+    "companySocial": "https://instagram.com/komisi-pemberantasan-korupsi",
+    "companyLinkedin": "https://id.linkedin.com/in/lufti-avianto",
+    "companyInstagram": "https://www.instagram.com/p/dxenrpfeubb/",
+    "companyFacebook": "https://www.facebook.com/majalah.haloindonesia/posts/komisi-pemberantasan-korupsi-kpk-melakukan-operasi-tangkap-tangan-ott-secara-ser/1619281142938589/",
+    "companyTiktok": "https://www.tiktok.com/@akuratco/photo/7597055051558817042?lang=de-de"
+  },
+  {
+    "name": "Ikhwan Nurhadi",
+    "companySocial": "https://linkedin.com/company/wijaya-karya-persero",
+    "companyLinkedin": "https://id.linkedin.com/in/syaharani-alvianita-0912931a6",
+    "companyInstagram": "https://www.instagram.com/p/dof1tlneqkl/",
+    "companyFacebook": "https://www.facebook.com/ptwika/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@ptwijayakarya"
+  },
+  {
+    "name": "Ahsan",
+    "companySocial": "https://instagram.com/tk-aisyiyah-bustanul-athfal-1",
+    "companyLinkedin": "https://id.linkedin.com/in/ssinz-ssinzzell-50372017a",
+    "companyInstagram": "https://www.instagram.com/reel/dvlkjxnekol/",
+    "companyFacebook": "https://www.facebook.com/218421138932475",
+    "companyTiktok": "https://www.tiktok.com/tag/tkaisyiahbustanulathfal1bengkulu"
+  },
+  {
+    "name": "Hadi Waloejo",
+    "companySocial": "https://linkedin.com/company/hm-sampoerna",
+    "companyLinkedin": "https://id.linkedin.com/in/rachel-lucya-51a6a7129",
+    "companyInstagram": "https://www.instagram.com/p/dmz8xveoox1/",
+    "companyFacebook": "https://www.facebook.com/insidesampoerna/",
+    "companyTiktok": "https://www.tiktok.com/@pt.attinsigaret_/photo/7628118612900973845"
+  },
+  {
+    "name": "Ali Suhartono",
+    "companySocial": "https://www.instagram.com/reel/DLE0IelpAON/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Siti Khoiriyah",
+    "companySocial": "https://instagram.com/badan-pengawasan-keuangan-dan-pembangunan",
+    "companyLinkedin": "https://id.linkedin.com/in/trianfe",
+    "companyInstagram": "https://www.instagram.com/p/dwlve68kzuk/",
+    "companyFacebook": "https://www.facebook.com/bpkpgoid/",
+    "companyTiktok": "https://www.tiktok.com/@bpkp_id"
+  },
+  {
+    "name": "Sitti Masruroh",
+    "companySocial": "https://linkedin.com/company/sirclo-commerce",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Fathoni",
+    "companySocial": "https://facebook.com/bfi-finance",
+    "companyLinkedin": "https://id.linkedin.com/in/hafizdah-mustaf-346b75118",
+    "companyInstagram": "https://www.instagram.com/reel/djtkkvgbx3n/",
+    "companyFacebook": "https://www.facebook.com/peluangbisnisbfi/mentions/",
+    "companyTiktok": "https://www.tiktok.com/@lifeatbfi/video/7530092125858352402"
+  },
+  {
+    "name": "Nanik Dyah Anggraeni",
+    "companySocial": "https://facebook.com/rs-mitra-keluarga",
+    "companyLinkedin": "https://id.linkedin.com/in/syifa-putri-fadhilah",
+    "companyInstagram": "https://www.instagram.com/reel/dpp_ptze3eo/",
+    "companyFacebook": "https://www.facebook.com/340309543201741",
+    "companyTiktok": "https://www.tiktok.com/discover/contoh-soal-tes-rekrutmen-rs-mitra-keluarga"
+  },
+  {
+    "name": "Vanda Arief Jauhari",
+    "companySocial": "https://www.instagram.com/popular/accounting-company-indonesia/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Bagus Prayitno",
+    "companySocial": "https://www.instagram.com/ikatanakuntanindonesia/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Ni'matur Rahmah",
+    "companySocial": "https://instagram.com/combiphar",
+    "companyLinkedin": "https://id.linkedin.com/in/mohammadtrihutomo",
+    "companyInstagram": "https://www.instagram.com/p/dqtcjaekck4/",
+    "companyFacebook": "https://www.facebook.com/lokerkudotnet/posts/operator-warehouse-pt-combiphar-padalaranglowongan-operator-warehouse-kontrakkua/1383871699982366/",
+    "companyTiktok": "https://www.tiktok.com/@combipharid"
+  },
+  {
+    "name": "Abdul Mukti Adinegoro",
+    "companySocial": "https://www.instagram.com/popular/accounting-company-indonesia/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Mulyati",
+    "companySocial": "https://linkedin.com/company/tk-islam-al-azhar-14-semarang",
+    "companyLinkedin": null,
+    "companyInstagram": "https://www.instagram.com/reel/dwqvsm6k7-4/",
+    "companyFacebook": "https://www.facebook.com/tkia14smg/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@tkialazhar14smg/video/7602245335792012564"
+  },
+  {
+    "name": "Ranestuti",
+    "companySocial": "https://tiktok.com/@institut-sains-dan-bisnis-nasional",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Dhila Emmik Zakiyah",
+    "companySocial": "https://linkedin.com/company/wijaya-karya-persero",
+    "companyLinkedin": "https://id.linkedin.com/in/syaharani-alvianita-0912931a6",
+    "companyInstagram": "https://www.instagram.com/p/dof1tlneqkl/",
+    "companyFacebook": "https://www.facebook.com/ptwika/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@ptwijayakarya"
+  },
+  {
+    "name": "R. Helmi Rizaldi Solehudin",
+    "companySocial": "https://linkedin.com/company/bio-farma",
+    "companyLinkedin": "https://id.linkedin.com/in/ariz-rizaldi",
+    "companyInstagram": "https://www.instagram.com/reel/dwld_l0aa-r/",
+    "companyFacebook": "https://www.facebook.com/144863348901945",
+    "companyTiktok": "https://www.tiktok.com/tag/ptbiofarma"
+  },
+  {
+    "name": "Hermanto",
+    "companySocial": "https://instagram.com/lion-super-indo",
+    "companyLinkedin": "https://id.linkedin.com/jobs/view/social-media-content-creator-intern-at-pt-lion-super-indo-4247758201",
+    "companyInstagram": "https://www.instagram.com/p/dq6wbfxe2fr/",
+    "companyFacebook": "https://www.facebook.com/cdaipb/posts/%f0%9d%99%91%f0%9d%98%bc%f0%9d%98%be%f0%9d%98%bc%f0%9d%99%89%f0%9d%98%be%f0%9d%99%94-pt-lion-super-indo-hai-sobat-karirpt-lion-super-indo-sedang-membuka-lowo/1308652647454145/",
+    "companyTiktok": "https://www.tiktok.com/@superindo_karir"
+  },
+  {
+    "name": "Wiwin Kustyaningsih",
+    "companySocial": "https://facebook.com/adira-dinamika-multi-finance",
+    "companyLinkedin": "https://id.linkedin.com/in/sudiastika-i-dewa-putu-7790b3232",
+    "companyInstagram": "https://www.instagram.com/p/dj5ziwbtsr-/",
+    "companyFacebook": "https://www.facebook.com/photo.php?fbid=1270763525191579&set=a.512762964324976&type=3",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-adira-dinamika-multi-finance"
+  },
+  {
+    "name": "Sunakaraharja",
+    "companySocial": "https://linkedin.com/company/kementerian-pekerjaan-umum-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/donny-judha-008660128",
+    "companyInstagram": "https://www.instagram.com/p/dsypaqykv7y/",
+    "companyFacebook": "https://m.facebook.com/kemenpu/photos/d41d8cd9/1057951993034265/",
+    "companyTiktok": "https://www.tiktok.com/@pu_sda_bhlk"
+  },
+  {
+    "name": "Masharjo Utomo",
+    "companySocial": "https://tiktok.com/@dana",
+    "companyLinkedin": "https://id.linkedin.com/in/akhmad-muzaki-7783001a8",
+    "companyInstagram": "https://www.instagram.com/popular/pt-dana-indonesia/",
+    "companyFacebook": "https://www.facebook.com/rsudzmkabupatenacehtimur/videos/peresmian-sumur-bor-dan-sarana-air-bersih-bantuan-danone-indonesia-untuk-rsudzmd/1873299079968321/",
+    "companyTiktok": "https://www.tiktok.com/@ppkdjakartatimur/video/7493823855287471367"
+  },
+  {
+    "name": "Evi Sushinta",
+    "companySocial": "https://facebook.com/kantor-akuntan-publik-andalan",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Doni Darmawan",
+    "companySocial": "https://www.instagram.com/popular/accounting-company-indonesia/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Hery Susanto",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Arief Sumbodo",
+    "companySocial": "https://facebook.com/puskesmas-lowokwaru",
+    "companyLinkedin": null,
+    "companyInstagram": "https://www.instagram.com/popular/puskesmas-lowokwaru/",
+    "companyFacebook": "https://www.facebook.com/groups/615217549402657/posts/1940946100163122/",
+    "companyTiktok": "https://www.tiktok.com/@bahrulmaghfiroh/video/7610003275173137684"
+  },
+  {
+    "name": "Agus Hendra Wijaya",
+    "companySocial": "https://linkedin.com/company/binus-university",
+    "companyLinkedin": "https://id.linkedin.com/in/kheren-elzhia-75870b154",
+    "companyInstagram": "https://www.instagram.com/reel/dviieqlj08a/",
+    "companyFacebook": "https://www.facebook.com/universitasbinanusantara/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@ika.binus"
+  },
+  {
+    "name": "Indasyah Ratnawati",
+    "companySocial": "https://instagram.com/alodokter",
+    "companyLinkedin": "https://id.linkedin.com/in/maulanaakbar-digital",
+    "companyInstagram": "https://www.instagram.com/p/cahcawup--j/",
+    "companyFacebook": "https://m.facebook.com/pangeran.kampus.31/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Hamawi Hangabei",
+    "companySocial": "https://linkedin.com/company/universitas-brawijaya",
+    "companyLinkedin": "https://id.linkedin.com/in/bangdeniuss",
+    "companyInstagram": "https://www.instagram.com/p/dwkmssue9mk/",
+    "companyFacebook": "https://www.facebook.com/universitas.brawijaya.official/",
+    "companyTiktok": "https://www.tiktok.com/@univbrawijaya"
+  },
+  {
+    "name": "Aris Junaidi",
+    "companySocial": "https://tiktok.com/@mitsubishi-motors",
+    "companyLinkedin": "https://id.linkedin.com/in/ilham-ilho-38490573",
+    "companyInstagram": "https://www.instagram.com/reel/dulhabpe5-d/",
+    "companyFacebook": "https://www.facebook.com/lowonganterpaduofficial/posts/lowongan-kerja-mitsubishi-motors-posisi-operator-produksi-dibukapt-mitsubishi-mo/1456019725925832/",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-mitsubishi-motors"
+  },
+  {
+    "name": "Nurbyantoro",
+    "companySocial": "https://facebook.com/pilar-sinergi-solusi",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Adi Hadiyono",
+    "companySocial": "https://linkedin.com/company/kementerian-komunikasi-dan-digital-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/nyimas-ratih-96713a318",
+    "companyInstagram": "https://www.instagram.com/p/dwa0bt_k0uq/",
+    "companyFacebook": "https://www.facebook.com/kemenkomdigi/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@antaranews/video/7626780016625405204"
+  },
+  {
+    "name": "Nina Handayani",
+    "companySocial": "https://instagram.com/ipb-university",
+    "companyLinkedin": "https://id.linkedin.com/in/fatin-nurfadillah-962a31377",
+    "companyInstagram": "https://www.instagram.com/p/dxqcj-imgvz/",
+    "companyFacebook": "https://www.facebook.com/ipbuniversity/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@ipbuniversity"
+  },
+  {
+    "name": "Musthofa Anas",
+    "companySocial": "https://instagram.com/goodlifebca",
+    "companyLinkedin": "https://id.linkedin.com/in/syahrulramadhan17",
+    "companyInstagram": "https://www.instagram.com/p/dwnqdpnete8/",
+    "companyFacebook": "https://www.facebook.com/pages/ptbca-tbk/355043381298234",
+    "companyTiktok": "https://www.tiktok.com/@olenkanews/video/7631942896949775636"
+  },
+  {
+    "name": "Yanti Wuryaningtyas",
+    "companySocial": "https://tiktok.com/@solusi-distribusi",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Yudistiro",
+    "companySocial": "https://instagram.com/kimiafarmaind",
+    "companyLinkedin": "https://id.linkedin.com/in/bagus-kurniawan-syam/en",
+    "companyInstagram": "https://www.instagram.com/p/dux_fldkzlu/",
+    "companyFacebook": "https://www.facebook.com/kimia.diagnostika/",
+    "companyTiktok": "https://www.tiktok.com/@kimiafarmalab_klinik/video/7619303643304529172"
+  },
+  {
+    "name": "Susilo Heri Purwati",
+    "companySocial": "https://tiktok.com/@digital-agency",
+    "companyLinkedin": "https://id.linkedin.com/company/suitmedia",
+    "companyInstagram": "https://www.instagram.com/geronaki/",
+    "companyFacebook": "https://www.facebook.com/3smedianet/",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-digital-agency-indonesia"
+  },
+  {
+    "name": "Rosmawati Prasetyaningrum",
+    "companySocial": "https://instagram.com/xendit-payment-solutions",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Lilis Eka Lestari",
+    "companySocial": "https://facebook.com/xl-axiata",
+    "companyLinkedin": "https://id.linkedin.com/in/ghina-nurul-aini-002a2611b",
+    "companyInstagram": "https://www.instagram.com/explore/locations/480734978654084/pt-xl-axiata-tbk/",
+    "companyFacebook": "https://www.facebook.com/heaptalknews/posts/pt-xl-axiata-tbk-xl-axiata-pt-smartfren-telecom-tbk-smartfren-and-pt-smart-telco/1015299807281771/",
+    "companyTiktok": "https://www.tiktok.com/discover/xl-axiata-tbk"
+  },
+  {
+    "name": "Sri Andayani",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Nur Ainah",
+    "companySocial": "https://tiktok.com/@cipta-furnitur",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Ira Wahyuni",
+    "companySocial": "https://linkedin.com/company/universitas-muhammadiyah-malang",
+    "companyLinkedin": "https://id.linkedin.com/in/muhammad-muthahari-2b1765103",
+    "companyInstagram": "https://www.instagram.com/p/dvahl59ep2e/",
+    "companyFacebook": "https://www.facebook.com/fpciumm/",
+    "companyTiktok": "https://www.tiktok.com/@officialpapikaumm/video/7631524362310503701"
+  },
+  {
+    "name": "Sri Andriani",
+    "companySocial": "https://facebook.com/sentra-niaga-mandiri",
+    "companyLinkedin": null,
+    "companyInstagram": "https://www.instagram.com/sumutpaper/",
+    "companyFacebook": "https://www.facebook.com/dr.horasrajagukguk/posts/proyek-lampu-pocong-harus-kembali-diusut-usut-tuntas-tragedi-mei-98ratusan-mahas/1002024591928849/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Anifaturohmah",
+    "companySocial": "https://instagram.com/sociolla-ritel",
+    "companyLinkedin": "https://id.linkedin.com/in/inggita-ananda-a18406193",
+    "companyInstagram": "https://www.instagram.com/p/dk--6ary2wz/",
+    "companyFacebook": "https://www.facebook.com/photo.php?fbid=1132358608246037&id=100044157263811&set=a.638004427681460",
+    "companyTiktok": null
+  },
+  {
+    "name": "Sulistiyawati",
+    "companySocial": "https://instagram.com/badan-pengawasan-keuangan-dan-pembangunan",
+    "companyLinkedin": "https://id.linkedin.com/in/trianfe",
+    "companyInstagram": "https://www.instagram.com/p/dwlve68kzuk/",
+    "companyFacebook": "https://www.facebook.com/bpkpgoid/",
+    "companyTiktok": "https://www.tiktok.com/@bpkp_id"
+  },
+  {
+    "name": "Mochamad Casmudi",
+    "companySocial": "https://linkedin.com/company/permata-bank",
+    "companyLinkedin": "https://id.linkedin.com/in/dwiantoro-a67874193",
+    "companyInstagram": "https://www.instagram.com/p/dpvsflzddo4/",
+    "companyFacebook": "https://www.facebook.com/p/ptpermata-bank-syariah-100066710986210/",
+    "companyTiktok": "https://www.tiktok.com/content/pt-permata-bank"
+  },
+  {
+    "name": "Iwan Yunianto",
+    "companySocial": "https://tiktok.com/@avia-avian",
+    "companyLinkedin": "https://id.linkedin.com/in/kiranwalada",
+    "companyInstagram": "https://www.instagram.com/p/dxdgdtxesyg/",
+    "companyFacebook": "https://www.facebook.com/avianbrands/posts/pt-avia-avian-tbk-avia-terbukti-memberikan-kontribusi-yang-baik-terhadap-pertumb/747673100714887/",
+    "companyTiktok": "https://www.tiktok.com/@ccsi.recruitment/video/7541671717081500935"
+  },
+  {
+    "name": "Heru Cahyono",
+    "companySocial": "https://facebook.com/bank",
+    "companyLinkedin": "https://id.linkedin.com/in/derlina-siregar",
+    "companyInstagram": "https://www.instagram.com/p/dwffqmseli4/",
+    "companyFacebook": "https://www.facebook.com/bankindonesiaofficial/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@bank_indonesia"
+  },
+  {
+    "name": "Siti Maryam",
+    "companySocial": "https://instagram.com/smartfren-telecom",
+    "companyLinkedin": "https://id.linkedin.com/in/livia-stella-863a53b5",
+    "companyInstagram": "https://www.instagram.com/explore/locations/16493776/pt-smartfren-telecom-tbk/",
+    "companyFacebook": "https://www.facebook.com/heaptalknews/posts/pt-xl-axiata-tbk-xl-axiata-pt-smartfren-telecom-tbk-smartfren-and-pt-smart-telco/1015299807281771/",
+    "companyTiktok": "https://www.tiktok.com/@lifeatsmartfren"
+  },
+  {
+    "name": "Erva Yuniarti",
+    "companySocial": "https://tiktok.com/@cimb-niaga",
+    "companyLinkedin": "https://id.linkedin.com/in/elyta-m-45b6a234",
+    "companyInstagram": "https://www.instagram.com/p/dgxya4jsve_/",
+    "companyFacebook": "https://www.facebook.com/pages/pt-cimb-niaga-tbk/476044682461385?locale=mt_mt",
+    "companyTiktok": "https://www.tiktok.com/@biscuitunibis/photo/7527834128029404424"
+  },
+  {
+    "name": "Triana Wahyuni",
+    "companySocial": "https://facebook.com/hutama-karya",
+    "companyLinkedin": "https://id.linkedin.com/in/fitri-binawati",
+    "companyInstagram": "https://www.instagram.com/p/dwcipswkiud/",
+    "companyFacebook": "https://www.facebook.com/pthutamakarya/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@jadibumn.id/video/7355659254084177158"
+  },
+  {
+    "name": "Hendrix Irawan",
+    "companySocial": "https://tiktok.com/@amazon-web-services",
+    "companyLinkedin": "https://in.linkedin.com/in/shiv-pt-43413538b",
+    "companyInstagram": "https://www.instagram.com/p/b-tqdp3n7dp/",
+    "companyFacebook": "https://www.facebook.com/lidermagazine.pt/photos/a-amazon-web-services-aws-lan%c3%a7ou-ontem-o-aws-startup-loft-accelerator-um-program/7150548441637293/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Mariatut Andawiyah",
+    "companySocial": "https://tiktok.com/@solusi-distribusi",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Yunita Tri Widiastuti",
+    "companySocial": "https://tiktok.com/@cimb-niaga",
+    "companyLinkedin": "https://id.linkedin.com/in/elyta-m-45b6a234",
+    "companyInstagram": "https://www.instagram.com/p/dgxya4jsve_/",
+    "companyFacebook": "https://www.facebook.com/pages/pt-cimb-niaga-tbk/476044682461385?locale=mt_mt",
+    "companyTiktok": "https://www.tiktok.com/@biscuitunibis/photo/7527834128029404424"
+  },
+  {
+    "name": "Ekowati Rosanadewi",
+    "companySocial": "https://tiktok.com/@dana",
+    "companyLinkedin": "https://www.linkedin.com/posts/fransisca-carla-7341514a_balikngantor-workplace-employees-activity-6673876324832169984-r4om",
+    "companyInstagram": "https://www.instagram.com/popular/pt-dana-indonesia/",
+    "companyFacebook": "https://www.facebook.com/rsudzmkabupatenacehtimur/videos/peresmian-sumur-bor-dan-sarana-air-bersih-bantuan-danone-indonesia-untuk-rsudzmd/1873299079968321/",
+    "companyTiktok": "https://www.tiktok.com/@ppkdjakartatimur/video/7493823855287471367"
+  },
+  {
+    "name": "Ita Mariyanti Prayogo",
+    "companySocial": "https://facebook.com/ShopeeID",
+    "companyLinkedin": "https://id.linkedin.com/in/windy-andriyati-am-924bb915b?trk=public_profile_browsemap-profile",
+    "companyInstagram": "https://www.instagram.com/p/b7vm-pybue1/",
+    "companyFacebook": "https://www.facebook.com/shopeeid/posts/mimin-mau-bagi-bagi-smartphone-samsung-gratis-nihikutin-tata-cara-berikut-yuk1-l/936846971992332/",
+    "companyTiktok": "https://www.tiktok.com/discover/lowongan-kerja-gudang-shopee-pekanbaru"
+  },
+  {
+    "name": "Muhamad Huda Trianto",
+    "companySocial": "https://www.instagram.com/ubico.consulting/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/discover/on-nan-how-to-make-automation-post-on-all-platforms"
+  },
+  {
+    "name": "Evina Kusumawati",
+    "companySocial": "https://linkedin.com",
+    "companyLinkedin": "https://id.linkedin.com/in/adinda-deskya-putri-setiawan-a92b1b287",
+    "companyInstagram": "https://www.instagram.com/p/driza6akskk/",
+    "companyFacebook": "https://www.facebook.com/100064907615616/posts/%f0%9d%90%82%f0%9d%90%9a%f0%9d%90%a5%f0%9d%90%a5%f0%9d%90%a2%f0%9d%90%a7%f0%9d%90%a0-%f0%9d%90%8e%f0%9d%90%ae%f0%9d%90%ad-%f0%9d%90%80%f0%9d%90%a5%f0%9d%90%a5-%f0%9d%90%93%f0%9d%90%a1%f0%9d%90%9e-%f0%9d%90%82%f0%9d%90%a1%f0%9d%90%9a%f0%9d%90%a7%f0%9d%90%a0%f0%9d%90%9e-%f0%9d%90%8c%f0%9d%90%9a%f0%9d%90%a4%f0%9d%90%9e%f0%9d%90%ab%f0%9d%90%ac%f0%9d%99%84%f0%9d%99%9b-%f0%9d%99%ae%f0%9d%99%a4%f0%9d%99%aa%f0%9d%99%a7%f0%9d%99%9a-%f0%9d%99%98%f0%9d%99%9d%f0%9d%99%96%f0%9d%99%a1%f0%9d%99%a1%f0%9d%99%9a%f0%9d%99%a3%f0%9d%99%9c%f0%9d%99%9a%f0%9d%99%a7%f0%9d%99%a8%ef%b8%8f%f0%9d%99%8b%f0%9d%99%a7%f0%9d%99%9a%f0%9d%99%a5%f0%9d%99%96%f0%9d%99%a7%f0%9d%99%9a-%f0%9d%99%ae%f0%9d%99%a4%f0%9d%99%aa%f0%9d%99%a7%f0%9d%99%a8%f0%9d%99%9a%f0%9d%99%a1%f0%9d%99%9b-%f0%9d%99%96%f0%9d%99%a3%f0%9d%99%99-%f0%9d%99%a1%f0%9d%99%9a%f0%9d%99%a9%f0%9d%99%a8-/892793032894276/",
+    "companyTiktok": "https://www.tiktok.com/@sman.5.surabaya"
+  },
+  {
+    "name": "Budi Hari Suci Purnomo",
+    "companySocial": "https://tiktok.com/@orang-tua-group",
+    "companyLinkedin": "https://www.linkedin.com/posts/top-loker_halo-sobat-top-segera-siapkan-cv-terbaikmu-activity-7182301046705201152-sfih",
+    "companyInstagram": "https://www.instagram.com/p/dnnqchsvrpi/",
+    "companyFacebook": "https://www.facebook.com/promohadiahtango/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@ramalancuacahariini2/video/7478491252208553271"
+  },
+  {
+    "name": "Tri Wahyuningtyas",
+    "companySocial": "https://linkedin.com",
+    "companyLinkedin": "https://www.linkedin.com/in/anin-andhita/",
+    "companyInstagram": "https://www.instagram.com/reel/dajev2cnd41/",
+    "companyFacebook": "https://www.facebook.com/lombaapaaja/posts/%f0%9d%90%92%f0%9d%90%8c%f0%9d%90%80%f0%9d%90%8d-%f0%9d%9f%91-%f0%9d%90%98%f0%9d%90%8e%f0%9d%90%86%f0%9d%90%98%f0%9d%90%80%f0%9d%90%8a%f0%9d%90%80%f0%9d%90%91%f0%9d%90%93%f0%9d%90%80-%f0%9d%90%8f%f0%9d%90%91%f0%9d%90%8e%f0%9d%90%94%f0%9d%90%83%f0%9d%90%8b%f0%9d%90%98-%f0%9d%90%8f%f0%9d%90%91%f0%9d%90%84%f0%9d%90%92%f0%9d%90%84%f0%9d%90%8d%f0%9d%90%93-%f0%9d%99%82%f0%9d%99%a7%f0%9d%99%96%f0%9d%99%a3%f0%9d%99%99-%f0%9d%98%be%f0%9d%99%a4%f0%9d%99%a3%f0%9d%99%98%f0%9d%99%9a%f0%9d%99%a7%f0%9d%99%a9-%f0%9d%99%8a%f0%9d%99%a5%f0%9d%99%aa%f0%9d%99%a8-7-%f0%9d%99%8a%f0%9d%99%a7%f0%9d%99%a1%f0%9d%99%96%f0%9d%99%a5%f0%9d%99%9d%f0%9d%99%9a%f0%9d%99%a7%f0%9d%99%96-padzchestra-ft-/623493746695560/",
+    "companyTiktok": "https://www.tiktok.com/@mfatoni86/video/7240884050171677958"
+  },
+  {
+    "name": "Hendro Cahyono Probo Saputro",
+    "companySocial": "https://tiktok.com/@sekolah-pelita-harapan",
+    "companyLinkedin": "https://id.linkedin.com/in/joanna-clarissa-mego-3b682436a",
+    "companyInstagram": "https://www.instagram.com/p/doyaerpe08h/",
+    "companyFacebook": "https://www.facebook.com/sphinternationalschool/",
+    "companyTiktok": "https://www.tiktok.com/@uphimpactslives/video/7570226047254301959"
+  },
+  {
+    "name": "Kusnul Khotimah",
+    "companySocial": "https://instagram.com/badan-pengawas-obat-dan-makanan",
+    "companyLinkedin": "https://id.linkedin.com/in/nadira-se",
+    "companyInstagram": "https://www.instagram.com/reel/cj78q5bjkgv/",
+    "companyFacebook": "https://www.facebook.com/mimscom/photos/hi-young-pharmacistsevent-tahunan-yang-kita-tunggu-hadir-kembali-dipertengahan-t/895743312588348/",
+    "companyTiktok": "https://www.tiktok.com/@kompascom/video/7573313599892966664"
+  },
+  {
+    "name": "Dyah Anggraeni",
+    "companySocial": "https://tiktok.com/@otoritas-jasa-keuangan",
+    "companyLinkedin": "https://id.linkedin.com/in/nugrohoiif",
+    "companyInstagram": "https://www.instagram.com/reel/dkj423gj52v/",
+    "companyFacebook": "https://www.facebook.com/official.ojk/",
+    "companyTiktok": "https://www.tiktok.com/@ojk_indonesia/video/7475688973537414405"
+  },
+  {
+    "name": "Muhamad Arif Musthofa",
+    "companySocial": "https://instagram.com/pln_id",
+    "companyLinkedin": "https://id.linkedin.com/in/meliani-rosalina",
+    "companyInstagram": "https://www.instagram.com/p/dxsamaecvdb/",
+    "companyFacebook": "https://www.facebook.com/ptpln/",
+    "companyTiktok": "https://www.tiktok.com/@pln_id"
+  },
+  {
+    "name": "Nurhayati Muji Astutik",
+    "companySocial": "https://tiktok.com/@otoritas-jasa-keuangan",
+    "companyLinkedin": "https://id.linkedin.com/in/nugrohoiif",
+    "companyInstagram": "https://www.instagram.com/reel/dkj423gj52v/",
+    "companyFacebook": "https://www.facebook.com/official.ojk/",
+    "companyTiktok": "https://www.tiktok.com/@ojk_indonesia"
+  },
+  {
+    "name": "Nur Saadatud Daraini",
+    "companySocial": "https://instagram.com/pemerintah-provinsi-dki-jakarta",
+    "companyLinkedin": "https://www.linkedin.com/in/ardhi-lusti-05083210a",
+    "companyInstagram": "https://www.instagram.com/p/dw8xiyme21d/?img_index=6&hl=bn",
+    "companyFacebook": "https://www.facebook.com/dkijakarta/",
+    "companyTiktok": "https://www.tiktok.com/tag/pemprovdki"
+  },
+  {
+    "name": "Budi Setiawan",
+    "companySocial": "https://tiktok.com/@ruangguru",
+    "companyLinkedin": "https://id.linkedin.com/in/rini-fauziyah-8631b9145",
+    "companyInstagram": "https://www.instagram.com/growingselfid/",
+    "companyFacebook": "https://www.facebook.com/groups/244543252264344/posts/9229759173742662/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Puguh Wahyudiono",
+    "companySocial": "https://linkedin.com/company/sumber-alfaria-trijaya",
+    "companyLinkedin": "https://hk.linkedin.com/in/dita-saputri-63a445395",
+    "companyInstagram": "https://www.instagram.com/reel/dvxj9wpe37o/",
+    "companyFacebook": "https://www.facebook.com/story.php?story_fbid=6098545253515514&id=125556717481094&m_entstream_source=permalink",
+    "companyTiktok": "https://www.tiktok.com/@jobforcareer/video/7396681562701696262"
+  },
+  {
+    "name": "Evi Triwulandari",
+    "companySocial": "https://tiktok.com/@kantor-konsultan-pajak-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": "https://www.instagram.com/p/dxvv6oad_z3/",
+    "companyFacebook": "https://www.facebook.com/moilian.s.h/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Norlisani",
+    "companySocial": "https://tiktok.com/@mitsubishi-motors",
+    "companyLinkedin": "https://id.linkedin.com/in/ilham-ilho-38490573",
+    "companyInstagram": "https://www.instagram.com/reel/dulhabpe5-d/",
+    "companyFacebook": "https://www.facebook.com/lowonganterpaduofficial/posts/lowongan-kerja-mitsubishi-motors-posisi-operator-produksi-dibukapt-mitsubishi-mo/1456019725925832/",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-mitsubishi-motors"
+  },
+  {
+    "name": "Dian Puspitasari",
+    "companySocial": "https://linkedin.com/company/tk-islam-al-azhar-14-semarang",
+    "companyLinkedin": null,
+    "companyInstagram": "https://www.instagram.com/reel/dwqvsm6k7-4/",
+    "companyFacebook": "https://www.facebook.com/tkia14smg/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@tkialazhar14smg/video/7602245335792012564"
+  },
+  {
+    "name": "Anik Kusuma Indrawati",
+    "companySocial": "https://tiktok.com/@mekari",
+    "companyLinkedin": "https://id.linkedin.com/in/ahmad-nur-said-nst-bb6113198",
+    "companyInstagram": "https://www.instagram.com/p/dxgl9hvgiss/",
+    "companyFacebook": "https://www.facebook.com/universitas.esaunggul/posts/universitas-esa-unggul-powered-by-arizona-university-melakukan-workshop-dengan-p/1295659512603719/",
+    "companyTiktok": "https://www.tiktok.com/@epicareerjobid/video/7312226712614472965"
+  },
+  {
+    "name": "Dedy Kurniawan",
+    "companySocial": "https://facebook.com/fore-kopi",
+    "companyLinkedin": "https://id.linkedin.com/in/liyana-fadhilah-99a22298",
+    "companyInstagram": "https://www.instagram.com/p/dpqepmuited/",
+    "companyFacebook": "https://www.facebook.com/fore.coffee/mentions/",
+    "companyTiktok": "https://www.tiktok.com/@idxchannel/video/7631109414614748437"
+  },
+  {
+    "name": "Didik Nurhariyanto",
+    "companySocial": "https://facebook.com/pemerintah-kabupaten-sleman",
+    "companyLinkedin": "https://id.linkedin.com/in/agung-krisna-ambara",
+    "companyInstagram": "https://www.instagram.com/p/dwye-woettp/",
+    "companyFacebook": "https://www.facebook.com/pemkabsleman/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@pemkabsleman"
+  },
+  {
+    "name": "Ribut Bayu Setyono",
+    "companySocial": "https://facebook.com/xl-axiata",
+    "companyLinkedin": "https://id.linkedin.com/in/ghina-nurul-aini-002a2611b",
+    "companyInstagram": "https://www.instagram.com/explore/locations/480734978654084/pt-xl-axiata-tbk/",
+    "companyFacebook": "https://www.facebook.com/heaptalknews/posts/pt-xl-axiata-tbk-xl-axiata-pt-smartfren-telecom-tbk-smartfren-and-pt-smart-telco/1015299807281771/",
+    "companyTiktok": "https://www.tiktok.com/discover/xl-axiata-tbk"
+  },
+  {
+    "name": "Dani Tauladani Trihandayani",
+    "companySocial": "https://linkedin.com/company/wijaya-karya-persero",
+    "companyLinkedin": "https://id.linkedin.com/in/syaharani-alvianita-0912931a6",
+    "companyInstagram": "https://www.instagram.com/p/dof1tlneqkl/",
+    "companyFacebook": "https://www.facebook.com/ptwika/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@ptwijayakarya"
+  },
+  {
+    "name": "Agung Pramono",
+    "companySocial": "https://linkedin.com/company/bank-mandiri",
+    "companyLinkedin": "https://id.linkedin.com/in/anggaadhakusuma",
+    "companyInstagram": "https://www.instagram.com/p/djwcm78mseu/",
+    "companyFacebook": "https://www.facebook.com/bankmandiri/?locale=pa_in",
+    "companyTiktok": "https://www.tiktok.com/@ragam.sisi/video/7630424466283040007"
+  },
+  {
+    "name": "Ifuk Darmaji",
+    "companySocial": "https://linkedin.com/company/sumber-alfaria-trijaya",
+    "companyLinkedin": "https://hk.linkedin.com/in/dita-saputri-63a445395",
+    "companyInstagram": "https://www.instagram.com/reel/dvxj9wpe37o/",
+    "companyFacebook": "https://www.facebook.com/story.php?story_fbid=6098545253515514&id=125556717481094&m_entstream_source=permalink",
+    "companyTiktok": "https://www.tiktok.com/@industry.career/video/7274045349105323270"
+  },
+  {
+    "name": "Sri Bawon Lestari",
+    "companySocial": "https://instagram.com/kimiafarmaind",
+    "companyLinkedin": "https://id.linkedin.com/in/bagus-kurniawan-syam/en",
+    "companyInstagram": "https://www.instagram.com/p/dux_fldkzlu/",
+    "companyFacebook": "https://www.facebook.com/kimia.diagnostika/",
+    "companyTiktok": "https://www.tiktok.com/@kimiafarmalab_klinik/video/7619303643304529172"
+  },
+  {
+    "name": "Nomo Kuswoyo",
+    "companySocial": "https://linkedin.com/company/universitas-negeri-yogyakarta",
+    "companyLinkedin": "https://id.linkedin.com/in/galih-retno-mukti-823919a6",
+    "companyInstagram": "https://www.instagram.com/reel/dxd9czgj2kr/",
+    "companyFacebook": "https://www.facebook.com/unyofficial/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@unyofficial/video/7345689944695786758"
+  },
+  {
+    "name": "Nafisa",
+    "companySocial": "https://facebook.com/adira-dinamika-multi-finance",
+    "companyLinkedin": "https://id.linkedin.com/in/sudiastika-i-dewa-putu-7790b3232",
+    "companyInstagram": "https://www.instagram.com/p/dj5ziwbtsr-/",
+    "companyFacebook": "https://www.facebook.com/photo.php?fbid=1270763525191579&set=a.512762964324976&type=3",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-adira-dinamika-multi-finance"
+  },
+  {
+    "name": "Sapta Diah Indriyanie",
+    "companySocial": "https://linkedin.com",
+    "companyLinkedin": "https://id.linkedin.com/in/arfiansyahfarhan",
+    "companyInstagram": "https://www.instagram.com/p/dpkq2ygerup/",
+    "companyFacebook": "https://www.facebook.com/lombaapaaja/posts/%f0%9d%90%92%f0%9d%90%8c%f0%9d%90%80%f0%9d%90%8d-%f0%9d%9f%91-%f0%9d%90%98%f0%9d%90%8e%f0%9d%90%86%f0%9d%90%98%f0%9d%90%80%f0%9d%90%8a%f0%9d%90%80%f0%9d%90%91%f0%9d%90%93%f0%9d%90%80-%f0%9d%90%8f%f0%9d%90%91%f0%9d%90%8e%f0%9d%90%94%f0%9d%90%83%f0%9d%90%8b%f0%9d%90%98-%f0%9d%90%8f%f0%9d%90%91%f0%9d%90%84%f0%9d%90%92%f0%9d%90%84%f0%9d%90%8d%f0%9d%90%93-%f0%9d%99%82%f0%9d%99%a7%f0%9d%99%96%f0%9d%99%a3%f0%9d%99%99-%f0%9d%98%be%f0%9d%99%a4%f0%9d%99%a3%f0%9d%99%98%f0%9d%99%9a%f0%9d%99%a7%f0%9d%99%a9-%f0%9d%99%8a%f0%9d%99%a5%f0%9d%99%aa%f0%9d%99%a8-7-%f0%9d%99%8a%f0%9d%99%a7%f0%9d%99%a1%f0%9d%99%96%f0%9d%99%a5%f0%9d%99%9d%f0%9d%99%9a%f0%9d%99%a7%f0%9d%99%96-padzchestra-ft-/623493746695560/",
+    "companyTiktok": "https://www.tiktok.com/@sma3padmanaba"
+  },
+  {
+    "name": "Wahyu Hidayat",
+    "companySocial": "https://instagram.com/pwc",
+    "companyLinkedin": "https://id.linkedin.com/in/aldin-firdaus-sugianto-981313171",
+    "companyInstagram": "https://www.instagram.com/popular/pt-pwc-indonesia/",
+    "companyFacebook": "https://www.facebook.com/61563023956614/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Ernes Van Sagita",
+    "companySocial": "https://tiktok.com/@sd-al-azhar-1-jakarta",
+    "companyLinkedin": null,
+    "companyInstagram": "https://www.instagram.com/reels/c6-mzhfpzqs/",
+    "companyFacebook": "https://www.facebook.com/611674755368647",
+    "companyTiktok": "https://www.tiktok.com/@kemenpu/video/7189455484481457435"
+  },
+  {
+    "name": "Erna Srirahayu Wilujeng",
+    "companySocial": "https://tiktok.com/@inovasi-kreatif-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Istikhomah",
+    "companySocial": "https://facebook.com/adira-dinamika-multi-finance",
+    "companyLinkedin": "https://id.linkedin.com/in/sudiastika-i-dewa-putu-7790b3232",
+    "companyInstagram": "https://www.instagram.com/p/dj5ziwbtsr-/",
+    "companyFacebook": "https://www.facebook.com/photo.php?fbid=1270763525191579&set=a.512762964324976&type=3",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-adira-dinamika-multi-finance"
+  },
+  {
+    "name": "Diana Nor Cholifah",
+    "companySocial": "https://linkedin.com/company/bio-farma",
+    "companyLinkedin": "https://id.linkedin.com/in/ariz-rizaldi",
+    "companyInstagram": "https://www.instagram.com/reel/dwld_l0aa-r/",
+    "companyFacebook": "https://www.facebook.com/144863348901945",
+    "companyTiktok": "https://www.tiktok.com/tag/ptbiofarma"
+  },
+  {
+    "name": "Eko Hari Susanto",
+    "companySocial": "https://linkedin.com/company/ovo-finance",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Drie Agni Tatar Binangkit",
+    "companySocial": "https://tiktok.com/@politeknik-elektronika-negeri-surabaya",
+    "companyLinkedin": "https://id.linkedin.com/in/iyan-hartadi-449a603b5",
+    "companyInstagram": "https://www.instagram.com/p/drefaqwklok/",
+    "companyFacebook": "https://www.facebook.com/pens.eepis/",
+    "companyTiktok": "https://www.tiktok.com/@penseepis"
+  },
+  {
+    "name": "Nanang Kharis Ardianto",
+    "companySocial": "https://facebook.com/integrasi-sistem-cerdas",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Zainun Nashori",
+    "companySocial": "https://instagram.com/traveloka",
+    "companyLinkedin": "https://id.linkedin.com/in/safira-nadia-941b5724a",
+    "companyInstagram": "https://www.instagram.com/popular/pt-traveloka/",
+    "companyFacebook": "https://www.facebook.com/p/pt-travelokacom-100054323435636/",
+    "companyTiktok": "https://www.tiktok.com/@traveloka_indonesia/video/7347774136845929734"
+  },
+  {
+    "name": "Endri Nurhayati",
+    "companySocial": "https://instagram.com/mayora-indah",
+    "companyLinkedin": "https://id.linkedin.com/in/herlina-lien-6a58a0137",
+    "companyInstagram": "https://www.instagram.com/p/dbionyqvq_c/",
+    "companyFacebook": "https://www.facebook.com/ptmayoraindah/",
+    "companyTiktok": "https://www.tiktok.com/@lokerjatimpalingupdate/photo/7629218401897991432"
+  },
+  {
+    "name": "Nursyahid Qomaruddin",
+    "companySocial": "https://instagram.com/mitsubishi-motors-krama-yudha",
+    "companyLinkedin": "https://id.linkedin.com/in/monica-handra-674550191",
+    "companyInstagram": "https://www.instagram.com/popular/krama-yudha-ratu-motor/",
+    "companyFacebook": "https://www.facebook.com/172532350041041",
+    "companyTiktok": "https://www.tiktok.com/discover/mitsubishi-motors-krama-yudha-indonesia"
+  },
+  {
+    "name": "Toni Subagio",
+    "companySocial": "https://facebook.com/perum-peruri",
+    "companyLinkedin": "https://id.linkedin.com/pub/dir/perum/peruri",
+    "companyInstagram": "https://www.instagram.com/p/dxjlypwjfk1/?img_index=2&hl=ml",
+    "companyFacebook": "https://www.facebook.com/2237788316455250",
+    "companyTiktok": "https://www.tiktok.com/@annisaluthfiyah_/video/7386608222867623173"
+  },
+  {
+    "name": "Muhammad Nizar",
+    "companySocial": "https://tiktok.com/@sd-al-azhar-1-jakarta",
+    "companyLinkedin": null,
+    "companyInstagram": "https://www.instagram.com/reels/c6-mzhfpzqs/",
+    "companyFacebook": "https://www.facebook.com/voo36/",
+    "companyTiktok": "https://www.tiktok.com/@kemenpu/video/7189455484481457435"
+  },
+  {
+    "name": "Siti Suhartik",
+    "companySocial": "https://tiktok.com/@bank-negara-indonesia-persero",
+    "companyLinkedin": "https://id.linkedin.com/in/pingkaalifa",
+    "companyInstagram": "https://www.instagram.com/p/dqlf8q9aasl/",
+    "companyFacebook": "https://www.facebook.com/bniuntukindonesia/",
+    "companyTiktok": "https://www.tiktok.com/@cnnindonesia/video/7631488642803944724"
+  },
+  {
+    "name": "Dyah Retno Yuliani",
+    "companySocial": "https://instagram.com/sociolla-ritel",
+    "companyLinkedin": "https://id.linkedin.com/in/inggita-ananda-a18406193",
+    "companyInstagram": "https://www.instagram.com/p/dk--6ary2wz/",
+    "companyFacebook": "https://www.facebook.com/photo.php?fbid=1132358608246037&id=100044157263811&set=a.638004427681460",
+    "companyTiktok": null
+  },
+  {
+    "name": "Edy Suryono",
+    "companySocial": "https://www.instagram.com/ubico.consulting/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Rubeda Suryo Tundung",
+    "companySocial": "https://tiktok.com/@inovasi-kreatif-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Sri Yudarmawati",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/@keilanjddd/video/7595262717808659734"
+  },
+  {
+    "name": "Wiwin Indah Purwandari",
+    "companySocial": "https://tiktok.com/@kpmg",
+    "companyLinkedin": "https://id.linkedin.com/in/wisnu",
+    "companyInstagram": "https://www.instagram.com/reel/dgnl_ztrti4/",
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Anik Isnaini",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Indah Istiarofah",
+    "companySocial": "https://linkedin.com/company/hm-sampoerna",
+    "companyLinkedin": "https://id.linkedin.com/in/rachel-lucya-51a6a7129",
+    "companyInstagram": "https://www.instagram.com/p/dmz8xveoox1/",
+    "companyFacebook": "https://www.facebook.com/insidesampoerna/",
+    "companyTiktok": "https://www.tiktok.com/@pt.attinsigaret_/photo/7628118612900973845"
+  },
+  {
+    "name": "Ikhwan Khoiri",
+    "companySocial": "https://linkedin.com/company/telkom-indonesia",
+    "companyLinkedin": "https://id.linkedin.com/in/ermaamelia",
+    "companyInstagram": "https://www.instagram.com/p/dohsrfge2wy/",
+    "companyFacebook": "https://www.facebook.com/sindomakassar/posts/pt-telkom-indonesia-persero-tbk-telkom-dan-pt-perusahaan-gas-negara-persero-tbk-/1557525263045747/",
+    "companyTiktok": "https://www.tiktok.com/@telkomindonesia/video/7632686172745108744"
+  },
+  {
+    "name": "Joni Suntoro",
+    "companySocial": "https://linkedin.com/company/klinik-pratama",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Sri Nganti",
+    "companySocial": "https://facebook.com/rumah-sakit-bhakti-husada",
+    "companyLinkedin": "https://id.linkedin.com/in/rumah-sakit-bhakti-husada-cikarang-a913ab208",
+    "companyInstagram": "https://www.instagram.com/p/dvqoknokwyr/",
+    "companyFacebook": "https://www.facebook.com/p/rsbhaktihusada_cikarang-100063709401256/",
+    "companyTiktok": "https://www.tiktok.com/@rs_bhaktihusadacikarang"
+  },
+  {
+    "name": "Mukhammad Hikmatunnajat",
+    "companySocial": "https://tiktok.com/@andalan-properti",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Dian Christina Kurniawati",
+    "companySocial": "https://instagram.com/pln_id",
+    "companyLinkedin": "https://id.linkedin.com/in/meliani-rosalina",
+    "companyInstagram": "https://www.instagram.com/p/dxsamaecvdb/",
+    "companyFacebook": "https://www.facebook.com/ptpln/",
+    "companyTiktok": "https://www.tiktok.com/@pln_id"
+  },
+  {
+    "name": "Sri Kadarini",
+    "companySocial": "https://instagram.com/event-kreasi",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Kristin Fitri Astuti",
+    "companySocial": "https://www.instagram.com/reel/DLE0IelpAON/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Murriyanto",
+    "companySocial": "https://instagram.com/rs-premier-bintaro",
+    "companyLinkedin": "https://id.linkedin.com/in/elvira-nainggolan-493175b6",
+    "companyInstagram": "https://www.instagram.com/p/dljncprtwiq/",
+    "companyFacebook": "https://www.facebook.com/rspremierbintaro/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@rspremierbintaro_"
+  },
+  {
+    "name": "Setyo Budi Anto",
+    "companySocial": "https://facebook.com/badan-pusat-statistik",
+    "companyLinkedin": "https://www.linkedin.com/in/wahyu-ahmad-kautsar",
+    "companyInstagram": "https://www.instagram.com/p/dxbvj3fd2cw/",
+    "companyFacebook": "https://www.facebook.com/bpsstatistics/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@cnbcindonesia/photo/7597673297064594696"
+  },
+  {
+    "name": "Hari Budi Wibowo",
+    "companySocial": "https://instagram.com/aplikasi-karya-anak-bangsa",
+    "companyLinkedin": "https://id.linkedin.com/in/jihan-putri-zuariah-117926285",
+    "companyInstagram": "https://www.instagram.com/p/crf3ls0jupd/",
+    "companyFacebook": "https://m.facebook.com/hasanuddin.university/photos/halo-mahasiswa-unhastertarik-menjadi-wirausaha-yuk-ikutin-mahasiswa-wirausaha-kr/2975927812727869/",
+    "companyTiktok": "https://www.tiktok.com/@newtouchmobile/video/7195545853820488966"
+  },
+  {
+    "name": "Samsul Arifin",
+    "companySocial": "https://instagram.com/combiphar",
+    "companyLinkedin": "https://id.linkedin.com/in/mohammadtrihutomo",
+    "companyInstagram": "https://www.instagram.com/p/dqtcjaekck4/",
+    "companyFacebook": "https://www.facebook.com/lokerkudotnet/posts/operator-warehouse-pt-combiphar-padalaranglowongan-operator-warehouse-kontrakkua/1383871699982366/",
+    "companyTiktok": "https://www.tiktok.com/@combipharid"
+  },
+  {
+    "name": "Jum'atullah Hidayat",
+    "companySocial": "https://linkedin.com/company/mitra-rekayasa-industri",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Lilik Dwi Lestari",
+    "companySocial": "https://linkedin.com/company/sicepat-ekspres",
+    "companyLinkedin": "https://www.linkedin.com/company/procurement-sicepat",
+    "companyInstagram": "https://www.instagram.com/p/cq8bpubjmvl/",
+    "companyFacebook": "https://www.facebook.com/sicepatekspresofficial/photos/a.1627081164198264/2891655664407468/?id=1503334216572960",
+    "companyTiktok": "https://www.tiktok.com/@koh.dennies/video/7167293298044882202"
+  },
+  {
+    "name": "Indri Yuli Astuti",
+    "companySocial": "https://tiktok.com/@avia-avian",
+    "companyLinkedin": "https://id.linkedin.com/in/kiranwalada",
+    "companyInstagram": "https://www.instagram.com/p/dxdgdtxesyg/",
+    "companyFacebook": "https://www.facebook.com/100051253271366/posts/pt-avia-avian-tbk-avian-brandsavia-resmi-menutup-operasional-pt-multipro-paint-i/1394201735631589/",
+    "companyTiktok": "https://www.tiktok.com/@ccsi.recruitment/video/7541671717081500935"
+  },
+  {
+    "name": "Agung Subhan Hadi",
+    "companySocial": "https://id.linkedin.com/company/shinewing-indonesia",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Zuhreni Rahmawati",
+    "companySocial": "https://tiktok.com/@waskita-karya-persero",
+    "companyLinkedin": "https://id.linkedin.com/in/olly-gangga-222384183",
+    "companyInstagram": "https://www.instagram.com/p/dvdg9fneexk/",
+    "companyFacebook": "https://www.facebook.com/groups/941847602586382/",
+    "companyTiktok": "https://www.tiktok.com/@waskita_karya"
+  },
+  {
+    "name": "Raden Anita Karenina",
+    "companySocial": "https://tiktok.com/@inspirasi-usaha-kreatif",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Eko Hari Susanto",
+    "companySocial": "https://linkedin.com/company/ovo-finance",
+    "companyLinkedin": "https://www.linkedin.com/posts/visionetinternasional_klarifikasi-pt-ovo-finance-indonesia-tidak-activity-6864029737409499136-y_zl",
+    "companyInstagram": "https://www.instagram.com/p/cwfcoyfdpyb/",
+    "companyFacebook": "https://www.facebook.com/ovoidn/posts/klarifikasi-pt-ovo-finance-indonesia-tidak-merupakan-bagian-dari-ovo-pt-visionet/3167077786950550/",
+    "companyTiktok": "https://www.tiktok.com/discover/ovo-bermasalah-hari-ini-06-oktober-2025"
+  },
+  {
+    "name": "Rulismawati",
+    "companySocial": "https://instagram.com/jejak-kuliner-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Siti Mutmainah",
+    "companySocial": "https://www.instagram.com/p/C___nXrTE9f/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Kristiyowati",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/discover/on-nan-how-to-make-automation-post-on-all-platforms"
+  },
+  {
+    "name": "Lelinda Nurdiana Sari",
+    "companySocial": "https://tiktok.com/@bina-teknik-persada",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Trimah Rahayu",
+    "companySocial": "https://facebook.com/krakatau-steel-persero",
+    "companyLinkedin": "https://www.linkedin.com/company/pt.-krakatau-steel",
+    "companyInstagram": "https://www.instagram.com/p/dwxxw_mk4iq/",
+    "companyFacebook": "https://www.facebook.com/p/krakatau-steel-official-100046052425877/",
+    "companyTiktok": "https://www.tiktok.com/@krakatausteelofficial"
+  },
+  {
+    "name": "Bawuk Indriyanti",
+    "companySocial": "https://tiktok.com/@japfa-comfeed-indonesia",
+    "companyLinkedin": "https://id.linkedin.com/in/rizqi-wahyu-4542a6228",
+    "companyInstagram": "https://www.instagram.com/p/dturgicdw-f/?img_index=2",
+    "companyFacebook": "https://www.facebook.com/100064821667674/posts/-beasiswa-japfa-untuk-anak-negeri-2025-telah-dibukapt-japfa-comfeed-indonesia-tb/1147235257447186/",
+    "companyTiktok": "https://www.tiktok.com/@pt.japfa.comfeed6"
+  },
+  {
+    "name": "Erli Fittriyasari",
+    "companySocial": "https://tiktok.com/@digital-agency",
+    "companyLinkedin": "https://id.linkedin.com/company/suitmedia",
+    "companyInstagram": "https://www.instagram.com/geronaki/",
+    "companyFacebook": "https://www.facebook.com/3smedianet/",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-digital-agency-indonesia"
+  },
+  {
+    "name": "Novi Anjayani",
+    "companySocial": "https://facebook.com/wings-surya",
+    "companyLinkedin": "https://id.linkedin.com/in/claudiojauwena",
+    "companyInstagram": "https://www.instagram.com/reel/do0m8myj3zq/",
+    "companyFacebook": "https://www.facebook.com/ptwingssuryadriyorejogresik/",
+    "companyTiktok": "https://www.tiktok.com/tag/wingssurya"
+  },
+  {
+    "name": "Sri Rahayu",
+    "companySocial": "https://linkedin.com",
+    "companyLinkedin": "https://id.linkedin.com/in/adinda-deskya-putri-setiawan-a92b1b287",
+    "companyInstagram": "https://www.instagram.com/p/driza6akskk/",
+    "companyFacebook": "https://www.facebook.com/100064907615616/posts/%f0%9d%90%82%f0%9d%90%9a%f0%9d%90%a5%f0%9d%90%a5%f0%9d%90%a2%f0%9d%90%a7%f0%9d%90%a0-%f0%9d%90%8e%f0%9d%90%ae%f0%9d%90%ad-%f0%9d%90%80%f0%9d%90%a5%f0%9d%90%a5-%f0%9d%90%93%f0%9d%90%a1%f0%9d%90%9e-%f0%9d%90%82%f0%9d%90%a1%f0%9d%90%9a%f0%9d%90%a7%f0%9d%90%a0%f0%9d%90%9e-%f0%9d%90%8c%f0%9d%90%9a%f0%9d%90%a4%f0%9d%90%9e%f0%9d%90%ab%f0%9d%90%ac%f0%9d%99%84%f0%9d%99%9b-%f0%9d%99%ae%f0%9d%99%a4%f0%9d%99%aa%f0%9d%99%a7%f0%9d%99%9a-%f0%9d%99%98%f0%9d%99%9d%f0%9d%99%96%f0%9d%99%a1%f0%9d%99%a1%f0%9d%99%9a%f0%9d%99%a3%f0%9d%99%9c%f0%9d%99%9a%f0%9d%99%a7%f0%9d%99%a8%ef%b8%8f%f0%9d%99%8b%f0%9d%99%a7%f0%9d%99%9a%f0%9d%99%a5%f0%9d%99%96%f0%9d%99%a7%f0%9d%99%9a-%f0%9d%99%ae%f0%9d%99%a4%f0%9d%99%aa%f0%9d%99%a7%f0%9d%99%a8%f0%9d%99%9a%f0%9d%99%a1%f0%9d%99%9b-%f0%9d%99%96%f0%9d%99%a3%f0%9d%99%99-%f0%9d%99%a1%f0%9d%99%9a%f0%9d%99%a9%f0%9d%99%a8-/892793032894276/",
+    "companyTiktok": "https://www.tiktok.com/@sman.5.surabaya"
+  },
+  {
+    "name": "Yulianti",
+    "companySocial": "https://facebook.com/xl-axiata",
+    "companyLinkedin": "https://id.linkedin.com/in/ghina-nurul-aini-002a2611b",
+    "companyInstagram": "https://www.instagram.com/explore/locations/480734978654084/pt-xl-axiata-tbk/",
+    "companyFacebook": "https://www.facebook.com/heaptalknews/posts/pt-xl-axiata-tbk-xl-axiata-pt-smartfren-telecom-tbk-smartfren-and-pt-smart-telco/1015299807281771/",
+    "companyTiktok": "https://www.tiktok.com/discover/xl-axiata-tbk"
+  },
+  {
+    "name": "Machsunah",
+    "companySocial": "https://linkedin.com/company/kementerian-hukum-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/nadyaariestakd",
+    "companyInstagram": "https://www.instagram.com/p/du5kvtbex6_/",
+    "companyFacebook": "https://www.facebook.com/angphotorion/posts/-kabar-baik-dari-vitoma-kami-dengan-bangga-mengumumkan-bahwa-vitoma-kini-resmi-t/1490731059724533/",
+    "companyTiktok": "https://www.tiktok.com/@kemenkum"
+  },
+  {
+    "name": "Wahyuning Dyah Mujirahayu",
+    "companySocial": "https://tiktok.com/@accenture",
+    "companyLinkedin": "https://id.linkedin.com/in/amelia-margatan-239a4a74",
+    "companyInstagram": "https://www.instagram.com/p/cn-bzqkjfed/",
+    "companyFacebook": "https://www.facebook.com/alumni.career.center/posts/rekrutmen-pt-accenture-indonesia-di-uii-software-engineering-3-hari-lagi-httpacc/865617846842858/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Didy Yulkhaidir",
+    "companySocial": "https://www.instagram.com/reel/DLE0IelpAON/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Suyanti",
+    "companySocial": "https://linkedin.com/company/klinik-utama-sehat-sentosa",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Lilik Indrawati",
+    "companySocial": "https://instagram.com/event-kreasi",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Achmad Rifa'i",
+    "companySocial": "https://facebook.com/yamaha-indonesia-motor-manufacturing",
+    "companyLinkedin": "https://id.linkedin.com/in/fajar-muhamad-4a756190",
+    "companyInstagram": "https://www.instagram.com/p/c7bvhdipgbb/",
+    "companyFacebook": "https://www.facebook.com/yamaha.indonesia/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-yamaha-motor-manufacturing"
+  },
+  {
+    "name": "Ruys Novinandri",
+    "companySocial": "https://id.linkedin.com/company/ikatanakuntanindonesia",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Fanny Rahadian",
+    "companySocial": "https://instagram.com/perum-bulog",
+    "companyLinkedin": "https://id.linkedin.com/in/fairuz-daffa-fridaysya",
+    "companyInstagram": "https://www.instagram.com/reel/dtzx4qkkui5/",
+    "companyFacebook": "https://www.facebook.com/bulogperum/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@perum.bulog/video/7307225378714569990"
+  },
+  {
+    "name": "Dwi Suhariyanto",
+    "companySocial": "https://linkedin.com/company/rs-pondok-indah",
+    "companyLinkedin": "https://id.linkedin.com/in/athayamahira",
+    "companyInstagram": "https://www.instagram.com/p/dpih4m9etav/",
+    "companyFacebook": "https://www.facebook.com/lokerkesehatanid/photos/a.403040200306077/820078215268938/?type=3",
+    "companyTiktok": "https://www.tiktok.com/@rspondokindah"
+  },
+  {
+    "name": "Miftahul Jinan",
+    "companySocial": "https://tiktok.com/@japfa-comfeed-indonesia",
+    "companyLinkedin": "https://id.linkedin.com/in/rizqi-wahyu-4542a6228",
+    "companyInstagram": "https://www.instagram.com/p/dmf3lq5bncx/",
+    "companyFacebook": "https://www.facebook.com/100064821667674/posts/-beasiswa-japfa-untuk-anak-negeri-2025-telah-dibukapt-japfa-comfeed-indonesia-tb/1147235257447186/",
+    "companyTiktok": "https://www.tiktok.com/@pt.japfa.comfeed6"
+  },
+  {
+    "name": "Nanik Dwiningwati",
+    "companySocial": "https://linkedin.com/company/klinik-utama-sehat-keluarga",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Emy Dwi Rahayu",
+    "companySocial": "https://facebook.com/kantor-akuntan-publik-andalan",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Any Eka Forgiyanti",
+    "companySocial": "https://instagram.com/mitsubishi-motors-krama-yudha",
+    "companyLinkedin": "https://id.linkedin.com/in/monica-handra-674550191",
+    "companyInstagram": "https://www.instagram.com/popular/krama-yudha-ratu-motor/",
+    "companyFacebook": "https://www.facebook.com/172532350041041",
+    "companyTiktok": "https://www.tiktok.com/discover/mitsubishi-motors-krama-yudha-indonesia"
+  },
+  {
+    "name": "Siti Uswatun Hasanah",
+    "companySocial": "https://facebook.com/yamaha-indonesia-motor-manufacturing",
+    "companyLinkedin": "https://id.linkedin.com/in/fajar-muhamad-4a756190",
+    "companyInstagram": "https://www.instagram.com/p/c7bvhdipgbb/",
+    "companyFacebook": "https://www.facebook.com/yamaha.indonesia/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-yamaha-motor-manufacturing"
+  },
+  {
+    "name": "Indah Kartika Damayanti",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Andi Muktiono",
+    "companySocial": "https://tiktok.com/@otoritas-jasa-keuangan",
+    "companyLinkedin": "https://id.linkedin.com/in/nugrohoiif",
+    "companyInstagram": "https://www.instagram.com/reel/dkj423gj52v/",
+    "companyFacebook": "https://www.facebook.com/official.ojk/",
+    "companyTiktok": "https://www.tiktok.com/@ojk_indonesia"
+  },
+  {
+    "name": "Lilis Susanti",
+    "companySocial": "https://instagram.com/blibli-com",
+    "companyLinkedin": "https://id.linkedin.com/in/eliza-amelia-8b3b07334",
+    "companyInstagram": "https://www.instagram.com/reel/c5negbzlncc/",
+    "companyFacebook": "https://hi-in.facebook.com/pages/pt-blibli-com/119832158776740",
+    "companyTiktok": null
+  },
+  {
+    "name": "Nanies Fatchiyah",
+    "companySocial": "https://facebook.com/penerbitan-media-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Mohamad Syaifudin Zuhri",
+    "companySocial": "https://www.instagram.com/p/DXoL52VCX4L/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Rina Anesthien",
+    "companySocial": "https://tiktok.com/@maju-bersama",
+    "companyLinkedin": "https://id.linkedin.com/in/ida-liesdyanita-4a4274188",
+    "companyInstagram": "https://www.instagram.com/reel/dxdx9hkedmu/",
+    "companyFacebook": "https://www.facebook.com/majubersamaconstruction/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/content/agriseta-learnership-poster-for-2026"
+  },
+  {
+    "name": "Isticomah",
+    "companySocial": "https://linkedin.com/company/deloitte",
+    "companyLinkedin": "https://id.linkedin.com/in/michael-tedjakusuma-0b7b5987",
+    "companyInstagram": "https://www.instagram.com/popular/pt-deloitte-konsultan-indonesia/",
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Titik Setijowati",
+    "companySocial": "https://tiktok.com/@waskita-karya-persero",
+    "companyLinkedin": "https://id.linkedin.com/in/olly-gangga-222384183",
+    "companyInstagram": "https://www.instagram.com/p/dvdg9fneexk/",
+    "companyFacebook": "https://www.facebook.com/groups/941847602586382/",
+    "companyTiktok": "https://www.tiktok.com/@waskita_karya"
+  },
+  {
+    "name": "Ira Dwi Yulianti",
+    "companySocial": "https://linkedin.com/company/mitra-rekayasa-industri",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Dadong Wahyu Purnomo",
+    "companySocial": "https://tiktok.com/@avia-avian",
+    "companyLinkedin": "https://id.linkedin.com/in/kiranwalada",
+    "companyInstagram": "https://www.instagram.com/p/dxdgdtxesyg/",
+    "companyFacebook": "https://www.facebook.com/avianbrands/posts/pt-avia-avian-tbk-avia-terbukti-memberikan-kontribusi-yang-baik-terhadap-pertumb/747673100714887/",
+    "companyTiktok": "https://www.tiktok.com/@ccsi.recruitment/video/7541671717081500935"
+  },
+  {
+    "name": "Herman Setyawan",
+    "companySocial": "https://linkedin.com/company/sumber-alfaria-trijaya",
+    "companyLinkedin": "https://hk.linkedin.com/in/dita-saputri-63a445395",
+    "companyInstagram": "https://www.instagram.com/reel/dvxj9wpe37o/",
+    "companyFacebook": "https://www.facebook.com/story.php?story_fbid=6098545253515514&id=125556717481094&m_entstream_source=permalink",
+    "companyTiktok": "https://www.tiktok.com/@jobforcareer/video/7396681562701696262"
+  },
+  {
+    "name": "Heny Hidayati",
+    "companySocial": "https://facebook.com/rumah-sakit-bhakti-husada",
+    "companyLinkedin": "https://id.linkedin.com/in/rumah-sakit-bhakti-husada-cikarang-a913ab208",
+    "companyInstagram": "https://www.instagram.com/p/dvqoknokwyr/",
+    "companyFacebook": "https://www.facebook.com/p/rsbhaktihusada_cikarang-100063709401256/",
+    "companyTiktok": "https://www.tiktok.com/@rs_bhaktihusadacikarang"
+  },
+  {
+    "name": "Agung Wiyadi",
+    "companySocial": "https://instagram.com/mitra-konsultan-bisnis",
+    "companyLinkedin": "https://id.linkedin.com/in/pratama-putra-raharjo-339850176",
+    "companyInstagram": "https://www.instagram.com/reel/dvakcesaxps/",
+    "companyFacebook": "https://www.facebook.com/p/pt-mitra-konsultan-bisnis-61551702821834/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Dedy Anang Prasetyo",
+    "companySocial": "https://facebook.com/kredivo-finance",
+    "companyLinkedin": "https://id.linkedin.com/in/astri-novita-8b7406295",
+    "companyInstagram": "https://www.instagram.com/p/czixwivvf6h/",
+    "companyFacebook": "https://www.facebook.com/kredivo/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-fuji-finance-indonesia"
+  },
+  {
+    "name": "Nur Kholis",
+    "companySocial": "https://facebook.com/omni-hospitals",
+    "companyLinkedin": "https://in.linkedin.com/company/omnihospitals",
+    "companyInstagram": "https://www.instagram.com/p/dw0s6msjnxa/",
+    "companyFacebook": "https://www.facebook.com/udaiomnihospital/posts/department-of-pulmonology-and-sleep-disorders-at-udai-omni-hospital-provides-eva/5230555183632901/",
+    "companyTiktok": "https://www.tiktok.com/@ismartsaikiranismartboy/video/6823443010433436929"
+  },
+  {
+    "name": "Kuntarsih",
+    "companySocial": "https://instagram.com/rs-medistra",
+    "companyLinkedin": "https://id.linkedin.com/pub/dir/rs+rs+rs/+/id-0-indonesia",
+    "companyInstagram": "https://www.instagram.com/p/dxgrk3xk1fc/",
+    "companyFacebook": "https://www.facebook.com/rsmedistra/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@laksanabus_official/video/7567729808218623240"
+  },
+  {
+    "name": "Elly Ika Fatmawati AS",
+    "companySocial": "https://linkedin.com/company/bank-mandiri",
+    "companyLinkedin": "https://id.linkedin.com/in/riesky-fadilla-khadizah-642574227",
+    "companyInstagram": "https://www.instagram.com/p/djwcm78mseu/",
+    "companyFacebook": "https://www.facebook.com/bankmandiri/?locale=sn_zw",
+    "companyTiktok": "https://www.tiktok.com/tag/bankmandiri"
+  },
+  {
+    "name": "Sunarsih",
+    "companySocial": "https://linkedin.com/company/maju-motor",
+    "companyLinkedin": "https://id.linkedin.com/in/jepiy-djong-9231b157",
+    "companyInstagram": "https://www.instagram.com/popular/pt-maju-motor-indonesia/",
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Yusida Dewi",
+    "companySocial": "https://facebook.com/huawei",
+    "companyLinkedin": "https://de.linkedin.com/in/lin-wang-8b0495bb",
+    "companyInstagram": "https://www.instagram.com/popular/huawei-indonesia/",
+    "companyFacebook": "https://www.facebook.com/290327951111866",
+    "companyTiktok": "https://www.tiktok.com/@kabar.banten/video/7470870066741939463"
+  },
+  {
+    "name": "Luthfi Adhistha Hermawan",
+    "companySocial": "https://facebook.com/rspi-bintaro-jaya",
+    "companyLinkedin": "https://pk.linkedin.com/in/muhammad-saddam-451962225",
+    "companyInstagram": "https://www.instagram.com/popular/graha-taman-bintaro-sektor-9/",
+    "companyFacebook": "https://www.facebook.com/rumahsakitpondokindah/posts/persalinan-pertama-penuh-cerita-dari-ibu-nessie-dan-bapak-andryan-bagi-nessie-ju/1163272659163709/",
+    "companyTiktok": "https://www.tiktok.com/discover/mentari-school-kaemi"
+  },
+  {
+    "name": "Hanik Fauziah",
+    "companySocial": "https://www.instagram.com/p/DXoJjpVjf1c/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Syamsul Hadi",
+    "companySocial": "https://tiktok.com/@laboratorium-klinik-prodia",
+    "companyLinkedin": "https://id.linkedin.com/in/zacky-sutris-497a71114",
+    "companyInstagram": "https://www.instagram.com/p/dri73u4k9a-/",
+    "companyFacebook": "https://www.facebook.com/prodia.id/posts/jakarta-25-november-2020-kondisi-pandemi-covid-19-telah-membuat-terjadinya-perce/1451384268401033/?locale=ro_ro",
+    "companyTiktok": "https://www.tiktok.com/tag/prodia"
+  },
+  {
+    "name": "Endi Apri Heksanto",
+    "companySocial": "https://linkedin.com/company/sicepat-ekspres",
+    "companyLinkedin": "https://id.linkedin.com/in/indriani-rostianti-sutjipto-58641543",
+    "companyInstagram": "https://www.instagram.com/p/cq8bpubjmvl/",
+    "companyFacebook": "https://www.facebook.com/sicepatekspresofficial/photos/a.1627081164198264/2891655664407468/?id=1503334216572960",
+    "companyTiktok": "https://www.tiktok.com/@koh.dennies/video/7167293298044882202"
+  },
+  {
+    "name": "Widi Lestari",
+    "companySocial": "https://linkedin.com/company/trans-retail",
+    "companyLinkedin": "https://id.linkedin.com/in/akmal-rz",
+    "companyInstagram": "https://www.instagram.com/p/dtvpa4mkump/",
+    "companyFacebook": "https://www.facebook.com/transmartindonesia/",
+    "companyTiktok": "https://www.tiktok.com/@lifeat.transretail"
+  },
+  {
+    "name": "Rini Kholifah",
+    "companySocial": "https://linkedin.com/company/universitas-diponegoro",
+    "companyLinkedin": "https://id.linkedin.com/in/faza-zhahira-",
+    "companyInstagram": "https://www.instagram.com/p/dw--j3akzm3/",
+    "companyFacebook": "https://www.facebook.com/undip.official/",
+    "companyTiktok": "https://www.tiktok.com/@undip.official"
+  },
+  {
+    "name": "Puryono",
+    "companySocial": "https://facebook.com/paragon-technology-and-innovation",
+    "companyLinkedin": "https://id.linkedin.com/in/ammarahyr",
+    "companyInstagram": "https://www.instagram.com/p/dxd1slwk5ue/",
+    "companyFacebook": "https://www.facebook.com/100066773350505/photos/",
+    "companyTiktok": "https://www.tiktok.com/@paragoncorp.id/video/7475922511360822529"
+  },
+  {
+    "name": "Yanti Dwi Susilowati",
+    "companySocial": "https://instagram.com/siloam-hospitals-group",
+    "companyLinkedin": "https://id.linkedin.com/in/lay-agnes-magdalena-",
+    "companyInstagram": "https://www.instagram.com/p/dt69ax1jboq/",
+    "companyFacebook": "https://www.facebook.com/siloamhospitalgroup/",
+    "companyTiktok": "https://www.tiktok.com/@siloamhospitalsgroup/video/7532117210806996230"
+  },
+  {
+    "name": "Sugeng Widodo",
+    "companySocial": "https://instagram.com/combiphar",
+    "companyLinkedin": "https://id.linkedin.com/in/mohammadtrihutomo",
+    "companyInstagram": "https://www.instagram.com/p/dqtcjaekck4/",
+    "companyFacebook": "https://www.facebook.com/lokerkudotnet/posts/operator-warehouse-pt-combiphar-padalaranglowongan-operator-warehouse-kontrakkua/1383871699982366/",
+    "companyTiktok": "https://www.tiktok.com/@combipharid"
+  },
+  {
+    "name": "Hendra Wahyudi",
+    "companySocial": "https://tiktok.com/@aruna-jaya-nuswantara",
+    "companyLinkedin": "https://id.linkedin.com/company/aruna-indonesia",
+    "companyInstagram": "https://www.instagram.com/p/ca1fc7vps_7/",
+    "companyFacebook": "https://www.facebook.com/pages/pt-aruna-jaya-nuswantara/221882365008583",
+    "companyTiktok": null
+  },
+  {
+    "name": "Yuli Astutik",
+    "companySocial": "https://facebook.com/bfi-finance",
+    "companyLinkedin": "https://id.linkedin.com/in/hafizdah-mustaf-346b75118",
+    "companyInstagram": "https://www.instagram.com/reel/djtkkvgbx3n/",
+    "companyFacebook": "https://www.facebook.com/peluangbisnisbfi/mentions/",
+    "companyTiktok": "https://www.tiktok.com/@lifeatbfi/video/7530092125858352402"
+  },
+  {
+    "name": "Arista Charolina Damayanti",
+    "companySocial": "https://facebook.com/sekolah-cikal",
+    "companyLinkedin": "https://id.linkedin.com/in/hanami-atalia-sudarto-062435377",
+    "companyInstagram": "https://www.instagram.com/p/dljo8tirvkq/",
+    "companyFacebook": "https://www.facebook.com/sekolahcikal/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@sekolah.cikal"
+  },
+  {
+    "name": "Luluk Makhniyah",
+    "companySocial": "https://instagram.com/telkom-university",
+    "companyLinkedin": "https://id.linkedin.com/in/dannrizky",
+    "companyInstagram": "https://www.instagram.com/p/dwkhl-dmd_u/",
+    "companyFacebook": "https://www.facebook.com/telkomuniversity/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@universitastelkom"
+  },
+  {
+    "name": "Anik Kartika",
+    "companySocial": "https://www.instagram.com/p/DXoMNr1CWGd/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Rendro Ari Nugroho",
+    "companySocial": "https://www.instagram.com/p/DXoL52VCX4L/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Nursia",
+    "companySocial": "https://instagram.com/puskesmas-kecamatan-kebayoran-baru",
+    "companyLinkedin": "https://id.linkedin.com/in/vitya-r-5a06b3137",
+    "companyInstagram": "https://www.instagram.com/explore/locations/1002825755/puskesmas-kecamatan-kebayoran-baru/",
+    "companyFacebook": "https://www.facebook.com/puskesmaskecamatankebayoranbaru/mentions/",
+    "companyTiktok": "https://www.tiktok.com/@pkmkebayoranbaru/video/7207080299530931483"
+  },
+  {
+    "name": "Rachmawati Diah Kusrianingsih",
+    "companySocial": "https://instagram.com/smartfren-telecom",
+    "companyLinkedin": "https://id.linkedin.com/in/livia-stella-863a53b5",
+    "companyInstagram": "https://www.instagram.com/explore/locations/16493776/pt-smartfren-telecom-tbk/",
+    "companyFacebook": "https://www.facebook.com/heaptalknews/posts/pt-xl-axiata-tbk-xl-axiata-pt-smartfren-telecom-tbk-smartfren-and-pt-smart-telco/1015299807281771/",
+    "companyTiktok": "https://www.tiktok.com/@lifeatsmartfren"
+  },
+  {
+    "name": "Diana Rosulika",
+    "companySocial": "https://tiktok.com/@indofood",
+    "companyLinkedin": "https://id.linkedin.com/in/nadia-ingrida-winata",
+    "companyInstagram": "https://www.instagram.com/p/dwthakkkvlc/",
+    "companyFacebook": "https://www.facebook.com/cbpindofood/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-indofood"
+  },
+  {
+    "name": "Mustofa Syafiullah",
+    "companySocial": "https://instagram.com/data-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Rita Sulistyaningsih",
+    "companySocial": "https://tiktok.com/@badan-kepegawaian-negara",
+    "companyLinkedin": "https://id.linkedin.com/in/galih-mey-rizki-setiawan-025392383",
+    "companyInstagram": "https://www.instagram.com/p/dvspxzmmkdg/",
+    "companyFacebook": "https://www.facebook.com/pitmajogja/posts/dokumen-kepegawaian-bukan-cuma-arsip-ini-identitas-karier-andalewat-lemari-digit/1503120825153586/",
+    "companyTiktok": "https://www.tiktok.com/@bkngoid"
+  },
+  {
+    "name": "Siti Hariyati",
+    "companySocial": "https://linkedin.com/company/universitas",
+    "companyLinkedin": "https://id.linkedin.com/in/dwika-aprilia/en",
+    "companyInstagram": "https://www.instagram.com/p/dujxjotgeba/",
+    "companyFacebook": "https://www.facebook.com/ui.ac.id/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@univ_indonesia"
+  },
+  {
+    "name": "Etik Susilowati",
+    "companySocial": "https://linkedin.com/company/arsitek-ruang",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Betty Dwi Linawati",
+    "companySocial": "https://linkedin.com",
+    "companyLinkedin": "https://id.linkedin.com/in/panji-hariyadi-b053b1246",
+    "companyInstagram": "https://www.instagram.com/p/dpeuh_6iykp/",
+    "companyFacebook": "https://www.facebook.com/smkn1jakartaofficial/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@t1r4m15uu/video/7629170046991879432"
+  },
+  {
+    "name": "Dyah Ayu Rofi'ah Kuswatiningrum",
+    "companySocial": "https://linkedin.com/company/vida-digital-identity",
+    "companyLinkedin": "https://id.linkedin.com/in/ivan-zakaria-945654158",
+    "companyInstagram": "https://www.instagram.com/reel/cva6454brr6/",
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Arie Ernawati",
+    "companySocial": "https://instagram.com/traveloka",
+    "companyLinkedin": "https://id.linkedin.com/in/safira-nadia-941b5724a",
+    "companyInstagram": "https://www.instagram.com/popular/pt-traveloka/",
+    "companyFacebook": "https://www.facebook.com/p/pt-travelokacom-100054323435636/",
+    "companyTiktok": "https://www.tiktok.com/@traveloka_indonesia/video/7347774136845929734"
+  },
+  {
+    "name": "Tri Anna Susanti",
+    "companySocial": "https://tiktok.com/@astra-international",
+    "companyLinkedin": "https://id.linkedin.com/in/qania-lihawa",
+    "companyInstagram": "https://www.instagram.com/p/dv-gohcj4l3/",
+    "companyFacebook": "https://www.facebook.com/hrasiaawards/videos/pt-astra-international-tbk-winner-of-2024-indonesia-hr-asia-best-companies-to-wo/521913110508138/",
+    "companyTiktok": "https://www.tiktok.com/@brkkkkz/video/7455337284087336210"
+  },
+  {
+    "name": "Diahayu Ikawati",
+    "companySocial": "https://linkedin.com/company/universitas-padjadjaran",
+    "companyLinkedin": "https://id.linkedin.com/in/enengsyifa/fr",
+    "companyInstagram": "https://www.instagram.com/p/ctymsstjzzl/",
+    "companyFacebook": "https://www.facebook.com/unpad/videos/selamat-datang-di-kampus-universitas-padjadjaran/214178977711270/",
+    "companyTiktok": "https://www.tiktok.com/@unpad_io/video/7627405824536710418"
+  },
+  {
+    "name": "Agus Triwinartiningsih",
+    "companySocial": "https://instagram.com/sukses-agritech-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Lik Asrini",
+    "companySocial": "https://facebook.com/charoen-pokphand-indonesia",
+    "companyLinkedin": "https://id.linkedin.com/in/anindya-apsari",
+    "companyInstagram": "https://www.instagram.com/p/dxywv0vgces/",
+    "companyFacebook": "https://www.facebook.com/p/pt-charoen-pokphand-indonesia-61567723686918/",
+    "companyTiktok": "https://www.tiktok.com/@cpifood.id"
+  },
+  {
+    "name": "Sri Suliswati",
+    "companySocial": "https://tiktok.com/@andalan-properti",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Nenik Mei Istrini",
+    "companySocial": "https://tiktok.com/@rumah-sakit-bhayangkara",
+    "companyLinkedin": "https://id.linkedin.com/in/eugenia-isadora-132052294",
+    "companyInstagram": "https://www.instagram.com/reel/dwqx5drkxaw/",
+    "companyFacebook": "https://www.facebook.com/rsbhayangkarakediri/videos/-klinik-matabersama-dr-arti-lukitasari-spm-dokter-spesialis-mata-yang-siap-memba/1534500187509394/",
+    "companyTiktok": "https://www.tiktok.com/@infobanjar.id/video/7609049246129573141"
+  },
+  {
+    "name": "Sri Harningsih",
+    "companySocial": "https://linkedin.com",
+    "companyLinkedin": "https://id.linkedin.com/in/zahirah-alfiani",
+    "companyInstagram": "https://www.instagram.com/p/dvp17wuaf-a/",
+    "companyFacebook": "https://www.facebook.com/photo.php?fbid=1023564324676815&id=106642733035650&set=a.112458472454076&locale=mt_mt",
+    "companyTiktok": "https://www.tiktok.com/@hazwaniby_/video/7613364733567126792"
+  },
+  {
+    "name": "Sri Hartatik",
+    "companySocial": "https://tiktok.com/@otoritas-jasa-keuangan",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Agus Sarwoto",
+    "companySocial": "https://facebook.com/perum-peruri",
+    "companyLinkedin": "https://id.linkedin.com/pub/dir/perum/peruri",
+    "companyInstagram": "https://www.instagram.com/p/dxjlypwjfk1/?img_index=2&hl=ml",
+    "companyFacebook": "https://www.facebook.com/2237788316455250",
+    "companyTiktok": "https://www.tiktok.com/@annisaluthfiyah_/video/7386608222867623173"
+  },
+  {
+    "name": "Erna Fatmawati",
+    "companySocial": "https://linkedin.com/company/pos-indonesia",
+    "companyLinkedin": "https://id.linkedin.com/in/eric-malau-0bb40a256",
+    "companyInstagram": "https://www.instagram.com/p/dvdoppegmld/?img_index=3&hl=fi",
+    "companyFacebook": "https://www.facebook.com/posindonesia/?locale=da_dk",
+    "companyTiktok": "https://www.tiktok.com/@posindonesia_official"
+  },
+  {
+    "name": "Sulistyani",
+    "companySocial": "https://www.instagram.com/ubico.consulting/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Rochmat Suwoto",
+    "companySocial": "https://facebook.com/rsup-persahabatan",
+    "companyLinkedin": "https://uk.linkedin.com/in/annisa-fatharani-5429b2188/in",
+    "companyInstagram": "https://www.instagram.com/p/dakclfbsmq7/",
+    "companyFacebook": "https://www.facebook.com/rsuppersahabatan.id/",
+    "companyTiktok": "https://www.tiktok.com/@rs_persahabatan/video/7633336483541273876"
+  },
+  {
+    "name": "Erwin Prasetyo",
+    "companySocial": "https://linkedin.com/company/rumah-sakit-fatmawati",
+    "companyLinkedin": "https://id.linkedin.com/in/bazlydipt",
+    "companyInstagram": "https://www.instagram.com/p/dvsxov5e2ko/",
+    "companyFacebook": "https://www.facebook.com/238196729669791",
+    "companyTiktok": "https://www.tiktok.com/@nafi_rizqi/video/7533116659339463944"
+  },
+  {
+    "name": "Hendrie Kusumawati Tatinardi",
+    "companySocial": "https://linkedin.com/company/studio-visual-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Murtono",
+    "companySocial": "https://tiktok.com/@accenture",
+    "companyLinkedin": "https://id.linkedin.com/in/amelia-margatan-239a4a74",
+    "companyInstagram": "https://www.instagram.com/p/cn-bzqkjfed/",
+    "companyFacebook": "https://www.facebook.com/alumni.career.center/posts/rekrutmen-pt-accenture-indonesia-di-uii-software-engineering-3-hari-lagi-httpacc/865617846842858/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Halim",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Reti Agustina",
+    "companySocial": "https://instagram.com/data-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Yuni Warsitiani",
+    "companySocial": "https://facebook.com/cimb-niaga",
+    "companyLinkedin": "https://id.linkedin.com/in/muhammadfadhilahsyarief",
+    "companyInstagram": "https://www.instagram.com/p/dxosbpkemd-/",
+    "companyFacebook": "https://www.facebook.com/pages/pt-cimb-niaga-tbk/476044682461385?locale=mt_mt",
+    "companyTiktok": "https://www.tiktok.com/@cimb.niaga/video/7502415690566094085"
+  },
+  {
+    "name": "Widya Noviyanti",
+    "companySocial": "https://linkedin.com/company/xl-axiata",
+    "companyLinkedin": "https://id.linkedin.com/in/ghina-nurul-aini-002a2611b",
+    "companyInstagram": "https://www.instagram.com/explore/locations/480734978654084/pt-xl-axiata-tbk/",
+    "companyFacebook": "https://www.facebook.com/heaptalknews/posts/pt-xl-axiata-tbk-xl-axiata-pt-smartfren-telecom-tbk-smartfren-and-pt-smart-telco/1015299807281771/",
+    "companyTiktok": "https://www.tiktok.com/discover/xl-axiata-tbk"
+  },
+  {
+    "name": "Wahyu Sunarwati",
+    "companySocial": "https://tiktok.com/@otoritas-jasa-keuangan",
+    "companyLinkedin": "https://id.linkedin.com/in/nugrohoiif",
+    "companyInstagram": "https://www.instagram.com/reel/dkj423gj52v/",
+    "companyFacebook": "https://www.facebook.com/official.ojk/",
+    "companyTiktok": "https://www.tiktok.com/@ojk_indonesia"
+  },
+  {
+    "name": "Umu Wahidah Rahmah",
+    "companySocial": "https://linkedin.com/company/telkom-indonesia",
+    "companyLinkedin": "https://id.linkedin.com/in/ermaamelia",
+    "companyInstagram": "https://www.instagram.com/p/dohsrfge2wy/",
+    "companyFacebook": "https://www.facebook.com/sindomakassar/posts/pt-telkom-indonesia-persero-tbk-telkom-dan-pt-perusahaan-gas-negara-persero-tbk-/1557525263045747/",
+    "companyTiktok": "https://www.tiktok.com/@telkomindonesia/video/7632686172745108744"
+  },
+  {
+    "name": "Hevy Listianingrum",
+    "companySocial": "https://facebook.com/sekolah-cikal",
+    "companyLinkedin": "https://id.linkedin.com/in/hanami-atalia-sudarto-062435377",
+    "companyInstagram": "https://www.instagram.com/p/dljo8tirvkq/",
+    "companyFacebook": "https://www.facebook.com/sekolahcikal/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@sekolah.cikal"
+  },
+  {
+    "name": "Elly Widya Yusanti",
+    "companySocial": "https://instagram.com/kopi-kenangan",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Safa'at",
+    "companySocial": "https://linkedin.com/company/universitas-negeri-surabaya",
+    "companyLinkedin": "https://id.linkedin.com/in/zalsakiranaputri",
+    "companyInstagram": "https://www.instagram.com/p/dxav6mkka0t/",
+    "companyFacebook": "https://www.facebook.com/universitasnegerisurabaya/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@unesaid"
+  },
+  {
+    "name": "Billy Media Nova",
+    "companySocial": "https://instagram.com/alodokter",
+    "companyLinkedin": "https://id.linkedin.com/in/maulanaakbar-digital",
+    "companyInstagram": "https://www.instagram.com/p/cahcawup--j/",
+    "companyFacebook": "https://m.facebook.com/pangeran.kampus.31/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Suratmi",
+    "companySocial": "https://instagram.com/global-servis",
+    "companyLinkedin": "https://id.linkedin.com/in/nabila-ardiana-957368228",
+    "companyInstagram": "https://www.instagram.com/popular/pt-global-servis-indonesia/",
+    "companyFacebook": "https://www.facebook.com/ayu.sukowati/photos/loker-jobfair-ums18-19-july-2017-lowongan-kerja-pt-global-servise-indonesiapt-gl/1545755205445949/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Kurdiyanto",
+    "companySocial": "https://facebook.com/rspi-bintaro-jaya",
+    "companyLinkedin": "https://pk.linkedin.com/in/muhammad-saddam-451962225",
+    "companyInstagram": "https://www.instagram.com/popular/graha-taman-bintaro-sektor-9/",
+    "companyFacebook": "https://www.facebook.com/rumahsakitpondokindah/videos/perlindungan-maksimal-adalah-kunci-untuk-mencegah-penularan-virus-dalam-keluarga/882702428172460/",
+    "companyTiktok": "https://www.tiktok.com/discover/mentari-school-kaemi"
+  },
+  {
+    "name": "Siti Juwariyah",
+    "companySocial": "https://linkedin.com/company/universitas-negeri-malang",
+    "companyLinkedin": "https://id.linkedin.com/in/nawfal-adli-a7aa32379",
+    "companyInstagram": "https://www.instagram.com/p/dxdhuuambtn/",
+    "companyFacebook": "https://www.facebook.com/informasi.um/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@universitasnegerimalang"
+  },
+  {
+    "name": "Trisnawati",
+    "companySocial": "https://facebook.com/map-aktif-adiperkasa",
+    "companyLinkedin": "https://id.linkedin.com/in/willa-nikki-aleta-69129a281",
+    "companyInstagram": "https://www.instagram.com/p/c68duhpypue/",
+    "companyFacebook": "https://www.facebook.com/pages/pt-map-aktif-adiperkasa-tbk/980965188655837?locale=cx_ph",
+    "companyTiktok": "https://www.tiktok.com/@idxchannel/video/7597754055934463249"
+  },
+  {
+    "name": "HL. Puspito",
+    "companySocial": "https://tiktok.com/@maju-bersama",
+    "companyLinkedin": "https://id.linkedin.com/in/ida-liesdyanita-4a4274188",
+    "companyInstagram": "https://www.instagram.com/reel/dxdx9hkedmu/",
+    "companyFacebook": "https://www.facebook.com/majubersamaconstruction/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/content/agriseta-learnership-poster-for-2026"
+  },
+  {
+    "name": "Nur Hasim",
+    "companySocial": "https://linkedin.com/company/bussan-auto-finance",
+    "companyLinkedin": "https://id.linkedin.com/in/virafebi",
+    "companyInstagram": "https://www.instagram.com/p/dlo1eo2ppn7/",
+    "companyFacebook": "https://www.facebook.com/baf.indonesia/",
+    "companyTiktok": "https://www.tiktok.com/discover/posisi-engagement-specialist-pt-bussan-auto-finance"
+  },
+  {
+    "name": "Setyono",
+    "companySocial": "https://tiktok.com/@inspirasi-usaha-kreatif",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Alfin Mahmudi",
+    "companySocial": "https://tiktok.com/@sekolah-pelita-harapan",
+    "companyLinkedin": "https://id.linkedin.com/in/joanna-clarissa-mego-3b682436a",
+    "companyInstagram": "https://www.instagram.com/p/durqwxvk1qj/?img_index=3",
+    "companyFacebook": "https://www.facebook.com/sphinternationalschool/",
+    "companyTiktok": "https://www.tiktok.com/@uphimpactslives/video/7570226047254301959"
+  },
+  {
+    "name": "Sunita Indriana",
+    "companySocial": "https://linkedin.com/company/universitas-muhammadiyah-malang",
+    "companyLinkedin": "https://id.linkedin.com/in/ihzhanudin-adzhari-0a20a3216",
+    "companyInstagram": "https://www.instagram.com/p/dvahl59ep2e/",
+    "companyFacebook": "https://www.facebook.com/fpciumm/",
+    "companyTiktok": "https://www.tiktok.com/@officialpapikaumm/video/7631524362310503701"
+  },
+  {
+    "name": "Henny Endah Sulistyowati",
+    "companySocial": "https://facebook.com/perum-peruri",
+    "companyLinkedin": "https://id.linkedin.com/pub/dir/perum/peruri",
+    "companyInstagram": "https://www.instagram.com/p/dxjlypwjfk1/",
+    "companyFacebook": "https://www.facebook.com/2237788316455250",
+    "companyTiktok": "https://www.tiktok.com/@annisaluthfiyah_/video/7386608222867623173"
+  },
+  {
+    "name": "Desy Novitasari Mihardjo",
+    "companySocial": "https://linkedin.com/company/badan-pemeriksa-keuangan-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/hanssebastiann",
+    "companyInstagram": "https://www.instagram.com/reel/du2cvecif7p/",
+    "companyFacebook": "https://www.facebook.com/humasbpkri.official/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/tag/bpkri"
+  },
+  {
+    "name": "Siti Mahmudah",
+    "companySocial": "https://www.instagram.com/reel/DLE0IelpAON/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Aliyah Pamuji",
+    "companySocial": "https://instagram.com/blibli-com",
+    "companyLinkedin": "https://id.linkedin.com/in/eliza-amelia-8b3b07334",
+    "companyInstagram": "https://www.instagram.com/reel/c5negbzlncc/",
+    "companyFacebook": "https://hi-in.facebook.com/pages/pt-blibli-com/119832158776740",
+    "companyTiktok": null
+  },
+  {
+    "name": "Sri Hartatik",
+    "companySocial": "https://tiktok.com/@otoritas-jasa-keuangan",
+    "companyLinkedin": "https://id.linkedin.com/in/akmal-rz",
+    "companyInstagram": "https://www.instagram.com/p/dtvpa4mkump/",
+    "companyFacebook": "https://www.facebook.com/transmartindonesia/",
+    "companyTiktok": "https://www.tiktok.com/@lifeat.transretail"
+  },
+  {
+    "name": "Ulfa Rina Aniyanti",
+    "companySocial": "https://linkedin.com/company/badan-pemeriksa-keuangan-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/hanssebastiann",
+    "companyInstagram": "https://www.instagram.com/reel/du2cvecif7p/",
+    "companyFacebook": "https://www.facebook.com/humasbpkri.official/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/tag/bpkri"
+  },
+  {
+    "name": "Lilla Ayu Dewi",
+    "companySocial": "https://facebook.com/pertamina",
+    "companyLinkedin": "https://id.linkedin.com/in/indahnurbaeti",
+    "companyInstagram": "https://www.instagram.com/p/du-c3nnkutr/",
+    "companyFacebook": "https://www.facebook.com/pertamina/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@pt_pertaminaofficial"
+  },
+  {
+    "name": "Septi Retno Pratiwi",
+    "companySocial": "https://www.instagram.com/popular/accounting-company-indonesia/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "G. Bobby Rahmadhi",
+    "companySocial": "https://tiktok.com/@kejaksaan-agung-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/tahanirimtinan",
+    "companyInstagram": "https://www.instagram.com/p/cxut12kjbze/",
+    "companyFacebook": "https://www.facebook.com/p/kejaksaan-ri-100064391933878/",
+    "companyTiktok": "https://www.tiktok.com/@lvnaaren_/video/7355428301235637509"
+  },
+  {
+    "name": "Wiranto Tri Pamungkas",
+    "companySocial": "https://instagram.com/komisi-pemberantasan-korupsi",
+    "companyLinkedin": "https://id.linkedin.com/in/lufti-avianto",
+    "companyInstagram": "https://www.instagram.com/p/dxenrpfeubb/",
+    "companyFacebook": "https://www.facebook.com/majalah.haloindonesia/posts/komisi-pemberantasan-korupsi-kpk-melakukan-operasi-tangkap-tangan-ott-secara-ser/1619281142938589/",
+    "companyTiktok": "https://www.tiktok.com/@akuratco/photo/7597055051558817042?lang=de-de"
+  },
+  {
+    "name": "Sri Hartatik",
+    "companySocial": "https://tiktok.com/@otoritas-jasa-keuangan",
+    "companyLinkedin": "https://id.linkedin.com/in/nugrohoiif",
+    "companyInstagram": "https://www.instagram.com/reel/dkj423gj52v/",
+    "companyFacebook": "https://www.facebook.com/official.ojk/",
+    "companyTiktok": "https://www.tiktok.com/@ojk_indonesia"
+  },
+  {
+    "name": "Andik Eko Prasetyo",
+    "companySocial": "https://instagram.com/kimiafarmaind",
+    "companyLinkedin": "https://id.linkedin.com/in/bagus-kurniawan-syam/en",
+    "companyInstagram": "https://www.instagram.com/p/drl1dy6easc/",
+    "companyFacebook": "https://www.facebook.com/kimia.diagnostika/",
+    "companyTiktok": "https://www.tiktok.com/@kimiafarmalab_klinik/video/7619303643304529172"
+  },
+  {
+    "name": "Nila Oktapiani",
+    "companySocial": "https://tiktok.com/@astra-international",
+    "companyLinkedin": "https://id.linkedin.com/in/sitta-zahra-maulida",
+    "companyInstagram": "https://www.instagram.com/p/dv-gohcj4l3/",
+    "companyFacebook": "https://www.facebook.com/hrasiaawards/videos/pt-astra-international-tbk-winner-of-2024-indonesia-hr-asia-best-companies-to-wo/521913110508138/",
+    "companyTiktok": "https://www.tiktok.com/@brkkkkz/video/7455337284087336210"
+  },
+  {
+    "name": "Ahmad Khudori",
+    "companySocial": "https://instagram.com/indomarco-prismatama",
+    "companyLinkedin": "https://id.linkedin.com/in/ade-setiawan-80988951",
+    "companyInstagram": "https://www.instagram.com/p/dxf4uhzk909/",
+    "companyFacebook": "https://www.facebook.com/149118795134932",
+    "companyTiktok": "https://www.tiktok.com/@brinks.indonesia/video/7605497465927748885"
+  },
+  {
+    "name": "Arnatik Andayuni",
+    "companySocial": "https://tiktok.com/@kreatif-komunika",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Yudhi Winarto",
+    "companySocial": "https://instagram.com/rsup-dr-hasan-sadikin",
+    "companyLinkedin": "https://id.linkedin.com/in/antafani-eka-mawardani-49abb4152",
+    "companyInstagram": "https://www.instagram.com/p/c_4qiwzssqf/",
+    "companyFacebook": "https://www.facebook.com/rshsbdg/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@mangjo094/video/7626712083744296200"
+  },
+  {
+    "name": "Sri Yuntari",
+    "companySocial": "https://tiktok.com/@waskita-karya-persero",
+    "companyLinkedin": "https://id.linkedin.com/in/olly-gangga-222384183",
+    "companyInstagram": "https://www.instagram.com/p/dvdg9fneexk/",
+    "companyFacebook": "https://www.facebook.com/groups/941847602586382/",
+    "companyTiktok": "https://www.tiktok.com/@waskita_karya"
+  },
+  {
+    "name": "Nunung Iffa Setyawati",
+    "companySocial": "https://instagram.com/nestle",
+    "companyLinkedin": "https://id.linkedin.com/in/rukma-aditia-dharma",
+    "companyInstagram": "https://www.instagram.com/p/duaapbgkdwf/",
+    "companyFacebook": "https://www.facebook.com/cdaipb/posts/%f0%9d%97%9c%f0%9d%97%a1%f0%9d%97%a7%f0%9d%97%98%f0%9d%97%a5%f0%9d%97%a1%f0%9d%97%a6%f0%9d%97%9b%f0%9d%97%9c%f0%9d%97%a3-%f0%9d%97%a3%f0%9d%97%a7-%f0%9d%97%a1%f0%9d%97%98%f0%9d%97%a6%f0%9d%97%a7%f0%9d%97%9f%f0%9d%97%98%cc%81-%f0%9d%97%9c%f0%9d%97%a1%f0%9d%97%97%f0%9d%97%a2%f0%9d%97%a1%f0%9d%97%98%f0%9d%97%a6%f0%9d%97%9c%f0%9d%97%94hai-sobat-karier-mau-memulai-perjalanan-karier-ta/1562714185381322/",
+    "companyTiktok": "https://www.tiktok.com/discover/nestle-careers"
+  },
+  {
+    "name": "Menuk Septriani Rahayu",
+    "companySocial": "https://instagram.com/rs-mitra-sehat-sentosa",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Denisa Prasetyana",
+    "companySocial": "https://facebook.com/teknologi-pangan-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Nur Dian Purwarini",
+    "companySocial": "https://www.instagram.com/p/DXoJjpVjf1c/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Lies Ernawati",
+    "companySocial": "https://linkedin.com/company/vida-digital-identity",
+    "companyLinkedin": "https://id.linkedin.com/in/ivan-zakaria-945654158",
+    "companyInstagram": "https://www.instagram.com/reel/cva6454brr6/",
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Yayang Endriyani",
+    "companySocial": "https://linkedin.com/company/vida-digital-identity",
+    "companyLinkedin": "https://id.linkedin.com/in/ivan-zakaria-945654158",
+    "companyInstagram": "https://www.instagram.com/reel/cva6454brr6/",
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Yesi Mustikawati",
+    "companySocial": "https://tiktok.com/@institut-sains-dan-bisnis-nasional",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Ramadiana Apriliani",
+    "companySocial": "https://www.instagram.com/reel/DLE0IelpAON/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/@keilanjddd/video/7595262717808659734"
+  },
+  {
+    "name": "Sri Susanti",
+    "companySocial": "https://instagram.com/pemerintah-kota-bandung",
+    "companyLinkedin": "https://id.linkedin.com/in/alyamuhtar",
+    "companyInstagram": "https://www.instagram.com/p/dcgvzgepseg/",
+    "companyFacebook": "https://www.facebook.com/humaskotabandung/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@humasbdg"
+  },
+  {
+    "name": "Dwi Anna Vinoliani Dewi",
+    "companySocial": "https://facebook.com/blue-bird",
+    "companyLinkedin": "https://id.linkedin.com/company/bluebirdgroup",
+    "companyInstagram": "https://www.instagram.com/p/duia0bhen9l/",
+    "companyFacebook": "https://www.facebook.com/100078833445903/posts/exciting-new-collaboration-we-are-proud-to-announce-a-new-and-innovative-collabo/507416318562812/",
+    "companyTiktok": "https://www.tiktok.com/@bisniscom/video/7236641541106715909"
+  },
+  {
+    "name": "Diah Widhawaty",
+    "companySocial": "https://linkedin.com/company/kementerian-keuangan-republik",
+    "companyLinkedin": "https://www.linkedin.com/posts/kementerian-keuangan-republik-indonesia_hai-temankeu-sekarang-kamu-bisa-lebih-activity-7374739838480150528-0y1n",
+    "companyInstagram": "https://www.instagram.com/p/c3adsi2hycf/",
+    "companyFacebook": "https://www.facebook.com/lpdpkemenkeu/posts/-lpdp-resmi-pindahan-yup-kami-umumkan-sekali-lagi-kepada-seluruh-awardee-alumni-/462245406096303/",
+    "companyTiktok": "https://www.tiktok.com/tag/kementeriankeuangan"
+  },
+  {
+    "name": "Erlin Cahyaning Pawestri",
+    "companySocial": "https://facebook.com/kantor-akuntan-publik-andalan",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Supriyatin",
+    "companySocial": "https://tiktok.com/@adira-finance",
+    "companyLinkedin": "https://id.linkedin.com/in/rizky-dwi-kurniawan-1a5439259",
+    "companyInstagram": "https://www.instagram.com/p/cpcny0tb2vu/",
+    "companyFacebook": "https://www.facebook.com/indonesiaaccountingfair/photos/d41d8cd9/1359335242903812/",
+    "companyTiktok": "https://www.tiktok.com/@adirafinanceid/video/7613339490672758028"
+  },
+  {
+    "name": "Siti Chotipah",
+    "companySocial": "https://instagram.com/ipb-university",
+    "companyLinkedin": "https://id.linkedin.com/in/fatin-nurfadillah-962a31377",
+    "companyInstagram": "https://www.instagram.com/p/dxqcj-imgvz/",
+    "companyFacebook": "https://www.facebook.com/ipbuniversity/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@ipbuniversity"
+  },
+  {
+    "name": "Ujik Catur Wigati",
+    "companySocial": "https://instagram.com/rsup-dr-hasan-sadikin",
+    "companyLinkedin": "https://id.linkedin.com/in/antafani-eka-mawardani-49abb4152",
+    "companyInstagram": "https://www.instagram.com/p/c_4qiwzssqf/",
+    "companyFacebook": "https://www.facebook.com/rshsbdg/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@jawaposofficial/video/7627077109416021266"
+  },
+  {
+    "name": "Syamsul Hidayat",
+    "companySocial": "https://instagram.com/microsoft",
+    "companyLinkedin": "https://id.linkedin.com/in/agatonibuttang13",
+    "companyInstagram": "https://www.instagram.com/explore/locations/217991479/pt-microsoft-indonesia-bej-tower-2-18th-fl/",
+    "companyFacebook": "https://www.facebook.com/events/pt-microsoft-indonesia-bej-tower-2-18th-fl/fresh-collaborative-working/457589834308778/",
+    "companyTiktok": "https://www.tiktok.com/@bksd.jakarta/video/7630852778067234056"
+  },
+  {
+    "name": "Rahmasari",
+    "companySocial": "https://tiktok.com/@bank-negara-indonesia-persero",
+    "companyLinkedin": "https://id.linkedin.com/in/eka-ramadani-ayu-ningrum-72872a1a9",
+    "companyInstagram": "https://www.instagram.com/p/dqlf8q9aasl/",
+    "companyFacebook": "https://www.facebook.com/bniuntukindonesia/",
+    "companyTiktok": "https://www.tiktok.com/@cnnindonesia/video/7631488642803944724"
+  },
+  {
+    "name": "Siti Widyawati",
+    "companySocial": "https://linkedin.com/company/kalbe",
+    "companyLinkedin": "https://id.linkedin.com/in/sherlycarolinee",
+    "companyInstagram": "https://www.instagram.com/p/dxf8rcqkfbb/",
+    "companyFacebook": "https://www.facebook.com/kalbefarma.tbk/",
+    "companyTiktok": "https://www.tiktok.com/@lifeatkalbe/video/7395525826256637189"
+  },
+  {
+    "name": "Tonny Dwi Ernawan",
+    "companySocial": "https://linkedin.com/company/hashmicro-solusi",
+    "companyLinkedin": "https://id.linkedin.com/in/amalian-erlinda",
+    "companyInstagram": "https://www.instagram.com/p/duic7nyki3c/",
+    "companyFacebook": "https://www.facebook.com/primakarapcc/posts/pt-hashmicro-solusi-indonesia-sedang-membuka-lowongan-kerja-erp-consultant-imple/795375928052662/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Ihyaul Ulum",
+    "companySocial": "https://linkedin.com/company/mayapada-hospital",
+    "companyLinkedin": "https://id.linkedin.com/in/faisalqori/in",
+    "companyInstagram": "https://www.instagram.com/reel/dq6dv8bk7mj/",
+    "companyFacebook": "https://www.facebook.com/mayapadahospital/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@mayapadahospital/video/7579984069845421332"
+  },
+  {
+    "name": "Eko Retnowati",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/discover/on-nan-how-to-make-automation-post-on-all-platforms"
+  },
+  {
+    "name": "Lilis Rika Wijaya",
+    "companySocial": "https://linkedin.com/company/hashmicro-solusi",
+    "companyLinkedin": "https://id.linkedin.com/in/amalian-erlinda",
+    "companyInstagram": "https://www.instagram.com/p/duic7nyki3c/",
+    "companyFacebook": "https://www.facebook.com/primakarapcc/posts/pt-hashmicro-solusi-indonesia-sedang-membuka-lowongan-kerja-erp-consultant-imple/795375928052662/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Ainurul Khasanah",
+    "companySocial": "https://tiktok.com/@wijaya-karya",
+    "companyLinkedin": "https://id.linkedin.com/in/danang-wibawa-shakti-6707b1111",
+    "companyInstagram": "https://www.instagram.com/p/dof1tlneqkl/",
+    "companyFacebook": "https://www.facebook.com/ptwika/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@ptwijayakarya"
+  },
+  {
+    "name": "Tamurah",
+    "companySocial": "https://tiktok.com/@alodokter-teknologi",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Erna Rahmawati",
+    "companySocial": "https://instagram.com/smartfren-telecom",
+    "companyLinkedin": "https://id.linkedin.com/in/livia-stella-863a53b5",
+    "companyInstagram": "https://www.instagram.com/explore/locations/16493776/pt-smartfren-telecom-tbk/",
+    "companyFacebook": "https://www.facebook.com/heaptalknews/posts/pt-xl-axiata-tbk-xl-axiata-pt-smartfren-telecom-tbk-smartfren-and-pt-smart-telco/1015299807281771/",
+    "companyTiktok": "https://www.tiktok.com/@lifeatsmartfren"
+  },
+  {
+    "name": "Alize Septiviana",
+    "companySocial": "https://linkedin.com",
+    "companyLinkedin": "https://id.linkedin.com/in/adinda-deskya-putri-setiawan-a92b1b287",
+    "companyInstagram": "https://www.instagram.com/p/driza6akskk/",
+    "companyFacebook": "https://www.facebook.com/100064907615616/posts/%f0%9d%90%82%f0%9d%90%9a%f0%9d%90%a5%f0%9d%90%a5%f0%9d%90%a2%f0%9d%90%a7%f0%9d%90%a0-%f0%9d%90%8e%f0%9d%90%ae%f0%9d%90%ad-%f0%9d%90%80%f0%9d%90%a5%f0%9d%90%a5-%f0%9d%90%93%f0%9d%90%a1%f0%9d%90%9e-%f0%9d%90%82%f0%9d%90%a1%f0%9d%90%9a%f0%9d%90%a7%f0%9d%90%a0%f0%9d%90%9e-%f0%9d%90%8c%f0%9d%90%9a%f0%9d%90%a4%f0%9d%90%9e%f0%9d%90%ab%f0%9d%90%ac%f0%9d%99%84%f0%9d%99%9b-%f0%9d%99%ae%f0%9d%99%a4%f0%9d%99%aa%f0%9d%99%a7%f0%9d%99%9a-%f0%9d%99%98%f0%9d%99%9d%f0%9d%99%96%f0%9d%99%a1%f0%9d%99%a1%f0%9d%99%9a%f0%9d%99%a3%f0%9d%99%9c%f0%9d%99%9a%f0%9d%99%a7%f0%9d%99%a8%ef%b8%8f%f0%9d%99%8b%f0%9d%99%a7%f0%9d%99%9a%f0%9d%99%a5%f0%9d%99%96%f0%9d%99%a7%f0%9d%99%9a-%f0%9d%99%ae%f0%9d%99%a4%f0%9d%99%aa%f0%9d%99%a7%f0%9d%99%a8%f0%9d%99%9a%f0%9d%99%a1%f0%9d%99%9b-%f0%9d%99%96%f0%9d%99%a3%f0%9d%99%99-%f0%9d%99%a1%f0%9d%99%9a%f0%9d%99%a9%f0%9d%99%a8-/892793032894276/",
+    "companyTiktok": "https://www.tiktok.com/@sman.5.surabaya"
+  },
+  {
+    "name": "Elly Kusumawati",
+    "companySocial": "https://linkedin.com/company/tk-islam-al-azhar-14-semarang",
+    "companyLinkedin": null,
+    "companyInstagram": "https://www.instagram.com/reel/dwqvsm6k7-4/",
+    "companyFacebook": "https://www.facebook.com/tkia14smg/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@tkialazhar14smg/video/7602245335792012564"
+  },
+  {
+    "name": "Fifit Sugeng Hariadi",
+    "companySocial": "https://linkedin.com/company/badan-pemeriksa-keuangan-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/egityo",
+    "companyInstagram": "https://www.instagram.com/reel/du2cvecif7p/",
+    "companyFacebook": "https://www.facebook.com/humasbpkri.official/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/tag/bpkri"
+  },
+  {
+    "name": "Dwi Wulan Setyorini",
+    "companySocial": "https://tiktok.com/@aruna-jaya-nuswantara",
+    "companyLinkedin": "https://id.linkedin.com/company/aruna-indonesia",
+    "companyInstagram": "https://www.instagram.com/p/ca1fc7vps_7/",
+    "companyFacebook": "https://www.facebook.com/pages/pt-aruna-jaya-nuswantara/221882365008583",
+    "companyTiktok": null
+  },
+  {
+    "name": "Didik Hermawan Luhulima",
+    "companySocial": "https://facebook.com/mayora",
+    "companyLinkedin": "https://id.linkedin.com/in/herlina-lien-6a58a0137",
+    "companyInstagram": "https://www.instagram.com/p/dbionyqvq_c/",
+    "companyFacebook": "https://www.facebook.com/ptmayoraindah/",
+    "companyTiktok": "https://www.tiktok.com/@lokerjatimpalingupdate/photo/7629218401897991432"
+  },
+  {
+    "name": "Cholilah",
+    "companySocial": "https://instagram.com/event-kreasi",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Adi Kurniawan",
+    "companySocial": "https://linkedin.com/company/hm-sampoerna",
+    "companyLinkedin": "https://id.linkedin.com/in/rachel-lucya-51a6a7129",
+    "companyInstagram": "https://www.instagram.com/p/dmz8xveoox1/",
+    "companyFacebook": "https://www.facebook.com/insidesampoerna/",
+    "companyTiktok": "https://www.tiktok.com/@pt.attinsigaret_/photo/7628118612900973845"
+  },
+  {
+    "name": "Heri Setiaji",
+    "companySocial": "https://facebook.com/hutama-karya",
+    "companyLinkedin": "https://id.linkedin.com/in/fitri-binawati",
+    "companyInstagram": "https://www.instagram.com/p/dwcipswkiud/",
+    "companyFacebook": "https://www.facebook.com/pthutamakarya/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@jadibumn.id/video/7355659254084177158"
+  },
+  {
+    "name": "Erleen Sari",
+    "companySocial": "https://linkedin.com/company/universitas-teknologi-nusantara",
+    "companyLinkedin": "https://id.linkedin.com/school/universitas-teknologi-nusantara-ofc/",
+    "companyInstagram": "https://www.instagram.com/p/dv-zrraj2kt/",
+    "companyFacebook": "https://www.facebook.com/utnbogor/",
+    "companyTiktok": "https://www.tiktok.com/discover/universitas-teknologi-nusantara"
+  },
+  {
+    "name": "Lilik Sundari",
+    "companySocial": "https://linkedin.com/company/kementerian-dalam-negeri-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/alfitra-akbar-403833113",
+    "companyInstagram": "https://www.instagram.com/talufirdaus/",
+    "companyFacebook": "https://www.facebook.com/kemendagri/",
+    "companyTiktok": "https://www.tiktok.com/@dukcapilkemendagri/video/7630841621470285077"
+  },
+  {
+    "name": "Arhari Puji Lestyawan",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Eko Agus Priyanto",
+    "companySocial": "https://linkedin.com/company/universitas-teknologi-nusantara",
+    "companyLinkedin": "https://id.linkedin.com/school/universitas-teknologi-nusantara-ofc/",
+    "companyInstagram": "https://www.instagram.com/p/dv-zrraj2kt/",
+    "companyFacebook": "https://www.facebook.com/utnbogor/",
+    "companyTiktok": "https://www.tiktok.com/discover/universitas-teknologi-nusantara"
+  },
+  {
+    "name": "Suyatin Mugi Rahayu",
+    "companySocial": "https://instagram.com/smartfren-telecom",
+    "companyLinkedin": "https://id.linkedin.com/in/livia-stella-863a53b5",
+    "companyInstagram": "https://www.instagram.com/explore/locations/16493776/pt-smartfren-telecom-tbk/",
+    "companyFacebook": "https://www.facebook.com/heaptalknews/posts/pt-xl-axiata-tbk-xl-axiata-pt-smartfren-telecom-tbk-smartfren-and-pt-smart-telco/1015299807281771/",
+    "companyTiktok": "https://www.tiktok.com/@lifeatsmartfren"
+  },
+  {
+    "name": "Endro Subur Purnomo",
+    "companySocial": "https://facebook.com/puskesmas-lowokwaru",
+    "companyLinkedin": null,
+    "companyInstagram": "https://www.instagram.com/popular/puskesmas-lowokwaru/",
+    "companyFacebook": "https://www.facebook.com/groups/615217549402657/posts/1940946100163122/",
+    "companyTiktok": "https://www.tiktok.com/@bahrulmaghfiroh/video/7610003275173137684"
+  },
+  {
+    "name": "Ida Erdiana",
+    "companySocial": "https://instagram.com/pertamina",
+    "companyLinkedin": "https://id.linkedin.com/in/indahnurbaeti",
+    "companyInstagram": "https://www.instagram.com/p/c2cwkrrr6pf/",
+    "companyFacebook": "https://www.facebook.com/pertamina/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@pertamina"
+  },
+  {
+    "name": "Alimatuz Zuhriyah",
+    "companySocial": "https://facebook.com/perum-peruri",
+    "companyLinkedin": "https://id.linkedin.com/pub/dir/perum/peruri",
+    "companyInstagram": "https://www.instagram.com/p/dxjlypwjfk1/?img_index=2&hl=ml",
+    "companyFacebook": "https://www.facebook.com/2237788316455250",
+    "companyTiktok": "https://www.tiktok.com/@annisaluthfiyah_/video/7386608222867623173"
+  },
+  {
+    "name": "Iwang Indriatmoko",
+    "companySocial": "https://linkedin.com/company/pilar-sinergi-solusi",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Kusminariati",
+    "companySocial": "https://facebook.com/fore-kopi",
+    "companyLinkedin": "https://id.linkedin.com/in/liyana-fadhilah-99a22298",
+    "companyInstagram": "https://www.instagram.com/p/dpqepmuited/",
+    "companyFacebook": "https://www.facebook.com/fore.coffee/mentions/",
+    "companyTiktok": "https://www.tiktok.com/@idxchannel/video/7631109414614748437"
+  },
+  {
+    "name": "Didik Sujarwanto",
+    "companySocial": "https://instagram.com/xendit-payment-solutions",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Selamet Wahyudi",
+    "companySocial": "https://linkedin.com/company/sayurbox-mitra",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Yulita Kusrahmawati",
+    "companySocial": "https://tiktok.com/@rumah-sakit-cipto-mangunkusumo",
+    "companyLinkedin": "https://id.linkedin.com/in/tabithaaudrey",
+    "companyInstagram": "https://www.instagram.com/reel/dxgutgfk2wl/",
+    "companyFacebook": "https://www.facebook.com/rscm.official/",
+    "companyTiktok": "https://www.tiktok.com/discover/rscm-cipto-jakarta"
+  },
+  {
+    "name": "Dewi Karya Indah Utami",
+    "companySocial": "https://facebook.com/bank-rakyat-indonesia-persero",
+    "companyLinkedin": "https://id.linkedin.com/in/nanda-oktaviana-843181271",
+    "companyInstagram": "https://www.instagram.com/p/c-7cz9ugt7_/",
+    "companyFacebook": "https://www.facebook.com/hrasiaawards/videos/pt-bank-rakyat-indonesia-persero-tbk-winner-of-2024-indonesia-hr-asia-best-compa/1403118313852595/",
+    "companyTiktok": "https://www.tiktok.com/tag/bankrakyatindonesia"
+  },
+  {
+    "name": "Priyantoro",
+    "companySocial": "https://linkedin.com/company/adhi-karya",
+    "companyLinkedin": "https://id.linkedin.com/in/coniesyah-zalfa-zahira-077a33118",
+    "companyInstagram": "https://www.instagram.com/p/c8lrmyxp52m/",
+    "companyFacebook": "https://www.facebook.com/groups/286543718373135/",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-adhi-karya"
+  },
+  {
+    "name": "Hari Tri Wuryanto",
+    "companySocial": "https://linkedin.com/company/universitas-diponegoro",
+    "companyLinkedin": "https://id.linkedin.com/in/syalaisha-jihan-8855922a4",
+    "companyInstagram": "https://www.instagram.com/p/dwn51pjaqp7/",
+    "companyFacebook": "https://www.facebook.com/undip.official/",
+    "companyTiktok": "https://www.tiktok.com/@undip.official"
+  },
+  {
+    "name": "Anis Sulistin",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Ninik Kusmiati",
+    "companySocial": "https://facebook.com/bank-rakyat-indonesia-persero",
+    "companyLinkedin": "https://id.linkedin.com/in/nanda-oktaviana-843181271",
+    "companyInstagram": "https://www.instagram.com/p/c-7cz9ugt7_/",
+    "companyFacebook": "https://www.facebook.com/hrasiaawards/videos/pt-bank-rakyat-indonesia-persero-tbk-winner-of-2024-indonesia-hr-asia-best-compa/1403118313852595/",
+    "companyTiktok": "https://www.tiktok.com/tag/bankrakyatindonesia"
+  },
+  {
+    "name": "Dewi Karnawati",
+    "companySocial": "https://facebook.com/notaris-dan-ppat-rekan-sejahtera",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Rina Damayanti",
+    "companySocial": "https://instagram.com/traveloka",
+    "companyLinkedin": "https://id.linkedin.com/in/safira-nadia-941b5724a",
+    "companyInstagram": "https://www.instagram.com/popular/pt-traveloka/",
+    "companyFacebook": "https://www.facebook.com/p/pt-travelokacom-100054323435636/",
+    "companyTiktok": "https://www.tiktok.com/@traveloka_indonesia/video/7347774136845929734"
+  },
+  {
+    "name": "Anang Fibrianto",
+    "companySocial": "https://instagram.com/digital-ventura-asia",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Lucy Dianawati Soeprapto",
+    "companySocial": "https://id.linkedin.com/company/jurusan-ilmu-ekonomi-dan-studi-pembangunan",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Titin Ernawati",
+    "companySocial": "https://linkedin.com/company/rsup-dr-kariadi",
+    "companyLinkedin": "https://id.linkedin.com/in/anggrahenitriwulandari",
+    "companyInstagram": "https://www.instagram.com/p/dvfj-imk9mf/",
+    "companyFacebook": "https://www.facebook.com/rskariadi/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@fik_unissula/video/7558352119296789772"
+  },
+  {
+    "name": "Bambang Purnomo Adi",
+    "companySocial": "https://id.linkedin.com/company/jurusan-ilmu-ekonomi-dan-studi-pembangunan",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Bambang Triwinoto",
+    "companySocial": "https://www.instagram.com/reel/DLE0IelpAON/",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Dedi Ahirudin",
+    "companySocial": "https://instagram.com/djarum",
+    "companyLinkedin": "https://id.linkedin.com/in/athaya-kalila-3363393b2",
+    "companyInstagram": "https://www.instagram.com/p/dmkbgx9ugah/",
+    "companyFacebook": "https://www.facebook.com/176895575660271",
+    "companyTiktok": "https://www.tiktok.com/tag/djarum"
+  },
+  {
+    "name": "Ichwan Budiono",
+    "companySocial": "https://facebook.com/fore-kopi",
+    "companyLinkedin": "https://id.linkedin.com/in/liyana-fadhilah-99a22298",
+    "companyInstagram": "https://www.instagram.com/p/dpqepmuited/",
+    "companyFacebook": "https://www.facebook.com/fore.coffee/mentions/",
+    "companyTiktok": "https://www.tiktok.com/@idxchannel/video/7631109414614748437"
+  },
+  {
+    "name": "Awiyat Wahyu Kawedar",
+    "companySocial": "https://linkedin.com/company/kementerian-pekerjaan-umum-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/donny-judha-008660128",
+    "companyInstagram": "https://www.instagram.com/p/dsypaqykv7y/",
+    "companyFacebook": "https://m.facebook.com/kemenpu/photos/d41d8cd9/1057951993034265/",
+    "companyTiktok": "https://www.tiktok.com/@pu_sda_bhlk"
+  },
+  {
+    "name": "Solikin",
+    "companySocial": "https://linkedin.com/company/laboratorium-klinik-cito",
+    "companyLinkedin": "https://id.linkedin.com/in/cito-cipto-5816ab32b",
+    "companyInstagram": "https://www.instagram.com/p/dsmdqjpjtav/",
+    "companyFacebook": "https://www.facebook.com/labcitosurabayatimur/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@labcito/video/7535368234204171528"
+  },
+  {
+    "name": "Ferry Setiawan",
+    "companySocial": "https://facebook.com/ShopeeID",
+    "companyLinkedin": "https://id.linkedin.com/in/windy-andriyati-am-924bb915b?trk=public_profile_browsemap-profile",
+    "companyInstagram": "https://www.instagram.com/p/b7vm-pybue1/",
+    "companyFacebook": "https://www.facebook.com/shopeeid/posts/mimin-mau-bagi-bagi-smartphone-samsung-gratis-nihikutin-tata-cara-berikut-yuk1-l/936846971992332/",
+    "companyTiktok": "https://www.tiktok.com/discover/lowongan-kerja-gudang-shopee-pekanbaru"
+  },
+  {
+    "name": "Nur Ali Ulah",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/discover/on-nan-how-to-make-automation-post-on-all-platforms"
+  },
+  {
+    "name": "Iwan Wahyudi",
+    "companySocial": "https://linkedin.com/company/prima-retail",
+    "companyLinkedin": "https://id.linkedin.com/in/fitri-rahayu-1137a2335",
+    "companyInstagram": "https://www.instagram.com/popular/pt-prima-retail-indonesia/",
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Micky Dwiyanto",
+    "companySocial": "https://tiktok.com/@kejaksaan-agung-republik",
+    "companyLinkedin": "https://id.linkedin.com/company/kejaksaan-republik-indonesia",
+    "companyInstagram": "https://www.instagram.com/p/duszs3rkwq_/",
+    "companyFacebook": "https://www.facebook.com/indrautamapnb/posts/kepada-yth-calon-peserta-lomba-film-pendek-jaksa-garda-desa-pendaftaran-dan-subm/888318070368068/",
+    "companyTiktok": "https://www.tiktok.com/@lvnaaren_/video/7355428301235637509"
+  },
+  {
+    "name": "Nining Harsuni",
+    "companySocial": "https://instagram.com/pupuk",
+    "companyLinkedin": "https://id.linkedin.com/in/anggia-risma-putri-907a3679",
+    "companyInstagram": "https://www.instagram.com/p/diwzkg6ttl0/?hl=zh-cn",
+    "companyFacebook": "https://www.facebook.com/pupuk.indonesia/",
+    "companyTiktok": "https://www.tiktok.com/@pupuk.indonesia"
+  },
+  {
+    "name": "Heru Isnaeni",
+    "companySocial": "https://linkedin.com/company/sumber-alfaria-trijaya",
+    "companyLinkedin": "https://hk.linkedin.com/in/dita-saputri-63a445395",
+    "companyInstagram": "https://www.instagram.com/reel/dvxj9wpe37o/",
+    "companyFacebook": "https://www.facebook.com/story.php?story_fbid=6098545253515514&id=125556717481094&m_entstream_source=permalink",
+    "companyTiktok": "https://www.tiktok.com/@jobforcareer/video/7396681562701696262"
+  },
+  {
+    "name": "Arif Tulus Djoko Prawanto",
+    "companySocial": "https://instagram.com/xendit-payment-solutions",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Luluk Wahyuni",
+    "companySocial": "https://tiktok.com/@badan-kepegawaian-negara",
+    "companyLinkedin": "https://id.linkedin.com/in/galih-mey-rizki-setiawan-025392383",
+    "companyInstagram": "https://www.instagram.com/p/dvspxzmmkdg/",
+    "companyFacebook": "https://www.facebook.com/pitmajogja/posts/dokumen-kepegawaian-bukan-cuma-arsip-ini-identitas-karier-andalewat-lemari-digit/1503120825153586/",
+    "companyTiktok": "https://www.tiktok.com/@bkngoid"
+  },
+  {
+    "name": "Vivin Apris Soelistyowati",
+    "companySocial": "https://facebook.com/startup-digital-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Ninik Agustini",
+    "companySocial": "https://linkedin.com/company/ovo-finance",
+    "companyLinkedin": "https://www.linkedin.com/posts/visionetinternasional_klarifikasi-pt-ovo-finance-indonesia-tidak-activity-6864029737409499136-y_zl",
+    "companyInstagram": "https://www.instagram.com/p/cwfcoyfdpyb/",
+    "companyFacebook": "https://www.facebook.com/ovoidn/posts/klarifikasi-pt-ovo-finance-indonesia-tidak-merupakan-bagian-dari-ovo-pt-visionet/3167077786950550/",
+    "companyTiktok": "https://www.tiktok.com/discover/ovo-bermasalah-hari-ini-06-oktober-2025"
+  },
+  {
+    "name": "Rosmiati",
+    "companySocial": "https://facebook.com/kereta-api-indonesia",
+    "companyLinkedin": "https://id.linkedin.com/in/indra-asmara-0b5401170",
+    "companyInstagram": "https://www.instagram.com/p/dxyyrhme09y/",
+    "companyFacebook": "https://www.facebook.com/ptkeretaapiindonesiapersero/",
+    "companyTiktok": "https://www.tiktok.com/@yogiogs.official/photo/7308190814717381893"
+  },
+  {
+    "name": "Juhdar",
+    "companySocial": "https://tiktok.com/@smk-bina-prestasi",
+    "companyLinkedin": "https://id.linkedin.com/in/bina-prestasi-77152512a",
+    "companyInstagram": "https://www.instagram.com/smkbinaprestasi/",
+    "companyFacebook": "https://www.facebook.com/skamiofficial/",
+    "companyTiktok": "https://www.tiktok.com/@liugongglobal/video/7294599665868131602"
+  },
+  {
+    "name": "Ellisa",
+    "companySocial": "https://linkedin.com/company/kementerian-kesehatan-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/ericaoctaviana",
+    "companyInstagram": "https://www.instagram.com/p/dwlmarhkx0u/",
+    "companyFacebook": "https://www.facebook.com/hasanuddin.university/photos/a.1858363351150993/2217586931895298/?type=3",
+    "companyTiktok": "https://www.tiktok.com/@iamsalimvanjava/video/7614422969539939605"
+  },
+  {
+    "name": "Yudhi Hendrawan",
+    "companySocial": "https://tiktok.com/@rumah-sakit-cipto-mangunkusumo",
+    "companyLinkedin": "https://id.linkedin.com/in/tabithaaudrey",
+    "companyInstagram": "https://www.instagram.com/reel/dxgutgfk2wl/",
+    "companyFacebook": "https://www.facebook.com/official.jabarsaberhoaks/posts/ada-yang-meninggal-dalam-mobil-di-depan-indomaret-arcamanikmisleading-contentber/542796573321600/",
+    "companyTiktok": "https://www.tiktok.com/discover/rscm-cipto-jakarta"
+  },
+  {
+    "name": "Istiana",
+    "companySocial": "https://instagram.com/mitsubishi-motors-krama-yudha",
+    "companyLinkedin": "https://id.linkedin.com/in/monica-handra-674550191",
+    "companyInstagram": "https://www.instagram.com/popular/krama-yudha-ratu-motor/",
+    "companyFacebook": "https://www.facebook.com/172532350041041",
+    "companyTiktok": "https://www.tiktok.com/discover/mitsubishi-motors-krama-yudha-indonesia"
+  },
+  {
+    "name": "Siti Antinah",
+    "companySocial": "https://linkedin.com",
+    "companyLinkedin": "https://id.linkedin.com/in/amalinakurniasari",
+    "companyInstagram": "https://www.instagram.com/p/dpkq2ygerup/",
+    "companyFacebook": "https://www.facebook.com/lombaapaaja/posts/%f0%9d%90%92%f0%9d%90%8c%f0%9d%90%80%f0%9d%90%8d-%f0%9d%9f%91-%f0%9d%90%98%f0%9d%90%8e%f0%9d%90%86%f0%9d%90%98%f0%9d%90%80%f0%9d%90%8a%f0%9d%90%80%f0%9d%90%91%f0%9d%90%93%f0%9d%90%80-%f0%9d%90%8f%f0%9d%90%91%f0%9d%90%8e%f0%9d%90%94%f0%9d%90%83%f0%9d%90%8b%f0%9d%90%98-%f0%9d%90%8f%f0%9d%90%91%f0%9d%90%84%f0%9d%90%92%f0%9d%90%84%f0%9d%90%8d%f0%9d%90%93-%f0%9d%99%82%f0%9d%99%a7%f0%9d%99%96%f0%9d%99%a3%f0%9d%99%99-%f0%9d%98%be%f0%9d%99%a4%f0%9d%99%a3%f0%9d%99%98%f0%9d%99%9a%f0%9d%99%a7%f0%9d%99%a9-%f0%9d%99%8a%f0%9d%99%a5%f0%9d%99%aa%f0%9d%99%a8-7-%f0%9d%99%8a%f0%9d%99%a7%f0%9d%99%a1%f0%9d%99%96%f0%9d%99%a5%f0%9d%99%9d%f0%9d%99%9a%f0%9d%99%a7%f0%9d%99%96-padzchestra-ft-/623493746695560/",
+    "companyTiktok": "https://www.tiktok.com/@sma3padmanaba"
+  },
+  {
+    "name": "Agus Wendariyanto",
+    "companySocial": "https://facebook.com/perum-peruri",
+    "companyLinkedin": "https://id.linkedin.com/pub/dir/perum/peruri",
+    "companyInstagram": "https://www.instagram.com/p/dxjlypwjfk1/?img_index=2&hl=ml",
+    "companyFacebook": "https://www.facebook.com/2237788316455250",
+    "companyTiktok": "https://www.tiktok.com/@annisaluthfiyah_/video/7386608222867623173"
+  },
+  {
+    "name": "Wahyuni Filiana",
+    "companySocial": "https://tiktok.com/@pupuk-indonesia",
+    "companyLinkedin": "https://id.linkedin.com/in/anggia-risma-putri-907a3679",
+    "companyInstagram": "https://www.instagram.com/p/duguns4j3qr/",
+    "companyFacebook": "https://www.facebook.com/pupuk.indonesia/",
+    "companyTiktok": "https://www.tiktok.com/@pupuk.indonesia"
+  },
+  {
+    "name": "Meta Murdiana",
+    "companySocial": "https://tiktok.com/@indosat-ooredoo",
+    "companyLinkedin": "https://id.linkedin.com/in/fauzan-dwi-setyo-budiantoro-16895a12b",
+    "companyInstagram": "https://www.instagram.com/p/dvxfz6okqkh/",
+    "companyFacebook": "https://www.facebook.com/im3ooredookalimantan/",
+    "companyTiktok": "https://www.tiktok.com/@biscuitunibis/photo/7536135585862339896"
+  },
+  {
+    "name": "M. Anis Masykur",
+    "companySocial": "https://facebook.com/cimb-niaga",
+    "companyLinkedin": "https://id.linkedin.com/in/muhammadfadhilahsyarief",
+    "companyInstagram": "https://www.instagram.com/p/dxosbpkemd-/",
+    "companyFacebook": "https://www.facebook.com/sahabatcnaf/posts/pt-cimb-niaga-auto-finance-cimb-niaga-finance-atau-perseroan-menyelenggarakan-ra/1281959450806246/",
+    "companyTiktok": "https://www.tiktok.com/@cimb.niaga/video/7502415690566094085"
+  },
+  {
+    "name": "Mohammad Ansyari",
+    "companySocial": "https://tiktok.com/@smk-bina-prestasi",
+    "companyLinkedin": "https://id.linkedin.com/in/bina-prestasi-77152512a",
+    "companyInstagram": "https://www.instagram.com/smkbinaprestasi/",
+    "companyFacebook": "https://www.facebook.com/binaprestasifanspage/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@liugongglobal/video/7294599665868131602"
+  },
+  {
+    "name": "Masningrum Retno Sari",
+    "companySocial": "https://linkedin.com/company/universitas-padjadjaran",
+    "companyLinkedin": "https://id.linkedin.com/in/enengsyifa/fr",
+    "companyInstagram": "https://www.instagram.com/p/ctymsstjzzl/",
+    "companyFacebook": "https://www.facebook.com/unpad/videos/selamat-datang-di-kampus-universitas-padjadjaran/214178977711270/",
+    "companyTiktok": "https://www.tiktok.com/@unpad_io/video/7627405824536710418"
+  },
+  {
+    "name": "Gori Munawel",
+    "companySocial": "https://facebook.com/sma-muhammadiyah-modern",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": "https://id-id.facebook.com/pages/category/school/114590910339350/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Titik Setiorini",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Dagi Kaswara",
+    "companySocial": "https://linkedin.com/company/universitas-negeri-yogyakarta",
+    "companyLinkedin": "https://id.linkedin.com/in/galih-retno-mukti-823919a6",
+    "companyInstagram": "https://www.instagram.com/reel/dxd9czgj2kr/",
+    "companyFacebook": "https://www.facebook.com/unyofficial/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@unyofficial/video/7345689944695786758"
+  },
+  {
+    "name": "Abdur Rachman",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/@keilanjddd/video/7595370425396268310"
+  },
+  {
+    "name": "Nurkhanifah Budiutami",
+    "companySocial": "https://tiktok.com/@inovasi-kreatif-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Rakhmad Hidayanto",
+    "companySocial": "https://tiktok.com/@erajaya-swasembada",
+    "companyLinkedin": "https://id.linkedin.com/in/nicole-virginia-200137198",
+    "companyInstagram": "https://www.instagram.com/p/c9ulgmbzn8o/",
+    "companyFacebook": "https://www.facebook.com/erajaya.swasembada/",
+    "companyTiktok": "https://www.tiktok.com/tag/erajayaswasembada"
+  },
+  {
+    "name": "Agus Prasetyo",
+    "companySocial": "https://linkedin.com/company/universitas-negeri-yogyakarta",
+    "companyLinkedin": "https://id.linkedin.com/in/galih-retno-mukti-823919a6",
+    "companyInstagram": "https://www.instagram.com/unyofficial/reel/dxd9czgj2kr/?hl=gu",
+    "companyFacebook": "https://www.facebook.com/unyofficial/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@unyofficial/video/7345689944695786758"
+  },
+  {
+    "name": "Tonny Bayu Aji",
+    "companySocial": "https://linkedin.com/company/kalbe",
+    "companyLinkedin": "https://id.linkedin.com/in/sherlycarolinee",
+    "companyInstagram": "https://www.instagram.com/p/dxf8rcqkfbb/",
+    "companyFacebook": "https://www.facebook.com/kalbefarma.tbk/",
+    "companyTiktok": "https://www.tiktok.com/@lifeatkalbe/video/7395525826256637189"
+  },
+  {
+    "name": "Nur Ifa Marchumah",
+    "companySocial": "https://facebook.com/blue-bird",
+    "companyLinkedin": "https://id.linkedin.com/in/sonia-antaresti-6a424b21b/in",
+    "companyInstagram": "https://www.instagram.com/p/dmza9swpvgf/",
+    "companyFacebook": "https://www.facebook.com/100078833445903/posts/exciting-new-collaboration-we-are-proud-to-announce-a-new-and-innovative-collabo/507416318562812/",
+    "companyTiktok": "https://www.tiktok.com/@bisniscom/video/7236641541106715909"
+  },
+  {
+    "name": "Tri Nurnawan",
+    "companySocial": "https://tiktok.com/@rsup-dr-sardjito",
+    "companyLinkedin": "https://id.linkedin.com/in/ibnu-hermawan-4291a663",
+    "companyInstagram": "https://www.instagram.com/p/dtbzvtgkiwq/",
+    "companyFacebook": "https://www.facebook.com/rsupdrsardjito/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@sardjitohospital"
+  },
+  {
+    "name": "Endang Martiningsih",
+    "companySocial": "https://instagram.com/digital-agency",
+    "companyLinkedin": "https://www.linkedin.com/posts/suitmedia_digital-agency-indonesia-it-digital-marketing-activity-7449320471935811584-bsbq",
+    "companyInstagram": "https://www.instagram.com/geronaki/",
+    "companyFacebook": "https://www.facebook.com/3smedianet/",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-digital-agency-indonesia"
+  },
+  {
+    "name": "Heni Susilowati",
+    "companySocial": "https://facebook.com/notaris-dan-ppat-rekan-sejahtera",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Dwi Feranitasari",
+    "companySocial": "https://tiktok.com/@solusi-distribusi",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Ivo Ferdausi",
+    "companySocial": "https://instagram.com/rsm",
+    "companyLinkedin": "https://www.linkedin.com/posts/joshua-raymond-hartono-2671b0247_pt-rsm-indonesia-x-bina-nusantara-university-activity-7391009469796741120-9lbg",
+    "companyInstagram": "https://www.instagram.com/popular/pt-rsm-indonesia/",
+    "companyFacebook": "https://www.facebook.com/kantahkabkudus/posts/semarang-332026-kantor-wilayah-badan-pertanahan-nasional-provinsi-jawa-tengah-me/1528752582584668/",
+    "companyTiktok": "https://www.tiktok.com/@kantahkabkudus/video/7623250912772967688"
+  },
+  {
+    "name": "Rusnawati",
+    "companySocial": "https://facebook.com/startup-digital-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Irwan Shah",
+    "companySocial": "https://instagram.com/mayora-indah",
+    "companyLinkedin": "https://id.linkedin.com/in/herlina-lien-6a58a0137",
+    "companyInstagram": "https://www.instagram.com/p/dbionyqvq_c/",
+    "companyFacebook": "https://www.facebook.com/ptmayoraindah/",
+    "companyTiktok": "https://www.tiktok.com/@lokerjatimpalingupdate/photo/7629218401897991432"
+  },
+  {
+    "name": "Faziadatun Nikmah",
+    "companySocial": "https://tiktok.com/@jejak-kuliner-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Heni Astuti",
+    "companySocial": "https://facebook.com/pemerintah-provinsi-jawa-timur",
+    "companyLinkedin": "https://id.linkedin.com/in/tri-cahyo-prakoso-671936221",
+    "companyInstagram": "https://www.instagram.com/p/dummc7bektr/",
+    "companyFacebook": "https://www.facebook.com/jatimpemprov/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@pemprovjatim"
+  },
+  {
+    "name": "Kustinah",
+    "companySocial": "https://instagram.com/badan-pengawas-obat-dan-makanan",
+    "companyLinkedin": "https://id.linkedin.com/in/nadira-se",
+    "companyInstagram": "https://www.instagram.com/reel/cj78q5bjkgv/",
+    "companyFacebook": "https://www.facebook.com/mimscom/photos/hi-young-pharmacistsevent-tahunan-yang-kita-tunggu-hadir-kembali-dipertengahan-t/895743312588348/",
+    "companyTiktok": "https://www.tiktok.com/@kompascom/video/7573313599892966664"
+  },
+  {
+    "name": "Wijianto",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Ana Royyana Eka Zuhairini",
+    "companySocial": "https://facebook.com/huawei",
+    "companyLinkedin": "https://de.linkedin.com/in/lin-wang-8b0495bb",
+    "companyInstagram": "https://www.instagram.com/popular/huawei-indonesia/",
+    "companyFacebook": "https://www.facebook.com/290327951111866",
+    "companyTiktok": "https://www.tiktok.com/@kabar.banten/video/7470870066741939463"
+  },
+  {
+    "name": "Lies Zuraida",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Sisdyan Nurhandini",
+    "companySocial": "https://instagram.com/kimiafarmaind",
+    "companyLinkedin": "https://www.linkedin.com/posts/pt.-kimia-farma-tbk_%f0%9d%90%96%f0%9d%90%9a%f0%9d%90%ac%f0%9d%90%a9%f0%9d%90%9a%f0%9d%90%9d%f0%9d%90%9a-%f0%9d%90%8f%f0%9d%90%9e%f0%9d%90%a7%f0%9d%90%a2%f0%9d%90%a9%f0%9d%90%ae%f0%9d%90%9a%f0%9d%90%a7-halo-activity-7385888706701795329-up8q",
+    "companyInstagram": "https://www.instagram.com/p/dux_fldkzlu/",
+    "companyFacebook": "https://www.facebook.com/kimiafarmacare/",
+    "companyTiktok": "https://www.tiktok.com/@temanlab/video/7424478124307500293"
+  },
+  {
+    "name": "Luluk Indah Wahyupi",
+    "companySocial": "https://facebook.com/sekolah-cikal",
+    "companyLinkedin": "https://id.linkedin.com/in/hanami-atalia-sudarto-062435377",
+    "companyInstagram": "https://www.instagram.com/p/dljo8tirvkq/",
+    "companyFacebook": "https://www.facebook.com/sekolahcikal/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@sekolah.cikal"
+  },
+  {
+    "name": "Ernawati",
+    "companySocial": "https://linkedin.com/company/trans-retail",
+    "companyLinkedin": "https://id.linkedin.com/in/akmal-rz",
+    "companyInstagram": "https://www.instagram.com/p/dtvpa4mkump/",
+    "companyFacebook": "https://www.facebook.com/transmartindonesia/",
+    "companyTiktok": "https://www.tiktok.com/@lifeat.transretail"
+  },
+  {
+    "name": "Santi Heramurtiani",
+    "companySocial": "https://linkedin.com/company/hm-sampoerna",
+    "companyLinkedin": "https://id.linkedin.com/in/rachel-lucya-51a6a7129",
+    "companyInstagram": "https://www.instagram.com/p/dmz8xveoox1/",
+    "companyFacebook": "https://www.facebook.com/insidesampoerna/",
+    "companyTiktok": "https://www.tiktok.com/@pt.attinsigaret_/photo/7628118612900973845"
+  },
+  {
+    "name": "Dyah Ratnaningsih",
+    "companySocial": "https://linkedin.com/company/kementerian-dalam-negeri-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/alfitra-akbar-403833113",
+    "companyInstagram": "https://www.instagram.com/talufirdaus/",
+    "companyFacebook": "https://www.facebook.com/kemendagri/",
+    "companyTiktok": "https://www.tiktok.com/@dukcapilkemendagri/video/7630841621470285077"
+  },
+  {
+    "name": "Loekman Fatchie",
+    "companySocial": "https://instagram.com/bfi-finance-indonesia",
+    "companyLinkedin": "https://id.linkedin.com/in/hafizdah-mustaf-346b75118",
+    "companyInstagram": "https://www.instagram.com/reel/djtkkvgbx3n/",
+    "companyFacebook": "https://www.facebook.com/peluangbisnisbfi/mentions/",
+    "companyTiktok": "https://www.tiktok.com/discover/bfi-finance-indonesia-tbk"
+  },
+  {
+    "name": "Dedi Hermansyah",
+    "companySocial": "https://tiktok.com/@karya-kreatif-bersama",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Totok Mujiono",
+    "companySocial": "https://tiktok.com/@cimb-niaga",
+    "companyLinkedin": "https://www.linkedin.com/pub/adhe-trheea/55/441/b64",
+    "companyInstagram": "https://www.instagram.com/p/dgxya4jsve_/",
+    "companyFacebook": "https://www.facebook.com/pages/pt-cimb-niaga-tbk/476044682461385?locale=mt_mt",
+    "companyTiktok": "https://www.tiktok.com/@biscuitunibis/photo/7527834128029404424"
+  },
+  {
+    "name": "Andi Barli",
+    "companySocial": "https://linkedin.com/company/sumber-alfaria-trijaya",
+    "companyLinkedin": "https://hk.linkedin.com/in/dita-saputri-63a445395",
+    "companyInstagram": "https://www.instagram.com/reel/dvxj9wpe37o/",
+    "companyFacebook": "https://www.facebook.com/story.php?story_fbid=6098545253515514&id=125556717481094&m_entstream_source=permalink",
+    "companyTiktok": "https://www.tiktok.com/@jobforcareer/video/7396681562701696262"
+  },
+  {
+    "name": "Kingkin Kinesti",
+    "companySocial": "https://linkedin.com/company/universitas-ahmad-dahlan",
+    "companyLinkedin": "https://id.linkedin.com/in/rivalyr21",
+    "companyInstagram": "https://www.instagram.com/p/ds-cxhsaqfy/",
+    "companyFacebook": "https://www.facebook.com/uadyogyakarta/",
+    "companyTiktok": "https://www.tiktok.com/tag/universitasahmaddahlan"
+  },
+  {
+    "name": "Yunan Nawawi",
+    "companySocial": "https://instagram.com/xendit-payment-solutions",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Dwi Sulistiyati",
+    "companySocial": "https://instagram.com/bina-teknik-persada",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Fery Suryady",
+    "companySocial": "https://instagram.com/asdp-indonesia-ferry",
+    "companyLinkedin": "https://id.linkedin.com/in/muhrizkyakbar",
+    "companyInstagram": "https://www.instagram.com/p/dqtuawajyx1/",
+    "companyFacebook": "https://www.facebook.com/asdp191/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@idntimes/photo/7577731234974010631"
+  },
+  {
+    "name": "Eko Sutejo",
+    "companySocial": "https://facebook.com/honda-prospect-motor",
+    "companyLinkedin": "https://id.linkedin.com/in/donioktan",
+    "companyInstagram": "https://www.instagram.com/p/b8adtugbuqp/",
+    "companyFacebook": "https://www.facebook.com/118633051674367",
+    "companyTiktok": "https://www.tiktok.com/discover/hpm-honda"
+  },
+  {
+    "name": "Iwan Hertanto",
+    "companySocial": "https://instagram.com/blibli-com",
+    "companyLinkedin": "https://id.linkedin.com/in/eliza-amelia-8b3b07334",
+    "companyInstagram": "https://www.instagram.com/reel/c5negbzlncc/",
+    "companyFacebook": "https://hi-in.facebook.com/pages/pt-blibli-com/119832158776740",
+    "companyTiktok": null
+  },
+  {
+    "name": "Sry Subekti",
+    "companySocial": "https://facebook.com/artha-konsultan",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Edi Kiswanta",
+    "companySocial": "https://linkedin.com/company/desain-ruang-urban",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Handoko Siswandi",
+    "companySocial": "https://linkedin.com/company/tk-islam-al-azhar-14-semarang",
+    "companyLinkedin": null,
+    "companyInstagram": "https://www.instagram.com/reel/dwqvsm6k7-4/",
+    "companyFacebook": "https://www.facebook.com/tkia14smg/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@tkialazhar14smg/video/7602245335792012564"
+  },
+  {
+    "name": "Suhartini",
+    "companySocial": "https://tiktok.com/@klinik-pratama",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Edy Surya Hadi",
+    "companySocial": "https://tiktok.com/@mitsubishi-motors",
+    "companyLinkedin": "https://id.linkedin.com/in/ilham-ilho-38490573",
+    "companyInstagram": "https://www.instagram.com/reel/dulhabpe5-d/",
+    "companyFacebook": "https://www.facebook.com/lowonganterpaduofficial/posts/lowongan-kerja-mitsubishi-motors-posisi-operator-produksi-dibukapt-mitsubishi-mo/1456019725925832/",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-mitsubishi-motors"
+  },
+  {
+    "name": "R. Mokhamad Zainal Fatah",
+    "companySocial": "https://linkedin.com/company/rs-pondok-indah",
+    "companyLinkedin": "https://id.linkedin.com/in/ifan-naufal-nugroho-680ab1131",
+    "companyInstagram": "https://www.instagram.com/p/dpih4m9etav/",
+    "companyFacebook": "https://www.facebook.com/lokerkesehatanid/photos/a.403040200306077/820078215268938/?type=3",
+    "companyTiktok": "https://www.tiktok.com/@rspondokindah"
+  },
+  {
+    "name": "Luky Ariswati",
+    "companySocial": "https://tiktok.com/@sd-al-azhar-1-jakarta",
+    "companyLinkedin": null,
+    "companyInstagram": "https://www.instagram.com/reels/c6-mzhfpzqs/",
+    "companyFacebook": "https://www.facebook.com/611674755368647",
+    "companyTiktok": "https://www.tiktok.com/@kemenpu/video/7189455484481457435"
+  },
+  {
+    "name": "Zamroni",
+    "companySocial": "https://facebook.com/google",
+    "companyLinkedin": "https://id.linkedin.com/in/charls-dreams-16455455",
+    "companyInstagram": "https://www.instagram.com/explore/locations/728832622/ptgoogle-indonesia-sentral-senayan-2-lantai-28/",
+    "companyFacebook": "https://www.facebook.com/groups/googleadsexpertsusa/posts/4216694875251297/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Rakhmat Junaedi",
+    "companySocial": "https://linkedin.com/company/xl-axiata",
+    "companyLinkedin": "https://id.linkedin.com/in/ghina-nurul-aini-002a2611b",
+    "companyInstagram": "https://www.instagram.com/explore/locations/480734978654084/pt-xl-axiata-tbk/",
+    "companyFacebook": "https://www.facebook.com/heaptalknews/posts/pt-xl-axiata-tbk-xl-axiata-pt-smartfren-telecom-tbk-smartfren-and-pt-smart-telco/1015299807281771/",
+    "companyTiktok": "https://www.tiktok.com/discover/xl-axiata-tbk"
+  },
+  {
+    "name": "Dwi Yuniarti",
+    "companySocial": "https://linkedin.com/company/badan-pemeriksa-keuangan-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/hanssebastiann",
+    "companyInstagram": "https://www.instagram.com/reel/du2cvecif7p/",
+    "companyFacebook": "https://www.facebook.com/humasbpkri.official/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@bpk.ri/video/7616590083918990600"
+  },
+  {
+    "name": "Khamzah Iswahyudi",
+    "companySocial": "https://linkedin.com/company/universitas-diponegoro",
+    "companyLinkedin": "https://id.linkedin.com/in/faza-zhahira-",
+    "companyInstagram": "https://www.instagram.com/p/dw--j3akzm3/",
+    "companyFacebook": "https://www.facebook.com/undip.official/",
+    "companyTiktok": "https://www.tiktok.com/@undip.official"
+  },
+  {
+    "name": "Tony Kurniawan",
+    "companySocial": "https://facebook.com/jasa-marga-persero",
+    "companyLinkedin": "https://id.linkedin.com/in/cindyandania",
+    "companyInstagram": "https://www.instagram.com/p/dluoxbuyesc/",
+    "companyFacebook": "https://www.facebook.com/official.jasamarga/",
+    "companyTiktok": "https://www.tiktok.com/@official.jasamarga"
+  },
+  {
+    "name": "Fajar Purno",
+    "companySocial": "https://tiktok.com/@klinik-pratama",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Abdul Wachid",
+    "companySocial": "https://linkedin.com/company/kalbe",
+    "companyLinkedin": "https://id.linkedin.com/in/sherlycarolinee",
+    "companyInstagram": "https://www.instagram.com/reel/dj5ah20y6qe/",
+    "companyFacebook": "https://www.facebook.com/kalbefarma.tbk/",
+    "companyTiktok": "https://www.tiktok.com/@lifeatkalbe/video/7395525826256637189"
+  },
+  {
+    "name": "Turis Palwoko",
+    "companySocial": "https://tiktok.com/@kantor-konsultan-pajak-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": "https://www.instagram.com/p/dxvv6oad_z3/",
+    "companyFacebook": "https://www.facebook.com/moilian.s.h/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Titin Sumarmi",
+    "companySocial": "https://facebook.com/paragon-technology-and-innovation",
+    "companyLinkedin": "https://id.linkedin.com/in/ammarahyr",
+    "companyInstagram": "https://www.instagram.com/p/dxd1slwk5ue/",
+    "companyFacebook": "https://www.facebook.com/100066773350505/photos/",
+    "companyTiktok": "https://www.tiktok.com/@paragoncorp.id/video/7475922511360822529"
+  },
+  {
+    "name": "Gusti Muhammad Firza",
+    "companySocial": "https://instagram.com/primaya-hospital",
+    "companyLinkedin": "https://id.linkedin.com/in/hendrasuherman",
+    "companyInstagram": "https://www.instagram.com/p/dtrez27gb3q/?img_index=4&hl=es-la",
+    "companyFacebook": "https://m.facebook.com/lokerkesehatanid/photos/open-job-vacancy-at-primaya-hospital-bekasi-timur-deadline-untuk-syarat-dan-cara/895617454381680/",
+    "companyTiktok": "https://www.tiktok.com/@primayahospital/photo/7596933178640633095"
+  },
+  {
+    "name": "Fatkhur Rokhman",
+    "companySocial": "https://linkedin.com/company/sentra-niaga-mandiri",
+    "companyLinkedin": null,
+    "companyInstagram": "https://www.instagram.com/sumutpaper/",
+    "companyFacebook": "https://www.facebook.com/dr.horasrajagukguk/posts/proyek-lampu-pocong-harus-kembali-diusut-usut-tuntas-tragedi-mei-98ratusan-mahas/1002024591928849/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Dian Rahmawati",
+    "companySocial": "https://facebook.com/klinik-utama-sehat-keluarga",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Adri Kuswardono",
+    "companySocial": "https://linkedin.com/company/universitas-islam",
+    "companyLinkedin": "https://id.linkedin.com/in/chelsie-trisna-b35224232",
+    "companyInstagram": "https://www.instagram.com/reel/dw6tfj3e_en/",
+    "companyFacebook": "https://www.facebook.com/universitas.islam.indonesia/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@uii.yogyakarta"
+  },
+  {
+    "name": "Retno Prabandari",
+    "companySocial": "https://linkedin.com/company/wijaya-karya-persero",
+    "companyLinkedin": "https://id.linkedin.com/in/syaharani-alvianita-0912931a6",
+    "companyInstagram": "https://www.instagram.com/p/dof1tlneqkl/",
+    "companyFacebook": "https://www.facebook.com/ptwika/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@ptwijayakarya"
+  },
+  {
+    "name": "Luluk Dwi Wahyuningsih",
+    "companySocial": "https://facebook.com/bank-rakyat-indonesia-persero",
+    "companyLinkedin": "https://id.linkedin.com/in/nanda-oktaviana-843181271",
+    "companyInstagram": "https://www.instagram.com/p/c-7cz9ugt7_/",
+    "companyFacebook": "https://www.facebook.com/hrasiaawards/videos/pt-bank-rakyat-indonesia-persero-tbk-winner-of-2024-indonesia-hr-asia-best-compa/1403118313852595/",
+    "companyTiktok": "https://www.tiktok.com/tag/bankrakyatindonesia"
+  },
+  {
+    "name": "Helmi Novriansyah",
+    "companySocial": "https://tiktok.com/@arsitek-ruang",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Siti Puji Lestari",
+    "companySocial": "https://facebook.com/rancang-usaha-mandiri",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Mohamad Nazar",
+    "companySocial": "https://linkedin.com",
+    "companyLinkedin": "https://id.linkedin.com/in/afifah-dwiandini-787006185",
+    "companyInstagram": "https://www.instagram.com/p/dqwqmojk_km/",
+    "companyFacebook": "https://www.facebook.com/humasma123/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@humasmahkamahagung"
+  },
+  {
+    "name": "Heri Barata Kuncoro",
+    "companySocial": "https://instagram.com/mayora-indah",
+    "companyLinkedin": "https://id.linkedin.com/in/dikamuhsin",
+    "companyInstagram": "https://www.instagram.com/p/dkmbvpwzedw/",
+    "companyFacebook": "https://www.facebook.com/ptmayoraindah/",
+    "companyTiktok": "https://www.tiktok.com/@lokerjatimpalingupdate/photo/7629218401897991432"
+  },
+  {
+    "name": "Ari Damayanti",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Dwi Novianto Wardhana Putra",
+    "companySocial": "https://linkedin.com/company/pos-indonesia",
+    "companyLinkedin": "https://id.linkedin.com/in/eric-malau-0bb40a256",
+    "companyInstagram": "https://www.instagram.com/p/dvdoppegmld/?img_index=3&hl=fi",
+    "companyFacebook": "https://www.facebook.com/posindonesia/?locale=da_dk",
+    "companyTiktok": "https://www.tiktok.com/@posindonesia_official"
+  },
+  {
+    "name": "Joko Budi Susanto",
+    "companySocial": "https://facebook.com/hutama-karya",
+    "companyLinkedin": "https://id.linkedin.com/in/fitri-binawati",
+    "companyInstagram": "https://www.instagram.com/p/dwcipswkiud/",
+    "companyFacebook": "https://www.facebook.com/pthutamakarya/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@jadibumn.id/video/7355659254084177158"
+  },
+  {
+    "name": "Joko Purnomo",
+    "companySocial": "https://facebook.com/danone",
+    "companyLinkedin": "https://id.linkedin.com/in/yufita-eftiana",
+    "companyInstagram": "https://www.instagram.com/p/bprlpdxbxmx/",
+    "companyFacebook": "https://m.facebook.com/pages/pt-danone-indonesia/140965802628737/?locale=hi_in",
+    "companyTiktok": "https://www.tiktok.com/discover/danone-indonesia"
+  },
+  {
+    "name": "Adrian Rubai",
+    "companySocial": "https://facebook.com/shopee-international",
+    "companyLinkedin": "https://id.linkedin.com/in/rizky-nurul-ihsan-4b96b2142",
+    "companyInstagram": "https://www.instagram.com/p/b7obhklh_qv/",
+    "companyFacebook": "https://www.facebook.com/itb.career.center/posts/job-vacancy9-vacancy-from-pt-shopee-international-indonesia-shopee-is-the-leadin/3264008967045570/",
+    "companyTiktok": "https://www.tiktok.com/@fortune.idn/photo/7383939192402824454"
+  },
+  {
+    "name": "Anton Widiyanto",
+    "companySocial": "https://tiktok.com/@danamon",
+    "companyLinkedin": "https://id.linkedin.com/in/titanberliana",
+    "companyInstagram": "https://www.instagram.com/p/ds_5c1nj4gw/",
+    "companyFacebook": "https://www.facebook.com/pages/pt-danamon-tbk/154385118101584",
+    "companyTiktok": "https://www.tiktok.com/content/pt-danamon"
+  },
+  {
+    "name": "Anis Yulianita",
+    "companySocial": "https://linkedin.com/company/sentra-analitika-data",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Renny Sondang Christanty",
+    "companySocial": "https://instagram.com/mitra-konsultan-bisnis",
+    "companyLinkedin": "https://id.linkedin.com/in/pratama-putra-raharjo-339850176",
+    "companyInstagram": "https://www.instagram.com/reel/dvakcesaxps/",
+    "companyFacebook": "https://www.facebook.com/p/pt-mitra-konsultan-bisnis-61551702821834/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Khilmi Irsyadul Faizin",
+    "companySocial": "https://instagram.com/kopi-kenangan",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Drajat Purwadi",
+    "companySocial": "https://instagram.com/tokopedia",
+    "companyLinkedin": "https://id.linkedin.com/in/evelyn-kusuma-6a12a413a",
+    "companyInstagram": "https://www.instagram.com/p/dn4ni7vkuf5/",
+    "companyFacebook": "https://www.facebook.com/thebusinesstimes/posts/nearly-15-years-after-the-deal-was-announced-tiktok-shop-is-still-struggling-to-/1012975964383765/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Atie In Rivia Sari",
+    "companySocial": "https://facebook.com/cimb-niaga",
+    "companyLinkedin": "https://id.linkedin.com/in/muhammadfadhilahsyarief",
+    "companyInstagram": "https://www.instagram.com/p/dxosbpkemd-/",
+    "companyFacebook": "https://www.facebook.com/pages/pt-cimb-niaga-tbk/476044682461385?locale=mt_mt",
+    "companyTiktok": "https://www.tiktok.com/@cimb.niaga/video/7502415690566094085"
+  },
+  {
+    "name": "Indu Sudiana",
+    "companySocial": "https://instagram.com/nodeflux-teknologi",
+    "companyLinkedin": "https://id.linkedin.com/in/iswara-aji-pratama",
+    "companyInstagram": "https://www.instagram.com/p/cddhfhinax-/",
+    "companyFacebook": "https://www.facebook.com/nodeflux/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Subiyanto",
+    "companySocial": "https://instagram.com/perum-bulog",
+    "companyLinkedin": "https://id.linkedin.com/in/fairuz-daffa-fridaysya",
+    "companyInstagram": "https://www.instagram.com/reel/dtzx4qkkui5/",
+    "companyFacebook": "https://www.facebook.com/bulogperum/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@perum.bulog/video/7307225378714569990"
+  },
+  {
+    "name": "Yuyun Iswati",
+    "companySocial": "https://facebook.com/yamaha-indonesia-motor-manufacturing",
+    "companyLinkedin": "https://id.linkedin.com/in/fajar-muhamad-4a756190",
+    "companyInstagram": "https://www.instagram.com/p/c7bvhdipgbb/",
+    "companyFacebook": "https://www.facebook.com/yamaha.indonesia/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-yamaha-motor-manufacturing"
+  },
+  {
+    "name": "Layinatul Fahmiyani",
+    "companySocial": "https://instagram.com/lion-super-indo",
+    "companyLinkedin": "https://id.linkedin.com/jobs/view/social-media-content-creator-intern-at-pt-lion-super-indo-4247758201",
+    "companyInstagram": "https://www.instagram.com/p/dq6wbfxe2fr/",
+    "companyFacebook": "https://www.facebook.com/cdaipb/posts/%f0%9d%99%91%f0%9d%98%bc%f0%9d%98%be%f0%9d%98%bc%f0%9d%99%89%f0%9d%98%be%f0%9d%99%94-pt-lion-super-indo-hai-sobat-karirpt-lion-super-indo-sedang-membuka-lowo/1308652647454145/",
+    "companyTiktok": "https://www.tiktok.com/@superindo_karir"
+  },
+  {
+    "name": "Yuli Rasminingsasi",
+    "companySocial": "https://instagram.com/adhi-karya-persero",
+    "companyLinkedin": "https://id.linkedin.com/in/coniesyah-zalfa-zahira-077a33118",
+    "companyInstagram": "https://www.instagram.com/p/dk8tndobfa7/",
+    "companyFacebook": "https://www.facebook.com/autodeskasean/posts/congratulations-to-pt-adhi-karya-persero-tbk-customer-of-our-gold-partner-in-ind/689539489870568/",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-adhi-karya"
+  },
+  {
+    "name": "Siti Munfaizah",
+    "companySocial": "https://instagram.com/microsoft",
+    "companyLinkedin": "https://id.linkedin.com/in/ivandy-ardiansyah-969896171",
+    "companyInstagram": "https://www.instagram.com/explore/locations/217991479/pt-microsoft-indonesia-bej-tower-2-18th-fl/",
+    "companyFacebook": "https://www.facebook.com/events/pt-microsoft-indonesia-bej-tower-2-18th-fl/fresh-collaborative-working/457589834308778/",
+    "companyTiktok": "https://www.tiktok.com/@bksd.jakarta/video/7630852778067234056"
+  },
+  {
+    "name": "Nurhamimah",
+    "companySocial": "https://linkedin.com/company/binus-university",
+    "companyLinkedin": "https://id.linkedin.com/in/kheren-elzhia-75870b154",
+    "companyInstagram": "https://www.instagram.com/reel/dviieqlj08a/",
+    "companyFacebook": "https://www.facebook.com/universitasbinanusantara/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@ika.binus"
+  },
+  {
+    "name": "Sigit Santoso",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Eko Yosep Tri Wanto",
+    "companySocial": "https://linkedin.com/company/sicepat-ekspres",
+    "companyLinkedin": "https://id.linkedin.com/in/indriani-rostianti-sutjipto-58641543",
+    "companyInstagram": "https://www.instagram.com/p/cq8bpubjmvl/",
+    "companyFacebook": "https://www.facebook.com/sicepatekspresofficial/photos/a.1627081164198264/2891655664407468/?id=1503334216572960",
+    "companyTiktok": "https://www.tiktok.com/@koh.dennies/video/7167293298044882202"
+  },
+  {
+    "name": "Riska Ari Elianti",
+    "companySocial": "https://linkedin.com/company/halodoc-id",
+    "companyLinkedin": "https://id.linkedin.com/in/nadya-musdalifa-b26722186",
+    "companyInstagram": "https://www.instagram.com/popular/pt-halodoc/",
+    "companyFacebook": "https://www.facebook.com/extraprintptj/photos/halodoc-tripod-bannerhalodoc-tripodbanner-extraprint/10156358366966905/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Abdul Aji",
+    "companySocial": "https://instagram.com/kopi-kenangan",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Moh. Anajib",
+    "companySocial": "https://facebook.com/puskesmas-lowokwaru",
+    "companyLinkedin": null,
+    "companyInstagram": "https://www.instagram.com/popular/puskesmas-lowokwaru/",
+    "companyFacebook": "https://www.facebook.com/groups/615217549402657/posts/1940946100163122/",
+    "companyTiktok": "https://www.tiktok.com/@bahrulmaghfiroh/video/7610003275173137684"
+  },
+  {
+    "name": "Ardhi Achdiyat",
+    "companySocial": "https://linkedin.com/company/klinik-utama-sehat-sentosa",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Kasiatin",
+    "companySocial": "https://instagram.com/traveloka",
+    "companyLinkedin": "https://id.linkedin.com/in/safira-nadia-941b5724a",
+    "companyInstagram": "https://www.instagram.com/popular/pt-traveloka/",
+    "companyFacebook": "https://www.facebook.com/pages/pt-traveloka-indonesia-in-west-jakarta/307109822809089",
+    "companyTiktok": "https://www.tiktok.com/@traveloka_indonesia/video/7347774136845929734"
+  },
+  {
+    "name": "Hardhianto",
+    "companySocial": "https://linkedin.com/company/universitas-negeri-yogyakarta",
+    "companyLinkedin": "https://id.linkedin.com/in/galih-retno-mukti-823919a6",
+    "companyInstagram": "https://www.instagram.com/reel/dxd9czgj2kr/",
+    "companyFacebook": "https://www.facebook.com/unyofficial/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@unyofficial/video/7345689944695786758"
+  },
+  {
+    "name": "Eko Puji Setyobudi",
+    "companySocial": "https://tiktok.com/@adira-finance",
+    "companyLinkedin": "https://id.linkedin.com/in/rizky-dwi-kurniawan-1a5439259",
+    "companyInstagram": "https://www.instagram.com/p/cpcny0tb2vu/",
+    "companyFacebook": "https://www.facebook.com/indonesiaaccountingfair/photos/d41d8cd9/1359335242903812/",
+    "companyTiktok": "https://www.tiktok.com/@adirafinanceid/video/7525098383137197330"
+  },
+  {
+    "name": "Dwi Wahyuningtyas",
+    "companySocial": "https://tiktok.com/@cakra-teknologi-integrasi",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Winarti Yetiningsih",
+    "companySocial": "https://linkedin.com/company/gojek",
+    "companyLinkedin": "https://id.linkedin.com/in/yehezkielsamudrananda",
+    "companyInstagram": "https://www.instagram.com/reel/dtbmzuok18l/",
+    "companyFacebook": "https://www.facebook.com/579781549068181",
+    "companyTiktok": "https://www.tiktok.com/content/kantor-gojek-balikpapan"
+  },
+  {
+    "name": "Maya Iklila Tri Kurniawati",
+    "companySocial": "https://facebook.com/studio-visual-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Utari Dewi Nurul Akbariyah",
+    "companySocial": "https://facebook.com/honda-prospect-motor",
+    "companyLinkedin": "https://id.linkedin.com/in/donioktan",
+    "companyInstagram": "https://www.instagram.com/p/b8adtugbuqp/",
+    "companyFacebook": "https://www.facebook.com/118633051674367",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-honda-prospect-motor-karawang"
+  },
+  {
+    "name": "Machbub Junaidi",
+    "companySocial": "https://instagram.com/kopi-kenangan",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Joko Setyadi",
+    "companySocial": "https://linkedin.com/company/bank-mandiri",
+    "companyLinkedin": "https://id.linkedin.com/in/anggaadhakusuma",
+    "companyInstagram": "https://www.instagram.com/p/djwcm78mseu/",
+    "companyFacebook": "https://www.facebook.com/bankmandiri/?locale=sn_zw",
+    "companyTiktok": "https://www.tiktok.com/tag/bankmandiri"
+  },
+  {
+    "name": "Hamdani Ilyas",
+    "companySocial": "https://linkedin.com/company/institut-teknologi-sepuluh-nopember",
+    "companyLinkedin": "https://id.linkedin.com/in/artikatrista",
+    "companyInstagram": "https://www.instagram.com/p/ddoptjxz2p4/",
+    "companyFacebook": "https://www.facebook.com/institutteknologisepuluhnopember/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@its_campus"
+  },
+  {
+    "name": "Anis Nurlaili",
+    "companySocial": "https://tiktok.com/@bukalapak",
+    "companyLinkedin": "https://id.linkedin.com/in/devypuspitasari",
+    "companyInstagram": "https://www.instagram.com/p/dqjhe0akrxc/",
+    "companyFacebook": "https://www.facebook.com/borneobulletin.news/posts/the-co-founder-of-bukalapak-an-online-marketplace-platform-company-headquartered/2907071835986942/",
+    "companyTiktok": "https://www.tiktok.com/@cnnindonesia/video/7457780594785651975"
+  },
+  {
+    "name": "Ahmad Fathoni",
+    "companySocial": "https://linkedin.com/company/global-servis",
+    "companyLinkedin": "https://id.linkedin.com/in/nabila-ardiana-957368228",
+    "companyInstagram": "https://www.instagram.com/popular/pt-global-servis-indonesia/",
+    "companyFacebook": "https://www.facebook.com/ayu.sukowati/photos/loker-jobfair-ums18-19-july-2017-lowongan-kerja-pt-global-servise-indonesiapt-gl/1545755098779293/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Yudiono",
+    "companySocial": "https://instagram.com/telkom-university",
+    "companyLinkedin": "https://id.linkedin.com/in/dannrizky",
+    "companyInstagram": "https://www.instagram.com/p/dwkhl-dmd_u/",
+    "companyFacebook": "https://www.facebook.com/telkomuniversity/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@universitastelkom"
+  },
+  {
+    "name": "Bangun Prihandoko Ardi",
+    "companySocial": "https://linkedin.com/company/xl-axiata",
+    "companyLinkedin": "https://id.linkedin.com/in/ghina-nurul-aini-002a2611b",
+    "companyInstagram": "https://www.instagram.com/explore/locations/480734978654084/pt-xl-axiata-tbk/",
+    "companyFacebook": "https://www.facebook.com/heaptalknews/posts/pt-xl-axiata-tbk-xl-axiata-pt-smartfren-telecom-tbk-smartfren-and-pt-smart-telco/1015299807281771/",
+    "companyTiktok": "https://www.tiktok.com/discover/xl-axiata-tbk"
+  },
+  {
+    "name": "Mohamad Ali Aminudin",
+    "companySocial": "https://instagram.com/rsm",
+    "companyLinkedin": "https://www.linkedin.com/posts/joshua-raymond-hartono-2671b0247_pt-rsm-indonesia-x-bina-nusantara-university-activity-7391009469796741120-9lbg",
+    "companyInstagram": "https://www.instagram.com/popular/pt-rsm-indonesia/",
+    "companyFacebook": "https://www.facebook.com/son.haji.547/",
+    "companyTiktok": "https://www.tiktok.com/@kantahkabkudus/video/7623250912772967688"
+  },
+  {
+    "name": "Frengky Rudyanto",
+    "companySocial": "https://tiktok.com/@cimb-niaga",
+    "companyLinkedin": "https://id.linkedin.com/in/elyta-m-45b6a234",
+    "companyInstagram": "https://www.instagram.com/p/dgxya4jsve_/",
+    "companyFacebook": "https://www.facebook.com/pages/pt-cimb-niaga-tbk/476044682461385?locale=mt_mt",
+    "companyTiktok": "https://www.tiktok.com/@biscuitunibis/photo/7527834128029404424"
+  },
+  {
+    "name": "Leli Yunni Sofiatin",
+    "companySocial": "https://tiktok.com/@indosat",
+    "companyLinkedin": "https://www.linkedin.com/posts/indosat_strivingbeyond-empoweringindonesia-indosatooredoohutchison-activity-7353668202867904514-cjjm",
+    "companyInstagram": "https://www.instagram.com/reel/c-7da3haumt/",
+    "companyFacebook": "https://www.facebook.com/168898183138693",
+    "companyTiktok": "https://www.tiktok.com/@idxchannel/video/7592580971698998529"
+  },
+  {
+    "name": "Agus Dermawan",
+    "companySocial": "https://instagram.com/tk-aisyiyah-bustanul-athfal-1",
+    "companyLinkedin": "https://id.linkedin.com/in/ssinz-ssinzzell-50372017a",
+    "companyInstagram": "https://www.instagram.com/reel/dvlkjxnekol/",
+    "companyFacebook": "https://www.facebook.com/1500786559932479",
+    "companyTiktok": "https://www.tiktok.com/tag/tkaisyiahbustanulathfal1bengkulu"
+  },
+  {
+    "name": "Wahid Sriyanto",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Riawan",
+    "companySocial": "https://facebook.com/rs-premier-jatinegara",
+    "companyLinkedin": "https://id.linkedin.com/in/uyun-imaniar",
+    "companyInstagram": "https://www.instagram.com/p/dlx0mnazdux/",
+    "companyFacebook": "https://www.facebook.com/rspremierjatinegara/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@rspremierjatinegara"
+  },
+  {
+    "name": "Hermawan Adi Kresna",
+    "companySocial": "https://linkedin.com/company/sinar-teknologi",
+    "companyLinkedin": "https://www.linkedin.com/company/cv-sinar-teknologi-indonesia",
+    "companyInstagram": "https://www.instagram.com/p/dpltopiiztg/",
+    "companyFacebook": "https://www.facebook.com/61573941324482/videos/kali-ini-kerjanya-lesehan-sinarteknologiindonesia-mockumentarystartup/840049742354225/",
+    "companyTiktok": "https://www.tiktok.com/@cv.sinar.teknologi/video/7585008969165311252"
+  },
+  {
+    "name": "Yati Sulaeman",
+    "companySocial": "https://instagram.com/telkom-university",
+    "companyLinkedin": "https://www.linkedin.com/in/diraaputra",
+    "companyInstagram": "https://www.instagram.com/p/dwkhl-dmd_u/",
+    "companyFacebook": "https://www.facebook.com/telkomuniversity/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@universitastelkom"
+  },
+  {
+    "name": "Isliani Anggraini",
+    "companySocial": "https://instagram.com/puskesmas-kecamatan-kebayoran-baru",
+    "companyLinkedin": "https://id.linkedin.com/in/vitya-r-5a06b3137",
+    "companyInstagram": "https://www.instagram.com/explore/locations/1002825755/puskesmas-kecamatan-kebayoran-baru/",
+    "companyFacebook": "https://www.facebook.com/puskesmaskecamatankebayoranbaru/mentions/",
+    "companyTiktok": "https://www.tiktok.com/@pkmkebayoranbaru/video/7207080299530931483"
+  },
+  {
+    "name": "Farich Hidayat",
+    "companySocial": "https://instagram.com/blibli-com",
+    "companyLinkedin": "https://id.linkedin.com/in/eliza-amelia-8b3b07334",
+    "companyInstagram": "https://www.instagram.com/reel/c5negbzlncc/",
+    "companyFacebook": "https://hi-in.facebook.com/pages/pt-blibli-com/119832158776740",
+    "companyTiktok": null
+  },
+  {
+    "name": "Muhammad Sulhan",
+    "companySocial": "https://linkedin.com/company/tk-islam-al-azhar-14-semarang",
+    "companyLinkedin": null,
+    "companyInstagram": "https://www.instagram.com/reel/dwqvsm6k7-4/",
+    "companyFacebook": "https://www.facebook.com/tkia14smg/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@tkialazhar14smg/video/7602245335792012564"
+  },
+  {
+    "name": "Susmiaty",
+    "companySocial": "https://linkedin.com/company/bussan-auto-finance",
+    "companyLinkedin": "https://id.linkedin.com/in/virafebi",
+    "companyInstagram": "https://www.instagram.com/p/dlo1eo2ppn7/",
+    "companyFacebook": "https://www.facebook.com/baf.indonesia/",
+    "companyTiktok": "https://www.tiktok.com/discover/posisi-engagement-specialist-pt-bussan-auto-finance"
+  },
+  {
+    "name": "Nila Rahmawati",
+    "companySocial": "https://instagram.com/halodoc",
+    "companyLinkedin": "https://id.linkedin.com/in/anan-ananto-78522a195",
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Titi Aris Rubi Hartini",
+    "companySocial": "https://facebook.com/bdo",
+    "companyLinkedin": "https://id.linkedin.com/in/dania-ulimaz-3a8aaa184",
+    "companyInstagram": "https://www.instagram.com/p/dtjqtgkkukm/",
+    "companyFacebook": "https://www.facebook.com/akuntansiumbandung?locale=ga_ie",
+    "companyTiktok": null
+  },
+  {
+    "name": "Siti Rachmawati",
+    "companySocial": "https://linkedin.com/company/institut-teknologi-sepuluh-nopember",
+    "companyLinkedin": "https://id.linkedin.com/in/artikatrista",
+    "companyInstagram": "https://www.instagram.com/p/ddoptjxz2p4/",
+    "companyFacebook": "https://www.facebook.com/institutteknologisepuluhnopember/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@its_campus"
+  },
+  {
+    "name": "Sudarmanto",
+    "companySocial": "https://facebook.com/cipta-logistik-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Ari Fitri Wahyuni",
+    "companySocial": "https://tiktok.com/@sma-muhammadiyah-modern",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": "https://id-id.facebook.com/pages/category/school/114590910339350/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Effi Rahmawati",
+    "companySocial": "https://facebook.com/charoen-pokphand-indonesia",
+    "companyLinkedin": "https://id.linkedin.com/in/anindya-apsari",
+    "companyInstagram": "https://www.instagram.com/p/dxywv0vgces/",
+    "companyFacebook": "https://www.facebook.com/p/pt-charoen-pokphand-indonesia-61567723686918/",
+    "companyTiktok": "https://www.tiktok.com/@cpifood.id"
+  },
+  {
+    "name": "Emy Wulandari",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/zakiinfodz/videos/the-7-levels-of-social-mediafacebook-instagram-tiktok-youtube-twitter-x-snapchat/959635466574021/",
+    "companyTiktok": "https://www.tiktok.com/@keilanjddd/video/7595262717808659734"
+  },
+  {
+    "name": "Eko Nuril Mustofa",
+    "companySocial": "https://facebook.com/klinik-utama-sehat-keluarga",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Yayik Kuswoyo",
+    "companySocial": "https://linkedin.com/company/binus-university",
+    "companyLinkedin": "https://id.linkedin.com/in/muhammad-fachruddin",
+    "companyInstagram": "https://www.instagram.com/reel/dviieqlj08a/",
+    "companyFacebook": "https://www.facebook.com/universitasbinanusantara/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@ika.binus"
+  },
+  {
+    "name": "Lilin Nuryati",
+    "companySocial": "https://instagram.com/rsm",
+    "companyLinkedin": "https://www.linkedin.com/posts/joshua-raymond-hartono-2671b0247_pt-rsm-indonesia-x-bina-nusantara-university-activity-7391009469796741120-9lbg",
+    "companyInstagram": "https://www.instagram.com/popular/pt-rsm-indonesia/",
+    "companyFacebook": "https://www.facebook.com/son.haji.547/",
+    "companyTiktok": "https://www.tiktok.com/@kantahkabkudus/video/7623250912772967688"
+  },
+  {
+    "name": "Choolish Tzubaydi",
+    "companySocial": "https://tiktok.com/@cakra-teknologi-integrasi",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Reny Novasarini",
+    "companySocial": "https://instagram.com/alodokter",
+    "companyLinkedin": "https://id.linkedin.com/in/maulanaakbar-digital",
+    "companyInstagram": "https://www.instagram.com/p/cahcawup--j/",
+    "companyFacebook": "https://m.facebook.com/pangeran.kampus.31/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Suko Aribowo",
+    "companySocial": "https://instagram.com/solusi-distribusi",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Heru Subekti",
+    "companySocial": "https://linkedin.com/company/universitas-ahmad-dahlan",
+    "companyLinkedin": "https://id.linkedin.com/in/rivalyr21",
+    "companyInstagram": "https://www.instagram.com/p/ds-cxhsaqfy/",
+    "companyFacebook": "https://www.facebook.com/uadyogyakarta/",
+    "companyTiktok": "https://www.tiktok.com/tag/universitasahmaddahlan"
+  },
+  {
+    "name": "Shobri",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/@keilanjddd/video/7595262717808659734"
+  },
+  {
+    "name": "Mulyati",
+    "companySocial": "https://linkedin.com/company/tk-islam-al-azhar-14-semarang",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Wiwik Triyani",
+    "companySocial": "https://linkedin.com/company/universitas-islam",
+    "companyLinkedin": "https://id.linkedin.com/in/chelsie-trisna-b35224232",
+    "companyInstagram": "https://www.instagram.com/reel/dw6tfj3e_en/",
+    "companyFacebook": "https://www.facebook.com/universitas.islam.indonesia/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@uii.yogyakarta"
+  },
+  {
+    "name": "Dwi Sulansi",
+    "companySocial": "https://tiktok.com/@institut-teknologi-bandung",
+    "companyLinkedin": "https://www.linkedin.com/in/ubaysyakhisk/",
+    "companyInstagram": "https://www.instagram.com/p/dpaigfxj_p6/",
+    "companyFacebook": "https://www.facebook.com/institutteknologibandung/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@itbofficial/video/7463035788851170567"
+  },
+  {
+    "name": "Linda Titik Sumanti",
+    "companySocial": "https://tiktok.com/@accenture",
+    "companyLinkedin": "https://id.linkedin.com/in/amelia-margatan-239a4a74",
+    "companyInstagram": "https://www.instagram.com/p/cn-bzqkjfed/",
+    "companyFacebook": "https://www.facebook.com/alumni.career.center/posts/rekrutmen-pt-accenture-indonesia-di-uii-software-engineering-3-hari-lagi-httpacc/865617846842858/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Iwan Yudi Hermawan",
+    "companySocial": "https://facebook.com/institut-sains-dan-bisnis-nasional",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Sri Wahyuningsih",
+    "companySocial": "https://facebook.com/map-aktif-adiperkasa",
+    "companyLinkedin": "https://id.linkedin.com/in/willa-nikki-aleta-69129a281",
+    "companyInstagram": "https://www.instagram.com/p/c68duhpypue/",
+    "companyFacebook": "https://www.facebook.com/pages/pt-map-aktif-adiperkasa-tbk/980965188655837?locale=cx_ph",
+    "companyTiktok": "https://www.tiktok.com/@idxchannel/video/7597754055934463249"
+  },
+  {
+    "name": "Lutfiatus Zuhroh",
+    "companySocial": "https://instagram.com/teknologi-pangan-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Indah Rachmawati",
+    "companySocial": "https://linkedin.com/company/gojek",
+    "companyLinkedin": "https://id.linkedin.com/in/yehezkielsamudrananda",
+    "companyInstagram": "https://www.instagram.com/reel/dtbmzuok18l/",
+    "companyFacebook": "https://www.facebook.com/100076567265210/?locale=fy_nl",
+    "companyTiktok": "https://www.tiktok.com/content/kantor-gojek-balikpapan"
+  },
+  {
+    "name": "Hilda",
+    "companySocial": "https://facebook.com/ptplnpersero",
+    "companyLinkedin": "https://id.linkedin.com/in/meliani-rosalina",
+    "companyInstagram": "https://www.instagram.com/p/dxsamaecvdb/",
+    "companyFacebook": "https://www.facebook.com/ptpln/",
+    "companyTiktok": "https://www.tiktok.com/@pln_id"
+  },
+  {
+    "name": "Pangestuti",
+    "companySocial": "https://linkedin.com/company/sicepat-ekspres",
+    "companyLinkedin": "https://id.linkedin.com/in/indriani-rostianti-sutjipto-58641543",
+    "companyInstagram": "https://www.instagram.com/p/cq8bpubjmvl/",
+    "companyFacebook": "https://www.facebook.com/sicepatekspresofficial/photos/a.1627081164198264/2891655664407468/?id=1503334216572960",
+    "companyTiktok": "https://www.tiktok.com/@koh.dennies/video/7167293298044882202"
+  },
+  {
+    "name": "Weni Priasnaning",
+    "companySocial": "https://instagram.com/angkasa-pura",
+    "companyLinkedin": "https://id.linkedin.com/in/hanifah-rahma-putri-9a3824360",
+    "companyInstagram": "https://www.instagram.com/p/dxj2xogfmyv/",
+    "companyFacebook": "https://www.facebook.com/angkasapura.airports/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@cnnindonesia/video/7625822854738611472"
+  },
+  {
+    "name": "Immanuel",
+    "companySocial": "https://linkedin.com/company/sirclo-commerce",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Heri Setiyawan",
+    "companySocial": "https://facebook.com/google",
+    "companyLinkedin": "https://id.linkedin.com/in/charls-dreams-16455455",
+    "companyInstagram": "https://www.instagram.com/explore/locations/728832622/ptgoogle-indonesia-sentral-senayan-2-lantai-28/",
+    "companyFacebook": "https://www.facebook.com/groups/googleadsexpertsusa/posts/4216694875251297/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Joko Sulistiyo",
+    "companySocial": "https://tiktok.com/@unilever-indonesia",
+    "companyLinkedin": "https://www.linkedin.com/pub/dir/unilever/indonesia",
+    "companyInstagram": "https://www.instagram.com/p/dw-uezcfklj/?img_index=2&hl=te",
+    "companyFacebook": "https://www.facebook.com/cdaipb/posts/%f0%9d%97%9c%f0%9d%97%a1%f0%9d%97%a7%f0%9d%97%98%f0%9d%97%a5%f0%9d%97%a1%f0%9d%97%a6%f0%9d%97%9b%f0%9d%97%9c%f0%9d%97%a3-%f0%9d%97%a3%f0%9d%97%a7-%f0%9d%97%a8%f0%9d%97%bb%f0%9d%97%b6%f0%9d%97%b9%f0%9d%97%b2%f0%9d%98%83%f0%9d%97%b2%f0%9d%97%bf-%f0%9d%97%9c%f0%9d%97%bb%f0%9d%97%b1%f0%9d%97%bc%f0%9d%97%bb%f0%9d%97%b2%f0%9d%98%80%f0%9d%97%b6%f0%9d%97%ae-%f0%9d%97%a7%f0%9d%97%af%f0%9d%97%b8-pt-unilever-indonesia-tbk-adalah-perusahaan/1392848212367921/",
+    "companyTiktok": "https://www.tiktok.com/@lifeatunilever/video/7198630447667055915"
+  },
+  {
+    "name": "Ratna Isnadina",
+    "companySocial": "https://facebook.com/fore-kopi",
+    "companyLinkedin": "https://id.linkedin.com/in/liyana-fadhilah-99a22298",
+    "companyInstagram": "https://www.instagram.com/p/dpqepmuited/",
+    "companyFacebook": "https://www.facebook.com/fore.coffee/mentions/",
+    "companyTiktok": "https://www.tiktok.com/@idxchannel/video/7631109414614748437"
+  },
+  {
+    "name": "Abdurrahim Wahid",
+    "companySocial": "https://facebook.com/arsitek-ruang",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Rosmaladewi",
+    "companySocial": "https://tiktok.com/@mitra-rekayasa-industri",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Ahmad Badawi",
+    "companySocial": "https://linkedin.com/company/kepolisian-negara-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/hermancitra-manik-aa5ba9282",
+    "companyInstagram": "https://www.instagram.com/reel/dpnt69viufv/",
+    "companyFacebook": "https://www.facebook.com/seastats/posts/police-forces-in-southeast-asia-symbols-of-security-and-unitysoutheast-asia-is-h/841032561601930/",
+    "companyTiktok": "https://www.tiktok.com/@listyosigitp"
+  },
+  {
+    "name": "Titik Setyo Wati",
+    "companySocial": "https://facebook.com/tiket-com",
+    "companyLinkedin": "https://id.linkedin.com/in/jesicaeffendy",
+    "companyInstagram": "https://www.instagram.com/reel/c17u8zevcxm/",
+    "companyFacebook": "https://www.facebook.com/tiket/photos/kereta-tambahan-untuk-mudik-di-lebaran-2019-ini-sudah-tersedia-pesan-sekarang-ha/2363944230291584/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Hamzah Faisal",
+    "companySocial": "https://linkedin.com/company/kementerian-komunikasi-dan-digital-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/fildzameutiar15",
+    "companyInstagram": "https://www.instagram.com/p/dwa0bt_k0uq/",
+    "companyFacebook": "https://www.facebook.com/kemenkomdigi/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@antaranews/video/7626780016625405204"
+  },
+  {
+    "name": "Ika Prawestri",
+    "companySocial": "https://tiktok.com/@aruna-jaya-nuswantara",
+    "companyLinkedin": "https://id.linkedin.com/company/aruna-indonesia",
+    "companyInstagram": "https://www.instagram.com/p/ca1fc7vps_7/",
+    "companyFacebook": "https://www.facebook.com/pages/pt-aruna-jaya-nuswantara/221882365008583",
+    "companyTiktok": null
+  },
+  {
+    "name": "Yuyun Pramisita",
+    "companySocial": "https://instagram.com/lion-super-indo",
+    "companyLinkedin": "https://id.linkedin.com/jobs/view/social-media-content-creator-intern-at-pt-lion-super-indo-4247758201",
+    "companyInstagram": "https://www.instagram.com/p/dq6wbfxe2fr/",
+    "companyFacebook": "https://www.facebook.com/cdaipb/posts/%f0%9d%99%91%f0%9d%98%bc%f0%9d%98%be%f0%9d%98%bc%f0%9d%99%89%f0%9d%98%be%f0%9d%99%94-pt-lion-super-indo-hai-sobat-karirpt-lion-super-indo-sedang-membuka-lowo/1308652647454145/",
+    "companyTiktok": "https://www.tiktok.com/@superindo_karir"
+  },
+  {
+    "name": "Mujahid",
+    "companySocial": "https://linkedin.com/company/mayapada-hospital",
+    "companyLinkedin": "https://id.linkedin.com/in/epifania-hatmodjo-645651b4",
+    "companyInstagram": "https://www.instagram.com/reel/dq6dv8bk7mj/",
+    "companyFacebook": "https://www.facebook.com/mayapadahospital/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@mayapadahospital/video/7579984069845421332"
+  },
+  {
+    "name": "Emi Pudji Astuti",
+    "companySocial": "https://facebook.com/klinik-pratama",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Evi Dyan Sulistiyorini",
+    "companySocial": "https://instagram.com/adhi-karya-persero",
+    "companyLinkedin": "https://id.linkedin.com/in/coniesyah-zalfa-zahira-077a33118",
+    "companyInstagram": "https://www.instagram.com/p/dk8tndobfa7/",
+    "companyFacebook": "https://www.facebook.com/autodeskasean/posts/congratulations-to-pt-adhi-karya-persero-tbk-customer-of-our-gold-partner-in-ind/689539489870568/",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-adhi-karya"
+  },
+  {
+    "name": "Mita Kristiani",
+    "companySocial": "https://tiktok.com/@avia-avian",
+    "companyLinkedin": "https://id.linkedin.com/in/kiranwalada",
+    "companyInstagram": "https://www.instagram.com/p/dxdgdtxesyg/",
+    "companyFacebook": "https://www.facebook.com/avianbrands/posts/pt-avia-avian-tbk-avia-terbukti-memberikan-kontribusi-yang-baik-terhadap-pertumb/747673100714887/",
+    "companyTiktok": "https://www.tiktok.com/@ccsi.recruitment/video/7541671717081500935"
+  },
+  {
+    "name": "Agung Rahman Yamin",
+    "companySocial": "https://facebook.com/blue-bird",
+    "companyLinkedin": "https://id.linkedin.com/company/bluebirdgroup",
+    "companyInstagram": "https://www.instagram.com/p/dmza9swpvgf/",
+    "companyFacebook": "https://www.facebook.com/100078833445903/posts/exciting-new-collaboration-we-are-proud-to-announce-a-new-and-innovative-collabo/507416318562812/",
+    "companyTiktok": "https://www.tiktok.com/@bisniscom/video/7236641541106715909"
+  },
+  {
+    "name": "Sujiono",
+    "companySocial": "https://tiktok.com/@mitsubishi-motors",
+    "companyLinkedin": "https://id.linkedin.com/in/ilham-ilho-38490573",
+    "companyInstagram": "https://www.instagram.com/reel/dulhabpe5-d/",
+    "companyFacebook": "https://www.facebook.com/lowonganterpaduofficial/posts/lowongan-kerja-mitsubishi-motors-posisi-operator-produksi-dibukapt-mitsubishi-mo/1456019725925832/",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-mitsubishi-motors"
+  },
+  {
+    "name": "Moh. Is Sutarji",
+    "companySocial": "https://instagram.com/mayora-indah",
+    "companyLinkedin": "https://id.linkedin.com/in/herlina-lien-6a58a0137",
+    "companyInstagram": "https://www.instagram.com/p/dbionyqvq_c/",
+    "companyFacebook": "https://www.facebook.com/ptmayoraindah/",
+    "companyTiktok": "https://www.tiktok.com/@lokerjatimpalingupdate/photo/7629218401897991432"
+  },
+  {
+    "name": "Diyah Sekar Pancawati",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/discover/on-nan-how-to-make-automation-post-on-all-platforms"
+  },
+  {
+    "name": "Sunasiroh",
+    "companySocial": "https://linkedin.com/company/laboratorium-klinik-cito",
+    "companyLinkedin": "https://id.linkedin.com/in/cito-cipto-5816ab32b",
+    "companyInstagram": "https://www.instagram.com/p/dsmdqjpjtav/",
+    "companyFacebook": "https://www.facebook.com/labcitosurabayatimur/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@labcito/video/7535368234204171528"
+  },
+  {
+    "name": "Yulendra Adi Pramana",
+    "companySocial": "https://linkedin.com/company/bank-mandiri",
+    "companyLinkedin": "https://id.linkedin.com/in/anggaadhakusuma",
+    "companyInstagram": "https://www.instagram.com/p/dp5eutkeo0z/",
+    "companyFacebook": "https://www.facebook.com/bankmandiri/?locale=pa_in",
+    "companyTiktok": "https://www.tiktok.com/@ragam.sisi/video/7630424466283040007"
+  },
+  {
+    "name": "Mohammad Iqbal",
+    "companySocial": "https://linkedin.com/company/deloitte",
+    "companyLinkedin": "https://id.linkedin.com/in/michael-tedjakusuma-0b7b5987",
+    "companyInstagram": "https://www.instagram.com/popular/pt-deloitte-konsultan-indonesia/",
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Darmo Sasmito",
+    "companySocial": "https://tiktok.com/@mekari",
+    "companyLinkedin": "https://id.linkedin.com/in/ahmad-nur-said-nst-bb6113198",
+    "companyInstagram": "https://www.instagram.com/p/dxgl9hvgiss/",
+    "companyFacebook": "https://www.facebook.com/universitas.esaunggul/posts/universitas-esa-unggul-powered-by-arizona-university-melakukan-workshop-dengan-p/1295659512603719/",
+    "companyTiktok": "https://www.tiktok.com/@epicareerjobid/video/7312226712614472965"
+  },
+  {
+    "name": "Sriwati",
+    "companySocial": "https://facebook.com/kreasi-media-digital",
+    "companyLinkedin": null,
+    "companyInstagram": "https://www.instagram.com/kreasimedina/",
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Alik Rohadi",
+    "companySocial": "https://facebook.com/bfi-finance",
+    "companyLinkedin": "https://id.linkedin.com/in/hafizdah-mustaf-346b75118",
+    "companyInstagram": "https://www.instagram.com/reel/djtkkvgbx3n/",
+    "companyFacebook": "https://www.facebook.com/peluangbisnisbfi/mentions/",
+    "companyTiktok": "https://www.tiktok.com/@lifeatbfi/video/7530092125858352402"
+  },
+  {
+    "name": "Iza Faozah",
+    "companySocial": "https://instagram.com/adhi-karya-persero",
+    "companyLinkedin": "https://id.linkedin.com/in/coniesyah-zalfa-zahira-077a33118",
+    "companyInstagram": "https://www.instagram.com/p/dk8tndobfa7/",
+    "companyFacebook": "https://www.facebook.com/autodeskasean/posts/congratulations-to-pt-adhi-karya-persero-tbk-customer-of-our-gold-partner-in-ind/689539489870568/",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-adhi-karya"
+  },
+  {
+    "name": "Soni Lesten",
+    "companySocial": "https://linkedin.com/company/mitra-konsultan-bisnis",
+    "companyLinkedin": "https://id.linkedin.com/in/pratama-putra-raharjo-339850176",
+    "companyInstagram": "https://www.instagram.com/reel/dvakcesaxps/",
+    "companyFacebook": "https://www.facebook.com/p/pt-mitra-konsultan-bisnis-61551702821834/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Endang Puji Lestari",
+    "companySocial": "https://tiktok.com/@indofood",
+    "companyLinkedin": "https://id.linkedin.com/in/nadia-ingrida-winata",
+    "companyInstagram": "https://www.instagram.com/p/dwthakkkvlc/",
+    "companyFacebook": "https://www.facebook.com/cbpindofood/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-indofood"
+  },
+  {
+    "name": "Sindu Cahyono",
+    "companySocial": "https://tiktok.com/@mekar-investama-sampoerna",
+    "companyLinkedin": "https://id.linkedin.com/in/mirza-raffi",
+    "companyInstagram": "https://www.instagram.com/popular/pt-dana-purna-investama/",
+    "companyFacebook": "https://www.facebook.com/mekarnetwork/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@seputarpinjol2025/photo/7622307935271619847"
+  },
+  {
+    "name": "Dian Mugi Rahayu",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Muliati",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Atik Diyah Budiarti",
+    "companySocial": "https://tiktok.com/@rs-hermina",
+    "companyLinkedin": "https://www.linkedin.com/company/rsherminajatinegara",
+    "companyInstagram": "https://www.instagram.com/p/dsutzqkd352/",
+    "companyFacebook": "https://www.facebook.com/groups/803055056063908/posts/935108762858536/",
+    "companyTiktok": "https://www.tiktok.com/@rsuherminasamarinda/photo/7495974807792635154"
+  },
+  {
+    "name": "Mahfud",
+    "companySocial": "https://linkedin.com/company/kementerian-kesehatan-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/ericaoctaviana",
+    "companyInstagram": "https://www.instagram.com/p/dwlmarhkx0u/",
+    "companyFacebook": "https://www.facebook.com/hasanuddin.university/photos/a.1858363351150993/2217586931895298/?type=3",
+    "companyTiktok": "https://www.tiktok.com/@iamsalimvanjava/video/7614422969539939605"
+  },
+  {
+    "name": "Evy Elisye Awiliye Sulistiyana",
+    "companySocial": "https://facebook.com/adira-dinamika-multi-finance",
+    "companyLinkedin": "https://id.linkedin.com/company/adira",
+    "companyInstagram": "https://www.instagram.com/p/dj5ziwbtsr-/",
+    "companyFacebook": "https://www.facebook.com/photo.php?fbid=1254317840169481&set=a.512762964324976&type=3",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-adira-dinamika-multi-finance"
+  },
+  {
+    "name": "Darwis",
+    "companySocial": "https://tiktok.com/@rs-emc",
+    "companyLinkedin": "https://id.linkedin.com/in/sofanafisah",
+    "companyInstagram": "https://www.instagram.com/p/dsfhor-gsyh/",
+    "companyFacebook": "https://www.facebook.com/groups/404492928271959/posts/1287320289989214/",
+    "companyTiktok": "https://www.tiktok.com/@rs.emc/video/7514639397787012357"
+  },
+  {
+    "name": "Andi Darmawan",
+    "companySocial": "https://linkedin.com/company/halodoc-id",
+    "companyLinkedin": "https://id.linkedin.com/in/nadya-musdalifa-b26722186",
+    "companyInstagram": "https://www.instagram.com/popular/pt-halodoc/",
+    "companyFacebook": "https://www.facebook.com/extraprintptj/photos/halodoc-tripod-bannerhalodoc-tripodbanner-extraprint/10156358366966905/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Budi Heryudhi",
+    "companySocial": "https://linkedin.com/company/bussan-auto-finance",
+    "companyLinkedin": "https://id.linkedin.com/in/virafebi",
+    "companyInstagram": "https://www.instagram.com/p/dlo1eo2ppn7/",
+    "companyFacebook": "https://www.facebook.com/baf.indonesia/",
+    "companyTiktok": "https://www.tiktok.com/discover/posisi-engagement-specialist-pt-bussan-auto-finance"
+  },
+  {
+    "name": "Ainur Fatik",
+    "companySocial": "https://linkedin.com/company/universitas-padjadjaran",
+    "companyLinkedin": "https://id.linkedin.com/in/enengsyifa/fr",
+    "companyInstagram": "https://www.instagram.com/p/ctymsstjzzl/",
+    "companyFacebook": "https://www.facebook.com/unpad/videos/selamat-datang-di-kampus-universitas-padjadjaran/214178977711270/",
+    "companyTiktok": "https://www.tiktok.com/@universitaspadjadjaran"
+  },
+  {
+    "name": "Roy Alamsyah",
+    "companySocial": "https://tiktok.com/@astra-international",
+    "companyLinkedin": "https://id.linkedin.com/in/qania-lihawa",
+    "companyInstagram": "https://www.instagram.com/p/dv-gohcj4l3/",
+    "companyFacebook": "https://www.facebook.com/hrasiaawards/videos/pt-astra-international-tbk-winner-of-2024-indonesia-hr-asia-best-companies-to-wo/521913110508138/",
+    "companyTiktok": "https://www.tiktok.com/@brkkkkz/video/7455337284087336210"
+  },
+  {
+    "name": "Suud Hidayanto",
+    "companySocial": "https://instagram.com/andalan-properti",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Ahsan",
+    "companySocial": "https://instagram.com/tk-aisyiyah-bustanul-athfal-1",
+    "companyLinkedin": "https://id.linkedin.com/in/windy-andriyati-am-924bb915b?trk=public_profile_browsemap-profile",
+    "companyInstagram": "https://www.instagram.com/p/b7vm-pybue1/",
+    "companyFacebook": "https://www.facebook.com/shopeeid/posts/mimin-mau-bagi-bagi-smartphone-samsung-gratis-nihikutin-tata-cara-berikut-yuk1-l/936846971992332/",
+    "companyTiktok": "https://www.tiktok.com/discover/lowongan-kerja-gudang-shopee-pekanbaru"
+  },
+  {
+    "name": "Titik Puji Listari",
+    "companySocial": "https://linkedin.com/company/grant-thornton",
+    "companyLinkedin": "https://id.linkedin.com/in/agus-supriyanto-77464b167",
+    "companyInstagram": "https://www.instagram.com/reel/dmupt_hzoah/",
+    "companyFacebook": null,
+    "companyTiktok": "https://www.tiktok.com/@cgvgrandindo/video/7307311949556010245"
+  },
+  {
+    "name": "Eko Mardiyantini",
+    "companySocial": "https://linkedin.com/company/trans-retail",
+    "companyLinkedin": "https://id.linkedin.com/in/rizkynurhidayatullahirshi",
+    "companyInstagram": "https://www.instagram.com/p/ddqkoykvpc3/",
+    "companyFacebook": "https://www.facebook.com/transmartindonesia/",
+    "companyTiktok": "https://www.tiktok.com/@lifeat.transretail"
+  },
+  {
+    "name": "Haryanto Gusmaritno",
+    "companySocial": "https://tiktok.com/@mitsubishi-motors",
+    "companyLinkedin": "https://id.linkedin.com/in/ilham-ilho-38490573",
+    "companyInstagram": "https://www.instagram.com/reel/dulhabpe5-d/",
+    "companyFacebook": "https://www.facebook.com/lowonganterpaduofficial/posts/lowongan-kerja-mitsubishi-motors-posisi-operator-produksi-dibukapt-mitsubishi-mo/1456019725925832/",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-mitsubishi-motors"
+  },
+  {
+    "name": "Teguh Patriajati",
+    "companySocial": "https://instagram.com/pertamina",
+    "companyLinkedin": "https://id.linkedin.com/in/indahnurbaeti",
+    "companyInstagram": "https://www.instagram.com/p/c2cwkrrr6pf/",
+    "companyFacebook": "https://www.facebook.com/pertamina/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@pertamina"
+  },
+  {
+    "name": "Muhammad Amir Hanief",
+    "companySocial": "https://linkedin.com/company/adhi-karya",
+    "companyLinkedin": "https://id.linkedin.com/in/coniesyah-zalfa-zahira-077a33118",
+    "companyInstagram": "https://www.instagram.com/p/c8lrmyxp52m/",
+    "companyFacebook": "https://www.facebook.com/groups/286543718373135/",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-adhi-karya"
+  },
+  {
+    "name": "Wildan Arif Yuliansyah",
+    "companySocial": "https://linkedin.com/company/mayapada-hospital",
+    "companyLinkedin": "https://id.linkedin.com/in/epifania-hatmodjo-645651b4",
+    "companyInstagram": "https://www.instagram.com/reel/dq6dv8bk7mj/",
+    "companyFacebook": "https://www.facebook.com/photo.php?fbid=682541935689234&set=a.403040200306077&id=100069977046494",
+    "companyTiktok": "https://www.tiktok.com/@mayapadahospital/video/7579984069845421332"
+  },
+  {
+    "name": "Irmawati",
+    "companySocial": "https://instagram.com/microsoft",
+    "companyLinkedin": "https://id.linkedin.com/in/ivandy-ardiansyah-969896171",
+    "companyInstagram": "https://www.instagram.com/explore/locations/217991479/pt-microsoft-indonesia-bej-tower-2-18th-fl/",
+    "companyFacebook": "https://www.facebook.com/events/pt-microsoft-indonesia-bej-tower-2-18th-fl/fresh-collaborative-working/457589834308778/",
+    "companyTiktok": "https://www.tiktok.com/@bksd.jakarta/video/7630852778067234056"
+  },
+  {
+    "name": "Dody Indra Triswitono",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Yuliarti",
+    "companySocial": "https://instagram.com/sukses-niaga-abadi",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Hariati Wiken Susiantiningsih",
+    "companySocial": "https://facebook.com/mayora",
+    "companyLinkedin": "https://id.linkedin.com/in/herlina-lien-6a58a0137",
+    "companyInstagram": "https://www.instagram.com/p/dbionyqvq_c/",
+    "companyFacebook": "https://www.facebook.com/ptmayoraindah/",
+    "companyTiktok": "https://www.tiktok.com/@lokerjatimpalingupdate/photo/7629218401897991432"
+  },
+  {
+    "name": "Iwan Sindang Sungkowandono",
+    "companySocial": "https://linkedin.com/company/universitas-negeri-yogyakarta",
+    "companyLinkedin": "https://id.linkedin.com/in/galih-retno-mukti-823919a6",
+    "companyInstagram": "https://www.instagram.com/unyofficial/reel/dxd9czgj2kr/?hl=gu",
+    "companyFacebook": "https://www.facebook.com/unyofficial/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@unyofficial/video/7345689944695786758"
+  },
+  {
+    "name": "Diyah Kristiana",
+    "companySocial": "https://linkedin.com/company/pemerintah-kota-malang",
+    "companyLinkedin": "https://id.linkedin.com/in/agamfirr",
+    "companyInstagram": "https://www.instagram.com/p/dxhebsqjsbc/?img_index=3",
+    "companyFacebook": "https://www.facebook.com/malangkota.go.id/",
+    "companyTiktok": "https://www.tiktok.com/@pemkot_malang"
+  },
+  {
+    "name": "Dian Triayu Krisnawati",
+    "companySocial": "https://linkedin.com/company/sinar-teknologi",
+    "companyLinkedin": "https://www.linkedin.com/company/cv-sinar-teknologi-indonesia",
+    "companyInstagram": "https://www.instagram.com/p/dpltopiiztg/",
+    "companyFacebook": "https://www.facebook.com/61573941324482/videos/kali-ini-kerjanya-lesehan-sinarteknologiindonesia-mockumentarystartup/840049742354225/",
+    "companyTiktok": "https://www.tiktok.com/@cv.sinar.teknologi/video/7585008969165311252"
+  },
+  {
+    "name": "Miftahuddin Mustofa Halim",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Aisyah Ulfah",
+    "companySocial": "https://linkedin.com/company/kementerian-agama-republik",
+    "companyLinkedin": "https://www.linkedin.com/in/muhammadprabowo",
+    "companyInstagram": "https://www.instagram.com/p/dvnia_uk9v4/?__d=1%25",
+    "companyFacebook": "https://www.facebook.com/kementerianagamari/",
+    "companyTiktok": "https://www.tiktok.com/@kemenag.pringsewu1000/photo/7570731021193284882"
+  },
+  {
+    "name": "Moch. Luqman Rosyid",
+    "companySocial": "https://linkedin.com/company/politeknik-elektronika-negeri-surabaya",
+    "companyLinkedin": "https://id.linkedin.com/in/iyan-hartadi-449a603b5",
+    "companyInstagram": "https://www.instagram.com/p/drefaqwklok/",
+    "companyFacebook": "https://www.facebook.com/pens.eepis/",
+    "companyTiktok": "https://www.tiktok.com/@penseepis"
+  },
+  {
+    "name": "Nurwidayanto",
+    "companySocial": "https://linkedin.com",
+    "companyLinkedin": "https://id.linkedin.com/in/afifah-dwiandini-787006185",
+    "companyInstagram": "https://www.instagram.com/p/dqwqmojk_km/",
+    "companyFacebook": "https://www.facebook.com/humasma123/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@humasmahkamahagung"
+  },
+  {
+    "name": "Deddy Ahmad",
+    "companySocial": "https://linkedin.com/company/bank-rakyat-indonesia-persero",
+    "companyLinkedin": "https://id.linkedin.com/in/nanda-oktaviana-843181271",
+    "companyInstagram": "https://www.instagram.com/p/c-7cz9ugt7_/",
+    "companyFacebook": "https://www.facebook.com/hrasiaawards/videos/pt-bank-rakyat-indonesia-persero-tbk-winner-of-2024-indonesia-hr-asia-best-compa/1403118313852595/",
+    "companyTiktok": "https://www.tiktok.com/tag/bankrakyatindonesia"
+  },
+  {
+    "name": "Digdo Andi Pramono",
+    "companySocial": "https://instagram.com/sehat-medika-sejahtera",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Manshur Dwibekti",
+    "companySocial": "https://linkedin.com/company/kementerian-pendidikan-dasar-dan-menengah-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/alyamaulidiya",
+    "companyInstagram": "https://www.instagram.com/p/dwtocqzktdv/?img_index=7&hl=ne",
+    "companyFacebook": "https://www.facebook.com/kemdikdasmen/",
+    "companyTiktok": "https://www.tiktok.com/@shofiorenza/video/7631156420032990472"
+  },
+  {
+    "name": "Anjar Budi Prasetyo",
+    "companySocial": "https://facebook.com/tk-islam-al-azhar-14-semarang",
+    "companyLinkedin": null,
+    "companyInstagram": "https://www.instagram.com/reel/dwqvsm6k7-4/",
+    "companyFacebook": "https://www.facebook.com/tkia14smg/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@tkialazhar14smg/video/7602245335792012564"
+  },
+  {
+    "name": "Ahmad Solekan",
+    "companySocial": "https://tiktok.com/@sd-muhammadiyah-4-pucang",
+    "companyLinkedin": "https://id.linkedin.com/in/edy-susanto-5aa434182",
+    "companyInstagram": "https://www.instagram.com/p/ducq0qrkyel/",
+    "companyFacebook": "https://www.facebook.com/333312893785820",
+    "companyTiktok": "https://www.tiktok.com/@golfonthemoon/video/7547584625774775558"
+  },
+  {
+    "name": "Bambang Margono",
+    "companySocial": "https://linkedin.com/company/kredivo-finance",
+    "companyLinkedin": "https://id.linkedin.com/in/astri-novita-8b7406295",
+    "companyInstagram": "https://www.instagram.com/p/czixwivvf6h/",
+    "companyFacebook": "https://www.facebook.com/kredivo/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-fuji-finance-indonesia"
+  },
+  {
+    "name": "Ervyna Yuliana Sari",
+    "companySocial": "https://tiktok.com/@laboratorium-klinik-prodia",
+    "companyLinkedin": "https://id.linkedin.com/in/zacky-sutris-497a71114",
+    "companyInstagram": "https://www.instagram.com/p/dri73u4k9a-/",
+    "companyFacebook": "https://www.facebook.com/prodia.id/posts/jakarta-25-november-2020-kondisi-pandemi-covid-19-telah-membuat-terjadinya-perce/1451384268401033/?locale=ro_ro",
+    "companyTiktok": "https://www.tiktok.com/tag/prodia"
+  },
+  {
+    "name": "Moh. Badi' Zamanil Masnur",
+    "companySocial": "https://tiktok.com/@kreasi-media-digital",
+    "companyLinkedin": null,
+    "companyInstagram": "https://www.instagram.com/kreasimedina/",
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Fulli Syafi Handoko",
+    "companySocial": "https://linkedin.com/company/sekolah-cendekia-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": "https://www.instagram.com/p/dsb4oskijz0/",
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Herliyana",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/@keilanjddd/video/7595262717808659734"
+  },
+  {
+    "name": "Meityana",
+    "companySocial": "https://facebook.com/pemerintah-kota-surabaya",
+    "companyLinkedin": "https://id.linkedin.com/in/fero-indo",
+    "companyInstagram": "https://www.instagram.com/p/dxhgmzdgby7/",
+    "companyFacebook": "https://www.facebook.com/100064821667674/posts/bantuan-biaya-perkuliahanpendidikan-pemkot-surabaya-2026halo-maperta-kabar-gembi/1390802176423825/",
+    "companyTiktok": "https://www.tiktok.com/@eri.cahyadi"
+  },
+  {
+    "name": "Miftakhul Arifin",
+    "companySocial": "https://facebook.com/artha-konsultan",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Lilik Mardiana",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Tasning Hermin Windrawati",
+    "companySocial": "https://instagram.com/institut-teknologi-sepuluh-nopember",
+    "companyLinkedin": "https://id.linkedin.com/in/artikatrista",
+    "companyInstagram": "https://www.instagram.com/p/ddoptjxz2p4/",
+    "companyFacebook": "https://www.facebook.com/institutteknologisepuluhnopember/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@its_campus"
+  },
+  {
+    "name": "Dwi Purwanto",
+    "companySocial": "https://instagram.com/hashmicro-solusi",
+    "companyLinkedin": "https://id.linkedin.com/in/amalian-erlinda",
+    "companyInstagram": "https://www.instagram.com/p/duic7nyki3c/",
+    "companyFacebook": "https://www.facebook.com/primakarapcc/posts/pt-hashmicro-solusi-indonesia-sedang-membuka-lowongan-kerja-erp-consultant-imple/795375928052662/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Fitri Dwi Purnamawati",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Miko Nulantyo",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Eko Dito Wigrahono",
+    "companySocial": "https://instagram.com/sekolah-cikal",
+    "companyLinkedin": "https://id.linkedin.com/in/hanami-atalia-sudarto-062435377",
+    "companyInstagram": "https://www.instagram.com/p/dljo8tirvkq/",
+    "companyFacebook": "https://www.facebook.com/sekolahcikal/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@sekolah.cikal"
+  },
+  {
+    "name": "Agus Dewi Yuarna",
+    "companySocial": "https://tiktok.com/@indofood-sukses-makmur",
+    "companyLinkedin": "https://id.linkedin.com/in/alga-septi-pratama-591682199",
+    "companyInstagram": "https://www.instagram.com/p/dwthakkkvlc/",
+    "companyFacebook": "https://www.facebook.com/cbpindofood/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@pt.indofood.sukse6"
+  },
+  {
+    "name": "Luluk Mardiana",
+    "companySocial": "https://linkedin.com/company/mekari",
+    "companyLinkedin": "https://id.linkedin.com/in/ahmad-nur-said-nst-bb6113198",
+    "companyInstagram": "https://www.instagram.com/p/dxgl9hvgiss/",
+    "companyFacebook": "https://www.facebook.com/universitas.esaunggul/posts/universitas-esa-unggul-powered-by-arizona-university-melakukan-workshop-dengan-p/1295659512603719/",
+    "companyTiktok": "https://www.tiktok.com/@epicareerjobid/video/7312226712614472965"
+  },
+  {
+    "name": "Deavy Nofita Fatmawati",
+    "companySocial": "https://linkedin.com/company/pegadaian",
+    "companyLinkedin": "https://id.linkedin.com/in/rivaldo-sihombing-796b9a276",
+    "companyInstagram": "https://www.instagram.com/p/dwsh8nnib5g/",
+    "companyFacebook": "https://www.facebook.com/pegadaianpersero/",
+    "companyTiktok": "https://www.tiktok.com/@sahabatpegadaian"
+  },
+  {
+    "name": "Taufan Yusticia Risqianto",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Yuyun Mudjiawati Setiawan",
+    "companySocial": "https://linkedin.com/company/rancang-usaha-mandiri",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Yenny Rosita Widyawati",
+    "companySocial": "https://linkedin.com/company/indomarco-prismatama",
+    "companyLinkedin": "https://id.linkedin.com/in/hilary-yudiana-686937171",
+    "companyInstagram": "https://www.instagram.com/p/dxf4uhzk909/",
+    "companyFacebook": "https://www.facebook.com/149118795134932",
+    "companyTiktok": "https://www.tiktok.com/@brinks.indonesia/video/7605497465927748885"
+  },
+  {
+    "name": "Juni Idawati",
+    "companySocial": "https://facebook.com/bina-teknik-persada",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Yetti Widiastuti",
+    "companySocial": "https://tiktok.com/@orang-tua-group",
+    "companyLinkedin": "https://id.linkedin.com/in/alexandranatalie",
+    "companyInstagram": "https://www.instagram.com/p/dlzz8hutbx5/",
+    "companyFacebook": "https://www.facebook.com/promohadiahtango/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@ramalancuacahariini2/video/7478491252208553271"
+  },
+  {
+    "name": "Nur Ina Anjarsari",
+    "companySocial": "https://facebook.com/wings-surya",
+    "companyLinkedin": "https://id.linkedin.com/in/claudiojauwena",
+    "companyInstagram": "https://www.instagram.com/reel/do0m8myj3zq/",
+    "companyFacebook": "https://www.facebook.com/ptwingssuryadriyorejogresik/",
+    "companyTiktok": "https://www.tiktok.com/tag/wingssurya"
+  },
+  {
+    "name": "Reni Indra Prastiwi",
+    "companySocial": "https://facebook.com/sekolah-pelita-harapan",
+    "companyLinkedin": "https://id.linkedin.com/in/joanna-clarissa-mego-3b682436a",
+    "companyInstagram": "https://www.instagram.com/p/durqwxvk1qj/?img_index=3",
+    "companyFacebook": "https://www.facebook.com/sphinternationalschool/",
+    "companyTiktok": "https://www.tiktok.com/@uphimpactslives/video/7570226047254301959"
+  },
+  {
+    "name": "M. Saihu",
+    "companySocial": "https://tiktok.com/@yamaha-indonesia-motor-manufacturing",
+    "companyLinkedin": "https://id.linkedin.com/in/fajar-muhamad-4a756190",
+    "companyInstagram": "https://www.instagram.com/p/c7bvhdipgbb/",
+    "companyFacebook": "https://www.facebook.com/yamaha.indonesia/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-yamaha-motor-manufacturing"
+  },
+  {
+    "name": "Khuwailid",
+    "companySocial": "https://facebook.com/rumah-sakit-cipto-mangunkusumo",
+    "companyLinkedin": "https://id.linkedin.com/in/tabithaaudrey",
+    "companyInstagram": "https://www.instagram.com/reel/dxgutgfk2wl/",
+    "companyFacebook": "https://www.facebook.com/official.jabarsaberhoaks/posts/ada-yang-meninggal-dalam-mobil-di-depan-indomaret-arcamanikmisleading-contentber/542796573321600/",
+    "companyTiktok": "https://www.tiktok.com/discover/rscm-cipto-jakarta"
+  },
+  {
+    "name": "Betty Triana Kartika Wiyati",
+    "companySocial": "https://instagram.com/xendit-payment-solutions",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Ana Salumi",
+    "companySocial": "https://facebook.com/jejak-kuliner-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Yuli Akhmada",
+    "companySocial": "https://facebook.com/creative-studio-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": "https://www.facebook.com/luckycreativestudio/videos/republik-pertama-di-indonesia/2685253581828037/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Nurul 'Ain",
+    "companySocial": "https://facebook.com/komisi-pemberantasan-korupsi",
+    "companyLinkedin": "https://id.linkedin.com/in/lufti-avianto",
+    "companyInstagram": "https://www.instagram.com/p/dxenrpfeubb/",
+    "companyFacebook": "https://www.facebook.com/majalah.haloindonesia/posts/komisi-pemberantasan-korupsi-kpk-melakukan-operasi-tangkap-tangan-ott-secara-ser/1619281142938589/",
+    "companyTiktok": "https://www.tiktok.com/@akuratco/photo/7597055051558817042?lang=de-de"
+  },
+  {
+    "name": "Hesty Setiyorini",
+    "companySocial": "https://facebook.com/metro-tv",
+    "companyLinkedin": "https://id.linkedin.com/in/elly-oktaviani-8b5335200",
+    "companyInstagram": "https://www.instagram.com/reel/dutiythe02z/",
+    "companyFacebook": "https://www.facebook.com/metrotvgh/videos/seafood-lovers-you-cant-miss-this-come-and-enjoy-fresh-seafood-with-an-amazing-a/1852824581945400/",
+    "companyTiktok": "https://www.tiktok.com/@metro_tv/video/7628219467511647509"
+  },
+  {
+    "name": "Zen Amirudin",
+    "companySocial": "https://facebook.com/maju-motor",
+    "companyLinkedin": "https://id.linkedin.com/in/jepiy-djong-9231b157",
+    "companyInstagram": "https://www.instagram.com/popular/pt-maju-motor-indonesia/",
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Joko Triamawanto",
+    "companySocial": "https://linkedin.com/company/universitas-muhammadiyah-malang",
+    "companyLinkedin": "https://id.linkedin.com/in/muhammad-muthahari-2b1765103",
+    "companyInstagram": "https://www.instagram.com/p/dvahl59ep2e/",
+    "companyFacebook": "https://www.facebook.com/fpciumm/",
+    "companyTiktok": "https://www.tiktok.com/@officialpapikaumm/video/7631524362310503701"
+  },
+  {
+    "name": "Muhammad Wahyudin",
+    "companySocial": "https://tiktok.com/@angkasa-pura",
+    "companyLinkedin": "https://id.linkedin.com/in/hanifah-rahma-putri-9a3824360",
+    "companyInstagram": "https://www.instagram.com/reel/dsfld7-kj61/",
+    "companyFacebook": "https://www.facebook.com/angkasapura.airports/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/tag/angkasapuralndonesia"
+  },
+  {
+    "name": "Budi Prasetiyo",
+    "companySocial": "https://linkedin.com/company/pupuk-indonesia",
+    "companyLinkedin": "https://id.linkedin.com/in/anggia-risma-putri-907a3679",
+    "companyInstagram": "https://www.instagram.com/p/duguns4j3qr/",
+    "companyFacebook": "https://www.facebook.com/pupuk.indonesia/",
+    "companyTiktok": "https://www.tiktok.com/@pupuk.indonesia"
+  },
+  {
+    "name": "Hermiana Englaningtyas Effendi",
+    "companySocial": "https://tiktok.com/@klinik-utama-sehat-keluarga",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Yuniawati Diyah Retna Andriani",
+    "companySocial": "https://instagram.com/telkomindonesia",
+    "companyLinkedin": "https://id.linkedin.com/in/ermaamelia",
+    "companyInstagram": "https://www.instagram.com/p/dohsrfge2wy/",
+    "companyFacebook": "https://www.facebook.com/sindomakassar/posts/pt-telkom-indonesia-persero-tbk-telkom-dan-pt-perusahaan-gas-negara-persero-tbk-/1557525263045747/",
+    "companyTiktok": "https://www.tiktok.com/@telkomindonesia/video/7632591610349473042"
+  },
+  {
+    "name": "Etik Sulistyaningsih",
+    "companySocial": "https://facebook.com/pelabuhan-indonesia",
+    "companyLinkedin": "https://id.linkedin.com/in/sesha-dewi-masita-0a797a221",
+    "companyInstagram": "https://www.instagram.com/p/dxedxv9irii/",
+    "companyFacebook": "https://www.facebook.com/indonesiaport/",
+    "companyTiktok": "https://www.tiktok.com/@djpl_ksoputamabelawan/video/7353997275019971845"
+  },
+  {
+    "name": "Muhammad Himawan Sutanto",
+    "companySocial": "https://linkedin.com/company/prima-otomasi-industri",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Miftahul Jannah",
+    "companySocial": "https://linkedin.com/company/kementerian-dalam-negeri-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/alfitra-akbar-403833113",
+    "companyInstagram": "https://www.instagram.com/talufirdaus/",
+    "companyFacebook": "https://www.facebook.com/kemendagri/",
+    "companyTiktok": "https://www.tiktok.com/@dukcapilkemendagri/video/7630841621470285077"
+  },
+  {
+    "name": "Indro Cahyo Nugroho",
+    "companySocial": "https://linkedin.com/company/otoritas-jasa-keuangan",
+    "companyLinkedin": "https://id.linkedin.com/in/nugrohoiif",
+    "companyInstagram": "https://www.instagram.com/reel/dkj423gj52v/",
+    "companyFacebook": "https://www.facebook.com/official.ojk/",
+    "companyTiktok": "https://www.tiktok.com/@ojk_indonesia"
+  },
+  {
+    "name": "Ganang Nugroho",
+    "companySocial": "https://instagram.com/indomarco-prismatama",
+    "companyLinkedin": "https://id.linkedin.com/in/hilary-yudiana-686937171",
+    "companyInstagram": "https://www.instagram.com/p/dxf4uhzk909/",
+    "companyFacebook": "https://www.facebook.com/149118795134932",
+    "companyTiktok": "https://www.tiktok.com/@brinks.indonesia/video/7605497465927748885"
+  },
+  {
+    "name": "Iis Setyowati",
+    "companySocial": "https://linkedin.com/company/kalbe",
+    "companyLinkedin": "https://id.linkedin.com/in/sherlycarolinee",
+    "companyInstagram": "https://www.instagram.com/reel/dj5ah20y6qe/",
+    "companyFacebook": "https://www.facebook.com/kalbefarma.tbk/",
+    "companyTiktok": "https://www.tiktok.com/@lifeatkalbe/video/7395525826256637189"
+  },
+  {
+    "name": "Yuli Setya Winarsih",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Betti Arfiani",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/tag/nan"
+  },
+  {
+    "name": "Wirawati Maryani",
+    "companySocial": "https://instagram.com/badan-pemeriksa-keuangan-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/hanssebastiann",
+    "companyInstagram": "https://www.instagram.com/reel/du2cvecif7p/",
+    "companyFacebook": "https://www.facebook.com/humasbpkri.official/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/tag/bpkri"
+  },
+  {
+    "name": "Sunia",
+    "companySocial": "https://linkedin.com/company/mayora-indah",
+    "companyLinkedin": "https://id.linkedin.com/in/herlina-lien-6a58a0137",
+    "companyInstagram": "https://www.instagram.com/p/dbionyqvq_c/",
+    "companyFacebook": "https://www.facebook.com/ptmayoraindah/",
+    "companyTiktok": "https://www.tiktok.com/@lokerjatimpalingupdate/photo/7629218401897991432"
+  },
+  {
+    "name": "Munif Kolifah Sulistiyoningrum",
+    "companySocial": "https://linkedin.com/company/universitas-padjadjaran",
+    "companyLinkedin": "https://id.linkedin.com/in/enengsyifa/fr",
+    "companyInstagram": "https://www.instagram.com/p/ctymsstjzzl/",
+    "companyFacebook": "https://www.facebook.com/unpad/videos/selamat-datang-di-kampus-universitas-padjadjaran/214178977711270/",
+    "companyTiktok": "https://www.tiktok.com/@unpad_io/video/7627405824536710418"
+  },
+  {
+    "name": "Amri Aty",
+    "companySocial": "https://linkedin.com/company/omni-hospitals",
+    "companyLinkedin": "https://in.linkedin.com/company/omnihospitals",
+    "companyInstagram": "https://www.instagram.com/p/dw1sleekxiq/",
+    "companyFacebook": "https://www.facebook.com/udaiomnihospital/posts/department-of-pulmonology-and-sleep-disorders-at-udai-omni-hospital-provides-eva/5230555183632901/",
+    "companyTiktok": "https://www.tiktok.com/@ismartsaikiranismartboy/video/6823443010433436929"
+  },
+  {
+    "name": "Abbas Gazali",
+    "companySocial": "https://tiktok.com/@klinik-utama-sehat-sentosa",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Candra Dewi",
+    "companySocial": "https://linkedin.com/company/kementerian-pekerjaan-umum-republik",
+    "companyLinkedin": "https://id.linkedin.com/in/donny-judha-008660128",
+    "companyInstagram": "https://www.instagram.com/p/dsypaqykv7y/",
+    "companyFacebook": "https://m.facebook.com/kemenpu/photos/d41d8cd9/1057951993034265/",
+    "companyTiktok": "https://www.tiktok.com/@pu_sda_bhlk"
+  },
+  {
+    "name": "Suganda",
+    "companySocial": "https://linkedin.com/company/pemerintah-provinsi-jawa-timur",
+    "companyLinkedin": "https://id.linkedin.com/in/tri-cahyo-prakoso-671936221",
+    "companyInstagram": "https://www.instagram.com/p/dummc7bektr/",
+    "companyFacebook": "https://www.facebook.com/jatimpemprov/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@pemprovjatim"
+  },
+  {
+    "name": "Sustiyo Rejeki Dedes Nurbandaru",
+    "companySocial": "https://tiktok.com/@omni-hospitals",
+    "companyLinkedin": "https://in.linkedin.com/company/omnihospitals",
+    "companyInstagram": "https://www.instagram.com/p/dw1sleekxiq/",
+    "companyFacebook": "https://www.facebook.com/udaiomnihospital/posts/department-of-pulmonology-and-sleep-disorders-at-udai-omni-hospital-provides-eva/5230555183632901/",
+    "companyTiktok": "https://www.tiktok.com/@ismartsaikiranismartboy/video/6823443010433436929"
+  },
+  {
+    "name": "Ichwan Suhadak",
+    "companySocial": "https://facebook.com/ptplnpersero",
+    "companyLinkedin": "https://id.linkedin.com/in/meliani-rosalina",
+    "companyInstagram": "https://www.instagram.com/p/dxsamaecvdb/",
+    "companyFacebook": "https://www.facebook.com/ptpln/",
+    "companyTiktok": "https://www.tiktok.com/@pln_id"
+  },
+  {
+    "name": "Muhammad Yusuf",
+    "companySocial": "https://instagram.com/primaya-hospital",
+    "companyLinkedin": "https://id.linkedin.com/in/hendrasuherman",
+    "companyInstagram": "https://www.instagram.com/p/dtrez27gb3q/?img_index=4&hl=es-la",
+    "companyFacebook": "https://m.facebook.com/lokerkesehatanid/photos/open-job-vacancy-at-primaya-hospital-bekasi-timur-deadline-untuk-syarat-dan-cara/895617454381680/",
+    "companyTiktok": "https://www.tiktok.com/@primayahospital/photo/7596933178640633095"
+  },
+  {
+    "name": "Deden Kurniawan",
+    "companySocial": "https://tiktok.com/@wijaya-karya",
+    "companyLinkedin": "https://id.linkedin.com/in/danang-wibawa-shakti-6707b1111",
+    "companyInstagram": "https://www.instagram.com/p/dof1tlneqkl/",
+    "companyFacebook": "https://www.facebook.com/ptwika/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@ptwijayakarya"
+  },
+  {
+    "name": "Irwan Riadi Nugraha",
+    "companySocial": "https://instagram.com/rs-medistra",
+    "companyLinkedin": "https://id.linkedin.com/pub/dir/rs+rs+rs/+/id-0-indonesia",
+    "companyInstagram": "https://www.instagram.com/p/dxwxwfnkuwy/",
+    "companyFacebook": "https://www.facebook.com/rsmedistra/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/@igor_chaska/video/7613288827133660436"
+  },
+  {
+    "name": "Noor Rofieq",
+    "companySocial": "https://instagram.com/indomarco-prismatama",
+    "companyLinkedin": "https://id.linkedin.com/in/hilary-yudiana-686937171",
+    "companyInstagram": "https://www.instagram.com/p/dxf4uhzk909/",
+    "companyFacebook": "https://www.facebook.com/149118795134932",
+    "companyTiktok": "https://www.tiktok.com/@brinks.indonesia/video/7605497465927748885"
+  },
+  {
+    "name": "Muhammad Thaqwim",
+    "companySocial": "https://tiktok.com/@indofood",
+    "companyLinkedin": "https://www.linkedin.com/in/nicoleadisalim",
+    "companyInstagram": "https://www.instagram.com/p/dwthakkkvlc/",
+    "companyFacebook": "https://www.facebook.com/cbpindofood/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-indofood"
+  },
+  {
+    "name": "Edy Sucipto",
+    "companySocial": "https://linkedin.com/company/halodoc-id",
+    "companyLinkedin": "https://id.linkedin.com/in/nadya-musdalifa-b26722186",
+    "companyInstagram": "https://www.instagram.com/popular/pt-halodoc/",
+    "companyFacebook": "https://www.facebook.com/extraprintptj/photos/halodoc-tripod-bannerhalodoc-tripodbanner-extraprint/10156358366966905/",
+    "companyTiktok": null
+  },
+  {
+    "name": "Septiawan Fitriadi",
+    "companySocial": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyLinkedin": "https://www.linkedin.com/in/nan-jiang-5676ba35",
+    "companyInstagram": "https://www.instagram.com/p/dkrh_89us0x/",
+    "companyFacebook": "https://www.facebook.com/babyjamesm3/posts/lil-lesbian-nan-has-quickly-become-one-of-tiktoks-most-beloved-personalities-but/1440817844074195/",
+    "companyTiktok": "https://www.tiktok.com/discover/on-nan-how-to-make-automation-post-on-all-platforms"
+  },
+  {
+    "name": "Nurul Idayani",
+    "companySocial": "https://tiktok.com/@indofood",
+    "companyLinkedin": "https://id.linkedin.com/in/nadia-ingrida-winata",
+    "companyInstagram": "https://www.instagram.com/p/dwthakkkvlc/",
+    "companyFacebook": "https://www.facebook.com/cbpindofood/?locale=id_id",
+    "companyTiktok": "https://www.tiktok.com/discover/pt-indofood"
+  },
+  {
+    "name": "Ali Bushro",
+    "companySocial": "https://facebook.com/arsitek-ruang",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Bahrul Ulum",
+    "companySocial": "https://instagram.com/mayora-indah",
+    "companyLinkedin": "https://id.linkedin.com/in/herlina-lien-6a58a0137",
+    "companyInstagram": "https://www.instagram.com/p/dbionyqvq_c/",
+    "companyFacebook": "https://www.facebook.com/ptmayoraindah/",
+    "companyTiktok": "https://www.tiktok.com/@lokerjatimpalingupdate/photo/7629218401897991432"
+  },
+  {
+    "name": "Sulis Setianingsih",
+    "companySocial": "https://tiktok.com/@kpmg",
+    "companyLinkedin": "https://id.linkedin.com/in/wisnu",
+    "companyInstagram": "https://www.instagram.com/reel/dgnl_ztrti4/",
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Sugiartono",
+    "companySocial": "https://instagram.com/ipb-university",
+    "companyLinkedin": "https://id.linkedin.com/in/fatin-nurfadillah-962a31377",
+    "companyInstagram": "https://www.instagram.com/p/do3s7cpemmp/",
+    "companyFacebook": "https://m.facebook.com/cdaipb/?locale=zh_tw",
+    "companyTiktok": "https://www.tiktok.com/@ipbuniversity"
+  },
+  {
+    "name": "Syarifah Nuriyani",
+    "companySocial": "https://linkedin.com/company/sicepat-ekspres",
+    "companyLinkedin": "https://id.linkedin.com/in/indriani-rostianti-sutjipto-58641543",
+    "companyInstagram": "https://www.instagram.com/p/cq8bpubjmvl/",
+    "companyFacebook": "https://www.facebook.com/sicepatekspresofficial/photos/a.1627081164198264/2891655664407468/?id=1503334216572960",
+    "companyTiktok": "https://www.tiktok.com/@koh.dennies/video/7167293298044882202"
+  },
+  {
+    "name": "Windya Ayu Kurniawati",
+    "companySocial": "https://linkedin.com",
+    "companyLinkedin": "https://id.linkedin.com/in/reza-anjelina-s-m-700077220",
+    "companyInstagram": "https://www.instagram.com/reel/cuqc-2zlbri/",
+    "companyFacebook": "https://www.facebook.com/groups/smkn2malang/",
+    "companyTiktok": "https://www.tiktok.com/@samupahita"
+  },
+  {
+    "name": "Hendrilina Mispita",
+    "companySocial": "https://linkedin.com/company/universitas-muhammadiyah-malang",
+    "companyLinkedin": "https://id.linkedin.com/in/muhammad-muthahari-2b1765103",
+    "companyInstagram": "https://www.instagram.com/p/dvahokpkmhw/",
+    "companyFacebook": "https://www.facebook.com/100094522712096/?locale=be_by",
+    "companyTiktok": "https://www.tiktok.com/@whosvndd/video/7624064302416399636"
+  },
+  {
+    "name": "Evi Aprianita",
+    "companySocial": "https://facebook.com/startup-digital-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  },
+  {
+    "name": "Sri Astutik Megawati",
+    "companySocial": "https://tiktok.com/@indosat",
+    "companyLinkedin": "https://www.linkedin.com/posts/indosat_strivingbeyond-empoweringindonesia-indosatooredoohutchison-activity-7353668202867904514-cjjm",
+    "companyInstagram": "https://www.instagram.com/reel/c-7da3haumt/",
+    "companyFacebook": "https://www.facebook.com/168898183138693",
+    "companyTiktok": "https://www.tiktok.com/@idxchannel/video/7592580971698998529"
+  },
+  {
+    "name": "Vivian Zuraida",
+    "companySocial": "https://linkedin.com/company/teknologi-pangan-nusantara",
+    "companyLinkedin": null,
+    "companyInstagram": null,
+    "companyFacebook": null,
+    "companyTiktok": null
+  }
+];
+
+export default companySocialOverrides;

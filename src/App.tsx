@@ -21,7 +21,7 @@ import Profile from './pages/Profile';
 import Login from './pages/Login';
 import SettingsPage from './pages/Settings';
 import { AppProvider, useAppContext } from './context/AppContext';
-import { downloadTrackedAlumniXlsx } from './utils/exportTrackedAlumni';
+import { downloadTrackedAlumniCsv, getValidationStageTwoRecords } from './utils/exportTrackedAlumni';
 
 function AuthenticatedApp({ onLogout }: { onLogout: () => void }) {
   const { alumni, csvLoading, csvLoaded, csvError } = useAppContext();
@@ -96,8 +96,8 @@ function AuthenticatedApp({ onLogout }: { onLogout: () => void }) {
     { id: 'verification', label: 'Verifikasi', icon: CheckCircle },
   ];
 
-  const handleExportXlsx = () => {
-    downloadTrackedAlumniXlsx(alumni, 'hasil_pelacakan_alumni.xlsx');
+  const handleExportCsv = () => {
+    downloadTrackedAlumniCsv(getValidationStageTwoRecords(alumni), 'hasil_pelacakan_validasi_tahap_2.csv');
   };
 
   const noticeTone = csvError
@@ -186,11 +186,11 @@ function AuthenticatedApp({ onLogout }: { onLogout: () => void }) {
         </div>
         <div className="p-4 border-t border-[#EAEAEA] space-y-2">
           <button
-            onClick={handleExportXlsx}
+            onClick={handleExportCsv}
             className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium bg-black rounded-md hover:bg-green-900 transition-colors text-white hover:text-white"
           >
             <Download className="w-4 h-4" />
-            Export XLSX
+            Export CSV
           </button>
           <button
             onClick={() => setActiveTab('settings')}

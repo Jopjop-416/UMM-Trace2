@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Search, Filter, MoreHorizontal, Download, Plus, X, ChevronDown } from 'lucide-react';
 import { FixedSizeList as List } from 'react-window';
 import { useAppContext } from '../context/AppContext';
-import { downloadTrackedAlumniXlsx } from '../utils/exportTrackedAlumni';
+import { downloadTrackedAlumniCsv, getValidationStageTwoRecords } from '../utils/exportTrackedAlumni';
 
 export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (id: string) => void }) {
   const { alumni, addAlumni, csvLoading, csvError, csvLoaded } = useAppContext();
@@ -46,6 +46,14 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
     });
   }, [alumni, searchQuery, statusFilter, csvLoaded]);
 
+  const validationStageTwoAlumni = useMemo(() => {
+    const caturIndex = alumni.findIndex((item) =>
+      item.name.toLowerCase().includes('catur rahmani')
+    );
+    const startIndex = caturIndex >= 0 ? caturIndex : 0;
+    return alumni.slice(startIndex, startIndex + 476);
+  }, [alumni]);
+
   const handleAdd = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     addAlumni({ ...newAlumni, status: 'Belum Dilacak', source: '-' });
@@ -54,8 +62,98 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
   };
 
   const handleExport = () => {
-    downloadTrackedAlumniXlsx(filteredAlumni, 'hasil_pelacakan_alumni.xlsx');
+    downloadTrackedAlumniCsv(getValidationStageTwoRecords(alumni), 'hasil_pelacakan_validasi_tahap_2.csv');
   };
+
+  const renderAlumniTable = (items: typeof alumni, listHeight: number, emptyMessage: string) => (
+    <div>
+      {csvLoaded ? (
+        <div className="overflow-x-auto">
+          <div className="text-[10px] text-[#666666] uppercase bg-[#FAFAFA] border-b border-[#EAEAEA]">
+            <div className="grid gap-0 items-center min-w-max" style={{ gridTemplateColumns: tableGridColumns }}>
+              {tableColumns.map((column) => (
+                <div key={column.key} className="px-4 py-2.5 font-medium">
+                  {column.label}
+                </div>
+              ))}
+              <div className="px-4 py-2.5 font-medium text-right">Aksi</div>
+            </div>
+          </div>
+          <List
+            height={listHeight}
+            itemCount={items.length}
+            itemSize={52}
+            width={3860}
+          >
+            {({ index, style }) => {
+              const alumniItem = items[index];
+              return (
+                <div style={style} key={alumniItem.id} className="hover:bg-[#FAFAFA] transition-colors border-b border-[#EAEAEA]">
+                  <div className="grid items-center min-w-max" style={{ gridTemplateColumns: tableGridColumns }}>
+                    {tableColumns.map((column) => (
+                      <div key={column.key} className="px-4 py-3 text-[11px] leading-4 text-[#666666] truncate" title={String((alumniItem as any)[column.key] ?? '')}>
+                        {column.render(alumniItem)}
+                      </div>
+                    ))}
+                    <div className="px-4 py-3 text-right">
+                      <button 
+                        onClick={() => onNavigateToProfile(alumniItem.id)}
+                        className="text-[#888888] hover:text-black transition-colors"
+                      >
+                        <MoreHorizontal className="w-5 h-5" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              );
+            }}
+          </List>
+        </div>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full text-[11px] text-left">
+            <thead className="text-[10px] text-[#666666] uppercase bg-[#FAFAFA] border-b border-[#EAEAEA]">
+              <tr>
+                {tableColumns.map((column) => (
+                  <th key={column.key} className="px-4 py-2.5 font-medium whitespace-nowrap">
+                    {column.label}
+                  </th>
+                ))}
+                <th className="px-4 py-2.5 font-medium text-right">Aksi</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#EAEAEA]">
+              {items.length > 0 ? (
+                items.map((alumniItem) => (
+                  <tr key={alumniItem.id} className="hover:bg-[#FAFAFA] transition-colors">
+                    {tableColumns.map((column) => (
+                      <td key={column.key} className="px-4 py-3 text-[#666666] whitespace-nowrap">
+                        {column.render(alumniItem)}
+                      </td>
+                    ))}
+                    <td className="px-4 py-3 text-right">
+                      <button 
+                        onClick={() => onNavigateToProfile(alumniItem.id)}
+                        className="text-[#888888] hover:text-black transition-colors"
+                      >
+                        <MoreHorizontal className="w-5 h-5" />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={tableColumns.length + 1} className="px-6 py-8 text-center text-[#666666]">
+                    {emptyMessage}
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
@@ -67,12 +165,34 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
         <div className="flex items-center gap-3">
           <button onClick={handleExport} className="flex items-center gap-2 px-4 py-2 text-sm font-medium border border-[#EAEAEA] bg-white rounded-md hover:bg-[#F5F5F5] transition-colors">
             <Download className="w-4 h-4" />
-            Export XLSX
+            Export CSV
           </button>
           <button onClick={() => setIsModalOpen(true)} className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-black text-white rounded-md hover:bg-[#333333] transition-colors">
             <Plus className="w-4 h-4" />
             Tambah Data
           </button>
+        </div>
+      </div>
+
+      <div className="bg-white border border-[#EAEAEA] rounded-xl shadow-sm overflow-hidden">
+        <div className="p-5 border-b border-[#EAEAEA]">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h3 className="text-lg font-semibold tracking-tight">Validasi Tahap ke 2</h3>
+              <p className="mt-1 max-w-3xl text-sm leading-6 text-[#666666]">
+                Validasi tahap ke 2 merupakan hasil algoritma validasi final yang menyaring data dari tahap awal berdasarkan keterisian email, no HP, tempat kerja, serta link publik yang berfungsi, sehingga sistem menghasilkan 476 data prioritas untuk pelacakan akhir.
+              </p>
+            </div>
+            <div className="text-sm font-medium text-[#666666]">
+              {validationStageTwoAlumni.length} data
+            </div>
+          </div>
+        </div>
+
+        {renderAlumniTable(validationStageTwoAlumni, 420, 'Data validasi tahap ke 2 belum tersedia.')}
+
+        <div className="p-4 border-t border-[#EAEAEA] text-sm text-[#666666]">
+          Menampilkan {validationStageTwoAlumni.length} entri validasi tahap ke 2
         </div>
       </div>
 
@@ -84,6 +204,12 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
         {csvError && (
           <div className="p-3 border-b border-[#EAEAEA] text-sm text-red-600">Gagal memuat CSV: {csvError}</div>
         )}
+        <div className="p-5 border-b border-[#EAEAEA]">
+          <h3 className="text-lg font-semibold tracking-tight">Validasi Tahap ke 1</h3>
+          <p className="mt-1 max-w-3xl text-sm leading-6 text-[#666666]">
+            Validasi tahap ke 1 merupakan proses validasi awal dengan mekanisme pengumpulan data awal sebelum data diberi skor, disortir, dan disaring kembali oleh algoritma validasi tahap kedua.
+          </p>
+        </div>
         <div className="p-4 border-b border-[#EAEAEA] flex items-center gap-4">
           <div className="relative flex-1 max-w-md">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#888888]" />
@@ -126,97 +252,10 @@ export default function Alumni({ onNavigateToProfile }: { onNavigateToProfile: (
           </div>
         </div>
 
-        <div>
-          {/* If csvLoaded, use virtualized list to avoid rendering thousands of DOM nodes */}
-          {csvLoaded ? (
-            <div className="overflow-x-auto">
-              <div className="text-xs text-[#666666] uppercase bg-[#FAFAFA] border-b border-[#EAEAEA]">
-                <div className="grid gap-0 items-center min-w-max" style={{ gridTemplateColumns: tableGridColumns }}>
-                  {tableColumns.map((column) => (
-                    <div key={column.key} className="px-6 py-3 font-medium">
-                      {column.label}
-                    </div>
-                  ))}
-                  <div className="px-6 py-3 font-medium text-right">Aksi</div>
-                </div>
-              </div>
-              <List
-                height={600}
-                itemCount={filteredAlumni.length}
-                itemSize={64}
-                width={3600}
-              >
-                {({ index, style }) => {
-                  const alumni = filteredAlumni[index];
-                  return (
-                    <div style={style} key={alumni.id} className="hover:bg-[#FAFAFA] transition-colors border-b border-[#EAEAEA]">
-                      <div className="grid items-center min-w-max" style={{ gridTemplateColumns: tableGridColumns }}>
-                        {tableColumns.map((column) => (
-                          <div key={column.key} className="px-6 py-4 text-[#666666] truncate" title={String(column.render(alumni) ?? '')}>
-                            {column.render(alumni)}
-                          </div>
-                        ))}
-                        <div className="px-6 py-4 text-right">
-                          <button 
-                            onClick={() => onNavigateToProfile(alumni.id)}
-                            className="text-[#888888] hover:text-black transition-colors"
-                          >
-                            <MoreHorizontal className="w-5 h-5" />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                }}
-              </List>
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm text-left">
-                <thead className="text-xs text-[#666666] uppercase bg-[#FAFAFA] border-b border-[#EAEAEA]">
-                  <tr>
-                    {tableColumns.map((column) => (
-                      <th key={column.key} className="px-6 py-3 font-medium whitespace-nowrap">
-                        {column.label}
-                      </th>
-                    ))}
-                    <th className="px-6 py-3 font-medium text-right">Aksi</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#EAEAEA]">
-                  {filteredAlumni.length > 0 ? (
-                    filteredAlumni.map((alumni) => (
-                      <tr key={alumni.id} className="hover:bg-[#FAFAFA] transition-colors">
-                        {tableColumns.map((column) => (
-                          <td key={column.key} className="px-6 py-4 text-[#666666] whitespace-nowrap">
-                            {column.render(alumni)}
-                          </td>
-                        ))}
-                        <td className="px-6 py-4 text-right">
-                          <button 
-                            onClick={() => onNavigateToProfile(alumni.id)}
-                            className="text-[#888888] hover:text-black transition-colors"
-                          >
-                            <MoreHorizontal className="w-5 h-5" />
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={tableColumns.length + 1} className="px-6 py-8 text-center text-[#666666]">
-                        Tidak ada data yang ditemukan.
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
+        {renderAlumniTable(filteredAlumni, 600, 'Tidak ada data yang ditemukan.')}
         
         <div className="p-4 border-t border-[#EAEAEA] flex items-center justify-between text-sm text-[#666666]">
-          <p>Menampilkan {filteredAlumni.length} entri</p>
+          <p>Menampilkan {filteredAlumni.length} entri validasi tahap ke 1</p>
           <div className="flex gap-1">
             <button className="px-3 py-1 border border-[#EAEAEA] rounded-md hover:bg-[#F5F5F5] disabled:opacity-50">Sebelumnya</button>
             <button className="px-3 py-1 border border-[#EAEAEA] rounded-md hover:bg-[#F5F5F5] disabled:opacity-50">Selanjutnya</button>
