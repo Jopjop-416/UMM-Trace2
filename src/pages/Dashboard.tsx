@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Users, Search, AlertCircle, CheckCircle2, BarChart3, ShieldCheck, Database, MoreHorizontal } from 'lucide-react';
 import { FixedSizeList as List } from 'react-window';
 import { useAppContext } from '../context/AppContext';
@@ -38,8 +38,37 @@ type DashboardProps = {
   onNavigateToProfile: (id: string) => void;
 };
 
+function AnimatedNumber({ value, decimals = 0, duration = 1100 }: { value: number; decimals?: number; duration?: number }) {
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    if (value <= 0) {
+      setDisplayValue(0);
+      return undefined;
+    }
+
+    let frameId = 0;
+    const start = performance.now();
+    const easeOutCubic = (progress: number) => 1 - Math.pow(1 - progress, 3);
+
+    const tick = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      setDisplayValue(value * easeOutCubic(progress));
+      if (progress < 1) {
+        frameId = requestAnimationFrame(tick);
+      }
+    };
+
+    frameId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frameId);
+  }, [value, duration]);
+
+  return <>{displayValue.toLocaleString('id-ID', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}</>;
+}
+
 export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
   const { alumni, activities, csvLoading } = useAppContext();
+  const [chartAnimationProgress, setChartAnimationProgress] = useState(0);
   const shouldHideTrackedFields = (item: any) => item.status === 'Belum Ditemukan' || item.status === 'Belum Dilacak';
   const tableColumns = [
     { key: 'name', label: 'Nama Lengkap', render: (item: any) => <span className="font-medium">{item.name || '-'}</span> },
@@ -59,6 +88,14 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
     { key: 'tiktok', label: 'Tiktok', render: (item: any) => shouldHideTrackedFields(item) ? '-' : (item.tiktok || '-') }
   ];
   const tableGridColumns = '220px 220px 140px 150px 240px 160px 220px 260px 180px 180px 260px 240px 200px 200px 200px 72px';
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      setChartAnimationProgress(1);
+    }, 120);
+
+    return () => window.clearTimeout(timeoutId);
+  }, []);
 
   const identifiedAlumni = useMemo(
     () => alumni.filter(a => a.status === 'Teridentifikasi'),
@@ -127,10 +164,10 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
       stageTwoPercent,
       total,
       background: total > 0
-        ? `conic-gradient(#111111 0 ${stageTwoPercent}%, #D9D9D9 ${stageTwoPercent}% 100%)`
+        ? `conic-gradient(#111111 0 ${stageTwoPercent * chartAnimationProgress}%, #D9D9D9 ${stageTwoPercent * chartAnimationProgress}% 100%)`
         : 'conic-gradient(#EAEAEA 0 100%)'
     };
-  }, [alumni]);
+  }, [alumni, chartAnimationProgress]);
 
   const validationStageTwoAlumni = useMemo(() => {
     const stageTwoStartIndex = alumni.findIndex(item =>
@@ -255,18 +292,24 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {stats.map((stat) => (
-          <div key={stat.label} className="p-6 bg-white border border-[#EAEAEA] rounded-xl shadow-sm">
+        {stats.map((stat, index) => (
+          <div
+            key={stat.label}
+            className="p-6 bg-white border border-[#EAEAEA] rounded-xl shadow-sm animate-in fade-in slide-in-from-bottom-3 duration-500"
+            style={{ animationDelay: `${index * 90}ms`, animationFillMode: 'both' }}
+          >
             <div className="flex items-center justify-between">
               <p className="text-sm font-medium text-[#666666]">{stat.label}</p>
               <stat.icon className={`w-4 h-4 ${stat.color}`} />
             </div>
-            <p className="text-3xl font-semibold mt-4 tracking-tight">{stat.value.toLocaleString('id-ID')}</p>
+            <p className="text-3xl font-semibold mt-4 tracking-tight">
+              <AnimatedNumber value={stat.value} />
+            </p>
           </div>
         ))}
       </div>
 
-      <div className="p-6 bg-white border border-[#EAEAEA] rounded-xl shadow-sm space-y-6">
+      <div className="p-6 bg-white border border-[#EAEAEA] rounded-xl shadow-sm space-y-6 animate-in fade-in slide-in-from-bottom-3 duration-700">
         <div className="flex items-center justify-between gap-4 flex-wrap">
           <div>
             <h3 className="text-sm font-semibold flex items-center gap-2">
@@ -288,7 +331,7 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
                   <div className="text-[10px] text-[#666666]">{item.count.toLocaleString('id-ID')}</div>
                   <div
                     className="w-full rounded-t-md bg-black/85 hover:bg-black transition-colors"
-                    style={{ height: `${chartMax > 0 ? Math.max(10, (item.count / chartMax) * 220) : 10}px` }}
+                    style={{ height: `${chartMax > 0 ? Math.max(10, (item.count / chartMax) * 220 * chartAnimationProgress) : 10}px`, transition: 'height 900ms cubic-bezier(0.22, 1, 0.36, 1)' }}
                     title={`${item.year}: ${item.count.toLocaleString('id-ID')} data`}
                   />
                   <div className="text-[10px] text-[#666666] pb-2">{item.year}</div>
@@ -308,9 +351,9 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
               <Database className="w-4 h-4" />
               Coverage
             </div>
-            <p className="text-2xl font-semibold mt-3">{scoring.coverageScore}</p>
+            <p className="text-2xl font-semibold mt-3"><AnimatedNumber value={scoring.coverageScore} /></p>
             <p className="text-xs text-[#666666] mt-1">
-              {scoring.foundCount.toLocaleString('id-ID')} dari {alumni.length.toLocaleString('id-ID')} data ditemukan.
+              <AnimatedNumber value={scoring.foundCount} /> dari <AnimatedNumber value={alumni.length} /> data ditemukan.
             </p>
           </div>
           <div className="p-4 rounded-xl border border-[#EAEAEA] bg-[#FAFAFA]">
@@ -318,9 +361,9 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
               <ShieldCheck className="w-4 h-4" />
               Accuracy
             </div>
-            <p className="text-2xl font-semibold mt-3">{scoring.accuracyScore}</p>
+            <p className="text-2xl font-semibold mt-3"><AnimatedNumber value={scoring.accuracyScore} /></p>
             <p className="text-xs text-[#666666] mt-1">
-              {scoring.correctSample.toLocaleString('id-ID')} data valid dari sampling {scoring.sampleSize.toLocaleString('id-ID')} data.
+              <AnimatedNumber value={scoring.correctSample} /> data valid dari sampling <AnimatedNumber value={scoring.sampleSize} /> data.
             </p>
           </div>
           <div className="p-4 rounded-xl border border-[#EAEAEA] bg-[#FAFAFA]">
@@ -328,16 +371,16 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
               <CheckCircle2 className="w-4 h-4" />
               Completeness
             </div>
-            <p className="text-2xl font-semibold mt-3">{scoring.completenessScore}</p>
+            <p className="text-2xl font-semibold mt-3"><AnimatedNumber value={scoring.completenessScore} /></p>
             <p className="text-xs text-[#666666] mt-1">
-              Rata-rata field terisi: {scoring.averageFilledFields.toFixed(2)} dari 4 field utama.
+              Rata-rata field terisi: <AnimatedNumber value={scoring.averageFilledFields} decimals={2} /> dari 4 field utama.
             </p>
           </div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 p-6 bg-white border border-[#EAEAEA] rounded-xl shadow-sm">
+        <div className="lg:col-span-2 p-6 bg-white border border-[#EAEAEA] rounded-xl shadow-sm animate-in fade-in slide-in-from-bottom-3 duration-700">
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div>
               <h3 className="text-sm font-semibold flex items-center gap-2">
@@ -349,18 +392,21 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
               </p>
             </div>
             <div className="text-xs text-[#666666]">
-              Total data: <span className="font-semibold text-black">{validationStats.total.toLocaleString('id-ID')}</span>
+              Total data: <span className="font-semibold text-black"><AnimatedNumber value={validationStats.total} /></span>
             </div>
           </div>
           <div className="mt-6 grid grid-cols-1 md:grid-cols-[260px_1fr] gap-8 items-center">
-            <div className="mx-auto relative h-56 w-56 rounded-full" style={{ background: validationStats.background }}>
+            <div
+              className="mx-auto relative h-56 w-56 rounded-full transition-[background] duration-1000 ease-out"
+              style={{ background: validationStats.background }}
+            >
               <div className="absolute inset-8 rounded-full bg-white border border-[#EAEAEA] flex flex-col items-center justify-center text-center">
                 <p className="text-xs font-medium text-[#666666]">Tahap 2</p>
                 <p className="mt-1 text-3xl font-semibold tracking-tight">
-                  {validationStats.stageTwoCount.toLocaleString('id-ID')}
+                  <AnimatedNumber value={validationStats.stageTwoCount} />
                 </p>
                 <p className="mt-1 text-xs text-[#666666]">
-                  {validationStats.stageTwoPercent.toFixed(1)}%
+                  <AnimatedNumber value={validationStats.stageTwoPercent} decimals={1} />%
                 </p>
               </div>
             </div>
@@ -376,8 +422,8 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
                     </div>
                   </div>
                   <div className="text-right leading-none">
-                    <p className="text-lg font-semibold">{validationStats.stageTwoCount.toLocaleString('id-ID')}</p>
-                    <p className="mt-1 text-xs text-[#666666]">{validationStats.stageTwoPercent.toFixed(1)}%</p>
+                    <p className="text-lg font-semibold"><AnimatedNumber value={validationStats.stageTwoCount} /></p>
+                    <p className="mt-1 text-xs text-[#666666]"><AnimatedNumber value={validationStats.stageTwoPercent} decimals={1} />%</p>
                   </div>
                 </div>
               </div>
@@ -392,8 +438,8 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
                     </div>
                   </div>
                   <div className="text-right leading-none">
-                    <p className="text-lg font-semibold">{validationStats.stageOneCount.toLocaleString('id-ID')}</p>
-                    <p className="mt-1 text-xs text-[#666666]">{validationStats.stageOnePercent.toFixed(1)}%</p>
+                    <p className="text-lg font-semibold"><AnimatedNumber value={validationStats.stageOneCount} /></p>
+                    <p className="mt-1 text-xs text-[#666666]"><AnimatedNumber value={validationStats.stageOnePercent} decimals={1} />%</p>
                   </div>
                 </div>
               </div>
@@ -427,17 +473,20 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
           )}
         </div>
 
-        <div className="p-6 bg-white border border-[#EAEAEA] rounded-xl shadow-sm">
+        <div className="p-6 bg-white border border-[#EAEAEA] rounded-xl shadow-sm animate-in fade-in slide-in-from-bottom-3 duration-700">
           <h3 className="text-sm font-semibold mb-4">Data Telacak per Jurusan</h3>
           <div className="space-y-4 max-h-[430px] overflow-y-auto pr-2">
             {trackedByProdi.length > 0 ? trackedByProdi.map((prodi) => (
               <div key={prodi.name}>
                 <div className="flex justify-between text-xs mb-1">
                   <span className="font-medium">{prodi.name}</span>
-                  <span className="text-[#666666]">{prodi.count.toLocaleString('id-ID')}</span>
+                  <span className="text-[#666666]"><AnimatedNumber value={prodi.count} /></span>
                 </div>
                 <div className="w-full h-1.5 bg-[#F5F5F5] rounded-full overflow-hidden">
-                  <div className="h-full bg-black rounded-full" style={{ width: `${prodi.percent}%` }} />
+                  <div
+                    className="h-full bg-black rounded-full"
+                    style={{ width: `${prodi.percent * chartAnimationProgress}%`, transition: 'width 850ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+                  />
                 </div>
               </div>
             )) : (
@@ -447,7 +496,7 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
         </div>
       </div>
 
-      <div className="bg-white border border-[#EAEAEA] rounded-xl shadow-sm overflow-hidden">
+      <div className="bg-white border border-[#EAEAEA] rounded-xl shadow-sm overflow-hidden animate-in fade-in slide-in-from-bottom-3 duration-700">
         <div className="p-6 border-b border-[#EAEAEA]">
           <h3 className="text-sm font-semibold">Validasi Tahap ke 2</h3>
           <p className="text-xs text-[#666666] mt-1">
@@ -456,11 +505,11 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
         </div>
         {renderValidationTable(validationStageTwoAlumni, 360, 'Data validasi tahap ke 2 belum tersedia.')}
         <div className="p-4 border-t border-[#EAEAEA] text-sm text-[#666666]">
-          Menampilkan {validationStageTwoAlumni.length.toLocaleString('id-ID')} entri validasi tahap ke 2.
+          Menampilkan <AnimatedNumber value={validationStageTwoAlumni.length} /> entri validasi tahap ke 2.
         </div>
       </div>
 
-      <div className="bg-white border border-[#EAEAEA] rounded-xl shadow-sm overflow-hidden">
+      <div className="bg-white border border-[#EAEAEA] rounded-xl shadow-sm overflow-hidden animate-in fade-in slide-in-from-bottom-3 duration-700">
         <div className="p-6 border-b border-[#EAEAEA]">
           <h3 className="text-sm font-semibold">Validasi Tahap ke 1</h3>
           <p className="text-xs text-[#666666] mt-1">
@@ -469,7 +518,7 @@ export default function Dashboard({ onNavigateToProfile }: DashboardProps) {
         </div>
         {renderValidationTable(validationStageOneAlumni, 600, 'Data validasi tahap ke 1 belum tersedia.')}
         <div className="p-4 border-t border-[#EAEAEA] text-sm text-[#666666]">
-          Menampilkan {validationStageOneAlumni.length.toLocaleString('id-ID')} entri validasi tahap ke 1.
+          Menampilkan <AnimatedNumber value={validationStageOneAlumni.length} /> entri validasi tahap ke 1.
         </div>
       </div>
     </div>
